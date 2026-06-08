@@ -17,6 +17,7 @@ export type AthleteExperience = {
 };
 
 export type Athlete = {
+  id: string;
   slug: string;
   name: string;
   age: number | null;

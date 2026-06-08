@@ -176,7 +176,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
                         aria-current={link.locale === locale ? "page" : undefined}
                         className="rounded-sm border border-border px-4 py-4 text-center font-semibold uppercase text-foreground/80 aria-[current=page]:border-primary aria-[current=page]:bg-primary aria-[current=page]:text-primary-foreground"
                       >
-                        {link.locale}
+                        {link.locale.toUpperCase()}
                       </Link>
                     ))}
                   </div>
@@ -208,7 +208,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
               aria-current={link.locale === locale ? "page" : undefined}
               className="rounded-sm px-2 py-1 uppercase text-foreground/70 aria-[current=page]:bg-surface aria-[current=page]:text-foreground"
             >
-              {link.locale}
+              {link.locale.toUpperCase()}
             </Link>
           ))}
         </div>
