@@ -7,13 +7,19 @@ export const site = {
     athletes: "Athleten",
     about: "Projekt",
     findings: "Erkenntnisse",
+    menu: "Navigation",
+    language: "Sprache",
+    openMenu: "Navigationsmenü öffnen",
+    closeMenu: "Navigationsmenü schliessen",
+    openMenuShort: "Menü öffnen",
+    closeMenuShort: "Menü schliessen",
   },
   home: {
     kicker: "Multimedia-Dokumentation",
     title: "Falling for Fame",
     subtitle: "Mythos oder Realität im modernen BASE Jumping?",
     intro:
-      "Eine Scrollytelling-Dokumentation über Social Media, Risikoverhalten, Sicherheitskultur und Athletenidentität im zeitgenoessischen BASE Jumping.",
+      "Eine Scrollytelling-Dokumentation über Social Media, Risikoverhalten, Sicherheitskultur und Athletenidentität im zeitgenössischen BASE Jumping.",
   },
   athletes: {
     title: "Athletenportraits",
@@ -53,7 +59,7 @@ export const chapters: StoryChapter[] = [
     id: "identitaet",
     kicker: "Kapitel 03",
     title: "Athletenidentität liegt zwischen Handwerk und Publikum",
-    body: "BASE Jumper bewegen sich zwischen technischer Meisterschaft, persoenlicher Bedeutung und dem Druck, sichtbar zu sein.",
+    body: "BASE Jumper bewegen sich zwischen technischer Meisterschaft, persönlicher Bedeutung und dem Druck, sichtbar zu sein.",
   },
 ];
 
@@ -72,7 +78,7 @@ export const statistics = [
     value: "∞",
     label: "Medienebenen",
     detail:
-      "Fotografie, Audio, Video und Feldnotizen koennen pro Kapitel kombiniert werden.",
+      "Fotografie, Audio, Video und Feldnotizen können pro Kapitel kombiniert werden.",
   },
 ];
 
@@ -123,7 +129,7 @@ export const findings: Finding[] = [
     theme: "sponsorship",
     title: "Sponsoring erschwert Risikokommunikation",
     summary:
-      "Die spätere Analyse kann Markenpräsenz, Autonomie der Athleten und die oeffentliche Rahmung von Gefahr verbinden.",
+      "Die spätere Analyse kann Markenpräsenz, Autonomie der Athleten und die öffentliche Rahmung von Gefahr verbinden.",
   },
 ];
 

@@ -58,13 +58,13 @@ export function AthleteExperienceCards({
 
   return (
     <section aria-label="Athlete experience statistics">
-      <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
+      <dl className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
         {cards.map((card) => (
-          <div key={card.key} className="border border-border bg-surface p-4">
+          <div key={card.key} className="min-w-0 border border-border bg-surface p-4">
             <dt className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
               {card.label}
             </dt>
-            <dd className="mt-3 text-2xl font-semibold leading-none text-primary md:text-3xl">
+            <dd className="mt-3 break-words text-2xl font-semibold leading-tight text-primary md:text-3xl">
               {card.value}
             </dd>
           </div>

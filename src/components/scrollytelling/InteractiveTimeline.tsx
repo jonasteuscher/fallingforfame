@@ -13,8 +13,11 @@ export function InteractiveTimeline({ items }: InteractiveTimelineProps) {
   const activeItem = items[activeIndex];
 
   return (
-    <div className="grid gap-6 border border-border bg-surface p-4 md:grid-cols-[14rem_1fr]">
-      <div className="flex gap-2 overflow-x-auto md:flex-col" role="tablist">
+    <div className="grid min-w-0 gap-5 border border-border bg-surface p-3 sm:p-4 md:grid-cols-[14rem_1fr] md:gap-6">
+      <div
+        className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:flex md:flex-col"
+        role="tablist"
+      >
         {items.map((item, index) => (
           <button
             key={`${item.date}-${item.title}`}
@@ -22,14 +25,16 @@ export function InteractiveTimeline({ items }: InteractiveTimelineProps) {
             role="tab"
             aria-selected={activeIndex === index}
             onClick={() => setActiveIndex(index)}
-            className="min-w-32 border border-border px-3 py-2 text-left text-sm aria-selected:border-primary aria-selected:bg-primary aria-selected:text-primary-foreground"
+            className="min-w-0 border border-border px-3 py-2 text-left text-sm transition aria-selected:border-primary aria-selected:bg-primary aria-selected:text-primary-foreground"
           >
             {item.date}
           </button>
         ))}
       </div>
-      <article aria-live="polite">
-        <h2 className="text-2xl font-semibold text-foreground">{activeItem.title}</h2>
+      <article className="min-w-0" aria-live="polite">
+        <h2 className="text-xl font-semibold text-foreground sm:text-2xl">
+          {activeItem.title}
+        </h2>
         <p className="mt-3 leading-7 text-foreground/72">{activeItem.body}</p>
       </article>
     </div>

@@ -7,6 +7,12 @@ export const site = {
     athletes: "Athletes",
     about: "About",
     findings: "Findings",
+    menu: "Navigation",
+    language: "Language",
+    openMenu: "Open navigation menu",
+    closeMenu: "Close navigation menu",
+    openMenuShort: "Open menu",
+    closeMenuShort: "Close menu",
   },
   home: {
     kicker: "Multimedia documentary",

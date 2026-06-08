@@ -9,10 +9,10 @@ type ImageStoryBlockProps = {
 
 export function ImageStoryBlock({ title, body, image }: ImageStoryBlockProps) {
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr]">
+    <div className="grid min-w-0 gap-6 sm:gap-8 lg:grid-cols-[1fr_0.8fr]">
       <ImageBlock image={image} />
-      <div className="self-center">
-        <h2 className="text-3xl font-semibold text-foreground">{title}</h2>
+      <div className="min-w-0 self-center">
+        <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">{title}</h2>
         <p className="mt-4 leading-7 text-foreground/72">{body}</p>
       </div>
     </div>

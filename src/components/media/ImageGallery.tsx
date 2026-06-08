@@ -15,7 +15,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2" aria-label="Image gallery">
+    <div className="grid min-w-0 gap-4 md:grid-cols-2" aria-label="Image gallery">
       {images.map((image) => (
         <ImageBlock key={image.src} image={image} />
       ))}

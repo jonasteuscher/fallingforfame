@@ -7,12 +7,12 @@ type VideoPlayerProps = {
 
 export function VideoPlayer({ video }: VideoPlayerProps) {
   return (
-    <figure className="border border-border bg-surface p-4">
+    <figure className="min-w-0 border border-border bg-surface p-3 sm:p-4">
       <video
         controls
         preload="metadata"
         poster={video?.poster}
-        className="aspect-video w-full bg-background"
+        className="aspect-video w-full max-w-full bg-background"
         src={video?.src}
       >
         Your browser does not support the video element.

@@ -5,8 +5,8 @@ type PullQuoteProps = {
 
 export function PullQuote({ quote, attribution }: PullQuoteProps) {
   return (
-    <figure className="border-l-4 border-primary pl-6">
-      <blockquote className="text-2xl font-medium leading-snug text-foreground">
+    <figure className="border-l-4 border-primary pl-4 sm:pl-6">
+      <blockquote className="text-xl font-medium leading-snug text-foreground sm:text-2xl">
         {quote}
       </blockquote>
       {attribution ? (
