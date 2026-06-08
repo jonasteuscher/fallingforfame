@@ -16,8 +16,9 @@ const labels = {
 
 const links = [
   { href: "/en", label: "Home" },
+  { href: "/en/sport", label: "About the Sport" },
   { href: "/en/athletes", label: "Athletes" },
-  { href: "/en/about", label: "About" },
+  { href: "/en/project", label: "The Project" },
   { href: "/en/findings", label: "Findings" },
 ];
 
@@ -34,8 +35,30 @@ describe("SiteNavigation", () => {
       "href",
       "/en/athletes",
     );
-    expect(screen.getByRole("link", { name: "About" })).toBeVisible();
-    expect(screen.getByRole("link", { name: "Findings" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "Findings" })).toHaveAttribute(
+      "href",
+      "/en/findings",
+    );
+    expect(screen.getByRole("link", { name: "About the Sport" })).toHaveAttribute(
+      "href",
+      "/en/sport",
+    );
+    expect(screen.getByRole("link", { name: "The Project" })).toHaveAttribute(
+      "href",
+      "/en/project",
+    );
+    expect(screen.queryByRole("link", { name: "About" })).not.toBeInTheDocument();
+  });
+
+  it("renders desktop navigation links in the expected order", () => {
+    render(<SiteNavigation locale="en" links={links} labels={labels} />);
+
+    expect(
+      screen
+        .getAllByRole("link")
+        .slice(0, links.length)
+        .map((link) => link.textContent),
+    ).toEqual(["Home", "About the Sport", "Athletes", "The Project", "Findings"]);
   });
 
   it("keeps the hamburger menu closed by default", () => {

@@ -20,13 +20,15 @@ Routes are locale based:
 - `/en`
 - `/en/athletes`
 - `/en/athletes/[slug]`
-- `/en/about`
 - `/en/findings`
+- `/en/sport`
+- `/en/project`
 - `/de`
 - `/de/athletes`
 - `/de/athletes/[slug]`
-- `/de/about`
 - `/de/findings`
+- `/de/sport`
+- `/de/project`
 
 English is the default root redirect.
 

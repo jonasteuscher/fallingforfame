@@ -11,8 +11,9 @@ type SiteHeaderProps = {
   navigation: {
     home: string;
     athletes: string;
-    about: string;
     findings: string;
+    sport: string;
+    project: string;
     menu: string;
     language: string;
     openMenu: string;
@@ -25,8 +26,9 @@ type SiteHeaderProps = {
 export function SiteHeader({ locale, navigation }: SiteHeaderProps) {
   const links = [
     { href: localizedPath(locale), label: navigation.home },
+    { href: localizedPath(locale, "/sport"), label: navigation.sport },
     { href: localizedPath(locale, "/athletes"), label: navigation.athletes },
-    { href: localizedPath(locale, "/about"), label: navigation.about },
+    { href: localizedPath(locale, "/project"), label: navigation.project },
     { href: localizedPath(locale, "/findings"), label: navigation.findings },
   ];
 

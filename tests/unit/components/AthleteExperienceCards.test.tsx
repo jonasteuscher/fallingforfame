@@ -40,7 +40,7 @@ describe("AthleteExperienceCards", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Skydive seasons")).toBeVisible();
     expect(screen.getByText("BASE jumps")).toBeVisible();
-    expect(screen.getByText("Social media reach")).toBeVisible();
+    expect(screen.getByText("Overall social media reach")).toBeVisible();
     expect(screen.getByText("1,200")).toBeVisible();
   });
 
@@ -66,7 +66,7 @@ describe("AthleteExperienceCards", () => {
     );
 
     expect(screen.getAllByText("Unbekannt")).toHaveLength(6);
-    expect(screen.getByText("Skydive-Saisons")).toBeVisible();
+    expect(screen.getByText("Skydive Saisons")).toBeVisible();
     expect(screen.getByText("Gesponsert")).toBeVisible();
   });
 

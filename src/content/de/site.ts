@@ -5,8 +5,9 @@ export const site = {
   navigation: {
     home: "Start",
     athletes: "Athleten",
-    about: "Projekt",
     findings: "Erkenntnisse",
+    sport: "Über den Sport",
+    project: "Das Projekt",
     menu: "Navigation",
     language: "Sprache",
     openMenu: "Navigationsmenü öffnen",
@@ -26,9 +27,85 @@ export const site = {
     intro:
       "Drei Platzhalterportraits bereiten die Struktur für Interviews, Field Recordings, Fotografie und dokumentarisches Video vor.",
   },
-  about: {
-    title: "Über das Projekt",
+  project: {
+    title: "Das Projekt",
     body: "Dieses Bachelorarbeitsprojekt verbindet akademische Forschung, Feldbeobachtungen, Interviews und multimediale Dokumentation zu einer zweisprachigen Longform-Webdokumentation.",
+    sections: [
+      {
+        title: "Die Dokumentation",
+        body: "Platzhalterinhalt für das dokumentarische Konzept, die Erzählstruktur und den multimedialen Ansatz von Falling for Fame.",
+      },
+      {
+        title: "Forschungshintergrund",
+        body: "Platzhalterinhalt für den akademischen Kontext, die Literaturrecherche und die leitenden Forschungsfragen.",
+      },
+      {
+        title: "Bachelorarbeitskontext",
+        body: "Platzhalterinhalt für den Rahmen der Thesis, den Produktionsumfang und die Verbindung von Forschung und Gestaltung.",
+      },
+      {
+        title: "Methodik",
+        body: "Platzhalterinhalt für qualitative Methoden, Scrollytelling-Entscheidungen und Dokumentationsstrategie.",
+      },
+      {
+        title: "Interviews",
+        body: "Platzhalterinhalt für Athleteninterviews, Expertengespräche und redaktionelle Auswahl.",
+      },
+      {
+        title: "Beobachtungen",
+        body: "Platzhalterinhalt für Feldbeobachtungen, Notizen an Sprungtagen und kontextuelle Dokumentation.",
+      },
+      {
+        title: "Photo Elicitation",
+        body: "Platzhalterinhalt dazu, wie Bilder als Gesprächsimpulse in Interviews und Reflexionen eingesetzt werden.",
+      },
+      {
+        title: "Projektziele",
+        body: "Platzhalterinhalt für Kommunikationsziele, Bedürfnisse des Publikums und erwartete Lernergebnisse.",
+      },
+      {
+        title: "Credits",
+        body: "Platzhalterinhalt für Mitwirkende, Interviewpartner, Fotografie, Video, Audio und fachliche Betreuung.",
+      },
+    ],
+  },
+  sport: {
+    title: "Über den Sport",
+    body: "Ein Platzhalterüberblick über BASE Jumping für Leserinnen und Leser, die Kontext vor den Athletenportraits und Forschungserkenntnissen benötigen.",
+    sections: [
+      {
+        title: "Was ist BASE Jumping?",
+        body: "Platzhalterinhalt zur Erklärung von Fallschirmsprüngen von festen Objekten und der Bedeutung von Building, Antenna, Span und Earth.",
+      },
+      {
+        title: "Geschichte des BASE Jumpings",
+        body: "Platzhalterinhalt für frühe Entwicklungen, Pioniersprünge und die Evolution des Sports.",
+      },
+      {
+        title: "Unterschied zwischen Skydiving und BASE Jumping",
+        body: "Platzhalterinhalt zum Vergleich von Flugzeugausstieg, Ausstieg von festen Objekten, Höhe, Reaktionszeit und Ausbildungswegen.",
+      },
+      {
+        title: "Ausrüstung",
+        body: "Platzhalterinhalt für Schirme, Container, Pilot Chutes, Schutzausrüstung und spezialisierte Konfigurationen.",
+      },
+      {
+        title: "Risiko- und Sicherheitskultur",
+        body: "Platzhalterinhalt für Risikoabwägung, Wetter, Objektauswahl, Mentoring und Entscheidungsnormen.",
+      },
+      {
+        title: "Community und Ethik",
+        body: "Platzhalterinhalt für Zugang, Diskretion, lokale Beziehungen und Verantwortung innerhalb der BASE-Community.",
+      },
+      {
+        title: "Wingsuit Flying",
+        body: "Platzhalterinhalt zu Wingsuit-Flug, Geländenähe und der zusätzlichen Skill-Progression.",
+      },
+      {
+        title: "Moderne Entwicklungen",
+        body: "Platzhalterinhalt für mediale Sichtbarkeit, Technologie, Training, Sponsoring und aktuelle Debatten.",
+      },
+    ],
   },
   findings: {
     title: "Forschungserkenntnisse",
@@ -100,12 +177,12 @@ export const athleteExperience = {
   yes: "Ja",
   no: "Nein",
   labels: {
-    skydiveSeasons: "Skydive-Saisons",
+    skydiveSeasons: "Skydive Saisons",
     skydives: "Skydives",
-    baseSeasons: "BASE-Saisons",
-    basejumps: "BASE-Jumps",
+    baseSeasons: "BASE Saisons",
+    basejumps: "BASE Jumps",
     sponsored: "Gesponsert",
-    socialMediaReach: "Social-Media-Reichweite",
+    socialMediaReach: "Gesamtreichweite Social Media",
   },
 };
 

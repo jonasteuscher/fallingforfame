@@ -21,14 +21,25 @@ describe("navigation integration", () => {
       "href",
       "/en/athletes",
     );
-    expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
-      "href",
-      "/en/about",
-    );
     expect(screen.getByRole("link", { name: "Findings" })).toHaveAttribute(
       "href",
       "/en/findings",
     );
+    expect(screen.getByRole("link", { name: "About the Sport" })).toHaveAttribute(
+      "href",
+      "/en/sport",
+    );
+    expect(screen.getByRole("link", { name: "The Project" })).toHaveAttribute(
+      "href",
+      "/en/project",
+    );
+    expect(screen.queryByRole("link", { name: "About" })).not.toBeInTheDocument();
+    expect(
+      screen
+        .getAllByRole("link")
+        .slice(1, 6)
+        .map((link) => link.textContent),
+    ).toEqual(["Home", "About the Sport", "Athletes", "The Project", "Findings"]);
   });
 
   it("opens and closes the mobile menu", async () => {
