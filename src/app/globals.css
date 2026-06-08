@@ -1,0 +1,92 @@
+@config "../../tailwind.config.ts";
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+:root {
+  --deep-navy: #0a1a2f;
+  --charcoal: #3a3a3a;
+  --dark-red: #8a1e1e;
+  --signal-orange: #ff6b00;
+  --forest-green: #3e6b47;
+  --white: #ffffff;
+  --background: var(--deep-navy);
+  --foreground: var(--white);
+  --surface: color-mix(in srgb, var(--deep-navy) 88%, var(--white));
+  --surface-muted: color-mix(in srgb, var(--charcoal) 78%, var(--white));
+  --primary: var(--signal-orange);
+  --primary-foreground: var(--deep-navy);
+  --accent: var(--forest-green);
+  --accent-foreground: var(--white);
+  --success: var(--forest-green);
+  --warning: var(--signal-orange);
+  --danger: var(--dark-red);
+  --border: color-mix(in srgb, var(--white) 18%, transparent);
+  --font-geist-sans: Arial, Helvetica, sans-serif;
+  --font-geist-mono: "Courier New", Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+a,
+button,
+summary,
+input,
+textarea,
+select,
+video,
+audio {
+  outline-offset: 4px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
