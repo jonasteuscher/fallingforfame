@@ -7,11 +7,23 @@ export type LocalizedAthleteContent = {
   chapterKicker: string;
 };
 
+export type AthleteExperience = {
+  skydiveSeasons: number | null;
+  skydives: number | null;
+  baseSeasons: number | null;
+  basejumps: number | null;
+  sponsored: boolean | null;
+  socialMediaReach: number | null;
+};
+
 export type Athlete = {
   slug: string;
   name: string;
-  profileImage: MediaAsset;
-  gallery: MediaAsset[];
+  age: number | null;
+  country: string | null;
+  experience: AthleteExperience;
+  profileImage?: MediaAsset;
+  gallery?: MediaAsset[];
   featuredAudio?: AudioAsset;
   featuredVideo?: VideoAsset;
   content: {

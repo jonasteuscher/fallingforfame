@@ -75,6 +75,33 @@ export const statistics = [
   },
 ];
 
+export const athleteMeta = {
+  from: "From",
+  fromUnknown: "From unknown",
+  ageUnknown: "Age unknown",
+  years: "years",
+  countries: {
+    Austria: "Austria",
+    Germany: "Germany",
+    Switzerland: "Switzerland",
+    "United Kingdom": "United Kingdom",
+  },
+};
+
+export const athleteExperience = {
+  unknown: "Unknown",
+  yes: "Yes",
+  no: "No",
+  labels: {
+    skydiveSeasons: "Skydive seasons",
+    skydives: "Skydives",
+    baseSeasons: "BASE seasons",
+    basejumps: "BASE jumps",
+    sponsored: "Sponsored",
+    socialMediaReach: "Social media reach",
+  },
+};
+
 export const findings: Finding[] = [
   {
     id: "visibility-pressure",

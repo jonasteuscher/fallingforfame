@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 
+import brandMark from "@/app/icon.png";
 import { locales, type Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
 
@@ -27,7 +29,18 @@ export function SiteHeader({ locale, navigation }: SiteHeaderProps) {
         className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6"
         aria-label="Primary navigation"
       >
-        <Link href={localizedPath(locale)} className="font-semibold uppercase">
+        <Link
+          href={localizedPath(locale)}
+          className="inline-flex items-center gap-2 font-semibold uppercase"
+        >
+          <Image
+            src={brandMark}
+            alt=""
+            width={34}
+            height={34}
+            className="h-8 w-8 object-contain"
+            priority
+          />
           Falling for Fame
         </Link>
         <div className="flex items-center gap-3 text-sm">

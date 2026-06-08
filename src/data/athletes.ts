@@ -1,96 +1,132 @@
-import type { Athlete } from "@/types/athlete";
+import type { Athlete, AthleteExperience } from "@/types/athlete";
+
+const unknownExperience: AthleteExperience = {
+  skydiveSeasons: null,
+  skydives: null,
+  baseSeasons: null,
+  basejumps: null,
+  sponsored: null,
+  socialMediaReach: null,
+};
 
 export const athletes: Athlete[] = [
   {
-    slug: "athlete-a",
-    name: "Athlete A",
-    profileImage: {
-      src: "/images/athletes/athlete-a/profile.jpg",
-      alt: "Athlete A preparing equipment before a jump",
-      caption: "Placeholder portrait for future field photography.",
-    },
-    gallery: [
-      {
-        src: "/images/athletes/athlete-a/field-note.jpg",
-        alt: "Equipment and notes from an observation day",
-        caption: "Observation material placeholder.",
-      },
-    ],
-    featuredAudio: {
-      src: "/audio/athletes/athlete-a/interview.mp3",
-      title: "Interview excerpt",
-      transcript: "Transcript placeholder for accessibility and research use.",
-    },
-    featuredVideo: {
-      src: "/video/athletes/athlete-a/documentary.mp4",
-      poster: "/images/athletes/athlete-a/video-poster.jpg",
-      title: "Field documentary excerpt",
-    },
+    slug: "marcel-geser",
+    name: "Marcel Geser",
+    age: null,
+    country: "Switzerland",
+    experience: unknownExperience,
     content: {
       en: {
         chapterKicker: "Portrait",
-        chapterTitle: "Visibility before exit",
+        chapterTitle: "Marcel Geser",
         biography:
-          "A placeholder athlete profile focused on preparation, digital visibility and how public attention shapes decision-making.",
+          "A placeholder athlete profile prepared for future interview material, observation notes and multimedia documentation.",
         quote: "The camera changes the atmosphere, even when nobody says it out loud.",
       },
       de: {
-        chapterKicker: "Portrait",
-        chapterTitle: "Sichtbarkeit vor dem Absprung",
+        chapterKicker: "Portraet",
+        chapterTitle: "Marcel Geser",
         biography:
-          "Ein Platzhalterprofil ueber Vorbereitung, digitale Sichtbarkeit und den Einfluss oeffentlicher Aufmerksamkeit auf Entscheidungen.",
+          "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
         quote: "Die Kamera veraendert die Stimmung, auch wenn es niemand ausspricht.",
       },
     },
   },
   {
-    slug: "athlete-b",
-    name: "Athlete B",
-    profileImage: {
-      src: "/images/athletes/athlete-b/profile.jpg",
-      alt: "Athlete B reviewing terrain conditions",
-    },
-    gallery: [],
+    slug: "niclas-strohmeier",
+    name: "Niclas Strohmeier",
+    age: null,
+    country: "Germany",
+    experience: unknownExperience,
     content: {
       en: {
         chapterKicker: "Portrait",
-        chapterTitle: "Risk as a negotiated practice",
+        chapterTitle: "Niclas Strohmeier",
         biography:
-          "A placeholder profile exploring community norms, mentorship and the difference between perceived and accepted risk.",
+          "A placeholder athlete profile prepared for future interview material, observation notes and multimedia documentation.",
         quote: "Most decisions happen before the jump day even begins.",
       },
       de: {
-        chapterKicker: "Portrait",
-        chapterTitle: "Risiko als verhandelte Praxis",
+        chapterKicker: "Portraet",
+        chapterTitle: "Niclas Strohmeier",
         biography:
-          "Ein Platzhalterprofil ueber Community-Normen, Mentoring und den Unterschied zwischen wahrgenommenem und akzeptiertem Risiko.",
+          "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
         quote: "Die meisten Entscheidungen fallen, bevor der Sprungtag beginnt.",
       },
     },
   },
   {
-    slug: "athlete-c",
-    name: "Athlete C",
-    profileImage: {
-      src: "/images/athletes/athlete-c/profile.jpg",
-      alt: "Athlete C standing near a mountain exit point",
-    },
-    gallery: [],
+    slug: "lukas-loibl",
+    name: "Lukas Loibl",
+    age: null,
+    country: "Austria",
+    experience: unknownExperience,
     content: {
       en: {
         chapterKicker: "Portrait",
-        chapterTitle: "Identity between craft and audience",
+        chapterTitle: "Lukas Loibl",
         biography:
-          "A placeholder profile about sponsorship, athlete identity and the tension between documentation and performance.",
+          "A placeholder athlete profile prepared for future interview material, observation notes and multimedia documentation.",
         quote: "I want the story to show the work, not only the moment of impact.",
       },
       de: {
-        chapterKicker: "Portrait",
-        chapterTitle: "Identitaet zwischen Handwerk und Publikum",
+        chapterKicker: "Portraet",
+        chapterTitle: "Lukas Loibl",
         biography:
-          "Ein Platzhalterprofil ueber Sponsoring, Athletenidentitaet und die Spannung zwischen Dokumentation und Performance.",
+          "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
         quote:
           "Die Geschichte soll die Arbeit zeigen, nicht nur den Moment des Aufpralls.",
+      },
+    },
+  },
+  {
+    slug: "josef-braun",
+    name: "Josef Braun",
+    age: null,
+    country: "Germany",
+    experience: unknownExperience,
+    content: {
+      en: {
+        chapterKicker: "Portrait",
+        chapterTitle: "Josef Braun",
+        biography:
+          "A placeholder athlete profile prepared for future interview material, observation notes and multimedia documentation.",
+        quote:
+          "This page is ready for the athlete's voice once the interview content is edited.",
+      },
+      de: {
+        chapterKicker: "Portraet",
+        chapterTitle: "Josef Braun",
+        biography:
+          "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
+        quote:
+          "Diese Seite ist bereit fuer die Stimme des Athleten, sobald das Interviewmaterial redigiert ist.",
+      },
+    },
+  },
+  {
+    slug: "tim-howell",
+    name: "Tim Howell",
+    age: null,
+    country: "United Kingdom",
+    experience: unknownExperience,
+    content: {
+      en: {
+        chapterKicker: "Portrait",
+        chapterTitle: "Tim Howell",
+        biography:
+          "A placeholder athlete profile prepared for future interview material, observation notes and multimedia documentation.",
+        quote:
+          "This page is ready for the athlete's voice once the interview content is edited.",
+      },
+      de: {
+        chapterKicker: "Portraet",
+        chapterTitle: "Tim Howell",
+        biography:
+          "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
+        quote:
+          "Diese Seite ist bereit fuer die Stimme des Athleten, sobald das Interviewmaterial redigiert ist.",
       },
     },
   },
