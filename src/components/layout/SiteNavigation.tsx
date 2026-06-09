@@ -123,7 +123,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
                     height={34}
                     className="h-8 w-8 shrink-0 object-contain"
                   />
-                  <span className="truncate">Falling for Fame</span>
+                  <span className="truncate">Falling for Fame?</span>
                 </Link>
                 <button
                   type="button"

@@ -2,7 +2,7 @@ import type { StoryChapter } from "@/types/story";
 
 export const home = {
   kicker: "Multimedia documentary",
-  title: "Falling for Fame",
+  title: "Falling for Fame?",
   subtitle: "Myth or Reality in Modern BASE Jumping?",
   intro:
     "A scrollytelling documentary about social media, risk-taking, safety culture and athlete identity in contemporary BASE jumping.",

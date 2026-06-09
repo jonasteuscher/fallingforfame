@@ -50,7 +50,7 @@ export function SiteHeader({ locale, navigation }: SiteHeaderProps) {
             className="h-8 w-8 object-contain"
             priority
           />
-          <span className="truncate">Falling for Fame</span>
+          <span className="truncate">Falling for Fame?</span>
         </Link>
         <SiteNavigation locale={locale} links={links} labels={navigation} />
       </nav>

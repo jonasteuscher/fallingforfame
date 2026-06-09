@@ -34,12 +34,12 @@ describe("project page", () => {
     await expect(
       generateProjectMetadata({ params: Promise.resolve({ locale: "en" }) }),
     ).resolves.toMatchObject({
-      title: "The Project | Falling for Fame",
+      title: "The Project | Falling for Fame?",
     });
     await expect(
       generateProjectMetadata({ params: Promise.resolve({ locale: "de" }) }),
     ).resolves.toMatchObject({
-      title: "Das Projekt | Falling for Fame",
+      title: "Das Projekt | Falling for Fame?",
     });
   });
 });
@@ -50,9 +50,15 @@ describe("sport page", () => {
 
     expect(screen.getByRole("heading", { name: "About the Sport", level: 1 }))
       .toBeVisible();
-    expect(screen.getByText("What is BASE jumping?")).toBeVisible();
-    expect(screen.getByText("Wingsuit flying")).toBeVisible();
-    expect(screen.getByText("Modern developments")).toBeVisible();
+    expect(screen.getByRole("heading", { name: "What BASE stands for" }))
+      .toBeVisible();
+    expect(screen.getByText("What is BASE Jumping?")).toBeVisible();
+    expect(screen.getByText("Historical timeline")).toBeVisible();
+    expect(screen.getByText("Skydiving vs BASE")).toBeVisible();
+    expect(screen.getByText("Safety pyramid")).toBeVisible();
+    expect(screen.getByText("Disciplines gallery")).toBeVisible();
+    expect(screen.getByText("Then vs Now")).toBeVisible();
+    expect(screen.getByText("Sources & Further Reading")).toBeVisible();
   });
 
   it("renders localized German sport content", async () => {
@@ -60,21 +66,27 @@ describe("sport page", () => {
 
     expect(screen.getByRole("heading", { name: "Über den Sport", level: 1 }))
       .toBeVisible();
+    expect(screen.getByRole("heading", { name: "Wofür BASE steht" })).toBeVisible();
     expect(screen.getByText("Was ist BASE Jumping?")).toBeVisible();
-    expect(screen.getByText("Wingsuit Flying")).toBeVisible();
+    expect(screen.getByText("Historische Entwicklung")).toBeVisible();
+    expect(screen.getByText("Skydiving vs BASE")).toBeVisible();
+    expect(screen.getByText("Sicherheitspyramide")).toBeVisible();
+    expect(screen.getByText("Disziplinen Galerie")).toBeVisible();
+    expect(screen.getByText("Damals und Heute")).toBeVisible();
     expect(screen.getByText("Moderne Entwicklungen")).toBeVisible();
+    expect(screen.getByText("Quellen & Weiterführende Literatur")).toBeVisible();
   });
 
   it("generates localized metadata", async () => {
     await expect(
       generateSportMetadata({ params: Promise.resolve({ locale: "en" }) }),
     ).resolves.toMatchObject({
-      title: "About the Sport | Falling for Fame",
+      title: "About the Sport | Falling for Fame?",
     });
     await expect(
       generateSportMetadata({ params: Promise.resolve({ locale: "de" }) }),
     ).resolves.toMatchObject({
-      title: "Über den Sport | Falling for Fame",
+      title: "Über den Sport | Falling for Fame?",
     });
   });
 });

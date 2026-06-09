@@ -20,7 +20,7 @@ type HomePageProps = {
 };
 
 export const metadata: Metadata = {
-  title: "Falling for Fame",
+  title: "Falling for Fame?",
 };
 
 export default async function HomePage({ params }: HomePageProps) {

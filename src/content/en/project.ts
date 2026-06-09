@@ -6,7 +6,7 @@ export const project = {
   sections: [
     {
       title: "The documentary",
-      body: "Placeholder content for the documentary concept, narrative structure and multimedia approach behind Falling for Fame.",
+      body: "Placeholder content for the documentary concept, narrative structure and multimedia approach behind 'Falling for Fame?'.",
     },
     {
       title: "Research background",

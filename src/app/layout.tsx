@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Falling for Fame",
-    template: "%s | Falling for Fame",
+    default: "Falling for Fame?",
+    template: "%s | Falling for Fame?",
   },
   description:
     "A bilingual multimedia scrollytelling documentary about visibility, risk and identity in modern BASE jumping.",
@@ -16,7 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className="h-full antialiased">
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className="h-full antialiased"
+      suppressHydrationWarning
+    >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

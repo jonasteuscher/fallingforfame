@@ -23,7 +23,7 @@ export async function generateMetadata({
   const dictionary = getDictionary(locale);
 
   return {
-    title: `${dictionary.site.project.title} | Falling for Fame`,
+    title: `${dictionary.site.project.title} | Falling for Fame?`,
     description: dictionary.site.project.body,
   };
 }
