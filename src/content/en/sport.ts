@@ -140,42 +140,74 @@ export const sport = {
       {
         date: "1783",
         title: "Early parachute experiments",
-        body: "Parachute ideas appear long before the modern sport.",
+        body: "Parachute ideas appear long before the modern sport. For centuries, people experimented with jumps from towers, cliffs and balloons before BASE jumping became a defined practice.",
+        image: {
+          src: "/images/sport/history/1783.jpg",
+          alt: "Historical illustration of an early parachute experiment.",
+        },
       },
       {
         date: "1970s",
         title: "Carl Boenish",
-        body: "A skydiver and filmmaker helps turn isolated fixed-object jumps into a recognisable activity.",
+        body: "A skydiver, filmmaker and pioneer helps turn isolated fixed-object jumps into a recognisable activity. His films and organising work shaped how the early scene understood itself.",
+        image: {
+          src: "/images/sport/history/1970.jpg",
+          alt: "Archival portrait connected to the early BASE jumping scene.",
+        },
       },
       {
         date: "1978",
         title: "El Capitan",
-        body: "A series of Yosemite jumps with modern ram-air parachutes becomes a defining origin point.",
+        body: "A series of Yosemite jumps with modern ram-air parachutes becomes a defining origin point. These El Capitan jumps are often described as the beginning of modern BASE jumping.",
+        image: {
+          src: "/images/sport/history/1978.jpg",
+          alt: "El Capitan in Yosemite, an important site in BASE jumping history.",
+        },
       },
       {
         date: "1981",
         title: "BASE Number System",
-        body: "The four object categories become part of the sport's identity.",
+        body: "The four object categories become part of the sport's identity. Jumpers who completed Building, Antenna, Span and Earth could apply for an official BASE number, a tradition that continues today.",
+        image: {
+          src: "/images/sport/history/1981.avif",
+          alt: "Visual reference for the BASE number system period.",
+        },
       },
       {
         date: "1990s",
         title: "Small community growth",
-        body: "Knowledge circulates through mentorship and personal networks.",
+        body: "Knowledge circulates through mentorship, personal networks and direct experience. Limited access to equipment and experienced jumpers creates a culture built around patience, commitment and learning from others.",
+        image: {
+          src: "/images/sport/history/1990.webp",
+          alt: "BASE jumping community reference from the 1990s.",
+        },
       },
       {
         date: "2000s",
         title: "Internet and forums",
-        body: "Information and imagery begin circulating globally.",
+        body: "Information and imagery begin circulating globally. Online forums, digital cameras and video platforms make knowledge easier to access, while also spreading dramatic images beyond the community.",
+        image: {
+          src: "/images/sport/history/2000.jpeg",
+          alt: "Digital-era reference for BASE jumping forums and online exchange.",
+        },
       },
       {
         date: "2010s",
         title: "Social media visibility",
-        body: "Video platforms shape how the public sees the sport.",
+        body: "Video platforms shape how the public sees the sport. Spectacular footage brings BASE jumping to new audiences, but often shows the jump itself more clearly than the preparation behind it.",
+        image: {
+          src: "/images/sport/history/2010.png",
+          alt: "Social media era reference for BASE jumping visibility.",
+        },
       },
       {
         date: "2020s",
         title: "Modern BASE scene",
-        body: "Global travel, technology and media connect athletes worldwide.",
+        body: "Global travel, technology and media connect athletes worldwide. Even as equipment and communication evolve, gravity, weather, terrain and human decision making remain the defining factors.",
+        image: {
+          src: "/images/sport/history/2020.jpg",
+          alt: "Modern BASE jumper in an alpine landscape.",
+        },
       },
     ],
   },

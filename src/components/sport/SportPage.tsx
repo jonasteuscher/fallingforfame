@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import type { sport as sportContent } from "@/content/en/sport";
@@ -289,13 +290,38 @@ function HistoryTimeline({
                     {item.body}
                   </p>
                 </div>
-                <VisualPlaceholder index={index} />
+                <HistoryImage image={item.image} priority={index === 0} />
               </li>
             ))}
           </ol>
         </div>
       </div>
     </section>
+  );
+}
+
+function HistoryImage({
+  image,
+  priority = false,
+}: {
+  image: SportContent["historyTimeline"]["items"][number]["image"];
+  priority?: boolean;
+}) {
+  return (
+    <figure className="relative min-h-80 overflow-hidden bg-surface-muted">
+      <Image
+        src={image.src}
+        alt={image.alt}
+        fill
+        className="object-cover"
+        sizes="(min-width: 1024px) 38vw, 100vw"
+        priority={priority}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 border border-primary/30 mix-blend-screen"
+      />
+    </figure>
   );
 }
 

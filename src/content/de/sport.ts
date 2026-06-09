@@ -140,42 +140,74 @@ export const sport = {
       {
         date: "1783",
         title: "Frühe Fallschirmexperimente",
-        body: "Fallschirmideen existieren lange vor dem modernen Sport.",
+        body: "Fallschirmideen existieren lange vor dem modernen Sport. Bereits seit Jahrhunderten experimentierten Menschen mit Sprüngen von Türmen, Felswänden oder Ballons.",
+        image: {
+          src: "/images/sport/history/1783.jpg",
+          alt: "Historische Illustration eines frühen Fallschirmexperiments.",
+        },
       },
       {
         date: "1970er",
         title: "Carl Boenish",
-        body: "Ein Fallschirmspringer und Filmemacher macht aus einzelnen Objektsprüngen eine erkennbare Aktivität.",
+        body: "Ein Fallschirmspringer, Filmemacher und Pionier macht aus einzelnen Objektsprüngen eine erkennbare Aktivität. Seine Filme und seine Organisationsarbeit prägen die frühe Szene.",
+        image: {
+          src: "/images/sport/history/1970.jpg",
+          alt: "Archivisches Porträt aus dem Umfeld der frühen BASE-Jumping-Szene.",
+        },
       },
       {
         date: "1978",
         title: "El Capitan",
-        body: "Eine Serie von Sprüngen im Yosemite mit modernen Flächenfallschirmen wird zum Ursprungspunkt.",
+        body: "Eine Serie von Sprüngen im Yosemite mit modernen Flächenfallschirmen wird zum Ursprungspunkt. Diese El-Capitan-Sprünge gelten häufig als Geburtsstunde des modernen BASE Jumpings.",
+        image: {
+          src: "/images/sport/history/1978.jpg",
+          alt: "El Capitan im Yosemite, ein wichtiger Ort der BASE-Jumping-Geschichte.",
+        },
       },
       {
         date: "1981",
         title: "BASE Number System",
-        body: "Die vier Objektkategorien werden Teil der Identität des Sports.",
+        body: "Die vier Objektkategorien werden Teil der Identität des Sports. Wer Building, Antenna, Span und Earth absolviert hatte, konnte eine offizielle BASE Nummer beantragen, eine Tradition, die bis heute besteht.",
+        image: {
+          src: "/images/sport/history/1981.avif",
+          alt: "Visuelle Referenz zur Zeit des BASE Number Systems.",
+        },
       },
       {
         date: "1990er",
         title: "Kleine Szene wächst",
-        body: "Wissen zirkuliert über Mentoring und persönliche Netzwerke.",
+        body: "Wissen zirkuliert über Mentoring, persönliche Netzwerke und direkte Erfahrung. Begrenzter Zugang zu Ausrüstung und erfahrenen Springer:innen fördert eine Kultur aus Geduld, Engagement und gemeinschaftlichem Lernen.",
+        image: {
+          src: "/images/sport/history/1990.webp",
+          alt: "Referenz zur BASE-Jumping-Gemeinschaft der 1990er-Jahre.",
+        },
       },
       {
         date: "2000er",
         title: "Internet und Foren",
-        body: "Informationen und Bilder verbreiten sich international.",
+        body: "Informationen und Bilder verbreiten sich international. Online Foren, Digitalkameras und Videoplattformen erleichtern den Zugang zu Wissen und tragen spektakuläre Bilder weit über die Szene hinaus.",
+        image: {
+          src: "/images/sport/history/2000.jpeg",
+          alt: "Referenz zur digitalen Ära von BASE-Jumping-Foren und Online-Austausch.",
+        },
       },
       {
         date: "2010er",
         title: "Sichtbarkeit durch Social Media",
-        body: "Videoplattformen prägen die öffentliche Wahrnehmung.",
+        body: "Videoplattformen prägen die öffentliche Wahrnehmung. Spektakuläre Aufnahmen erreichen neue Zielgruppen, zeigen aber oft den Sprung deutlicher als die Vorbereitung dahinter.",
+        image: {
+          src: "/images/sport/history/2010.png",
+          alt: "Referenz zur Social-Media-Ära und Sichtbarkeit von BASE Jumping.",
+        },
       },
       {
         date: "2020er",
         title: "Moderne BASE Szene",
-        body: "Reisen, Technologie und Medien verbinden Athlet:innen weltweit.",
+        body: "Reisen, Technologie und Medien verbinden Athlet:innen weltweit. Trotz neuer Ausrüstung und Kommunikationsformen bleiben Schwerkraft, Wetter, Gelände und menschliche Entscheidungen entscheidend.",
+        image: {
+          src: "/images/sport/history/2020.jpg",
+          alt: "Moderner BASE Jumper in einer alpinen Landschaft.",
+        },
       },
     ],
   },
