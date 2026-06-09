@@ -2,6 +2,7 @@ export const sport = {
   kicker: "Sportkontext",
   title: "Über den Sport",
   body: "BASE Jumping bezeichnet das Fallschirmspringen von festen Objekten anstelle von Flugzeugen. Diese Seite ordnet den Sport historisch, kulturell und sicherheitsbezogen ein.",
+  scrollCta: "Scrollen zum Start",
   disclaimer:
     "Diese Seite dient ausschliesslich der Information und Einordnung des Sports. Sie stellt keine Anleitung zur Ausübung von BASE Jumping dar.",
   acronym: {
@@ -142,9 +143,14 @@ export const sport = {
         body: "Fallschirmideen existieren lange vor dem modernen Sport.",
       },
       {
+        date: "1970er",
+        title: "Carl Boenish",
+        body: "Ein Fallschirmspringer und Filmemacher macht aus einzelnen Objektsprüngen eine erkennbare Aktivität.",
+      },
+      {
         date: "1978",
         title: "El Capitan",
-        body: "Carl Boenish und weitere Springer prägen das moderne BASE Jumping.",
+        body: "Eine Serie von Sprüngen im Yosemite mit modernen Flächenfallschirmen wird zum Ursprungspunkt.",
       },
       {
         date: "1981",
@@ -175,8 +181,16 @@ export const sport = {
   },
   comparison: {
     title: "Skydiving vs BASE",
+    intro:
+      "Der Unterschied liegt nicht nur in der Haltung. Er liegt in Höhe, Zeit, Ausrüstung und Umgebung.",
     skydivingLabel: "Skydiving",
     baseLabel: "BASE Jumping",
+    altitudeLabel: "Typische Höhe",
+    reactionLabel: "Verfügbare Reaktionszeit",
+    skydivingAltitude: "3'000-4'000 m",
+    baseAltitude: "50-1'000 m",
+    skydivingReaction: "Mehr Zeit zum Reagieren",
+    baseReaction: "Sehr begrenzte Zeit",
     rows: [
       { label: "Absprungplattform", skydiving: "Flugzeug", base: "Festes Objekt" },
       { label: "Typische Höhe", skydiving: "3'000-4'000 m", base: "50-1'000 m" },
@@ -199,6 +213,8 @@ export const sport = {
   },
   equipmentVisual: {
     title: "Ausrüstungssystem",
+    intro:
+      "Ein BASE System ist reduziert, spezialisiert und auf Bedingungen an festen Objekten abgestimmt.",
     items: [
       {
         name: "Schirm",
@@ -230,6 +246,8 @@ export const sport = {
   },
   ethicsNetwork: {
     title: "Geteilte Verantwortung",
+    intro:
+      "BASE Jumping reicht über einzelne Athlet:innen hinaus. Jede Entscheidung ist Teil eines grösseren Ökosystems.",
     nodes: [
       "Mentor:innen",
       "Athlet:innen",

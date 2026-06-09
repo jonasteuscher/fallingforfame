@@ -1,8 +1,10 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 import type { sport as sportContent } from "@/content/en/sport";
-import { ScrollySection } from "@/components/scrollytelling";
 
 type SportContent = typeof sportContent;
-type SportSection = SportContent["sections"][number];
 
 type SportPageProps = {
   content: SportContent;
@@ -10,272 +12,507 @@ type SportPageProps = {
 
 export function SportPage({ content }: SportPageProps) {
   const sectionById = new Map(content.sections.map((section) => [section.id, section]));
+  const whatIs =
+    sectionById.get("what-is-base-jumping") ?? sectionById.get("was-ist-base-jumping");
+  const history = sectionById.get("history") ?? sectionById.get("geschichte");
+  const comparison =
+    sectionById.get("skydiving-vs-base") ?? sectionById.get("skydiving-vs-base");
+  const equipment = sectionById.get("equipment") ?? sectionById.get("ausruestung");
+  const safety =
+    sectionById.get("risk-and-safety-culture") ??
+    sectionById.get("risiko-und-sicherheitskultur");
+  const community =
+    sectionById.get("community-and-ethics") ??
+    sectionById.get("gemeinschaft-und-ethik");
+  const disciplines = sectionById.get("disciplines") ?? sectionById.get("disziplinen");
+  const modern =
+    sectionById.get("modern-developments") ?? sectionById.get("moderne-entwicklungen");
 
   return (
-    <article>
-      <ScrollySection className="overflow-hidden">
-        <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(320px,0.7fr)] lg:items-center">
-          <div className="min-w-0">
-            <p className="mb-4 break-words text-sm font-semibold uppercase tracking-wide text-primary [overflow-wrap:anywhere]">
-              {content.kicker}
-            </p>
-            <h1 className="max-w-full hyphens-auto break-words text-4xl font-semibold leading-tight text-foreground [overflow-wrap:anywhere] min-[380px]:text-5xl md:text-7xl">
-              {content.title}
-            </h1>
-            <p className="mt-6 max-w-reading text-lg leading-8 text-foreground/78">
-              {content.body}
-            </p>
-          </div>
-          <BaseAcronymHero content={content.acronym} />
-        </div>
-      </ScrollySection>
-
-      <EditorialSection
-        section={
-          sectionById.get("what-is-base-jumping") ??
-          sectionById.get("was-ist-base-jumping")
-        }
-      />
-
-      <ScrollySection fullHeight={false} className="pt-0">
-        <HistoryTimeline content={content.historyTimeline} />
-      </ScrollySection>
-      <EditorialSection
-        section={sectionById.get("history") ?? sectionById.get("geschichte")}
-      />
-
-      <ScrollySection fullHeight={false} className="pt-0">
-        <SkydivingVsBase content={content.comparison} />
-      </ScrollySection>
-      <EditorialSection section={sectionById.get("skydiving-vs-base")} />
-
-      <ScrollySection fullHeight={false} className="pt-0">
-        <EquipmentSystem content={content.equipmentVisual} />
-      </ScrollySection>
-      <EditorialSection
-        section={sectionById.get("equipment") ?? sectionById.get("ausruestung")}
-      />
-
-      <ScrollySection fullHeight={false} className="pt-0">
-        <SafetyPyramid content={content.safetyPyramid} />
-      </ScrollySection>
-      <EditorialSection
-        section={
-          sectionById.get("risk-and-safety-culture") ??
-          sectionById.get("risiko-und-sicherheitskultur")
-        }
-      />
-
-      <ScrollySection fullHeight={false} className="pt-0">
-        <EthicsNetwork content={content.ethicsNetwork} />
-      </ScrollySection>
-      <EditorialSection
-        section={
-          sectionById.get("community-and-ethics") ??
-          sectionById.get("gemeinschaft-und-ethik")
-        }
-      />
-
-      <ScrollySection fullHeight={false} className="pt-0">
-        <DisciplinesGallery content={content.disciplines} />
-      </ScrollySection>
-      <EditorialSection
-        section={sectionById.get("disciplines") ?? sectionById.get("disziplinen")}
-      />
-
-      <ScrollySection fullHeight={false} className="pt-0">
-        <ThenVsNow content={content.thenVsNow} />
-      </ScrollySection>
-      <EditorialSection
-        section={
-          sectionById.get("modern-developments") ??
-          sectionById.get("moderne-entwicklungen")
-        }
-      />
-
-      <ScrollySection fullHeight={false} className="pt-0">
-        <SourcesSection content={content.sources} disclaimer={content.disclaimer} />
-      </ScrollySection>
+    <article className="bg-background text-foreground">
+      <SportHero content={content} />
+      <BaseAcronymStory content={content.acronym} title={whatIs?.title} />
+      <HistoryTimeline content={content.historyTimeline} title={history?.title} />
+      <SkydivingVsBase content={content.comparison} title={comparison?.title} />
+      <EquipmentExplainer content={content.equipmentVisual} title={equipment?.title} />
+      <SafetyPhilosophy content={content.safetyPyramid} title={safety?.title} />
+      <CommunityNetwork content={content.ethicsNetwork} title={community?.title} />
+      <DisciplinesGallery content={content.disciplines} title={disciplines?.title} />
+      <ThenVsNow content={content.thenVsNow} title={modern?.title} />
+      <SourcesSection content={content.sources} disclaimer={content.disclaimer} />
     </article>
   );
 }
 
-function EditorialSection({ section }: { section?: SportSection }) {
-  if (!section) {
-    return null;
-  }
-
+function SportHero({ content }: { content: SportContent }) {
   return (
-    <ScrollySection id={section.id} fullHeight={false} className="py-10 sm:py-14">
-      <div className="grid gap-8 lg:grid-cols-[minmax(220px,0.45fr)_minmax(0,1fr)]">
-        <div>
-          <h2 className="max-w-lg text-2xl font-semibold leading-tight text-foreground sm:text-4xl">
-            {section.title}
-          </h2>
-        </div>
-        <div className="max-w-reading space-y-5 text-base leading-8 text-foreground/78 sm:text-lg">
-          {section.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-          {section.list?.length ? (
-            <div className="border-l-2 border-primary pl-5">
-              {section.listTitle ? (
-                <h3 className="text-base font-semibold text-foreground">
-                  {section.listTitle}
-                </h3>
-              ) : null}
-              <ul className="mt-3 grid gap-2">
-                {section.list.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="mt-3 h-1.5 w-1.5 shrink-0 bg-primary"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
+    <section className="relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden px-4 py-20 sm:px-6 lg:px-10">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,color-mix(in_srgb,var(--primary)_28%,transparent),transparent_34%),linear-gradient(135deg,color-mix(in_srgb,var(--surface-muted)_58%,transparent),var(--background)_58%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent"
+      />
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-end">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-primary">
+          {content.kicker}
+        </p>
+        <h1 className="max-w-5xl text-5xl font-semibold leading-none text-foreground min-[380px]:text-6xl md:text-8xl lg:text-9xl">
+          {content.title}
+        </h1>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-foreground/78 md:text-2xl md:leading-9">
+          {content.body}
+        </p>
+        <div className="mt-12 flex items-center gap-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
+          <span className="h-px w-12 bg-primary" aria-hidden="true" />
+          <span>{content.scrollCta}</span>
         </div>
       </div>
-    </ScrollySection>
-  );
-}
-
-function BaseAcronymHero({ content }: { content: SportContent["acronym"] }) {
-  return (
-    <section aria-labelledby="base-acronym-title" className="min-w-0">
-      <h2 id="base-acronym-title" className="sr-only">
-        {content.title}
-      </h2>
-      <ol className="grid grid-cols-2 gap-3 sm:gap-4">
-        {content.items.map((item) => (
-          <li
-            key={item.letter}
-            className="group min-w-0 border border-border bg-surface/80 p-4 transition hover:border-primary focus-within:border-primary sm:p-5"
-          >
-            <div className="aspect-[4/3] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--surface-muted)_76%,transparent),color-mix(in_srgb,var(--primary)_24%,transparent))] p-4">
-              <span className="block text-5xl font-semibold leading-none text-primary sm:text-7xl">
-                {item.letter}
-              </span>
-              <span className="mt-3 block text-lg font-semibold text-foreground">
-                {item.term}
-              </span>
-            </div>
-            <p className="mt-4 text-sm leading-6 text-foreground/72">
-              {item.description}
-            </p>
-          </li>
-        ))}
-      </ol>
     </section>
   );
 }
 
-function HistoryTimeline({ content }: { content: SportContent["historyTimeline"] }) {
+function BaseAcronymStory({
+  content,
+  title,
+}: {
+  content: SportContent["acronym"];
+  title?: string;
+}) {
   return (
-    <section aria-labelledby="history-timeline-title">
-      <SectionHeading title={content.title} />
-      <ol className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-7">
-        {content.items.map((item) => (
-          <li
-            key={`${item.date}-${item.title}`}
-            className="min-w-0 border-t border-primary/70 bg-surface p-4"
+    <section aria-labelledby="base-acronym-title" className="relative">
+      <div className="sticky top-14 z-10 border-y border-border bg-background/92 px-4 py-4 backdrop-blur sm:px-6 lg:px-10">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+          <h2
+            id="base-acronym-title"
+            className="text-lg font-semibold text-foreground sm:text-2xl"
           >
-            <p className="text-2xl font-semibold text-primary">{item.date}</p>
-            <h3 className="mt-4 text-lg font-semibold text-foreground">{item.title}</h3>
-            <p className="mt-2 text-sm leading-6 text-foreground/72">{item.body}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
-}
-
-function SkydivingVsBase({ content }: { content: SportContent["comparison"] }) {
-  return (
-    <section aria-labelledby="comparison-title">
-      <SectionHeading title={content.title} />
-      <div className="mt-8 overflow-hidden border border-border bg-surface">
-        <div className="grid grid-cols-2 border-b border-border text-center text-lg font-semibold md:grid-cols-[220px_1fr_1fr] sm:text-2xl">
-          <div
-            className="hidden border-r border-border bg-background/40 md:block"
-            aria-hidden="true"
-          />
-          <div className="p-4 text-foreground">{content.skydivingLabel}</div>
-          <div className="border-l border-border p-4 text-primary">
-            {content.baseLabel}
+            {title ?? content.title}
+          </h2>
+          <p className="hidden text-sm font-semibold uppercase tracking-wide text-primary md:block">
+            {content.title}
+          </p>
+          <div className="hidden gap-2 sm:flex" aria-hidden="true">
+            {content.items.map((item) => (
+              <span key={item.letter} className="h-1.5 w-8 bg-primary/60" />
+            ))}
           </div>
         </div>
-        <dl className="divide-y divide-border">
-          {content.rows.map((row) => (
-            <div key={row.label} className="grid gap-0 md:grid-cols-[220px_1fr_1fr]">
-              <dt className="bg-background/40 p-4 text-sm font-semibold uppercase tracking-wide text-foreground/62">
-                {row.label}
-              </dt>
-              <dd className="p-4 text-foreground/82">{row.skydiving}</dd>
-              <dd className="border-t border-border p-4 font-medium text-primary md:border-l md:border-t-0 md:font-normal md:text-foreground">
-                {row.base}
-              </dd>
+      </div>
+      <ol>
+        {content.items.map((item, index) => (
+          <li key={item.letter} className="min-h-[86svh] px-4 py-12 sm:px-6 lg:px-10">
+            <div className="mx-auto grid min-h-[72svh] max-w-7xl gap-8 lg:grid-cols-[0.8fr_1fr] lg:items-center">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <p className="mt-4 text-[34vw] font-semibold leading-none text-primary/95 sm:text-[22rem]">
+                  {item.letter}
+                </p>
+                <h3 className="-mt-4 text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+                  {item.term}
+                </h3>
+                <p className="mt-5 max-w-xl text-lg leading-8 text-foreground/72">
+                  {item.description}
+                </p>
+              </div>
+              <VisualPlaceholder index={index} />
             </div>
-          ))}
-        </dl>
-      </div>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
 
-function EquipmentSystem({ content }: { content: SportContent["equipmentVisual"] }) {
+function HistoryTimeline({
+  content,
+  title,
+}: {
+  content: SportContent["historyTimeline"];
+  title?: string;
+}) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const railSlotRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [railMode, setRailMode] = useState<"flow" | "fixed" | "end">("flow");
+  const [railOffset, setRailOffset] = useState({ left: 0, width: 360 });
+  const historyItemCount = content.items.length;
+
+  function scrollToHistoryItem(index: number) {
+    const item = itemRefs.current[index];
+
+    if (!item) {
+      return;
+    }
+
+    const headerOffset = 88;
+    const itemTop = item.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top: Math.max(itemTop - headerOffset, 0),
+      behavior: "smooth",
+    });
+  }
+
+  useEffect(() => {
+    let frame = 0;
+
+    function updateTimelineState() {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      frame = window.requestAnimationFrame(() => {
+        const section = sectionRef.current;
+        const railSlot = railSlotRef.current;
+        const headerOffset = 56;
+        const viewportTarget = window.innerHeight * 0.45;
+        let nextActiveIndex = 0;
+        let smallestDistance = Number.POSITIVE_INFINITY;
+
+        if (section && railSlot) {
+          const sectionRect = section.getBoundingClientRect();
+          const railRect = railSlot.getBoundingClientRect();
+          const isAtEnd =
+            itemRefs.current[historyItemCount - 1]?.getBoundingClientRect().top ??
+            Number.POSITIVE_INFINITY;
+
+          setRailOffset({ left: railRect.left, width: railRect.width });
+
+          if (sectionRect.top > headerOffset) {
+            setRailMode("flow");
+          } else if (isAtEnd <= headerOffset + 96) {
+            setRailMode("end");
+          } else {
+            setRailMode("fixed");
+          }
+        }
+
+        itemRefs.current.forEach((item, index) => {
+          if (!item) {
+            return;
+          }
+
+          const rect = item.getBoundingClientRect();
+          const itemCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(itemCenter - viewportTarget);
+
+          if (distance < smallestDistance) {
+            smallestDistance = distance;
+            nextActiveIndex = index;
+          }
+        });
+
+        setActiveIndex(nextActiveIndex);
+      });
+    }
+
+    updateTimelineState();
+    window.addEventListener("scroll", updateTimelineState, { passive: true });
+    window.addEventListener("resize", updateTimelineState);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      window.removeEventListener("scroll", updateTimelineState);
+      window.removeEventListener("resize", updateTimelineState);
+    };
+  }, [historyItemCount]);
+
   return (
-    <section aria-labelledby="equipment-title">
-      <SectionHeading title={content.title} />
-      <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(240px,0.7fr)_1fr] lg:items-center">
-        <div className="relative aspect-[3/4] min-h-80 overflow-hidden bg-surface-muted">
-          <div className="absolute inset-6 border border-primary/70" />
-          <div className="absolute left-1/2 top-8 h-16 w-16 -translate-x-1/2 rounded-full border border-border bg-background/80" />
-          <div className="absolute left-1/2 top-28 h-40 w-28 -translate-x-1/2 border border-border bg-background/70" />
-          <div className="absolute bottom-10 left-1/2 h-28 w-44 -translate-x-1/2 border border-primary/50 bg-primary/10" />
+    <section
+      ref={sectionRef}
+      aria-label={title ?? content.title}
+      className="px-4 py-16 sm:px-6 lg:px-10 lg:py-0"
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="lg:hidden">
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            {content.title}
+          </p>
+          <h2 className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+            {title ?? content.title}
+          </h2>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {content.items.map((item) => (
-            <details
-              key={item.name}
-              className="group border border-border bg-surface p-4"
+
+        <div className="mt-10 gap-8 lg:mt-0 lg:grid lg:grid-cols-[360px_minmax(0,1fr)] lg:items-stretch">
+          <div
+            ref={railSlotRef}
+            className="relative hidden min-h-[calc(100svh-3.5rem)] lg:block"
+          >
+            <aside
+              className={
+                railMode === "fixed"
+                  ? "fixed top-14 z-20 h-[calc(100svh-3.5rem)] overflow-y-auto py-10"
+                  : railMode === "end"
+                    ? "absolute bottom-0 left-0 w-full py-10"
+                    : "py-10"
+              }
+              style={
+                railMode === "fixed"
+                  ? { left: railOffset.left, width: railOffset.width }
+                  : undefined
+              }
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-foreground">
-                <span>{item.name}</span>
-                <span
-                  aria-hidden="true"
-                  className="text-primary transition group-open:rotate-45"
-                >
-                  +
-                </span>
-              </summary>
-              <p className="mt-3 text-sm leading-6 text-foreground/72">
-                {item.description}
-              </p>
-            </details>
-          ))}
+              <HistoryRail
+                content={content}
+                title={title}
+                activeIndex={activeIndex}
+                onSelect={scrollToHistoryItem}
+              />
+            </aside>
+          </div>
+          <ol className="grid min-w-0 flex-1 gap-8 lg:py-16">
+            {content.items.map((item, index) => (
+              <li
+                key={`${item.date}-${item.title}`}
+                ref={(element) => {
+                  itemRefs.current[index] = element;
+                }}
+                className="grid min-h-[64svh] gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-center"
+              >
+                <div className="border-t border-primary pt-5">
+                  <p className="text-5xl font-semibold text-primary sm:text-7xl">
+                    {item.date}
+                  </p>
+                  <h3 className="mt-4 text-3xl font-semibold text-foreground sm:text-5xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-5 max-w-xl text-lg leading-8 text-foreground/72">
+                    {item.body}
+                  </p>
+                </div>
+                <VisualPlaceholder index={index} />
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
   );
 }
 
-function SafetyPyramid({ content }: { content: SportContent["safetyPyramid"] }) {
+function HistoryRail({
+  content,
+  title,
+  activeIndex,
+  onSelect,
+}: {
+  content: SportContent["historyTimeline"];
+  title?: string;
+  activeIndex: number;
+  onSelect: (index: number) => void;
+}) {
   return (
-    <section aria-labelledby="safety-title">
-      <SectionHeading title={content.title} />
-      <div className="mt-8 grid gap-6 lg:grid-cols-[0.8fr_1fr] lg:items-center">
-        <p className="max-w-reading border-l-2 border-primary pl-5 text-xl leading-8 text-foreground/82">
-          {content.message}
-        </p>
-        <ol className="grid gap-2">
+    <>
+      <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+        {content.title}
+      </p>
+      <h2 className="mt-3 text-4xl font-semibold leading-tight text-foreground">
+        {title ?? content.title}
+      </h2>
+      <ol className="border-l border-border">
+        {content.items.map((item, index) => (
+          <li
+            key={`${item.date}-nav`}
+            className={
+              index === activeIndex
+                ? "border-b border-primary bg-primary text-background transition-colors"
+                : "border-b border-border transition-colors"
+            }
+            aria-current={index === activeIndex ? "step" : undefined}
+          >
+            <button
+              type="button"
+              className="block w-full cursor-pointer px-5 py-4 text-left focus-visible:outline-offset-[-4px]"
+              onClick={() => onSelect(index)}
+            >
+              <span
+                className={
+                  index === activeIndex
+                    ? "block text-sm font-semibold tracking-wide text-background"
+                    : "block text-sm font-semibold tracking-wide text-primary"
+                }
+              >
+                {item.date}
+              </span>
+              <span
+                className={
+                  index === activeIndex
+                    ? "mt-1 block font-semibold text-background"
+                    : "mt-1 block font-semibold text-foreground/80"
+                }
+              >
+                {item.title}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </>
+  );
+}
+function SkydivingVsBase({
+  content,
+  title,
+}: {
+  content: SportContent["comparison"];
+  title?: string;
+}) {
+  return (
+    <section
+      aria-labelledby="comparison-title"
+      className="min-h-screen px-4 py-16 sm:px-6 lg:px-10"
+    >
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.65fr_1fr] lg:items-center">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            {content.title}
+          </p>
+          <h2
+            id="comparison-title"
+            className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
+          >
+            {title ?? content.title}
+          </h2>
+          <p className="mt-5 max-w-xl text-lg leading-8 text-foreground/72">
+            {content.intro}
+          </p>
+        </div>
+        <div className="grid gap-5">
+          <div className="grid min-h-96 grid-cols-2 gap-4">
+            <AltitudeColumn
+              label={content.skydivingLabel}
+              value={content.skydivingAltitude}
+              tall
+            />
+            <AltitudeColumn label={content.baseLabel} value={content.baseAltitude} />
+          </div>
+          <div className="grid gap-3 md:grid-cols-2">
+            <MetricCard
+              label={content.altitudeLabel}
+              values={[content.skydivingAltitude, content.baseAltitude]}
+            />
+            <MetricCard
+              label={content.reactionLabel}
+              values={[content.skydivingReaction, content.baseReaction]}
+              accentSecond
+            />
+          </div>
+          <dl className="grid gap-2">
+            {content.rows.map((row) => (
+              <div
+                key={row.label}
+                className="grid gap-0 overflow-hidden border border-border bg-surface md:grid-cols-[180px_1fr_1fr]"
+              >
+                <dt className="bg-background/40 p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
+                  {row.label}
+                </dt>
+                <dd className="p-3 text-foreground/78">{row.skydiving}</dd>
+                <dd className="border-t border-border p-3 font-medium text-primary md:border-l md:border-t-0">
+                  {row.base}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function EquipmentExplainer({
+  content,
+  title,
+}: {
+  content: SportContent["equipmentVisual"];
+  title?: string;
+}) {
+  return (
+    <section aria-labelledby="equipment-title" className="px-4 py-16 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            {content.title}
+          </p>
+          <h2
+            id="equipment-title"
+            className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
+          >
+            {title ?? content.title}
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-foreground/72">{content.intro}</p>
+        </div>
+        <div className="mt-10 grid gap-8 lg:grid-cols-[0.8fr_1fr] lg:items-start">
+          <div className="sticky top-28 hidden h-[70svh] overflow-hidden bg-surface-muted lg:block">
+            <div className="absolute inset-8 border border-primary/60" />
+            <div className="absolute left-1/2 top-10 h-20 w-20 -translate-x-1/2 rounded-full border border-border bg-background/80" />
+            <div className="absolute left-1/2 top-36 h-52 w-36 -translate-x-1/2 border border-border bg-background/70" />
+            <div className="absolute bottom-16 left-1/2 h-36 w-64 -translate-x-1/2 border border-primary/60 bg-primary/10" />
+          </div>
+          <ol className="grid gap-4">
+            {content.items.map((item, index) => (
+              <li
+                key={item.name}
+                className="min-h-44 border border-border bg-surface p-5"
+              >
+                <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-5 text-3xl font-semibold text-foreground">
+                  {item.name}
+                </h3>
+                <p className="mt-4 max-w-xl text-base leading-7 text-foreground/72">
+                  {item.description}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SafetyPhilosophy({
+  content,
+  title,
+}: {
+  content: SportContent["safetyPyramid"];
+  title?: string;
+}) {
+  return (
+    <section
+      aria-labelledby="safety-title"
+      className="min-h-screen px-4 py-16 sm:px-6 lg:px-10"
+    >
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.7fr_1fr] lg:items-center">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            {content.title}
+          </p>
+          <h2
+            id="safety-title"
+            className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
+          >
+            {title ?? content.title}
+          </h2>
+          <p className="mt-8 max-w-xl whitespace-pre-line text-3xl font-semibold leading-tight text-primary sm:text-5xl">
+            {content.message}
+          </p>
+        </div>
+        <ol className="flex flex-col-reverse gap-3">
           {content.levels.map((level, index) => (
             <li
               key={level}
-              className="mx-auto border border-border bg-surface px-5 py-4 text-center font-semibold text-foreground"
+              className="mx-auto border border-border bg-surface px-5 py-5 text-center text-xl font-semibold text-foreground sm:text-2xl"
               style={{ width: `${100 - index * 12}%` }}
             >
               {level}
@@ -287,64 +524,127 @@ function SafetyPyramid({ content }: { content: SportContent["safetyPyramid"] }) 
   );
 }
 
-function EthicsNetwork({ content }: { content: SportContent["ethicsNetwork"] }) {
+function CommunityNetwork({
+  content,
+  title,
+}: {
+  content: SportContent["ethicsNetwork"];
+  title?: string;
+}) {
   return (
-    <section aria-labelledby="ethics-network-title">
-      <SectionHeading title={content.title} />
-      <ol className="mt-8 grid gap-3 sm:grid-cols-5">
-        {content.nodes.map((node, index) => (
-          <li
-            key={node}
-            className="relative border border-border bg-surface p-4 text-center font-semibold text-foreground"
-          >
-            <span className="text-primary">{String(index + 1).padStart(2, "0")}</span>
-            <span className="mt-2 block">{node}</span>
-          </li>
-        ))}
-      </ol>
-    </section>
-  );
-}
-
-function DisciplinesGallery({ content }: { content: SportContent["disciplines"] }) {
-  return (
-    <section aria-labelledby="disciplines-title">
-      <SectionHeading title={content.title} />
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {content.items.map((item, index) => (
-          <article key={item.title} className="min-w-0 border border-border bg-surface">
-            <div className="aspect-[4/3] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--primary)_20%,transparent),color-mix(in_srgb,var(--surface-muted)_80%,transparent))] p-4">
+    <section aria-labelledby="community-title" className="px-4 py-16 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+          {content.title}
+        </p>
+        <h2
+          id="community-title"
+          className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
+        >
+          {title ?? content.title}
+        </h2>
+        <p className="mt-5 max-w-2xl text-lg leading-8 text-foreground/72">
+          {content.intro}
+        </p>
+        <ol className="mt-10 grid gap-4 md:grid-cols-5">
+          {content.nodes.map((node, index) => (
+            <li
+              key={node}
+              className="relative min-h-36 border border-border bg-surface p-5"
+            >
               <span className="text-sm font-semibold uppercase tracking-wide text-primary">
                 {String(index + 1).padStart(2, "0")}
               </span>
-            </div>
-            <div className="p-5">
-              <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-foreground/72">
-                {item.description}
-              </p>
-            </div>
-          </article>
-        ))}
+              <h3 className="mt-8 text-2xl font-semibold text-foreground">{node}</h3>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
 }
 
-function ThenVsNow({ content }: { content: SportContent["thenVsNow"] }) {
+function DisciplinesGallery({
+  content,
+  title,
+}: {
+  content: SportContent["disciplines"];
+  title?: string;
+}) {
   return (
-    <section aria-labelledby="then-now-title">
-      <SectionHeading title={content.title} />
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
-        <ColumnList
-          label={content.thenLabel}
-          items={content.rows.map((row) => row.then)}
-        />
-        <ColumnList
-          label={content.nowLabel}
-          items={content.rows.map((row) => row.now)}
-          accent
-        />
+    <section
+      aria-labelledby="disciplines-title"
+      className="px-4 py-16 sm:px-6 lg:px-10"
+    >
+      <div className="mx-auto max-w-7xl">
+        <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+          {content.title}
+        </p>
+        <h2
+          id="disciplines-title"
+          className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
+        >
+          {title ?? content.title}
+        </h2>
+        <div className="mt-10 flex snap-x gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch]">
+          {content.items.map((item, index) => (
+            <article
+              key={item.title}
+              className="min-w-[82vw] snap-center overflow-hidden border border-border bg-surface sm:min-w-[420px]"
+            >
+              <VisualPlaceholder index={index} compact />
+              <div className="p-5">
+                <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-5 text-3xl font-semibold leading-tight text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-base leading-7 text-foreground/72">
+                  {item.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ThenVsNow({
+  content,
+  title,
+}: {
+  content: SportContent["thenVsNow"];
+  title?: string;
+}) {
+  return (
+    <section
+      aria-labelledby="then-now-title"
+      className="min-h-screen px-4 py-16 sm:px-6 lg:px-10"
+    >
+      <div className="mx-auto max-w-7xl">
+        <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+          {content.title}
+        </p>
+        <h2
+          id="then-now-title"
+          className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
+        >
+          {title ?? content.title}
+        </h2>
+        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          <TransformationColumn
+            label={content.thenLabel}
+            items={content.rows.map((row) => row.then)}
+          />
+          <TransformationColumn
+            label={content.nowLabel}
+            items={content.rows.map((row) => row.now)}
+            accent
+          />
+        </div>
       </div>
     </section>
   );
@@ -358,46 +658,105 @@ function SourcesSection({
   disclaimer: string;
 }) {
   return (
-    <section
-      aria-labelledby="sources-title"
-      className="grid gap-8 lg:grid-cols-[0.6fr_1fr]"
-    >
-      <div>
-        <h2
-          id="sources-title"
-          className="text-2xl font-semibold leading-tight text-foreground sm:text-4xl"
-        >
-          {content.title}
-        </h2>
-        <p className="mt-5 border-l-2 border-primary pl-5 text-sm leading-6 text-foreground/72">
-          {disclaimer}
-        </p>
-      </div>
-      <div className="max-w-reading space-y-5 text-base leading-8 text-foreground/78">
-        {content.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
+    <section aria-labelledby="sources-title" className="px-4 py-16 sm:px-6 lg:px-10">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.55fr_1fr]">
         <div>
+          <h2
+            id="sources-title"
+            className="text-3xl font-semibold leading-tight text-foreground sm:text-5xl"
+          >
+            {content.title}
+          </h2>
+          <p className="mt-5 border-l-2 border-primary pl-5 text-sm leading-6 text-foreground/72">
+            {disclaimer}
+          </p>
+        </div>
+        <div className="max-w-reading space-y-5 text-base leading-8 text-foreground/78">
+          {content.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
           <h3 className="font-semibold text-foreground">{content.listTitle}</h3>
-          <ul className="mt-3 grid gap-2">
+          <ul className="grid gap-2">
             {content.items.map((item) => (
-              <li key={item} className="flex gap-3">
-                <span
-                  aria-hidden="true"
-                  className="mt-3 h-1.5 w-1.5 shrink-0 bg-primary"
-                />
-                <span>{item}</span>
+              <li key={item} className="border-t border-border pt-3">
+                {item}
               </li>
             ))}
           </ul>
+          <p>{content.closing}</p>
         </div>
-        <p>{content.closing}</p>
       </div>
     </section>
   );
 }
 
-function ColumnList({
+function AltitudeColumn({
+  label,
+  value,
+  tall = false,
+}: {
+  label: string;
+  value: string;
+  tall?: boolean;
+}) {
+  return (
+    <div className="flex flex-col justify-end border border-border bg-surface p-4">
+      <div
+        className={
+          tall
+            ? "h-full border-l-2 border-foreground/40"
+            : "h-1/4 border-l-2 border-primary"
+        }
+      />
+      <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-foreground/62">
+        {label}
+      </p>
+      <p
+        className={
+          tall
+            ? "mt-2 text-2xl font-semibold text-foreground"
+            : "mt-2 text-2xl font-semibold text-primary"
+        }
+      >
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function MetricCard({
+  label,
+  values,
+  accentSecond = false,
+}: {
+  label: string;
+  values: string[];
+  accentSecond?: boolean;
+}) {
+  return (
+    <div className="border border-border bg-surface p-4">
+      <p className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
+        {label}
+      </p>
+      <div className="mt-4 grid gap-2">
+        {values.map((value, index) => (
+          <p
+            key={value}
+            className={
+              accentSecond && index === 1
+                ? "text-lg font-semibold text-primary"
+                : "text-lg text-foreground/82"
+            }
+          >
+            {value}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TransformationColumn({
   label,
   items,
   accent = false,
@@ -411,15 +770,18 @@ function ColumnList({
       <h3
         className={
           accent
-            ? "text-2xl font-semibold text-primary"
-            : "text-2xl font-semibold text-foreground"
+            ? "text-4xl font-semibold text-primary"
+            : "text-4xl font-semibold text-foreground"
         }
       >
         {label}
       </h3>
-      <ul className="mt-5 grid gap-3">
+      <ul className="mt-8 grid gap-4">
         {items.map((item) => (
-          <li key={item} className="border-t border-border pt-3 text-foreground/78">
+          <li
+            key={item}
+            className="border-t border-border pt-4 text-lg leading-7 text-foreground/78"
+          >
             {item}
           </li>
         ))}
@@ -428,10 +790,26 @@ function ColumnList({
   );
 }
 
-function SectionHeading({ title }: { title: string }) {
+function VisualPlaceholder({
+  index,
+  compact = false,
+}: {
+  index: number;
+  compact?: boolean;
+}) {
   return (
-    <h2 className="max-w-3xl text-2xl font-semibold leading-tight text-foreground sm:text-4xl">
-      {title}
-    </h2>
+    <div
+      aria-hidden="true"
+      className={
+        compact
+          ? "aspect-[4/3] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--primary)_18%,transparent),color-mix(in_srgb,var(--surface-muted)_82%,transparent))]"
+          : "min-h-80 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--primary)_16%,transparent),color-mix(in_srgb,var(--surface-muted)_84%,transparent))] p-5"
+      }
+    >
+      <div
+        className="h-full border border-primary/45"
+        style={{ opacity: 0.55 + (index % 3) * 0.12 }}
+      />
+    </div>
   );
 }

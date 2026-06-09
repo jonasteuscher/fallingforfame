@@ -2,6 +2,7 @@ export const sport = {
   kicker: "Sport context",
   title: "About the Sport",
   body: "BASE jumping is the practice of parachuting from fixed objects rather than aircraft. This page provides context for the documentary and explains the history, disciplines, risks and culture surrounding the sport.",
+  scrollCta: "Scroll to begin",
   disclaimer:
     "This page is intended to provide context and understanding. It is not a guide or instructional resource for participating in the sport.",
   acronym: {
@@ -142,9 +143,14 @@ export const sport = {
         body: "Parachute ideas appear long before the modern sport.",
       },
       {
+        date: "1970s",
+        title: "Carl Boenish",
+        body: "A skydiver and filmmaker helps turn isolated fixed-object jumps into a recognisable activity.",
+      },
+      {
         date: "1978",
         title: "El Capitan",
-        body: "Carl Boenish and fellow jumpers help define modern BASE jumping.",
+        body: "A series of Yosemite jumps with modern ram-air parachutes becomes a defining origin point.",
       },
       {
         date: "1981",
@@ -175,8 +181,16 @@ export const sport = {
   },
   comparison: {
     title: "Skydiving vs BASE",
+    intro:
+      "The difference is not only attitude. It is altitude, time, equipment and environment.",
     skydivingLabel: "Skydiving",
     baseLabel: "BASE Jumping",
+    altitudeLabel: "Typical altitude",
+    reactionLabel: "Available reaction time",
+    skydivingAltitude: "3,000-4,000 m",
+    baseAltitude: "50-1,000 m",
+    skydivingReaction: "More time to react",
+    baseReaction: "Very limited time",
     rows: [
       { label: "Exit platform", skydiving: "Aircraft", base: "Fixed object" },
       { label: "Typical altitude", skydiving: "3,000-4,000 m", base: "50-1,000 m" },
@@ -199,6 +213,8 @@ export const sport = {
   },
   equipmentVisual: {
     title: "Equipment system",
+    intro:
+      "A BASE rig is reduced, specialised and configured for fixed-object conditions.",
     items: [
       { name: "Canopy", description: "Designed for reliable low-altitude openings." },
       {
@@ -224,6 +240,8 @@ export const sport = {
   },
   ethicsNetwork: {
     title: "A shared responsibility",
+    intro:
+      "BASE jumping extends beyond the individual athlete. Every decision sits inside a wider ecosystem.",
     nodes: ["Mentors", "Athletes", "Community", "Landowners", "Public"],
   },
   disciplines: {

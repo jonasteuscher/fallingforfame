@@ -50,10 +50,10 @@ describe("sport page", () => {
 
     expect(screen.getByRole("heading", { name: "About the Sport", level: 1 }))
       .toBeVisible();
-    expect(screen.getByRole("heading", { name: "What BASE stands for" }))
+    expect(screen.getByRole("heading", { name: "What is BASE Jumping?" }))
       .toBeVisible();
-    expect(screen.getByText("What is BASE Jumping?")).toBeVisible();
-    expect(screen.getByText("Historical timeline")).toBeVisible();
+    expect(screen.getByText("What BASE stands for")).toBeVisible();
+    expect(screen.getAllByText("Historical timeline")[0]).toBeVisible();
     expect(screen.getByText("Skydiving vs BASE")).toBeVisible();
     expect(screen.getByText("Safety pyramid")).toBeVisible();
     expect(screen.getByText("Disciplines gallery")).toBeVisible();
@@ -66,9 +66,10 @@ describe("sport page", () => {
 
     expect(screen.getByRole("heading", { name: "Über den Sport", level: 1 }))
       .toBeVisible();
-    expect(screen.getByRole("heading", { name: "Wofür BASE steht" })).toBeVisible();
-    expect(screen.getByText("Was ist BASE Jumping?")).toBeVisible();
-    expect(screen.getByText("Historische Entwicklung")).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Was ist BASE Jumping?" }))
+      .toBeVisible();
+    expect(screen.getByText("Wofür BASE steht")).toBeVisible();
+    expect(screen.getAllByText("Historische Entwicklung")[0]).toBeVisible();
     expect(screen.getByText("Skydiving vs BASE")).toBeVisible();
     expect(screen.getByText("Sicherheitspyramide")).toBeVisible();
     expect(screen.getByText("Disziplinen Galerie")).toBeVisible();
