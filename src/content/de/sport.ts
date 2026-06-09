@@ -1,10 +1,18 @@
 export const sport = {
   kicker: "Sportkontext",
   title: "Über den Sport",
-  body: "BASE Jumping bezeichnet das Fallschirmspringen von festen Objekten anstelle von Flugzeugen. Diese Seite ordnet den Sport historisch, kulturell und sicherheitsbezogen ein.",
+  body: "Ein paar Sekunden freier Fall. Jahre der Vorbereitung.\n\nBASE Jumping ist ein Sport, der von Hingabe, Präzision und Konsequenz geprägt ist. Um die Geschichten dieser Dokumentation zu verstehen, hilft es, zuerst die Kultur, Geschichte und Realität des Sports selbst zu verstehen.",
   scrollCta: "Scrollen zum Start",
   disclaimer:
     "Diese Seite dient ausschliesslich der Information und Einordnung des Sports. Sie stellt keine Anleitung zur Ausübung von BASE Jumping dar.",
+  intro: {
+    title: "Was ist BASE Jumping?",
+    paragraphs: [
+      "BASE Jumping bedeutet, mit dem Fallschirm von festen Objekten statt aus Flugzeugen zu springen. Anders als beim Fallschirmspringen, bei dem Sprünge in grosser Höhe beginnen, finden BASE Sprünge oft deutlich näher an Gelände, Strukturen und Hindernissen statt.",
+      "Die verkürzte Zeit nach dem Absprung lässt nur wenig Spielraum für Fehler und erfordert umfangreiche Vorbereitung, spezialisierte Ausrüstung und fundierte Entscheidungen.",
+      "Auch wenn viele Beteiligte vom Abenteuer, der Herausforderung und dem Erkunden neuer Orte angezogen werden, bleibt BASE Jumping eine der risikoreichsten Freizeitaktivitäten der Welt.",
+    ],
+  },
   acronym: {
     title: "Wofür BASE steht",
     items: [
@@ -13,24 +21,44 @@ export const sport = {
         term: "Building",
         description:
           "Gebäude und urbane Strukturen, bei denen Zugang, Wind und Landezonen komplexe Bedingungen schaffen.",
+        image: {
+          src: "/images/sport/acronym/icons/building.png",
+          alt: "Icon fuer Gebaeude als B in BASE.",
+        },
+        backgroundImage: "/images/sport/acronym/background/building.jpg",
       },
       {
         letter: "A",
         term: "Antenna",
         description:
           "Antennen und Sendemasten, die häufig stark von Wetter und Zugangsmöglichkeiten geprägt sind.",
+        image: {
+          src: "/images/sport/acronym/icons/antenne.png",
+          alt: "Icon fuer Antennen als A in BASE.",
+        },
+        backgroundImage: "/images/sport/acronym/background/antenna.jpg",
       },
       {
         letter: "S",
         term: "Span",
         description:
           "Brücken und ähnliche Spannweiten mit sehr unterschiedlichen Höhen, Luftströmen und Landeoptionen.",
+        image: {
+          src: "/images/sport/acronym/icons/brucke.png",
+          alt: "Icon fuer Bruecken und Spannweiten als S in BASE.",
+        },
+        backgroundImage: "/images/sport/acronym/background/span.avif",
       },
       {
         letter: "E",
         term: "Earth",
         description:
           "Felswände, Berge und natürliche Formationen, die besonders das alpine BASE Umfeld prägen.",
+        image: {
+          src: "/images/sport/acronym/icons/earth.png",
+          alt: "Icon fuer Felswaende und Erde als E in BASE.",
+        },
+        backgroundImage: "/images/sport/acronym/background/earth.jpg",
       },
     ],
   },

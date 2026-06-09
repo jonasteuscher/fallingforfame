@@ -13,8 +13,6 @@ type SportPageProps = {
 
 export function SportPage({ content }: SportPageProps) {
   const sectionById = new Map(content.sections.map((section) => [section.id, section]));
-  const whatIs =
-    sectionById.get("what-is-base-jumping") ?? sectionById.get("was-ist-base-jumping");
   const history = sectionById.get("history") ?? sectionById.get("geschichte");
   const comparison =
     sectionById.get("skydiving-vs-base") ?? sectionById.get("skydiving-vs-base");
@@ -32,7 +30,8 @@ export function SportPage({ content }: SportPageProps) {
   return (
     <article className="bg-background text-foreground">
       <SportHero content={content} />
-      <BaseAcronymStory content={content.acronym} title={whatIs?.title} />
+      <SportIntro content={content.intro} />
+      <BaseAcronymStory content={content.acronym} />
       <HistoryTimeline content={content.historyTimeline} title={history?.title} />
       <SkydivingVsBase content={content.comparison} title={comparison?.title} />
       <EquipmentExplainer content={content.equipmentVisual} title={equipment?.title} />
@@ -45,16 +44,46 @@ export function SportPage({ content }: SportPageProps) {
   );
 }
 
+function SportIntro({ content }: { content: SportContent["intro"] }) {
+  return (
+    <section className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.55fr_1fr]">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            BASE
+          </p>
+          <h2 className="mt-3 max-w-xl text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+            {content.title}
+          </h2>
+        </div>
+        <div className="max-w-reading space-y-5 text-lg leading-8 text-foreground/76">
+          {content.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SportHero({ content }: { content: SportContent }) {
   return (
     <section className="relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden px-4 py-20 sm:px-6 lg:px-10">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,color-mix(in_srgb,var(--primary)_28%,transparent),transparent_34%),linear-gradient(135deg,color-mix(in_srgb,var(--surface-muted)_58%,transparent),var(--background)_58%)]"
+      <Image
+        src="/images/sport/hero1.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent"
+        className="absolute inset-0 bg-[linear-gradient(90deg,var(--background)_0%,color-mix(in_srgb,var(--background)_72%,transparent)_42%,color-mix(in_srgb,var(--background)_18%,transparent)_100%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background via-background/72 to-transparent"
       />
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-end">
         <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-primary">
@@ -63,9 +92,11 @@ function SportHero({ content }: { content: SportContent }) {
         <h1 className="max-w-5xl text-5xl font-semibold leading-none text-foreground min-[380px]:text-6xl md:text-8xl lg:text-9xl">
           {content.title}
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-foreground/78 md:text-2xl md:leading-9">
-          {content.body}
-        </p>
+        <div className="mt-6 max-w-2xl space-y-5 text-lg leading-8 text-foreground/78 md:text-2xl md:leading-9">
+          {content.body.split("\n\n").map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
         <div className="mt-12 flex items-center gap-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
           <span className="h-px w-12 bg-primary" aria-hidden="true" />
           <span>{content.scrollCta}</span>
@@ -82,35 +113,151 @@ function BaseAcronymStory({
   content: SportContent["acronym"];
   title?: string;
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerPanelRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [headerMode, setHeaderMode] = useState<"flow" | "fixed" | "end">("flow");
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const acronymItemCount = content.items.length;
+
+  useEffect(() => {
+    let frame = 0;
+
+    function updateActiveIndex() {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      frame = window.requestAnimationFrame(() => {
+        const section = sectionRef.current;
+        const headerPanel = headerPanelRef.current;
+
+        if (!section) {
+          return;
+        }
+
+        const headerOffset = 56;
+        const measuredHeaderHeight = headerPanel?.offsetHeight ?? 0;
+        const sectionRect = section.getBoundingClientRect();
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const sectionProgress = window.scrollY - sectionTop + window.innerHeight * 0.55;
+        const stepSize = Math.max(section.scrollHeight / acronymItemCount, 1);
+        const nextActiveIndex = Math.min(
+          Math.max(Math.floor(sectionProgress / stepSize), 0),
+          acronymItemCount - 1,
+        );
+
+        setHeaderHeight(measuredHeaderHeight);
+        if (sectionRect.top > headerOffset) {
+          setHeaderMode("flow");
+        } else if (sectionRect.bottom <= headerOffset + measuredHeaderHeight) {
+          setHeaderMode("end");
+        } else {
+          setHeaderMode("fixed");
+        }
+        setActiveIndex(nextActiveIndex);
+      });
+    }
+
+    updateActiveIndex();
+    window.addEventListener("scroll", updateActiveIndex, { passive: true });
+    window.addEventListener("resize", updateActiveIndex);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      window.removeEventListener("scroll", updateActiveIndex);
+      window.removeEventListener("resize", updateActiveIndex);
+    };
+  }, [acronymItemCount]);
+
   return (
-    <section aria-labelledby="base-acronym-title" className="relative">
-      <div className="sticky top-14 z-10 border-y border-border bg-background/92 px-4 py-4 backdrop-blur sm:px-6 lg:px-10">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
-          <h2
-            id="base-acronym-title"
-            className="text-lg font-semibold text-foreground sm:text-2xl"
-          >
-            {title ?? content.title}
-          </h2>
-          <p className="hidden text-sm font-semibold uppercase tracking-wide text-primary md:block">
-            {content.title}
-          </p>
-          <div className="hidden gap-2 sm:flex" aria-hidden="true">
-            {content.items.map((item) => (
-              <span key={item.letter} className="h-1.5 w-8 bg-primary/60" />
-            ))}
+    <section ref={sectionRef} aria-labelledby="base-acronym-title" className="relative">
+      <div
+        aria-hidden={headerMode !== "flow" ? "true" : undefined}
+        style={headerMode !== "flow" ? { height: headerHeight } : undefined}
+      />
+      <div
+        ref={headerPanelRef}
+        className={
+          headerMode === "fixed"
+            ? "fixed inset-x-0 top-14 z-30 border-y border-border bg-background/96 px-4 py-4 backdrop-blur sm:px-6 lg:px-10"
+            : headerMode === "end"
+              ? "absolute inset-x-0 bottom-0 z-10 border-y border-border bg-background/96 px-4 py-4 backdrop-blur sm:px-6 lg:px-10"
+              : "relative z-10 border-y border-border bg-background/96 px-4 py-4 backdrop-blur sm:px-6 lg:px-10"
+        }
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+            <h2
+              id="base-acronym-title"
+              className="text-lg font-semibold text-foreground sm:text-2xl"
+            >
+              {title ?? content.title}
+            </h2>
+            <div className="flex gap-2" aria-hidden="true">
+              {content.items.map((item, index) => (
+                <span
+                  key={`${item.letter}-slot`}
+                  className={
+                    index <= activeIndex
+                      ? "grid h-9 w-9 place-items-center border border-primary bg-primary text-base font-semibold text-background transition duration-300 sm:h-11 sm:w-11"
+                      : "grid h-9 w-9 place-items-center border border-primary/70 text-base font-semibold text-primary/0 transition duration-300 sm:h-11 sm:w-11"
+                  }
+                >
+                  <span
+                    className={
+                      index <= activeIndex
+                        ? "translate-y-0 opacity-100 transition duration-300"
+                        : "translate-y-3 opacity-0 transition duration-300"
+                    }
+                  >
+                    {item.letter}
+                  </span>
+                </span>
+              ))}
+            </div>
           </div>
+          <AcronymFlightDeck content={content} activeIndex={activeIndex} />
         </div>
       </div>
       <ol>
         {content.items.map((item, index) => (
-          <li key={item.letter} className="min-h-[86svh] px-4 py-12 sm:px-6 lg:px-10">
-            <div className="mx-auto grid min-h-[72svh] max-w-7xl gap-8 lg:grid-cols-[0.8fr_1fr] lg:items-center">
-              <div>
+          <li
+            key={item.letter}
+            ref={(element) => {
+              itemRefs.current[index] = element;
+            }}
+            className="relative min-h-[72svh] overflow-hidden px-4 py-10 sm:px-6 lg:px-10"
+          >
+            <Image
+              src={item.backgroundImage}
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--background)_88%,transparent)_0%,color-mix(in_srgb,var(--background)_58%,transparent)_44%,color-mix(in_srgb,var(--background)_14%,transparent)_100%)]"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background/82 via-background/48 to-transparent"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-background/42 to-transparent"
+            />
+            <div className="relative z-10 mx-auto flex min-h-[58svh] max-w-7xl items-end">
+              <div className="pb-10">
                 <p className="text-sm font-semibold uppercase tracking-wide text-primary">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <p className="mt-4 text-[34vw] font-semibold leading-none text-primary/95 sm:text-[22rem]">
+                <p className="mt-4 text-[34vw] font-semibold leading-none text-primary sm:text-[18rem]">
                   {item.letter}
                 </p>
                 <h3 className="-mt-4 text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
@@ -120,12 +267,57 @@ function BaseAcronymStory({
                   {item.description}
                 </p>
               </div>
-              <VisualPlaceholder index={index} />
             </div>
           </li>
         ))}
       </ol>
     </section>
+  );
+}
+
+function AcronymFlightDeck({
+  content,
+  activeIndex,
+}: {
+  content: SportContent["acronym"];
+  activeIndex: number;
+}) {
+  return (
+    <div className="mt-4 hidden overflow-hidden md:block">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {content.items.map((item, index) => (
+          <article
+            key={`${item.letter}-flight-card`}
+            className={
+              index <= activeIndex
+                ? "translate-x-0 opacity-100 transition duration-500 ease-out"
+                : "translate-x-16 opacity-0 transition duration-500 ease-out"
+            }
+            style={{ transitionDelay: `${Math.max(index - activeIndex, 0) * 60}ms` }}
+          >
+            <div className="grid min-h-28 grid-cols-[5.25rem_minmax(0,1fr)] gap-4 border border-border bg-surface/88 p-3">
+              <div className="flex h-full min-h-20 items-center justify-center border border-primary/35 bg-background/50 p-2">
+                <Image
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  width={96}
+                  height={96}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+              <div className="flex min-w-0 flex-col justify-center">
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">
+                  {item.letter}
+                </p>
+                <h3 className="mt-1 text-base font-semibold text-foreground">
+                  {item.term}
+                </h3>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
   );
 }
 

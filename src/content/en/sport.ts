@@ -1,10 +1,18 @@
 export const sport = {
   kicker: "Sport context",
   title: "About the Sport",
-  body: "BASE jumping is the practice of parachuting from fixed objects rather than aircraft. This page provides context for the documentary and explains the history, disciplines, risks and culture surrounding the sport.",
+  body: "A few seconds of freefall. Years of preparation.\n\nBASE jumping is a sport defined by commitment, precision and consequence. To understand the stories featured in this documentary, it helps to first understand the culture, history and realities of the sport itself.",
   scrollCta: "Scroll to begin",
   disclaimer:
     "This page is intended to provide context and understanding. It is not a guide or instructional resource for participating in the sport.",
+  intro: {
+    title: "What is BASE Jumping?",
+    paragraphs: [
+      "BASE jumping involves parachuting from fixed objects rather than aircraft. Unlike skydiving, where jumps begin at high altitude, BASE jumps often take place much closer to terrain, structures and obstacles.",
+      "The reduced time available after exit leaves little margin for error and requires extensive preparation, specialised equipment and sound judgement.",
+      "While many participants are drawn to the sport by adventure, challenge and exploration, BASE jumping remains one of the highest risk recreational activities in the world.",
+    ],
+  },
   acronym: {
     title: "What BASE stands for",
     items: [
@@ -13,24 +21,44 @@ export const sport = {
         term: "Building",
         description:
           "Urban structures and towers where access, wind and landing areas create complex constraints.",
+        image: {
+          src: "/images/sport/acronym/icons/building.png",
+          alt: "Icon representing buildings as the B in BASE.",
+        },
+        backgroundImage: "/images/sport/acronym/background/building.jpg",
       },
       {
         letter: "A",
         term: "Antenna",
         description:
           "Masts and antenna structures, often exposed to weather and access limitations.",
+        image: {
+          src: "/images/sport/acronym/icons/antenne.png",
+          alt: "Icon representing antennas as the A in BASE.",
+        },
+        backgroundImage: "/images/sport/acronym/background/antenna.jpg",
       },
       {
         letter: "S",
         term: "Span",
         description:
           "Bridges and similar spans where object height, airflow and landing options vary widely.",
+        image: {
+          src: "/images/sport/acronym/icons/brucke.png",
+          alt: "Icon representing bridge spans as the S in BASE.",
+        },
+        backgroundImage: "/images/sport/acronym/background/span.avif",
       },
       {
         letter: "E",
         term: "Earth",
         description:
           "Cliffs, mountains and natural formations that define much of the alpine BASE environment.",
+        image: {
+          src: "/images/sport/acronym/icons/earth.png",
+          alt: "Icon representing earth and cliffs as the E in BASE.",
+        },
+        backgroundImage: "/images/sport/acronym/background/earth.jpg",
       },
     ],
   },
