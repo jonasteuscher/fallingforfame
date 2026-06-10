@@ -1045,6 +1045,7 @@ function EquipmentExplainer({
     "/images/sport/equipment/wingsuit-1.jpg",
     "/images/sport/equipment/protectors.jpg",
   ];
+  const allEquipmentImages = [defaultEquipmentImage, ...equipmentImages];
   const [activeImage, setActiveImage] = useState(defaultEquipmentImage);
 
   return (
@@ -1067,14 +1068,18 @@ function EquipmentExplainer({
         </div>
         <div className="mt-10 grid gap-8 lg:grid-cols-[0.8fr_1fr] lg:items-start">
           <figure className="sticky top-28 hidden h-[70svh] overflow-hidden border-4 border-[#FE6B00] bg-surface-muted lg:block">
-            <Image
-              key={activeImage}
-              src={activeImage}
-              alt=""
-              fill
-              sizes="(min-width: 1024px) 42vw, 100vw"
-              className="object-cover"
-            />
+            {allEquipmentImages.map((imageSrc) => (
+              <Image
+                key={imageSrc}
+                src={imageSrc}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 42vw, 100vw"
+                className={`object-cover ${
+                  imageSrc === activeImage ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            ))}
             <div
               aria-hidden="true"
               className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_14%,transparent)_0%,color-mix(in_srgb,var(--background)_24%,transparent)_100%)]"
