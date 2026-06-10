@@ -710,10 +710,10 @@ function EquipmentExplainer({
                 <p className="text-sm font-semibold uppercase tracking-wide text-primary">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <h3 className="mt-4 text-3xl font-semibold text-foreground lg:mt-2 lg:text-2xl">
+                <h3 className="mt-4 text-3xl font-semibold text-foreground lg:mt-1 lg:text-xl">
                   {item.name}
                 </h3>
-                <p className="mt-3 max-w-xl text-base leading-7 text-foreground/72 lg:mt-2 lg:text-sm lg:leading-5">
+                <p className="mt-3 max-w-xl text-base leading-7 text-foreground/72 lg:mt-1 lg:text-xs lg:leading-4">
                   {item.description}
                 </p>
               </li>

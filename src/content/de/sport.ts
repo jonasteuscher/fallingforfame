@@ -47,7 +47,7 @@ export const sport = {
           src: "/images/sport/acronym/icons/brucke.png",
           alt: "Icon fuer Bruecken und Spannweiten als S in BASE.",
         },
-        backgroundImage: "/images/sport/acronym/background/span.avif",
+        backgroundImage: "/images/sport/acronym/background/bridge.jpg",
       },
       {
         letter: "E",
@@ -58,7 +58,7 @@ export const sport = {
           src: "/images/sport/acronym/icons/earth.png",
           alt: "Icon fuer Felswaende und Erde als E in BASE.",
         },
-        backgroundImage: "/images/sport/acronym/background/earth.jpg",
+        backgroundImage: "/images/sport/acronym/background/earth-2.jpg",
       },
     ],
   },
@@ -278,24 +278,33 @@ export const sport = {
     items: [
       {
         name: "Schirm",
-        description: "Auf zuverlässige Öffnungen in geringer Höhe ausgelegt.",
+        description:
+          "Die meisten BASE Systeme nutzen einen einzelnen Schirm, der auf Öffnungen in geringer Höhe ausgelegt ist. Er ist meist grösser, stabiler und soll schnell sowie berechenbar öffnen.",
       },
       {
         name: "Container",
-        description: "Kompakt, robust und auf die Disziplin abgestimmt.",
+        description:
+          "Der Container hält den Schirm und ist leicht, stromlinienförmig und robust genug für anspruchsvolle Bedingungen an festen Objekten konstruiert.",
       },
-      { name: "Pilot Chute", description: "Zieht den Hauptschirm aus dem Container." },
+      {
+        name: "Pilot Chute",
+        description:
+          "Ein kleiner Hilfsschirm, der den Hauptschirm aus dem Container zieht. Je nach Sprung kann er in der Hand gehalten, verstaut oder unterstützt ausgelöst werden.",
+      },
       {
         name: "Helm",
-        description: "Standardmässiger Schutz in nahezu allen Bereichen des Sports.",
+        description:
+          "Helme gehören nahezu überall zum Standard und sind Teil der Schutzausrüstung für Gelände, Strukturen und begrenzte Landezonen.",
       },
       {
         name: "Optional: Tracking Suit oder Wingsuit",
-        description: "Für längere Freifallphasen und horizontale Bewegung.",
+        description:
+          "Bei längeren Freifallphasen können sie Aerodynamik und horizontale Bewegung vor der Schirmöffnung verbessern, erhöhen aber auch Komplexität und Risiko.",
       },
       {
         name: "Optional: Protektoren",
-        description: "Je nach Gelände und Landeumgebung im Einsatz.",
+        description:
+          "Rückenprotektoren, Kniepolster, Knöchelstützen oder stossfeste Kleidung können je nach Gelände, Disziplin und Landeumgebung eingesetzt werden.",
       },
     ],
   },

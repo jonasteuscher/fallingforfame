@@ -47,7 +47,7 @@ export const sport = {
           src: "/images/sport/acronym/icons/brucke.png",
           alt: "Icon representing bridge spans as the S in BASE.",
         },
-        backgroundImage: "/images/sport/acronym/background/span.avif",
+        backgroundImage: "/images/sport/acronym/background/bridge.jpg",
       },
       {
         letter: "E",
@@ -58,7 +58,7 @@ export const sport = {
           src: "/images/sport/acronym/icons/earth.png",
           alt: "Icon representing earth and cliffs as the E in BASE.",
         },
-        backgroundImage: "/images/sport/acronym/background/earth.jpg",
+        backgroundImage: "/images/sport/acronym/background/earth-2.jpg",
       },
     ],
   },
@@ -276,20 +276,35 @@ export const sport = {
     intro:
       "A BASE rig is reduced, specialised and configured for fixed-object conditions.",
     items: [
-      { name: "Canopy", description: "Designed for reliable low-altitude openings." },
+      {
+        name: "Canopy",
+        description:
+          "Most BASE systems use a single canopy designed for low-altitude openings. These parachutes are generally larger, more stable and built to open quickly and predictably.",
+      },
       {
         name: "Container",
-        description: "Compact, streamlined and discipline-specific.",
+        description:
+          "The container holds the canopy and is built to stay lightweight and streamlined while remaining durable enough for demanding fixed-object environments.",
       },
-      { name: "Pilot chute", description: "Extracts the canopy from the container." },
-      { name: "Helmet", description: "Standard protection across the sport." },
+      {
+        name: "Pilot chute",
+        description:
+          "A small auxiliary parachute that extracts the main canopy from the container. Depending on the jump, it may be handheld, stowed or assisted.",
+      },
+      {
+        name: "Helmet",
+        description:
+          "Helmets are standard throughout the sport and form part of the protective setup used around terrain, structures and restricted landing areas.",
+      },
       {
         name: "Optional: Tracking suit or wingsuit",
-        description: "Used for extended freefall and horizontal movement.",
+        description:
+          "Used on longer freefall jumps to improve aerodynamic performance and horizontal movement before deployment, while adding complexity and risk.",
       },
       {
         name: "Optional: Body protection",
-        description: "Used depending on terrain and landing conditions.",
+        description:
+          "Back protectors, knee pads, ankle support or impact-resistant clothing may be used depending on terrain, discipline and landing conditions.",
       },
     ],
   },
