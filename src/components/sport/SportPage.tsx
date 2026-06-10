@@ -35,9 +35,9 @@ export function SportPage({ content }: SportPageProps) {
       <HistoryTimeline content={content.historyTimeline} title={history?.title} />
       <SkydivingVsBase content={content.comparison} title={comparison?.title} />
       <EquipmentExplainer content={content.equipmentVisual} title={equipment?.title} />
+      <DisciplinesGallery content={content.disciplines} title={disciplines?.title} />
       <SafetyPhilosophy content={content.safetyPyramid} title={safety?.title} />
       <CommunityNetwork content={content.ethicsNetwork} title={community?.title} />
-      <DisciplinesGallery content={content.disciplines} title={disciplines?.title} />
       <ThenVsNow content={content.thenVsNow} title={modern?.title} />
       <SourcesSection content={content.sources} disclaimer={content.disclaimer} />
     </article>
@@ -423,7 +423,7 @@ function HistoryTimeline({
     <section
       ref={sectionRef}
       aria-label={title ?? content.title}
-      className="px-4 py-16 sm:px-6 lg:px-10 lg:py-0"
+      className="px-4 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-24 lg:pb-0"
     >
       <div className="mx-auto max-w-7xl">
         <div className="lg:hidden">
@@ -469,7 +469,7 @@ function HistoryTimeline({
                 ref={(element) => {
                   itemRefs.current[index] = element;
                 }}
-                className="grid min-h-[64svh] gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-center"
+                className="grid min-h-[64svh] gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-start"
               >
                 <div className="border-t border-primary pt-5">
                   <p className="text-5xl font-semibold text-primary sm:text-7xl">
@@ -511,7 +511,7 @@ function HistoryImage({
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 border border-primary/30 mix-blend-screen"
+        className="absolute inset-0 border-2 border-[#FE6B00]"
       />
     </figure>
   );
@@ -587,7 +587,7 @@ function SkydivingVsBase({
   return (
     <section
       aria-labelledby="comparison-title"
-      className="min-h-screen px-4 py-16 sm:px-6 lg:px-10"
+      className="px-4 py-16 sm:px-6 lg:px-10"
     >
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.65fr_1fr] lg:items-center">
         <div>
@@ -660,11 +660,15 @@ function EquipmentExplainer({
     "/images/sport/equipment/pilotchute-1.jpg",
     "/images/sport/equipment/helmet-1.jpg",
     "/images/sport/equipment/wingsuit-1.jpg",
+    "/images/sport/equipment/protectors.jpg",
   ];
   const [activeImage, setActiveImage] = useState(defaultEquipmentImage);
 
   return (
-    <section aria-labelledby="equipment-title" className="px-4 py-16 sm:px-6 lg:px-10">
+    <section
+      aria-labelledby="equipment-title"
+      className="px-4 pt-16 pb-28 sm:px-6 lg:px-10"
+    >
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
@@ -713,7 +717,7 @@ function EquipmentExplainer({
                 <h3 className="mt-4 text-3xl font-semibold text-foreground lg:mt-1 lg:text-xl">
                   {item.name}
                 </h3>
-                <p className="mt-3 max-w-xl text-base leading-7 text-foreground/72 lg:mt-1 lg:text-xs lg:leading-4">
+                <p className="mt-3 max-w-xl text-base leading-7 text-foreground/72 lg:mt-1 lg:text-sm lg:leading-5">
                   {item.description}
                 </p>
               </li>
@@ -735,7 +739,7 @@ function SafetyPhilosophy({
   return (
     <section
       aria-labelledby="safety-title"
-      className="min-h-screen px-4 py-16 sm:px-6 lg:px-10"
+      className="px-4 pt-16 pb-32 sm:px-6 lg:px-10"
     >
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.7fr_1fr] lg:items-center">
         <div>
@@ -776,7 +780,10 @@ function CommunityNetwork({
   title?: string;
 }) {
   return (
-    <section aria-labelledby="community-title" className="px-4 py-16 sm:px-6 lg:px-10">
+    <section
+      aria-labelledby="community-title"
+      className="px-4 pt-32 pb-36 sm:px-6 lg:px-10"
+    >
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-wide text-primary">
           {content.title}
@@ -818,7 +825,7 @@ function DisciplinesGallery({
   return (
     <section
       aria-labelledby="disciplines-title"
-      className="px-4 py-16 sm:px-6 lg:px-10"
+      className="px-4 pt-24 pb-28 sm:px-6 lg:px-10"
     >
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-wide text-primary">
@@ -866,7 +873,7 @@ function ThenVsNow({
   return (
     <section
       aria-labelledby="then-now-title"
-      className="min-h-screen px-4 py-16 sm:px-6 lg:px-10"
+      className="px-4 pt-36 pb-36 sm:px-6 lg:px-10"
     >
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-wide text-primary">
@@ -902,7 +909,10 @@ function SourcesSection({
   disclaimer: string;
 }) {
   return (
-    <section aria-labelledby="sources-title" className="px-4 py-16 sm:px-6 lg:px-10">
+    <section
+      aria-labelledby="sources-title"
+      className="px-4 pt-36 pb-16 sm:px-6 lg:px-10"
+    >
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.55fr_1fr]">
         <div>
           <h2

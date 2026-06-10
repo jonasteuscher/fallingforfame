@@ -197,7 +197,7 @@ export const sport = {
         title: "BASE Number System",
         body: "Die vier Objektkategorien werden Teil der Identität des Sports. Wer Building, Antenna, Span und Earth absolviert hatte, konnte eine offizielle BASE Nummer beantragen, eine Tradition, die bis heute besteht.",
         image: {
-          src: "/images/sport/history/1981.avif",
+          src: "/images/sport/history/1981.jpg",
           alt: "Visuelle Referenz zur Zeit des BASE Number Systems.",
         },
       },
@@ -329,33 +329,49 @@ export const sport = {
     title: "Disziplinen Galerie",
     items: [
       {
-        title: "Klassisches BASE Jumping",
+        title: "Klassisches BASE / Slick",
         description:
-          "Ein festes Objekt verlassen, den freien Fall kontrollieren, den Schirm öffnen und sicher landen.",
+          "Die Grundlage des Sports: ein festes Objekt verlassen, den freien Fall kontrollieren und den Fallschirm vor der Landung sicher öffnen. Im Mittelpunkt stehen Vorbereitung, Schirmkontrolle und Entscheidungsfindung statt akrobatischer Leistung.",
       },
       {
         title: "Tracking",
         description:
-          "Durch Körperhaltung oder Tracking Suits horizontale Distanz vom Objekt aufbauen.",
+          "Eine Form des menschlichen Fliegens, bei der Athlet:innen durch Körperhaltung oder spezielle Tracking Suits horizontale Distanz im freien Fall aufbauen. Ziel ist es, sich aktiv vom Objekt wegzubewegen und dabei Aerodynamik, Körperkontrolle und Gelände zu verstehen.",
       },
       {
         title: "Wingsuit BASE",
         description:
-          "Mit einem Wingsuit längere Gleitflüge vor der Fallschirmöffnung durchführen.",
+          "Kombiniert einen Wingsuit mit einem BASE Fallschirmsystem. Der Wingsuit erzeugt Auftrieb und ermöglicht längere Gleitflüge vor der Schirmöffnung, zählt aber auch zu den technisch anspruchsvollsten Bereichen des Sports.",
       },
       {
         title: "Aerials und Akrobatik",
-        description: "Saltos, Drehungen oder andere Manöver vor der Schirmöffnung.",
+        description:
+          "Einige Athlet:innen führen vor der Schirmöffnung Saltos, Drehungen oder andere akrobatische Manöver aus. Diese Sprünge erfordern präzises Timing, Körperkontrolle und gutes Höhenbewusstsein.",
+      },
+      {
+        title: "Urban BASE",
+        description:
+          "Sprünge von Gebäuden oder anderen urbanen Strukturen, bei denen Zugang, Wind, Hindernisse und Landezonen komplexe Bedingungen über den eigentlichen Sprung hinaus schaffen.",
       },
       {
         title: "Sprünge von niedrigen Objekten",
         description:
-          "Spezielle Öffnungstechniken nutzen, wenn Reaktionszeit extrem begrenzt ist.",
+          "Nicht jeder BASE Sprung beinhaltet längeren freien Fall. Sehr niedrige Objekte erfordern spezielle Öffnungstechniken für eine möglichst schnelle Schirmentfaltung sowie sorgfältige Vorbereitung und präzise Ausrüstungskonfiguration.",
       },
       {
         title: "Mehrpersonen Sprünge",
         description:
-          "Zwei oder mehr Athlet:innen koordinieren Absprung, Flugwege oder Formationen.",
+          "Zwei oder mehr Athlet:innen verlassen gemeinsam das Objekt und koordinieren Bewegungen, Formationen oder gemeinsame Flugwege. Kommunikation, Planung und Vertrauen sind dabei zentral.",
+      },
+      {
+        title: "Ski BASE",
+        description:
+          "Ein:e Skifahrer:in verlässt eine Felswand oder Bergflanke und öffnet nach dem Absprung den Fallschirm. Die Disziplin verbindet alpines Skifahren, Geländebeurteilung und BASE spezifische Öffnungstechniken.",
+      },
+      {
+        title: "Tandem BASE",
+        description:
+          "Eine hochspezialisierte Form, bei der zwei Personen mit einem Fallschirmsystem springen. Sie ist selten, stark kontrolliert und erfordert sehr erfahrene Ausrüstungskonfiguration und Entscheidungsfindung.",
       },
     ],
   },
@@ -374,7 +390,7 @@ export const sport = {
       },
       {
         then: "Lokales Mentoring",
-        now: "Lokales Mentoring plus internationaler Austausch",
+        now: "BASE Schulen und Ausbildungen auf der ganzen Welt",
       },
       {
         then: "Begrenzte Sichtbarkeit",

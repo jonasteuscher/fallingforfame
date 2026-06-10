@@ -197,7 +197,7 @@ export const sport = {
         title: "BASE Number System",
         body: "The four object categories become part of the sport's identity. Jumpers who completed Building, Antenna, Span and Earth could apply for an official BASE number, a tradition that continues today.",
         image: {
-          src: "/images/sport/history/1981.avif",
+          src: "/images/sport/history/1981.jpg",
           alt: "Visual reference for the BASE number system period.",
         },
       },
@@ -323,33 +323,49 @@ export const sport = {
     title: "Disciplines gallery",
     items: [
       {
-        title: "Traditional BASE",
+        title: "Traditional BASE / Slick",
         description:
-          "Exit a fixed object, maintain stability, deploy the parachute and land safely.",
+          "The foundation of the sport: exit a fixed object, maintain stability during freefall and deploy the parachute safely before landing. These jumps place strong emphasis on preparation, canopy control and decision making rather than aerial performance.",
       },
       {
         title: "Tracking",
         description:
-          "Use body position or tracking suits to move horizontally away from the object.",
+          "A form of human flight that uses body position or specialised tracking suits to increase horizontal movement during freefall. Athletes aim to move away from the object while managing aerodynamics, body control and terrain awareness.",
       },
       {
         title: "Wingsuit BASE",
         description:
-          "Use a wingsuit to glide significant distances before parachute deployment.",
+          "Combines a wingsuit with a BASE parachute system. The wingsuit creates lift and allows long glides before deployment, making it one of the most visible and technically demanding disciplines in the sport.",
       },
       {
         title: "Aerials and Acrobatics",
-        description: "Perform flips, spins or other movements before deployment.",
+        description:
+          "Some athletes perform flips, spins or other acrobatic movements before deployment. These jumps require precise timing, body awareness and altitude management.",
+      },
+      {
+        title: "Urban BASE",
+        description:
+          "Jumps from buildings or other urban structures, where access, wind effects, obstacles and landing areas create complex constraints beyond the jump itself.",
       },
       {
         title: "Low Object Jumping",
         description:
-          "Use specialised deployment techniques where reaction time is extremely limited.",
+          "Not all jumps involve extended freefall. Very low objects require specialised deployment techniques designed for immediate parachute inflation, with careful preparation and precise equipment configuration.",
       },
       {
         title: "Multi Way Jumps",
         description:
-          "Two or more athletes coordinate exits, flight paths or formations.",
+          "Two or more athletes exit together and coordinate movement, formations or shared flight paths. Communication, planning and trust are critical.",
+      },
+      {
+        title: "Ski BASE",
+        description:
+          "A skier exits from a cliff or mountain face and deploys a parachute after leaving the snow. It combines alpine skiing, terrain judgement and BASE-specific deployment skills.",
+      },
+      {
+        title: "Tandem BASE",
+        description:
+          "A highly specialised format where two people jump with one parachute system. It is rare, tightly controlled and depends on expert-level equipment setup and decision making.",
       },
     ],
   },
@@ -360,7 +376,7 @@ export const sport = {
     rows: [
       { then: "VHS and film archives", now: "Action cameras and instant publishing" },
       { then: "Word of mouth", now: "Global platforms and messaging groups" },
-      { then: "Local mentors", now: "Local mentorship plus international exchange" },
+      { then: "Local mentors", now: "BASE schools and teachings around the world" },
       { then: "Limited visibility", now: "Global audiences and sponsor attention" },
     ],
   },
