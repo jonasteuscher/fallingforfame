@@ -261,7 +261,7 @@ export const sport = {
       steps: [
         {
           title: "Höhe beim Skydiving",
-          body: "Beim Fallschirmspringen verlässt man ein Flugzeug meist auf rund 3'000-4'000 Metern. Diese Höhe schafft ein längeres Zeitfenster für Körperposition, Orientierung und Schirmöffnung.",
+          body: "Beim Fallschirmspringen verlässt man ein Flugzeug meist auf rund 3'000-4'000 Metern. Diese Höhe schafft ein längeres Zeitfenster für Körperposition, Orientierung und Schirmöffnung. Der Schirm wird normalerweise etwa auf 1'000 Metern geöffnet.",
           value: "3'000-4'000 m",
           label: "Skydiving",
           visual: "skydivingAltitude",

@@ -621,16 +621,31 @@ function HeightComparisonScrolly({
 
       setScrollProgress(nextProgress);
 
+      const summaryStep = stepRefs.current[4];
+      const summaryStepRect = summaryStep?.getBoundingClientRect();
+      const summaryIsAtReadingPosition = summaryStepRect
+        ? summaryStepRect.top <= window.innerHeight * 0.4
+        : nextProgress >= 1;
       const nextActiveStep =
-        nextProgress < 0.33 ? 0 : nextProgress < 0.66 ? 1 : nextProgress < 0.82 ? 2 : nextProgress < 0.999999999999999999 ? 3 : 4;
+        nextProgress < 0.33
+          ? 0
+          : nextProgress < 0.66
+            ? 1
+            : nextProgress < 0.82
+              ? 2
+              : summaryIsAtReadingPosition
+                ? 4
+                : 3;
       setActiveStep((current) => (current === nextActiveStep ? current : nextActiveStep));
 
-      const activeElement = stepRefs.current[activeStep];
+      const activeElement = stepRefs.current[nextActiveStep];
 
       if (activeElement) {
         const activeRect = activeElement.getBoundingClientRect();
+        const progressStart = nextActiveStep === 4 ? window.innerHeight * 0.4 : window.innerHeight * 0.7;
+        const progressDistance = nextActiveStep === 4 ? activeRect.height * 0.75 : activeRect.height;
         const nextActiveStepProgress = Math.min(
-          Math.max((window.innerHeight * 0.7 - activeRect.top) / Math.max(activeRect.height, 1), 0),
+          Math.max((progressStart - activeRect.top) / Math.max(progressDistance, 1), 0),
           1,
         );
 
@@ -658,24 +673,36 @@ function HeightComparisonScrolly({
     <section
       ref={sectionRef}
       aria-labelledby="comparison-title"
-      className="px-4 py-16 sm:px-6 lg:px-10"
+      className="overflow-x-clip px-4 py-16 sm:px-6 lg:px-10"
     >
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.42fr_1fr] lg:items-start">
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.42fr_1fr] lg:items-start lg:gap-10">
+        <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.scrolly.eyebrow}
           </p>
           <h2
             id="comparison-title"
-            className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
+            className="mt-3 text-4xl font-semibold leading-tight text-foreground [overflow-wrap:anywhere] sm:text-6xl"
           >
             {title ?? content.scrolly.headline}
           </h2>
-          <p className="mt-5 max-w-xl text-lg leading-8 text-foreground/72">
+          <p className="mt-5 max-w-xl text-lg leading-8 text-foreground/72 [overflow-wrap:anywhere]">
             {content.scrolly.intro}
           </p>
         </aside>
-        <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+        <div className="min-w-0 lg:hidden">
+          <HeightVisual
+            visual="baseTime"
+            skydivingLabel={content.skydivingLabel}
+            baseLabel={content.baseLabel}
+            skydivingAltitude={content.skydivingAltitude}
+            baseAltitude={content.baseAltitude}
+            baseReaction={content.baseReaction}
+            scrollProgress={1}
+            mobileOverview
+          />
+        </div>
+        <div className="grid min-w-0 gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
           <div className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
             <HeightVisual
               visual={activeVisual}
@@ -688,7 +715,7 @@ function HeightComparisonScrolly({
               activeStepProgress={activeStepProgress}
             />
           </div>
-          <ol className="grid gap-5">
+          <ol className="grid w-full min-w-0 max-w-full gap-5">
             {content.scrolly.steps.map((step, index) => (
               <HeightStep
                 key={step.title}
@@ -709,17 +736,6 @@ function HeightComparisonScrolly({
                     />
                   ) : undefined
                 }
-                visual={
-                  <HeightVisual
-                    visual={step.visual}
-                    skydivingLabel={content.skydivingLabel}
-                    baseLabel={content.baseLabel}
-                    skydivingAltitude={content.skydivingAltitude}
-                    baseAltitude={content.baseAltitude}
-                    baseReaction={content.baseReaction}
-                    compact
-                  />
-                }
               />
             ))}
           </ol>
@@ -736,41 +752,39 @@ const HeightStep = function HeightStep({
   index,
   active,
   table,
-  visual,
   stepRef,
 }: {
   step: HeightStepContent;
   index: number;
   active: boolean;
   table?: ReactNode;
-  visual: ReactNode;
   stepRef: (element: HTMLElement | null) => void;
 }) {
   return (
-    <li className="list-none">
+    <li className="w-full min-w-0 max-w-full list-none">
       <article
         ref={stepRef}
         data-step-index={index}
         tabIndex={0}
         className={
           active
-            ? "min-h-[40svh] scroll-mt-24 border-2 border-primary bg-surface p-4 outline-none transition-colors motion-reduce:transition-none lg:min-h-[44svh]"
-            : "min-h-[40svh] scroll-mt-24 border-2 border-border bg-surface p-4 outline-none transition-colors focus:border-primary lg:min-h-[44svh]"
+            ? "w-full min-w-0 max-w-full scroll-mt-24 border-2 border-primary bg-surface p-4 outline-none transition-colors motion-reduce:transition-none lg:min-h-[44svh]"
+            : "w-full min-w-0 max-w-full scroll-mt-24 border-2 border-border bg-surface p-4 outline-none transition-colors focus:border-primary lg:min-h-[44svh]"
         }
       >
         <p className="text-sm font-semibold uppercase tracking-wide text-primary">
           {String(index + 1).padStart(2, "0")}
         </p>
-        <h3 className="mt-3 text-xl font-semibold leading-tight text-foreground">
+        <h3 className="mt-3 max-w-full break-words text-xl font-semibold leading-tight text-foreground [overflow-wrap:anywhere]">
           {step.title}
         </h3>
-        <p className="mt-3 text-base leading-7 text-foreground/76">{step.body}</p>
+        <p className="mt-3 max-w-full break-words text-base leading-7 text-foreground/76 [overflow-wrap:anywhere]">{step.body}</p>
         {step.highlights ? (
           <ul className="mt-5 grid gap-3 sm:grid-cols-2">
             {step.highlights.map((highlight) => (
               <li
                 key={highlight}
-                className="border border-border bg-background/35 p-4 text-base font-semibold text-foreground"
+                className="max-w-full break-words border border-border bg-background/35 p-4 text-base font-semibold text-foreground [overflow-wrap:anywhere]"
               >
                 {highlight}
               </li>
@@ -778,12 +792,11 @@ const HeightStep = function HeightStep({
           </ul>
         ) : null}
         {step.microcopy ? (
-          <p className="mt-3 border-l-2 border-primary pl-4 text-sm leading-6 text-foreground/68">
+          <p className="mt-3 max-w-full break-words border-l-2 border-primary pl-4 text-sm leading-6 text-foreground/68 [overflow-wrap:anywhere]">
             {step.microcopy}
           </p>
         ) : null}
-        <div className="mt-5 lg:hidden">{visual}</div>
-        {table ? <div className="mt-6">{table}</div> : null}
+        {table ? <div className="mt-6 min-w-0">{table}</div> : null}
       </article>
     </li>
   );
@@ -799,6 +812,7 @@ function HeightVisual({
   scrollProgress = 0,
   activeStepProgress = 0,
   compact = false,
+  mobileOverview = false,
 }: {
   visual: HeightStepContent["visual"];
   skydivingLabel: string;
@@ -809,19 +823,22 @@ function HeightVisual({
   scrollProgress?: number;
   activeStepProgress?: number;
   compact?: boolean;
+  mobileOverview?: boolean;
 }) {
   const isBase = visual === "baseAltitude" || visual === "baseTime";
   const isSkydiving = visual === "skydivingAltitude" || visual === "skydivingMargin";
   const currentLabel = isBase ? baseLabel : skydivingLabel;
+  const displayedLabel = mobileOverview ? "Basejumping vs. Skydiving" : currentLabel;
   const currentValue =
     visual === "summary"
       ? "Everything changes"
       : visual === "baseTime"
       ? baseReaction
       : isBase
-        ? baseAltitude
-        : skydivingAltitude;
-  const summaryLabel = "Everything changes";
+      ? baseAltitude
+      : skydivingAltitude;
+  const displayedValue = mobileOverview ? baseReaction : currentValue;
+  const summaryLabel = "In summary:";
   const fallbackProgressByVisual: Record<HeightStepContent["visual"], number> = {
     skydivingAltitude: 0.12,
     skydivingMargin: 0.34,
@@ -830,34 +847,51 @@ function HeightVisual({
     summary: 0.92,
   };
   const progress = compact ? fallbackProgressByVisual[visual] : scrollProgress;
-  const movingTop = `${16 + progress * 64}%`;
+  const baseTimeMotionProgress = Math.min(Math.max((progress - 0.82) / 0.18, 0), 1);
+  const jumperTop =
+    mobileOverview
+      ? 36
+      : visual === "baseTime" && !compact
+      ? 68.5 + baseTimeMotionProgress * 17.5
+      : 16 + progress * 64;
+  const movingTop = `${jumperTop}%`;
   const summaryProgress = compact ? 1 : Math.min(Math.max(activeStepProgress, 0), 1);
   const buildingOpacity = isBase || progress > 0.56 ? "opacity-100" : "opacity-55";
 
   return (
-    <figure className="h-[34rem] border border-border bg-surface p-5">
+    <figure className="h-[30rem] min-w-0 border border-border bg-surface p-4 sm:h-[34rem] sm:p-5">
       <figcaption className="h-5 text-sm font-semibold uppercase tracking-wide text-foreground/62">
-        {visual === "summary" ? summaryLabel : currentLabel}
+        {visual === "summary" ? summaryLabel : displayedLabel}
       </figcaption>
       <p
         className={
-          isBase
+          visual === "summary"
+            ? "mt-4 h-32 max-w-full text-3xl font-semibold leading-tight text-foreground"
+            : visual === "baseTime"
+            ? "mt-4 h-32 max-w-full text-3xl font-semibold leading-tight text-primary"
+            : isBase
             ? "mt-4 h-32 whitespace-nowrap text-2xl font-semibold leading-none text-primary sm:text-3xl xl:text-4xl"
             : "mt-4 h-32 whitespace-nowrap text-2xl font-semibold leading-none text-foreground sm:text-3xl xl:text-4xl"
         }
       >
-        {currentValue}
+        {displayedValue}
       </p>
-      <div className="mt-3 grid h-72 grid-cols-[4.75rem_minmax(0,1fr)] gap-4">
+      <div className="mt-3 grid h-64 grid-cols-[4.25rem_minmax(0,1fr)] gap-3 sm:h-72 sm:grid-cols-[4.75rem_minmax(0,1fr)] sm:gap-4">
         <div
           className="relative border-r border-border pr-3 text-right"
           aria-hidden="true"
         >
           <p className="absolute right-3 top-0 text-xs font-semibold leading-tight text-foreground/72">
-            {skydivingAltitude}
+            4,000 m
           </p>
-          <p className="absolute bottom-16 right-3 text-xs font-semibold leading-tight text-primary">
-            {baseAltitude}
+          <p className="absolute bottom-16 right-3 text-xs font-semibold leading-tight text-foreground/72">
+            1,000 m
+          </p>
+          <p className="absolute bottom-5 right-3 text-xs font-semibold leading-tight text-primary">
+            50 m
+          </p>
+          <p className="absolute bottom-0 right-3 text-xs font-semibold leading-tight text-foreground/72">
+            0 m
           </p>
         </div>
         <div className="relative h-full min-w-0" aria-hidden="true">
@@ -867,7 +901,7 @@ function HeightVisual({
             width={64}
             height={64}
             className={
-              isSkydiving
+              isSkydiving || mobileOverview
                 ? "absolute left-1 top-0 h-12 w-12 object-contain opacity-100 transition-opacity duration-300 motion-reduce:transition-none"
                 : "absolute left-1 top-0 h-12 w-12 object-contain opacity-38 transition-opacity duration-300 motion-reduce:transition-none"
             }
@@ -886,17 +920,33 @@ function HeightVisual({
               width={48}
               height={48}
               className="absolute right-8 h-12 w-12 -translate-y-1/2 object-contain motion-reduce:transition-none"
-              style={{ top: `${84 + summaryProgress * 8}%` }}
+              style={{ top: `${86 + summaryProgress * 6}%` }}
             />
           ) : (
-            <Image
-              src="/images/sport/difference/jumper.png"
-              alt=""
-              width={48}
-              height={48}
-              className="absolute right-8 h-10 w-10 -translate-y-1/2 object-contain motion-reduce:transition-none"
-              style={{ top: movingTop }}
-            />
+            <>
+              {mobileOverview ? (
+                <Image
+                  src="/images/sport/difference/canopy.png"
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="absolute right-20 h-12 w-12 -translate-y-1/2 object-contain"
+                  style={{ top: "78%" }}
+                />
+              ) : null}
+              <Image
+                src="/images/sport/difference/jumper.png"
+                alt=""
+                width={48}
+                height={48}
+                className={
+                  mobileOverview
+                    ? "absolute left-20 h-10 w-10 -translate-y-1/2 object-contain"
+                    : "absolute right-8 h-10 w-10 -translate-y-1/2 object-contain motion-reduce:transition-none"
+                }
+                style={{ top: movingTop }}
+              />
+            </>
           )}
         </div>
       </div>
@@ -920,7 +970,34 @@ function ComparisonTable({
   return (
     <section aria-label={title}>
       <h3 className="text-xl font-semibold text-foreground">{title}</h3>
-      <div className="mt-4 overflow-x-auto border border-border">
+      <div className="mt-4 grid gap-3 sm:hidden">
+        {rows.map((row) => (
+          <article key={row.label} className="border border-border bg-background/28 p-3">
+            <h4 className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
+              {row.label}
+            </h4>
+            <dl className="mt-3 grid gap-3">
+              <div>
+                <dt className="text-xs font-semibold text-foreground/62">
+                  {skydivingLabel}
+                </dt>
+                <dd className="mt-1 text-base leading-6 text-foreground/76">
+                  {row.skydiving}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-semibold text-primary">
+                  {baseLabel}
+                </dt>
+                <dd className="mt-1 text-base font-semibold leading-6 text-primary">
+                  {row.base}
+                </dd>
+              </div>
+            </dl>
+          </article>
+        ))}
+      </div>
+      <div className="mt-4 hidden overflow-x-auto border border-border sm:block">
         <table className="min-w-[640px] border-collapse bg-surface text-left">
           <thead>
             <tr className="border-b border-border">

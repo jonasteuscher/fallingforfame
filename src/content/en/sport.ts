@@ -261,7 +261,7 @@ export const sport = {
       steps: [
         {
           title: "Skydiving altitude",
-          body: "You leave an aircraft at around 3,000-4,000 metres. That altitude creates a long vertical window for body position, awareness and parachute deployment.",
+          body: "You leave an aircraft at around 3,000-4,000 metres. That altitude creates a long vertical window for body position, awareness and parachute deployment. A skydiver usually opens their parachute at around 1,000 metres.",
           value: "3,000-4,000 m",
           label: "Skydiving",
           visual: "skydivingAltitude",
