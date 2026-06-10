@@ -7,8 +7,8 @@ type AudioPlayerProps = {
 
 export function AudioPlayer({ audio }: AudioPlayerProps) {
   return (
-    <figure className="border border-border bg-surface p-4">
-      <audio controls preload="none" className="w-full" src={audio?.src}>
+    <figure className="min-w-0 border border-border bg-surface p-3 sm:p-4">
+      <audio controls preload="none" className="w-full max-w-full" src={audio?.src}>
         Your browser does not support the audio element.
       </audio>
       <MediaCaption caption={audio?.caption ?? audio?.title} credit={audio?.credit} />

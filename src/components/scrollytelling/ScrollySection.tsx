@@ -19,12 +19,12 @@ export function ScrollySection({
     <section
       id={id}
       className={cn(
-        "relative flex scroll-mt-20 flex-col justify-center px-4 py-20 sm:px-6 lg:px-10",
-        fullHeight && "min-h-screen",
+        "relative flex scroll-mt-20 flex-col justify-center px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20",
+        fullHeight && "min-h-[calc(100dvh-4rem)] md:min-h-screen",
         className,
       )}
     >
-      <div className="mx-auto w-full max-w-7xl">{children}</div>
+      <div className="mx-auto w-full min-w-0 max-w-7xl">{children}</div>
     </section>
   );
 }

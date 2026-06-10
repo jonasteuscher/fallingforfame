@@ -11,6 +11,7 @@ const unknownExperience: AthleteExperience = {
 
 export const athletes: Athlete[] = [
   {
+    id: "marcel-geser",
     slug: "marcel-geser",
     name: "Marcel Geser",
     age: null,
@@ -34,6 +35,7 @@ export const athletes: Athlete[] = [
     },
   },
   {
+    id: "niclas-strohmeier",
     slug: "niclas-strohmeier",
     name: "Niclas Strohmeier",
     age: null,
@@ -57,6 +59,7 @@ export const athletes: Athlete[] = [
     },
   },
   {
+    id: "lukas-loibl",
     slug: "lukas-loibl",
     name: "Lukas Loibl",
     age: null,
@@ -81,6 +84,7 @@ export const athletes: Athlete[] = [
     },
   },
   {
+    id: "josef-braun",
     slug: "josef-braun",
     name: "Josef Braun",
     age: null,
@@ -106,6 +110,7 @@ export const athletes: Athlete[] = [
     },
   },
   {
+    id: "tim-howell",
     slug: "tim-howell",
     name: "Tim Howell",
     age: null,

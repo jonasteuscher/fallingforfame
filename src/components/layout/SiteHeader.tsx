@@ -2,36 +2,45 @@ import Image from "next/image";
 import Link from "next/link";
 
 import brandMark from "@/app/icon.png";
-import { locales, type Locale } from "@/i18n/config";
+import { type Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
+import { SiteNavigation } from "@/components/layout/SiteNavigation";
 
 type SiteHeaderProps = {
   locale: Locale;
   navigation: {
     home: string;
     athletes: string;
-    about: string;
     findings: string;
+    sport: string;
+    project: string;
+    menu: string;
+    language: string;
+    openMenu: string;
+    closeMenu: string;
+    openMenuShort: string;
+    closeMenuShort: string;
   };
 };
 
 export function SiteHeader({ locale, navigation }: SiteHeaderProps) {
   const links = [
     { href: localizedPath(locale), label: navigation.home },
+    { href: localizedPath(locale, "/sport"), label: navigation.sport },
     { href: localizedPath(locale, "/athletes"), label: navigation.athletes },
-    { href: localizedPath(locale, "/about"), label: navigation.about },
+    { href: localizedPath(locale, "/project"), label: navigation.project },
     { href: localizedPath(locale, "/findings"), label: navigation.findings },
   ];
 
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6"
+        className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6"
         aria-label="Primary navigation"
       >
         <Link
           href={localizedPath(locale)}
-          className="inline-flex items-center gap-2 font-semibold uppercase"
+          className="inline-flex min-w-0 items-center gap-2 font-semibold uppercase focus-visible:rounded-sm"
         >
           <Image
             src={brandMark}
@@ -41,31 +50,9 @@ export function SiteHeader({ locale, navigation }: SiteHeaderProps) {
             className="h-8 w-8 object-contain"
             priority
           />
-          Falling for Fame
+          <span className="truncate">Falling for Fame?</span>
         </Link>
-        <div className="flex items-center gap-3 text-sm">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="hidden rounded-sm px-2 py-1 text-foreground/80 transition hover:text-foreground focus-visible:text-foreground sm:inline-flex"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div className="flex gap-1 border-l border-border pl-3">
-            {locales.map((nextLocale) => (
-              <Link
-                key={nextLocale}
-                href={localizedPath(nextLocale)}
-                aria-current={nextLocale === locale ? "page" : undefined}
-                className="rounded-sm px-2 py-1 uppercase text-foreground/70 aria-[current=page]:bg-surface aria-[current=page]:text-foreground"
-              >
-                {nextLocale}
-              </Link>
-            ))}
-          </div>
-        </div>
+        <SiteNavigation locale={locale} links={links} labels={navigation} />
       </nav>
     </header>
   );

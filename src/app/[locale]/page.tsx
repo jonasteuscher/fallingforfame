@@ -20,7 +20,7 @@ type HomePageProps = {
 };
 
 export const metadata: Metadata = {
-  title: "Falling for Fame",
+  title: "Falling for Fame?",
 };
 
 export default async function HomePage({ params }: HomePageProps) {
@@ -45,11 +45,11 @@ export default async function HomePage({ params }: HomePageProps) {
           media={<ImageBlock image={dictionary.chapters[0].image} priority />}
         >
           {dictionary.chapters.map((chapter) => (
-            <article key={chapter.id} className="min-h-[60vh]">
+            <article key={chapter.id} className="min-h-0 py-4 md:min-h-[60vh] md:py-0">
               <p className="text-sm font-semibold uppercase tracking-wide text-primary">
                 {chapter.kicker}
               </p>
-              <h2 className="mt-3 text-4xl font-semibold leading-tight text-foreground">
+              <h2 className="mt-3 text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
                 {chapter.title}
               </h2>
               <p className="mt-5 leading-8 text-foreground/76">{chapter.body}</p>
