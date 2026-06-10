@@ -251,6 +251,48 @@ export const sport = {
     baseAltitude: "50-1'000 m",
     skydivingReaction: "Mehr Zeit zum Reagieren",
     baseReaction: "Sehr begrenzte Zeit",
+    scrolly: {
+      eyebrow: "Skydiving vs BASE",
+      headline: "Unterschied zwischen Skydiving und BASE Jumping",
+      intro:
+        "Skydiving und BASE Jumping unterscheiden sich nicht nur durch die Absprungplattform. Sie unterscheiden sich in Höhe, verfügbarer Reaktionszeit, Ausrüstung und Entscheidungsdruck.",
+      summaryTitle: "Vergleich im Überblick",
+      metricLabel: "Kategorie",
+      steps: [
+        {
+          title: "Höhe beim Skydiving",
+          body: "Beim Fallschirmspringen verlässt man ein Flugzeug meist auf rund 3'000-4'000 Metern. Diese Höhe schafft ein längeres Zeitfenster für Körperposition, Orientierung und Schirmöffnung.",
+          value: "3'000-4'000 m",
+          label: "Skydiving",
+          visual: "skydivingAltitude",
+        },
+        {
+          title: "Mehr verfügbare Reserve",
+          body: "Es gibt mehr Höhe, mehr Zeit und normalerweise einen Hauptschirm sowie einen Reserveschirm. Skydiving-Systeme enthalten zudem häufig ein AAD, einen Öffnungsautomaten, der unter bestimmten Notfallbedingungen die Reserve auslösen kann.",
+          highlights: ["Mehr Zeit zum Reagieren", "Haupt- und Reserveschirm", "AAD als Backup-System"],
+          visual: "skydivingMargin",
+        },
+        {
+          title: "Höhe beim BASE Jumping",
+          body: "Beim BASE Jumping liegt der Absprungpunkt oft nur wenige hundert Meter über dem Boden. Gelände, Objekt und Landezone sind vom Absprung an sehr nah.",
+          value: "50-1'000 m",
+          label: "BASE Jumping",
+          visual: "baseAltitude",
+        },
+        {
+          title: "Entscheidungsdruck",
+          body: "Das bedeutet: sehr wenig Reaktionszeit. Entscheidungen zu Wetter, Ausrüstung, Absprungtechnik und Landeplanung müssen vor dem Sprung getroffen werden.",
+          value: "Sehr wenig Reaktionszeit",
+          microcopy: "Ein Fehler hat deutlich weniger Raum, um sicher korrigiert zu werden.",
+          visual: "baseTime",
+        },
+        {
+          title: "Alles verändert sich",
+          body: "Das verändert alles: Ausrüstung, Entscheidungen, Landemöglichkeiten und Sicherheitskultur. Die folgende Tabelle fasst die praktischen Unterschiede hinter diesem Druck zusammen.",
+          visual: "summary",
+        },
+      ],
+    },
     rows: [
       { label: "Absprungplattform", skydiving: "Flugzeug", base: "Festes Objekt" },
       { label: "Typische Höhe", skydiving: "3'000-4'000 m", base: "50-1'000 m" },

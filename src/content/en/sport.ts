@@ -251,6 +251,48 @@ export const sport = {
     baseAltitude: "50-1,000 m",
     skydivingReaction: "More time to react",
     baseReaction: "Very limited time",
+    scrolly: {
+      eyebrow: "Skydiving vs BASE",
+      headline: "Difference Between Skydiving and BASE Jumping",
+      intro:
+        "Skydiving and BASE jumping are not only different because of the exit platform. They differ in altitude, available reaction time, equipment setup and decision pressure.",
+      summaryTitle: "Comparison summary",
+      metricLabel: "Metric",
+      steps: [
+        {
+          title: "Skydiving altitude",
+          body: "You leave an aircraft at around 3,000-4,000 metres. That altitude creates a long vertical window for body position, awareness and parachute deployment.",
+          value: "3,000-4,000 m",
+          label: "Skydiving",
+          visual: "skydivingAltitude",
+        },
+        {
+          title: "More available margin",
+          body: "There is more altitude, more time and usually a main canopy plus a reserve. Skydiving rigs also commonly include an AAD, an automatic activation device, which can initiate reserve deployment in specific emergency conditions.",
+          highlights: ["More time to react", "Main + reserve canopy", "AAD backup system"],
+          visual: "skydivingMargin",
+        },
+        {
+          title: "BASE altitude",
+          body: "In BASE jumping, the exit point can be only a few hundred metres above the ground. Terrain, objects and landing areas are close from the moment of exit.",
+          value: "50-1,000 m",
+          label: "BASE Jumping",
+          visual: "baseAltitude",
+        },
+        {
+          title: "Decision pressure",
+          body: "That means very limited reaction time. Choices about weather, equipment, exit technique and landing plan must be made before the jump begins.",
+          value: "Very limited time",
+          microcopy: "A mistake has less space to unfold safely.",
+          visual: "baseTime",
+        },
+        {
+          title: "Everything changes",
+          body: "This changes everything: equipment, decisions, landing options and safety culture. The table below summarises the practical differences behind that pressure.",
+          visual: "summary",
+        },
+      ],
+    },
     rows: [
       { label: "Exit platform", skydiving: "Aircraft", base: "Fixed object" },
       { label: "Typical altitude", skydiving: "3,000-4,000 m", base: "50-1,000 m" },

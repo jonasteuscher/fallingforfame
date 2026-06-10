@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import type { sport as sportContent } from "@/content/en/sport";
@@ -584,63 +585,368 @@ function SkydivingVsBase({
   content: SportContent["comparison"];
   title?: string;
 }) {
+  return <HeightComparisonScrolly content={content} title={title} />;
+}
+
+function HeightComparisonScrolly({
+  content,
+  title,
+}: {
+  content: SportContent["comparison"];
+  title?: string;
+}) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const stepRefs = useRef<Array<HTMLElement | null>>([]);
+  const [activeStep, setActiveStep] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeStepProgress, setActiveStepProgress] = useState(0);
+  const activeVisual = content.scrolly.steps[activeStep]?.visual ?? "skydivingAltitude";
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    let frame = 0;
+
+    const updateProgress = () => {
+      const rect = section.getBoundingClientRect();
+      const scrollableDistance = Math.max(rect.height - window.innerHeight, 1);
+      const nextProgress = Math.min(
+        Math.max((window.innerHeight * 0.28 - rect.top) / scrollableDistance, 0),
+        1,
+      );
+
+      setScrollProgress(nextProgress);
+
+      const nextActiveStep =
+        nextProgress < 0.33 ? 0 : nextProgress < 0.66 ? 1 : nextProgress < 0.82 ? 2 : nextProgress < 0.999999999999999999 ? 3 : 4;
+      setActiveStep((current) => (current === nextActiveStep ? current : nextActiveStep));
+
+      const activeElement = stepRefs.current[activeStep];
+
+      if (activeElement) {
+        const activeRect = activeElement.getBoundingClientRect();
+        const nextActiveStepProgress = Math.min(
+          Math.max((window.innerHeight * 0.7 - activeRect.top) / Math.max(activeRect.height, 1), 0),
+          1,
+        );
+
+        setActiveStepProgress(nextActiveStepProgress);
+      }
+    };
+
+    const requestUpdate = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
+  }, [activeStep]);
+
   return (
     <section
+      ref={sectionRef}
       aria-labelledby="comparison-title"
       className="px-4 py-16 sm:px-6 lg:px-10"
     >
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.65fr_1fr] lg:items-center">
-        <div>
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.42fr_1fr] lg:items-start">
+        <aside className="lg:sticky lg:top-24 lg:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-            {content.title}
+            {content.scrolly.eyebrow}
           </p>
           <h2
             id="comparison-title"
             className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
           >
-            {title ?? content.title}
+            {title ?? content.scrolly.headline}
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-8 text-foreground/72">
-            {content.intro}
+            {content.scrolly.intro}
+          </p>
+        </aside>
+        <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+          <div className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
+            <HeightVisual
+              visual={activeVisual}
+              skydivingLabel={content.skydivingLabel}
+              baseLabel={content.baseLabel}
+              skydivingAltitude={content.skydivingAltitude}
+              baseAltitude={content.baseAltitude}
+              baseReaction={content.baseReaction}
+              scrollProgress={scrollProgress}
+              activeStepProgress={activeStepProgress}
+            />
+          </div>
+          <ol className="grid gap-5">
+            {content.scrolly.steps.map((step, index) => (
+              <HeightStep
+                key={step.title}
+                stepRef={(element) => {
+                  stepRefs.current[index] = element;
+                }}
+                step={step}
+                index={index}
+                active={index === activeStep}
+                table={
+                  step.visual === "summary" ? (
+                    <ComparisonTable
+                      rows={content.rows}
+                      skydivingLabel={content.skydivingLabel}
+                      baseLabel={content.baseLabel}
+                      title={content.scrolly.summaryTitle}
+                      metricLabel={content.scrolly.metricLabel}
+                    />
+                  ) : undefined
+                }
+                visual={
+                  <HeightVisual
+                    visual={step.visual}
+                    skydivingLabel={content.skydivingLabel}
+                    baseLabel={content.baseLabel}
+                    skydivingAltitude={content.skydivingAltitude}
+                    baseAltitude={content.baseAltitude}
+                    baseReaction={content.baseReaction}
+                    compact
+                  />
+                }
+              />
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type HeightStepContent = SportContent["comparison"]["scrolly"]["steps"][number];
+
+const HeightStep = function HeightStep({
+  step,
+  index,
+  active,
+  table,
+  visual,
+  stepRef,
+}: {
+  step: HeightStepContent;
+  index: number;
+  active: boolean;
+  table?: ReactNode;
+  visual: ReactNode;
+  stepRef: (element: HTMLElement | null) => void;
+}) {
+  return (
+    <li className="list-none">
+      <article
+        ref={stepRef}
+        data-step-index={index}
+        tabIndex={0}
+        className={
+          active
+            ? "min-h-[40svh] scroll-mt-24 border-2 border-primary bg-surface p-4 outline-none transition-colors motion-reduce:transition-none lg:min-h-[44svh]"
+            : "min-h-[40svh] scroll-mt-24 border-2 border-border bg-surface p-4 outline-none transition-colors focus:border-primary lg:min-h-[44svh]"
+        }
+      >
+        <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+          {String(index + 1).padStart(2, "0")}
+        </p>
+        <h3 className="mt-3 text-xl font-semibold leading-tight text-foreground">
+          {step.title}
+        </h3>
+        <p className="mt-3 text-base leading-7 text-foreground/76">{step.body}</p>
+        {step.highlights ? (
+          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+            {step.highlights.map((highlight) => (
+              <li
+                key={highlight}
+                className="border border-border bg-background/35 p-4 text-base font-semibold text-foreground"
+              >
+                {highlight}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        {step.microcopy ? (
+          <p className="mt-3 border-l-2 border-primary pl-4 text-sm leading-6 text-foreground/68">
+            {step.microcopy}
+          </p>
+        ) : null}
+        <div className="mt-5 lg:hidden">{visual}</div>
+        {table ? <div className="mt-6">{table}</div> : null}
+      </article>
+    </li>
+  );
+};
+
+function HeightVisual({
+  visual,
+  skydivingLabel,
+  baseLabel,
+  skydivingAltitude,
+  baseAltitude,
+  baseReaction,
+  scrollProgress = 0,
+  activeStepProgress = 0,
+  compact = false,
+}: {
+  visual: HeightStepContent["visual"];
+  skydivingLabel: string;
+  baseLabel: string;
+  skydivingAltitude: string;
+  baseAltitude: string;
+  baseReaction: string;
+  scrollProgress?: number;
+  activeStepProgress?: number;
+  compact?: boolean;
+}) {
+  const isBase = visual === "baseAltitude" || visual === "baseTime";
+  const isSkydiving = visual === "skydivingAltitude" || visual === "skydivingMargin";
+  const currentLabel = isBase ? baseLabel : skydivingLabel;
+  const currentValue =
+    visual === "summary"
+      ? "Everything changes"
+      : visual === "baseTime"
+      ? baseReaction
+      : isBase
+        ? baseAltitude
+        : skydivingAltitude;
+  const summaryLabel = "Everything changes";
+  const fallbackProgressByVisual: Record<HeightStepContent["visual"], number> = {
+    skydivingAltitude: 0.12,
+    skydivingMargin: 0.34,
+    baseAltitude: 0.68,
+    baseTime: 0.86,
+    summary: 0.92,
+  };
+  const progress = compact ? fallbackProgressByVisual[visual] : scrollProgress;
+  const movingTop = `${16 + progress * 64}%`;
+  const summaryProgress = compact ? 1 : Math.min(Math.max(activeStepProgress, 0), 1);
+  const buildingOpacity = isBase || progress > 0.56 ? "opacity-100" : "opacity-55";
+
+  return (
+    <figure className="h-[34rem] border border-border bg-surface p-5">
+      <figcaption className="h-5 text-sm font-semibold uppercase tracking-wide text-foreground/62">
+        {visual === "summary" ? summaryLabel : currentLabel}
+      </figcaption>
+      <p
+        className={
+          isBase
+            ? "mt-4 h-32 whitespace-nowrap text-2xl font-semibold leading-none text-primary sm:text-3xl xl:text-4xl"
+            : "mt-4 h-32 whitespace-nowrap text-2xl font-semibold leading-none text-foreground sm:text-3xl xl:text-4xl"
+        }
+      >
+        {currentValue}
+      </p>
+      <div className="mt-3 grid h-72 grid-cols-[4.75rem_minmax(0,1fr)] gap-4">
+        <div
+          className="relative border-r border-border pr-3 text-right"
+          aria-hidden="true"
+        >
+          <p className="absolute right-3 top-0 text-xs font-semibold leading-tight text-foreground/72">
+            {skydivingAltitude}
+          </p>
+          <p className="absolute bottom-16 right-3 text-xs font-semibold leading-tight text-primary">
+            {baseAltitude}
           </p>
         </div>
-        <div className="grid gap-5">
-          <div className="grid min-h-96 grid-cols-2 gap-4">
-            <AltitudeColumn
-              label={content.skydivingLabel}
-              value={content.skydivingAltitude}
-              tall
+        <div className="relative h-full min-w-0" aria-hidden="true">
+          <Image
+            src="/images/sport/difference/plane.png"
+            alt=""
+            width={64}
+            height={64}
+            className={
+              isSkydiving
+                ? "absolute left-1 top-0 h-12 w-12 object-contain opacity-100 transition-opacity duration-300 motion-reduce:transition-none"
+                : "absolute left-1 top-0 h-12 w-12 object-contain opacity-38 transition-opacity duration-300 motion-reduce:transition-none"
+            }
+          />
+          <Image
+            src="/images/sport/difference/building.png"
+            alt=""
+            width={72}
+            height={72}
+            className={`absolute bottom-0 left-0 h-20 w-20 object-contain ${buildingOpacity} transition-opacity duration-300 motion-reduce:transition-none`}
+          />
+          {visual === "summary" ? (
+            <Image
+              src="/images/sport/difference/canopy.png"
+              alt=""
+              width={48}
+              height={48}
+              className="absolute right-8 h-12 w-12 -translate-y-1/2 object-contain motion-reduce:transition-none"
+              style={{ top: `${84 + summaryProgress * 8}%` }}
             />
-            <AltitudeColumn label={content.baseLabel} value={content.baseAltitude} />
-          </div>
-          <div className="grid gap-3 md:grid-cols-2">
-            <MetricCard
-              label={content.altitudeLabel}
-              values={[content.skydivingAltitude, content.baseAltitude]}
+          ) : (
+            <Image
+              src="/images/sport/difference/jumper.png"
+              alt=""
+              width={48}
+              height={48}
+              className="absolute right-8 h-10 w-10 -translate-y-1/2 object-contain motion-reduce:transition-none"
+              style={{ top: movingTop }}
             />
-            <MetricCard
-              label={content.reactionLabel}
-              values={[content.skydivingReaction, content.baseReaction]}
-              accentSecond
-            />
-          </div>
-          <dl className="grid gap-2">
-            {content.rows.map((row) => (
-              <div
-                key={row.label}
-                className="grid gap-0 overflow-hidden border border-border bg-surface md:grid-cols-[180px_1fr_1fr]"
-              >
-                <dt className="bg-background/40 p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
-                  {row.label}
-                </dt>
-                <dd className="p-3 text-foreground/78">{row.skydiving}</dd>
-                <dd className="border-t border-border p-3 font-medium text-primary md:border-l md:border-t-0">
-                  {row.base}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          )}
         </div>
+      </div>
+    </figure>
+  );
+}
+
+function ComparisonTable({
+  rows,
+  skydivingLabel,
+  baseLabel,
+  title,
+  metricLabel,
+}: {
+  rows: SportContent["comparison"]["rows"];
+  skydivingLabel: string;
+  baseLabel: string;
+  title: string;
+  metricLabel: string;
+}) {
+  return (
+    <section aria-label={title}>
+      <h3 className="text-xl font-semibold text-foreground">{title}</h3>
+      <div className="mt-4 overflow-x-auto border border-border">
+        <table className="min-w-[640px] border-collapse bg-surface text-left">
+          <thead>
+            <tr className="border-b border-border">
+              <th scope="col" className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
+                {metricLabel}
+              </th>
+              <th scope="col" className="p-3 text-sm font-semibold text-foreground">
+                {skydivingLabel}
+              </th>
+              <th scope="col" className="p-3 text-sm font-semibold text-primary">
+                {baseLabel}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr key={row.label} className="border-b border-border last:border-b-0">
+                <th scope="row" className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
+                  {row.label}
+                </th>
+                <td className="p-3 text-foreground/76">{row.skydiving}</td>
+                <td className="p-3 font-semibold text-primary">{row.base}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </section>
   );
@@ -941,72 +1247,6 @@ function SourcesSection({
         </div>
       </div>
     </section>
-  );
-}
-
-function AltitudeColumn({
-  label,
-  value,
-  tall = false,
-}: {
-  label: string;
-  value: string;
-  tall?: boolean;
-}) {
-  return (
-    <div className="flex flex-col justify-end border border-border bg-surface p-4">
-      <div
-        className={
-          tall
-            ? "h-full border-l-2 border-foreground/40"
-            : "h-1/4 border-l-2 border-primary"
-        }
-      />
-      <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-foreground/62">
-        {label}
-      </p>
-      <p
-        className={
-          tall
-            ? "mt-2 text-2xl font-semibold text-foreground"
-            : "mt-2 text-2xl font-semibold text-primary"
-        }
-      >
-        {value}
-      </p>
-    </div>
-  );
-}
-
-function MetricCard({
-  label,
-  values,
-  accentSecond = false,
-}: {
-  label: string;
-  values: string[];
-  accentSecond?: boolean;
-}) {
-  return (
-    <div className="border border-border bg-surface p-4">
-      <p className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
-        {label}
-      </p>
-      <div className="mt-4 grid gap-2">
-        {values.map((value, index) => (
-          <p
-            key={value}
-            className={
-              accentSecond && index === 1
-                ? "text-lg font-semibold text-primary"
-                : "text-lg text-foreground/82"
-            }
-          >
-            {value}
-          </p>
-        ))}
-      </div>
-    </div>
   );
 }
 
