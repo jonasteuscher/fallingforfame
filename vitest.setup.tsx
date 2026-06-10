@@ -40,13 +40,11 @@ vi.mock("next/image", () => ({
     void priority;
     void sizes;
 
-    return (
-    React.createElement("img", {
+    return React.createElement("img", {
       src: typeof src === "string" ? src : src.src,
       alt: alt ?? "",
       ...imgProps,
-    })
-    );
+    });
   },
 }));
 
@@ -57,7 +55,17 @@ vi.mock("next/navigation", () => ({
   },
 }));
 
+Object.defineProperty(window, "scrollTo", {
+  value: vi.fn(),
+  writable: true,
+});
+
 afterEach(() => {
   cleanup();
+  document.documentElement.style.overflow = "";
   document.body.style.overflow = "";
+  document.body.style.paddingRight = "";
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.width = "";
 });

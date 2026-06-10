@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import type { sport as sportContent } from "@/content/en/sport";
+import { SportSafetyDisclaimerModal } from "@/components/sport/SportSafetyDisclaimerModal";
 
 type SportContent = typeof sportContent;
 
@@ -42,6 +43,7 @@ export function SportPage({ content }: SportPageProps) {
 
   return (
     <article className="bg-background text-foreground">
+      <SportSafetyDisclaimerModal content={content.safetyDisclaimer} />
       <SportHero content={content} />
       <SportIntro content={content.intro} />
       <BaseAcronymStory content={content.acronym} />

@@ -426,6 +426,18 @@ export const sport = {
       { then: "Limited visibility", now: "Global audiences and sponsor attention" },
     ],
   },
+  safetyDisclaimer: {
+    warningLabel: "WARNING",
+    headline: "BASE jumping is an extremely dangerous activity",
+    projectTitle: "Falling for Fame - Mythos oder Realität im modernen Basejumping",
+    paragraphs: [
+      "This documentary examines BASE jumping, social media, sponsorship, visibility, risk culture and safety practices within the sport. BASE jumping is widely regarded as one of the world's most dangerous activities. The athletes featured here operate in environments where altitude, weather, terrain and timing leave very little margin for error.",
+      "Participation in this sport is not casual. Experienced jumpers often spend years building skydiving experience, receiving mentorship, studying equipment, learning site assessment and developing risk-management skills before attempting BASE jumps. Even with preparation, modern equipment and deep experience, serious injury or death can occur.",
+      "Falling for Fame is intended to document and inform. It does not promote BASE jumping, teach technique or encourage viewers to participate. Images, stories and observations in this project should not be imitated. Viewers are encouraged to approach the subject critically, respect the athletes' commitment and make informed decisions about risk, media visibility and personal responsibility.",
+      "No person shown on this page, featured in the project or involved in its production accepts responsibility for actions taken by viewers after engaging with this material.",
+    ],
+    confirmLabel: "I Understand",
+  },
   sources: {
     title: "Sources & Further Reading",
     paragraphs: [
