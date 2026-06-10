@@ -290,12 +290,12 @@ export const sport = {
         description: "Standardmässiger Schutz in nahezu allen Bereichen des Sports.",
       },
       {
-        name: "Protektoren",
-        description: "Je nach Gelände und Landeumgebung im Einsatz.",
+        name: "Optional: Tracking Suit oder Wingsuit",
+        description: "Für längere Freifallphasen und horizontale Bewegung.",
       },
       {
-        name: "Tracking Suit oder Wingsuit",
-        description: "Für längere Freifallphasen und horizontale Bewegung.",
+        name: "Optional: Protektoren",
+        description: "Je nach Gelände und Landeumgebung im Einsatz.",
       },
     ],
   },

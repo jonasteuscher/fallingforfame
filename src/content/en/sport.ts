@@ -284,12 +284,12 @@ export const sport = {
       { name: "Pilot chute", description: "Extracts the canopy from the container." },
       { name: "Helmet", description: "Standard protection across the sport." },
       {
-        name: "Body protection",
-        description: "Used depending on terrain and landing conditions.",
+        name: "Optional: Tracking suit or wingsuit",
+        description: "Used for extended freefall and horizontal movement.",
       },
       {
-        name: "Tracking suit or wingsuit",
-        description: "Used for extended freefall and horizontal movement.",
+        name: "Optional: Body protection",
+        description: "Used depending on terrain and landing conditions.",
       },
     ],
   },

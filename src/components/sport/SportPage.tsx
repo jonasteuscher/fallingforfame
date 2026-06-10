@@ -653,6 +653,16 @@ function EquipmentExplainer({
   content: SportContent["equipmentVisual"];
   title?: string;
 }) {
+  const defaultEquipmentImage = "/images/sport/equipment/default.jpg";
+  const equipmentImages = [
+    "/images/sport/equipment/canopy-1.jpg",
+    "/images/sport/equipment/container-1.jpg",
+    "/images/sport/equipment/pilotchute-1.jpg",
+    "/images/sport/equipment/helmet-1.jpg",
+    "/images/sport/equipment/wingsuit-1.jpg",
+  ];
+  const [activeImage, setActiveImage] = useState(defaultEquipmentImage);
+
   return (
     <section aria-labelledby="equipment-title" className="px-4 py-16 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-7xl">
@@ -669,25 +679,41 @@ function EquipmentExplainer({
           <p className="mt-5 text-lg leading-8 text-foreground/72">{content.intro}</p>
         </div>
         <div className="mt-10 grid gap-8 lg:grid-cols-[0.8fr_1fr] lg:items-start">
-          <div className="sticky top-28 hidden h-[70svh] overflow-hidden bg-surface-muted lg:block">
-            <div className="absolute inset-8 border border-primary/60" />
-            <div className="absolute left-1/2 top-10 h-20 w-20 -translate-x-1/2 rounded-full border border-border bg-background/80" />
-            <div className="absolute left-1/2 top-36 h-52 w-36 -translate-x-1/2 border border-border bg-background/70" />
-            <div className="absolute bottom-16 left-1/2 h-36 w-64 -translate-x-1/2 border border-primary/60 bg-primary/10" />
-          </div>
-          <ol className="grid gap-4">
+          <figure className="sticky top-28 hidden h-[70svh] overflow-hidden border-4 border-[#FE6B00] bg-surface-muted lg:block">
+            <Image
+              key={activeImage}
+              src={activeImage}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 42vw, 100vw"
+              className="object-cover"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_14%,transparent)_0%,color-mix(in_srgb,var(--background)_24%,transparent)_100%)]"
+            />
+          </figure>
+          <ol className="grid gap-4 lg:h-[70svh] lg:grid-rows-6 lg:gap-3">
             {content.items.map((item, index) => (
               <li
                 key={item.name}
-                className="min-h-44 border border-border bg-surface p-5"
+                className="min-h-32 border-4 border-border bg-surface p-4 transition-colors hover:border-[#FE6B00] focus-within:border-[#FE6B00] lg:min-h-0 lg:p-3"
+                onMouseEnter={() =>
+                  setActiveImage(equipmentImages[index] ?? defaultEquipmentImage)
+                }
+                onMouseLeave={() => setActiveImage(defaultEquipmentImage)}
+                onFocus={() =>
+                  setActiveImage(equipmentImages[index] ?? defaultEquipmentImage)
+                }
+                onBlur={() => setActiveImage(defaultEquipmentImage)}
               >
                 <p className="text-sm font-semibold uppercase tracking-wide text-primary">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <h3 className="mt-5 text-3xl font-semibold text-foreground">
+                <h3 className="mt-4 text-3xl font-semibold text-foreground lg:mt-2 lg:text-2xl">
                   {item.name}
                 </h3>
-                <p className="mt-4 max-w-xl text-base leading-7 text-foreground/72">
+                <p className="mt-3 max-w-xl text-base leading-7 text-foreground/72 lg:mt-2 lg:text-sm lg:leading-5">
                   {item.description}
                 </p>
               </li>
