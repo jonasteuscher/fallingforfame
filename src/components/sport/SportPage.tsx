@@ -12,6 +12,18 @@ type SportPageProps = {
   content: SportContent;
 };
 
+const disciplineImages = [
+  "/images/sport/disciplines/Slick.jpg",
+  "/images/sport/disciplines/Tracking.jpg",
+  "/images/sport/disciplines/Wingsuit-2.jpg",
+  "/images/sport/disciplines/Gainer.jpg",
+  "/images/sport/disciplines/Urban.jpg",
+  "/images/sport/disciplines/Low.jpg",
+  "/images/sport/disciplines/Multiway.jpg",
+  "/images/sport/disciplines/Skibase.png",
+  "/images/sport/disciplines/Tandem.webp",
+] as const;
+
 export function SportPage({ content }: SportPageProps) {
   const sectionById = new Map(content.sections.map((section) => [section.id, section]));
   const history = sectionById.get("history") ?? sectionById.get("geschichte");
@@ -1216,35 +1228,49 @@ function DisciplinesGallery({
       className="px-4 pt-24 pb-28 sm:px-6 lg:px-10"
     >
       <div className="mx-auto max-w-7xl">
-        <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-          {content.title}
-        </p>
-        <h2
-          id="disciplines-title"
-          className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
-        >
-          {title ?? content.title}
-        </h2>
-        <div className="mt-10 flex snap-x gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch]">
-          {content.items.map((item, index) => (
-            <article
-              key={item.title}
-              className="min-w-[82vw] snap-center overflow-hidden border border-border bg-surface sm:min-w-[420px]"
+        <div>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+              {content.title}
+            </p>
+            <h2
+              id="disciplines-title"
+              className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
             >
-              <VisualPlaceholder index={index} compact />
-              <div className="p-5">
-                <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-5 text-3xl font-semibold leading-tight text-foreground">
-                  {item.title}
-                </h3>
-                <p className="mt-4 text-base leading-7 text-foreground/72">
-                  {item.description}
-                </p>
-              </div>
-            </article>
-          ))}
+              {title ?? content.title}
+            </h2>
+          </div>
+        </div>
+        <div className="mt-10 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch] md:overflow-visible md:pb-0">
+          <div className="flex snap-x gap-4 md:grid md:snap-none md:grid-cols-2 lg:grid-cols-3">
+            {content.items.map((item, index) => (
+              <article
+                key={item.title}
+                className="min-w-[82vw] snap-center overflow-hidden border border-border bg-surface sm:min-w-[420px] md:min-w-0 md:snap-align-none"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-surface-muted">
+                  <Image
+                    src={disciplineImages[index % disciplineImages.length]}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-5 text-3xl font-semibold leading-tight text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 text-base leading-7 text-foreground/72">
+                    {item.description}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -1362,30 +1388,6 @@ function TransformationColumn({
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-function VisualPlaceholder({
-  index,
-  compact = false,
-}: {
-  index: number;
-  compact?: boolean;
-}) {
-  return (
-    <div
-      aria-hidden="true"
-      className={
-        compact
-          ? "aspect-[4/3] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--primary)_18%,transparent),color-mix(in_srgb,var(--surface-muted)_82%,transparent))]"
-          : "min-h-80 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--primary)_16%,transparent),color-mix(in_srgb,var(--surface-muted)_84%,transparent))] p-5"
-      }
-    >
-      <div
-        className="h-full border border-primary/45"
-        style={{ opacity: 0.55 + (index % 3) * 0.12 }}
-      />
     </div>
   );
 }
