@@ -269,7 +269,11 @@ export const sport = {
         {
           title: "Mehr verfügbare Reserve",
           body: "Es gibt mehr Höhe, mehr Zeit und normalerweise einen Hauptschirm sowie einen Reserveschirm. Skydiving-Systeme enthalten zudem häufig ein AAD, einen Öffnungsautomaten, der unter bestimmten Notfallbedingungen die Reserve auslösen kann.",
-          highlights: ["Mehr Zeit zum Reagieren", "Haupt- und Reserveschirm", "AAD als Backup-System"],
+          highlights: [
+            "Mehr Zeit zum Reagieren",
+            "Haupt- und Reserveschirm",
+            "AAD als Backup-System",
+          ],
           visual: "skydivingMargin",
         },
         {
@@ -283,7 +287,8 @@ export const sport = {
           title: "Entscheidungsdruck",
           body: "Das bedeutet: sehr wenig Reaktionszeit. Entscheidungen zu Wetter, Ausrüstung, Absprungtechnik und Landeplanung müssen vor dem Sprung getroffen werden.",
           value: "Sehr wenig Reaktionszeit",
-          microcopy: "Ein Fehler hat deutlich weniger Raum, um sicher korrigiert zu werden.",
+          microcopy:
+            "Ein Fehler hat deutlich weniger Raum, um sicher korrigiert zu werden.",
           visual: "baseTime",
         },
         {
@@ -350,10 +355,10 @@ export const sport = {
       },
     ],
   },
-  safetyPyramid: {
-    title: "Sicherheitspyramide",
-    message: "Ausrüstung ist wichtig. Entscheidungsfähigkeit ist entscheidend.",
-    levels: ["Ausrüstung", "Training", "Erfahrung", "Urteilsvermögen"],
+  safetyHierarchy: {
+    title: "Sicherheitshierarchie",
+    finalStatement: "Ausrüstung ist wichtig. Entscheidungsfähigkeit ist entscheidend.",
+    levels: ["Ausrüstung", "Training", "Erfahrung", "Entscheidungsfähigkeit"],
   },
   ethicsNetwork: {
     title: "Geteilte Verantwortung",

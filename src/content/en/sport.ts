@@ -269,7 +269,11 @@ export const sport = {
         {
           title: "More available margin",
           body: "There is more altitude, more time and usually a main canopy plus a reserve. Skydiving rigs also commonly include an AAD, an automatic activation device, which can initiate reserve deployment in specific emergency conditions.",
-          highlights: ["More time to react", "Main + reserve canopy", "AAD backup system"],
+          highlights: [
+            "More time to react",
+            "Main + reserve canopy",
+            "AAD backup system",
+          ],
           visual: "skydivingMargin",
         },
         {
@@ -350,9 +354,9 @@ export const sport = {
       },
     ],
   },
-  safetyPyramid: {
-    title: "Safety pyramid",
-    message: "Equipment is important. Decision making is critical.",
+  safetyHierarchy: {
+    title: "Safety Hierarchy",
+    finalStatement: "Equipment is important. Decision making is critical.",
     levels: ["Equipment", "Training", "Experience", "Judgement"],
   },
   ethicsNetwork: {

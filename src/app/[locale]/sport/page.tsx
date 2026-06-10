@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: SportPageProps): Promise<Meta
   const dictionary = getDictionary(locale);
 
   return {
-    title: `${dictionary.site.sport.title} | Falling for Fame?`,
+    title: dictionary.site.sport.title,
     description: dictionary.site.sport.body,
   };
 }

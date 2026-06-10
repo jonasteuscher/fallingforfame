@@ -13,8 +13,9 @@ describe("project page", () => {
   it("renders localized English project content", async () => {
     await renderAsyncPage(ProjectPage({ params: Promise.resolve({ locale: "en" }) }));
 
-    expect(screen.getByRole("heading", { name: "The Project", level: 1 }))
-      .toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "The Project", level: 1 }),
+    ).toBeVisible();
     expect(screen.getByText("The documentary")).toBeVisible();
     expect(screen.getByText("Photo elicitation")).toBeVisible();
     expect(screen.getByText("Credits")).toBeVisible();
@@ -23,8 +24,9 @@ describe("project page", () => {
   it("renders localized German project content", async () => {
     await renderAsyncPage(ProjectPage({ params: Promise.resolve({ locale: "de" }) }));
 
-    expect(screen.getByRole("heading", { name: "Das Projekt", level: 1 }))
-      .toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Das Projekt", level: 1 }),
+    ).toBeVisible();
     expect(screen.getByText("Die Dokumentation")).toBeVisible();
     expect(screen.getByText("Photo Elicitation")).toBeVisible();
     expect(screen.getByText("Credits")).toBeVisible();
@@ -48,14 +50,16 @@ describe("sport page", () => {
   it("renders localized English sport content", async () => {
     await renderAsyncPage(SportPage({ params: Promise.resolve({ locale: "en" }) }));
 
-    expect(screen.getByRole("heading", { name: "About the Sport", level: 1 }))
-      .toBeVisible();
-    expect(screen.getByRole("heading", { name: "What is BASE Jumping?" }))
-      .toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "About the Sport", level: 1 }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "What is BASE Jumping?" }),
+    ).toBeVisible();
     expect(screen.getByText("What BASE stands for")).toBeVisible();
     expect(screen.getAllByText("Historical timeline")[0]).toBeVisible();
     expect(screen.getByText("Skydiving vs BASE")).toBeVisible();
-    expect(screen.getByText("Safety pyramid")).toBeVisible();
+    expect(screen.getByText("Safety Hierarchy")).toBeVisible();
     expect(screen.getByText("Disciplines gallery")).toBeVisible();
     expect(screen.getByText("Then vs Now")).toBeVisible();
     expect(screen.getByText("Sources & Further Reading")).toBeVisible();
@@ -64,14 +68,16 @@ describe("sport page", () => {
   it("renders localized German sport content", async () => {
     await renderAsyncPage(SportPage({ params: Promise.resolve({ locale: "de" }) }));
 
-    expect(screen.getByRole("heading", { name: "Über den Sport", level: 1 }))
-      .toBeVisible();
-    expect(screen.getByRole("heading", { name: "Was ist BASE Jumping?" }))
-      .toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Über den Sport", level: 1 }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Was ist BASE Jumping?" }),
+    ).toBeVisible();
     expect(screen.getByText("Wofür BASE steht")).toBeVisible();
     expect(screen.getAllByText("Historische Entwicklung")[0]).toBeVisible();
     expect(screen.getByText("Skydiving vs BASE")).toBeVisible();
-    expect(screen.getByText("Sicherheitspyramide")).toBeVisible();
+    expect(screen.getByText("Sicherheitshierarchie")).toBeVisible();
     expect(screen.getByText("Disziplinen Galerie")).toBeVisible();
     expect(screen.getByText("Damals und Heute")).toBeVisible();
     expect(screen.getByText("Moderne Entwicklungen")).toBeVisible();
@@ -82,12 +88,12 @@ describe("sport page", () => {
     await expect(
       generateSportMetadata({ params: Promise.resolve({ locale: "en" }) }),
     ).resolves.toMatchObject({
-      title: "About the Sport | Falling for Fame?",
+      title: "About the Sport",
     });
     await expect(
       generateSportMetadata({ params: Promise.resolve({ locale: "de" }) }),
     ).resolves.toMatchObject({
-      title: "Über den Sport | Falling for Fame?",
+      title: "Über den Sport",
     });
   });
 });

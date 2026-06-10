@@ -49,7 +49,7 @@ export function SportPage({ content }: SportPageProps) {
       <SkydivingVsBase content={content.comparison} title={comparison?.title} />
       <EquipmentExplainer content={content.equipmentVisual} title={equipment?.title} />
       <DisciplinesGallery content={content.disciplines} title={disciplines?.title} />
-      <SafetyPhilosophy content={content.safetyPyramid} title={safety?.title} />
+      <SafetyHierarchy content={content.safetyHierarchy} title={safety?.title} />
       <CommunityNetwork content={content.ethicsNetwork} title={community?.title} />
       <ThenVsNow content={content.thenVsNow} title={modern?.title} />
       <SourcesSection content={content.sources} disclaimer={content.disclaimer} />
@@ -522,10 +522,7 @@ function HistoryImage({
         sizes="(min-width: 1024px) 38vw, 100vw"
         priority={priority}
       />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 border-2 border-[#FE6B00]"
-      />
+      <div aria-hidden="true" className="absolute inset-0 border-2 border-[#FE6B00]" />
     </figure>
   );
 }
@@ -648,14 +645,18 @@ function HeightComparisonScrolly({
               : summaryIsAtReadingPosition
                 ? 4
                 : 3;
-      setActiveStep((current) => (current === nextActiveStep ? current : nextActiveStep));
+      setActiveStep((current) =>
+        current === nextActiveStep ? current : nextActiveStep,
+      );
 
       const activeElement = stepRefs.current[nextActiveStep];
 
       if (activeElement) {
         const activeRect = activeElement.getBoundingClientRect();
-        const progressStart = nextActiveStep === 4 ? window.innerHeight * 0.4 : window.innerHeight * 0.7;
-        const progressDistance = nextActiveStep === 4 ? activeRect.height * 0.75 : activeRect.height;
+        const progressStart =
+          nextActiveStep === 4 ? window.innerHeight * 0.4 : window.innerHeight * 0.7;
+        const progressDistance =
+          nextActiveStep === 4 ? activeRect.height * 0.75 : activeRect.height;
         const nextActiveStepProgress = Math.min(
           Math.max((progressStart - activeRect.top) / Math.max(progressDistance, 1), 0),
           1,
@@ -790,7 +791,9 @@ const HeightStep = function HeightStep({
         <h3 className="mt-3 max-w-full break-words text-xl font-semibold leading-tight text-foreground [overflow-wrap:anywhere]">
           {step.title}
         </h3>
-        <p className="mt-3 max-w-full break-words text-base leading-7 text-foreground/76 [overflow-wrap:anywhere]">{step.body}</p>
+        <p className="mt-3 max-w-full break-words text-base leading-7 text-foreground/76 [overflow-wrap:anywhere]">
+          {step.body}
+        </p>
         {step.highlights ? (
           <ul className="mt-5 grid gap-3 sm:grid-cols-2">
             {step.highlights.map((highlight) => (
@@ -845,10 +848,10 @@ function HeightVisual({
     visual === "summary"
       ? "Everything changes"
       : visual === "baseTime"
-      ? baseReaction
-      : isBase
-      ? baseAltitude
-      : skydivingAltitude;
+        ? baseReaction
+        : isBase
+          ? baseAltitude
+          : skydivingAltitude;
   const displayedValue = mobileOverview ? baseReaction : currentValue;
   const summaryLabel = "In summary:";
   const fallbackProgressByVisual: Record<HeightStepContent["visual"], number> = {
@@ -860,10 +863,9 @@ function HeightVisual({
   };
   const progress = compact ? fallbackProgressByVisual[visual] : scrollProgress;
   const baseTimeMotionProgress = Math.min(Math.max((progress - 0.82) / 0.18, 0), 1);
-  const jumperTop =
-    mobileOverview
-      ? 36
-      : visual === "baseTime" && !compact
+  const jumperTop = mobileOverview
+    ? 36
+    : visual === "baseTime" && !compact
       ? 68.5 + baseTimeMotionProgress * 17.5
       : 16 + progress * 64;
   const movingTop = `${jumperTop}%`;
@@ -880,10 +882,10 @@ function HeightVisual({
           visual === "summary"
             ? "mt-4 h-32 max-w-full text-3xl font-semibold leading-tight text-foreground"
             : visual === "baseTime"
-            ? "mt-4 h-32 max-w-full text-3xl font-semibold leading-tight text-primary"
-            : isBase
-            ? "mt-4 h-32 whitespace-nowrap text-2xl font-semibold leading-none text-primary sm:text-3xl xl:text-4xl"
-            : "mt-4 h-32 whitespace-nowrap text-2xl font-semibold leading-none text-foreground sm:text-3xl xl:text-4xl"
+              ? "mt-4 h-32 max-w-full text-3xl font-semibold leading-tight text-primary"
+              : isBase
+                ? "mt-4 h-32 whitespace-nowrap text-2xl font-semibold leading-none text-primary sm:text-3xl xl:text-4xl"
+                : "mt-4 h-32 whitespace-nowrap text-2xl font-semibold leading-none text-foreground sm:text-3xl xl:text-4xl"
         }
       >
         {displayedValue}
@@ -984,7 +986,10 @@ function ComparisonTable({
       <h3 className="text-xl font-semibold text-foreground">{title}</h3>
       <div className="mt-4 grid gap-3 sm:hidden">
         {rows.map((row) => (
-          <article key={row.label} className="border border-border bg-background/28 p-3">
+          <article
+            key={row.label}
+            className="border border-border bg-background/28 p-3"
+          >
             <h4 className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
               {row.label}
             </h4>
@@ -998,9 +1003,7 @@ function ComparisonTable({
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold text-primary">
-                  {baseLabel}
-                </dt>
+                <dt className="text-xs font-semibold text-primary">{baseLabel}</dt>
                 <dd className="mt-1 text-base font-semibold leading-6 text-primary">
                   {row.base}
                 </dd>
@@ -1013,7 +1016,10 @@ function ComparisonTable({
         <table className="min-w-[640px] border-collapse bg-surface text-left">
           <thead>
             <tr className="border-b border-border">
-              <th scope="col" className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
+              <th
+                scope="col"
+                className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62"
+              >
                 {metricLabel}
               </th>
               <th scope="col" className="p-3 text-sm font-semibold text-foreground">
@@ -1027,7 +1033,10 @@ function ComparisonTable({
           <tbody>
             {rows.map((row) => (
               <tr key={row.label} className="border-b border-border last:border-b-0">
-                <th scope="row" className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
+                <th
+                  scope="row"
+                  className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62"
+                >
                   {row.label}
                 </th>
                 <td className="p-3 text-foreground/76">{row.skydiving}</td>
@@ -1129,20 +1138,52 @@ function EquipmentExplainer({
   );
 }
 
-function SafetyPhilosophy({
+function SafetyHierarchy({
   content,
   title,
 }: {
-  content: SportContent["safetyPyramid"];
+  content: SportContent["safetyHierarchy"];
   title?: string;
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [sectionEntered, setSectionEntered] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
+      const frame = window.requestAnimationFrame(() => setSectionEntered(true));
+
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSectionEntered(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.28 },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       aria-labelledby="safety-title"
-      className="px-4 pt-16 pb-32 sm:px-6 lg:px-10"
+      className="bg-[#06172b] px-4 py-24 sm:px-6 lg:px-10 lg:py-36"
     >
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.7fr_1fr] lg:items-center">
-        <div>
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.72fr_1fr] lg:items-center">
+        <div className="order-1 lg:col-start-1 lg:row-start-1">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.title}
           </p>
@@ -1152,21 +1193,60 @@ function SafetyPhilosophy({
           >
             {title ?? content.title}
           </h2>
-          <p className="mt-8 max-w-xl whitespace-pre-line text-3xl font-semibold leading-tight text-primary sm:text-5xl">
-            {content.message}
-          </p>
         </div>
-        <ol className="flex flex-col-reverse gap-3">
+        <ol className="order-2 flex flex-col-reverse gap-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
           {content.levels.map((level, index) => (
             <li
               key={level}
-              className="mx-auto border border-border bg-surface px-5 py-5 text-center text-xl font-semibold text-foreground sm:text-2xl"
-              style={{ width: `${100 - index * 12}%` }}
+              className={
+                sectionEntered
+                  ? "opacity-100 transition duration-700 motion-reduce:transition-none"
+                  : "translate-y-8 opacity-0 transition duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
+              }
+              style={{ transitionDelay: sectionEntered ? `${index * 140}ms` : "0ms" }}
             >
-              {level}
+              {index < content.levels.length - 1 ? (
+                <div
+                  aria-hidden="true"
+                  className="mx-auto flex h-10 flex-col items-center justify-center text-primary/80"
+                >
+                  <span className="text-xl leading-none">↑</span>
+                  <span className="-mt-1 h-6 w-px bg-primary/55" />
+                </div>
+              ) : null}
+              <div
+                className={
+                  index === content.levels.length - 1
+                    ? "grid min-h-28 grid-cols-[auto_1fr] items-center gap-5 border border-primary bg-primary px-5 py-6 text-background shadow-[0_0_42px_color-mix(in_srgb,var(--primary)_24%,transparent)] sm:px-7"
+                    : "grid min-h-28 grid-cols-[auto_1fr] items-center gap-5 border border-border bg-surface/72 px-5 py-6 text-foreground sm:px-7"
+                }
+              >
+                <span
+                  className={
+                    index === content.levels.length - 1
+                      ? "font-mono text-sm font-semibold text-background/72"
+                      : "font-mono text-sm font-semibold text-primary"
+                  }
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="text-3xl font-semibold leading-none tracking-normal sm:text-5xl lg:text-6xl">
+                  {level}
+                </span>
+              </div>
             </li>
           ))}
         </ol>
+        <p
+          className={
+            sectionEntered
+              ? "order-3 max-w-xl text-3xl font-semibold leading-tight text-primary opacity-100 transition duration-700 motion-reduce:transition-none sm:text-5xl lg:col-start-1 lg:row-start-2"
+              : "order-3 max-w-xl translate-y-4 text-3xl font-semibold leading-tight text-primary opacity-0 transition duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none sm:text-5xl lg:col-start-1 lg:row-start-2"
+          }
+          style={{ transitionDelay: sectionEntered ? "560ms" : "0ms" }}
+        >
+          {content.finalStatement}
+        </p>
       </div>
     </section>
   );
