@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 
-import { Expandable } from "@/components/ui/Expandable";
-import {
-  ChapterIntro,
-  InteractiveTimeline,
-  ScrollySection,
-} from "@/components/scrollytelling";
+import { ProjectChapterIndicator } from "@/components/project/ProjectChapterIndicator";
+import { ProjectPage as ProjectPageContent } from "@/components/project/ProjectPage";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
 
@@ -35,25 +31,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <>
-      <ScrollySection>
-        <ChapterIntro
-          kicker="Research design"
-          title={dictionary.site.project.title}
-          body={dictionary.site.project.body}
-        />
-      </ScrollySection>
-      <ScrollySection fullHeight={false}>
-        <div className="mx-auto grid max-w-3xl gap-3">
-          {dictionary.site.project.sections.map((section) => (
-            <Expandable key={section.title} title={section.title}>
-              {section.body}
-            </Expandable>
-          ))}
-        </div>
-      </ScrollySection>
-      <ScrollySection fullHeight={false}>
-        <InteractiveTimeline items={dictionary.timeline} />
-      </ScrollySection>
+      <ProjectChapterIndicator chapters={dictionary.site.project.chapterIndicator} />
+      <ProjectPageContent content={dictionary.site.project} />
     </>
   );
 }
