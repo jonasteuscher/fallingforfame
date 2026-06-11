@@ -16,9 +16,10 @@ describe("project page", () => {
     expect(
       screen.getByRole("heading", { name: "The Project", level: 1 }),
     ).toBeVisible();
-    expect(screen.getByText("The documentary")).toBeVisible();
-    expect(screen.getByText("Photo elicitation")).toBeVisible();
-    expect(screen.getByText("Credits")).toBeVisible();
+    expect(screen.getByRole("heading", { name: "The Documentary" })).toBeVisible();
+    expect(screen.getByText("Why this documentary?")).toBeVisible();
+    expect(screen.getByText("Photo Elicitation")).toBeVisible();
+    expect(screen.getByText("Behind the scenes")).toBeVisible();
   });
 
   it("renders localized German project content", async () => {
@@ -27,9 +28,10 @@ describe("project page", () => {
     expect(
       screen.getByRole("heading", { name: "Das Projekt", level: 1 }),
     ).toBeVisible();
-    expect(screen.getByText("Die Dokumentation")).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Die Dokumentation" })).toBeVisible();
+    expect(screen.getByText("Warum diese Dokumentation?")).toBeVisible();
     expect(screen.getByText("Photo Elicitation")).toBeVisible();
-    expect(screen.getByText("Credits")).toBeVisible();
+    expect(screen.getByText("Hinter den Kulissen")).toBeVisible();
   });
 
   it("generates localized metadata", async () => {
