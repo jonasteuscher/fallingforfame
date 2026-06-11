@@ -1,92 +1,57 @@
-import type { TimelineItem } from "@/types/story";
-
 export const project = {
   title: "Das Projekt",
-  body: "Dieses Bachelorarbeitsprojekt verbindet akademische Forschung, Feldbeobachtungen, Interviews und multimediale Dokumentation zu einer zweisprachigen Longform-Webdokumentation.",
-  heroKicker: "Dokumentarischer Ansatz",
+  body: "Falling for Fame ist zugleich interaktive Dokumentation und Forschungsprojekt: eine visuelle Auseinandersetzung mit BASE Jumping, Social Media, Sponsoring, Sichtbarkeit und Risikokultur.",
+  heroKicker: "Produktionsjournal",
+  scrollCta: "Weiter in die Geschichte",
   chapterIndicator: [
-    { id: "project-documentation", label: "Dokumentation" },
-    { id: "project-process", label: "Prozess" },
+    { id: "the-documentary", label: "Dokumentation" },
+    { id: "behind-the-scenes", label: "Behind the Scenes" },
+    { id: "the-research", label: "Forschung" },
+    { id: "research-journey", label: "Rechercheweg" },
+    { id: "project-goals", label: "Ziele" },
+    { id: "bachelor-thesis", label: "Bachelorarbeit" },
+    { id: "credits", label: "Credits" },
   ],
+  documentary: {
+    label: "Die Dokumentation",
+    title: "Ein Forschungsprojekt erzählt mit Bildern, Stimmen und Feldnotizen.",
+    paragraphs: [
+      "Falling for Fame entstand als Bachelorarbeit, doch das Thema verlangte nach mehr als wissenschaftlichem Text. BASE Jumping ist visuell, körperlich und situativ. Die Umgebungen, Entscheidungen und sozialen Dynamiken hinter dem Sport lassen sich durch Zahlen allein kaum verstehen.",
+      "Die interaktive Dokumentation übersetzt den Forschungsprozess in eine multimediale Erfahrung. Sie verbindet Interviews, Feldbeobachtungen, Fotografie, Video und redaktionelles Storytelling, damit Besuchende selbst zwischen Kontext, Menschen und Produktionsmomenten wechseln können.",
+      "Das Projekt trennt Forschung und Storytelling nicht voneinander. Die Forschung gibt der Dokumentation Struktur und Verantwortung. Die Dokumentation gibt der Forschung Atmosphäre, Zugang und eine öffentliche Form.",
+    ],
+    statements: [
+      "Aus einer Bachelorarbeit wurde ein Feldjournal.",
+      "Aus einer Forschungsfrage wurde eine dokumentarische Route.",
+      "Aus einer riskanten Sportart wurde eine Geschichte über Sichtbarkeit, Verantwortung und Kontext.",
+    ],
+    cards: [
+      {
+        label: "Warum dokumentarisch?",
+        title: "Weil das Thema an Orten gelebt wird, die die meisten Betrachtenden nie sehen.",
+        body: "Bilder, Ton und Rhythmus können Atmosphäre, Vorbereitung und Unsicherheit vermitteln, die eine schriftliche Arbeit nur beschreiben kann.",
+      },
+      {
+        label: "Warum interaktiv?",
+        title: "Weil eine einzelne lineare Geschichte dem Thema nicht gerecht wird.",
+        body: "Das Format ermöglicht es, das Projekt über dokumentarische Szenen, Forschungsrahmen und Produktionsspuren zu erkunden.",
+      },
+      {
+        label: "Warum Forschung?",
+        title: "Weil visuelle Intensität Kontext braucht.",
+        body: "Die wissenschaftliche Grundlage hält den Fokus auf Social Media, Sponsoring, Sichtbarkeit, Risikowahrnehmung und Sicherheitskultur.",
+      },
+    ],
+  },
   documentation: {
-    label: "Dokumentation",
-    title: "Die Dokumentation",
-    introEyebrow: "Mehr als ein Forschungsprojekt",
-    introBody:
-      "Falling for Fame entstand als Bachelorarbeit, doch die Fragen dahinter brauchten Bilder, Stimmen, Beobachtungen und interaktives Storytelling.",
-    scrollIndicator: "Weiter scrollen",
-    heroImage: {
-      src: "/images/project/hero.JPG",
-      alt: "Kameraaufbau in einem verschneiten Bergtal während der dokumentarischen Feldarbeit.",
-      caption: "Dreh- und Beobachtungsort während der Produktion.",
-    },
-    why: {
-      title: "Warum diese Dokumentation?",
-      excerpt:
-        "Text allein konnte die Umgebungen, Entscheidungen und Emotionen hinter dem Sport nicht vollständig vermitteln.",
-      paragraphs: [
-        "Falling for Fame entstand ursprünglich als Bachelorarbeit über den Einfluss von Social Media und Sponsoring auf Risikowahrnehmung und Sicherheitskultur im modernen BASE Jumping. Während der Recherche wurde jedoch deutlich, dass das Projekt über eine klassische wissenschaftliche Publikation hinausgehen musste.",
-        "BASE Jumping ist visuell geprägt und erfahrungsbasiert. Entscheidungen, Emotionen und soziale Dynamiken entstehen in Situationen und Umgebungen, die für die meisten Menschen unsichtbar bleiben.",
-        "Durch die Verbindung von wissenschaftlicher Forschung, Fotografie, Video, Interviews, Beobachtungen und interaktivem Storytelling soll ein umfassenderes Verständnis für die Menschen hinter dem Sport und die Realität ihrer Entscheidungen entstehen.",
-      ],
-      image: {
-        src: "/images/project/hero.JPG",
-        alt: "",
-      },
-    },
-    people: {
-      quote:
-        "Obwohl BASE Jumping den Ausgangspunkt bildet, steht im Zentrum dieser Dokumentation der Mensch.",
-      body: "Die Geschichten beleuchten den Umgang mit Risiko, Sichtbarkeit, Verantwortung, Gemeinschaft und persönlichen Zielen in einer zunehmend digitalisierten Welt.",
-      image: {
-        src: "/images/sport/hero1.jpg",
-        alt: "",
-      },
-    },
-    approach: {
-      title: "Dokumentarischer Ansatz",
-      intro:
-        "Das Projekt verbindet mehrere Formen der Dokumentation zu einer vielschichtigen Perspektive.",
-      items: [
-        "Interviews",
-        "Beobachtungen",
-        "Fotografie",
-        "Video",
-        "Forschung",
-        "Photo Elicitation",
-      ],
-    },
-    interactive: {
-      title: "Warum interaktiv?",
-      paragraphs: [
-        "Eine interaktive Dokumentation ermöglicht es Besuchenden, sich eigenständig durch Geschichten, Bilder, Interviews und Forschungserkenntnisse zu bewegen.",
-        "Anstatt eine einzige Sichtweise vorzugeben, lädt das Projekt dazu ein, unterschiedliche Perspektiven zu entdecken und kritisch zu reflektieren.",
-        "Jede gezeigte Person, jeder Ort und jede Erfahrung repräsentiert nur einen kleinen Ausschnitt einer vielfältigen und internationalen Community.",
-      ],
-      examples: [
-        {
-          label: "Story-Ebene",
-          title: "Athletenportraits",
-          body: "Individuelle Geschichten schaffen Kontext zu Motivation, Druck, Können und persönlichen Entscheidungen.",
-        },
-        {
-          label: "Forschungsebene",
-          title: "Erkenntnisse im Kontext",
-          body: "Wissenschaftliche Fragen werden in zugängliche Momente übersetzt und mit Bildern und Interviews verbunden.",
-        },
-        {
-          label: "Bildebene",
-          title: "Feldokumentation",
-          body: "Fotografie, Video und Beobachtungsnotizen zeigen den Produktionsprozess als Teil der Geschichte.",
-        },
-      ],
-    },
     gallery: {
       title: "Hinter den Kulissen",
       intro:
-        "Ein Einblick in Planung, Reisen, Gespräche, Feldarbeit und jene Momente, die ausserhalb des Kamerabilds stattfinden.",
+        "Ein Einblick in Planung, Reisen, Gespräche, Feldarbeit und jene Momente, die hinter den fertigen Dokumentarszenen stehen.",
       countLabel: "Bilder",
       closeLabel: "Bild schliessen",
+      previousLabel: "Vorheriges Bild",
+      nextLabel: "Nächstes Bild",
       images: [
         {
           src: "/images/project/bts/me.jpg",
@@ -150,67 +115,119 @@ export const project = {
         },
       ],
     },
-    closing: {
-      lines: [
-        "Jeder Sprung erzählt eine Geschichte.",
-        "Jede Geschichte hat einen Kontext.",
-      ],
-    },
   },
-  sections: [
-    {
-      title: "Die Dokumentation",
-      body: "Platzhalterinhalt für das dokumentarische Konzept, die Erzählstruktur und den multimedialen Ansatz von 'Falling for Fame?'.",
-    },
-    {
-      title: "Forschungshintergrund",
-      body: "Platzhalterinhalt für den akademischen Kontext, die Literaturrecherche und die leitenden Forschungsfragen.",
-    },
-    {
-      title: "Bachelorarbeitskontext",
-      body: "Platzhalterinhalt für den Rahmen der Thesis, den Produktionsumfang und die Verbindung von Forschung und Gestaltung.",
-    },
-    {
-      title: "Methodik",
-      body: "Platzhalterinhalt für qualitative Methoden, Scrollytelling-Entscheidungen und Dokumentationsstrategie.",
-    },
-    {
-      title: "Interviews",
-      body: "Platzhalterinhalt für Athleteninterviews, Expertengespräche und redaktionelle Auswahl.",
-    },
-    {
-      title: "Beobachtungen",
-      body: "Platzhalterinhalt für Feldbeobachtungen, Notizen an Sprungtagen und kontextuelle Dokumentation.",
-    },
-    {
-      title: "Photo Elicitation",
-      body: "Platzhalterinhalt dazu, wie Bilder als Gesprächsimpulse in Interviews und Reflexionen eingesetzt werden.",
-    },
-    {
-      title: "Projektziele",
-      body: "Platzhalterinhalt für Kommunikationsziele, Bedürfnisse des Publikums und erwartete Lernergebnisse.",
-    },
-    {
-      title: "Credits",
-      body: "Platzhalterinhalt für Mitwirkende, Interviewpartner, Fotografie, Video, Audio und fachliche Betreuung.",
-    },
-  ],
+  research: {
+    label: "Die Forschung",
+    title: "Warum BASE Jumping über Medien, Sponsoring und Sichtbarkeit untersuchen?",
+    intro:
+      "BASE Jumping findet heute in einem digitalen Umfeld statt, das sich grundlegend von früheren Jahrzehnten unterscheidet. Athlet:innen können ihre Erlebnisse innerhalb von Sekunden dokumentieren, veröffentlichen und weltweit verbreiten.",
+    questionLabel: "Forschungsfrage",
+    question:
+      "In welcher Form thematisieren soziale Medien und Sponsoring die Risikobereitschaft und Sicherheitskultur in der BASE Jumping Community und wie werden diese von den Athlet:innen beurteilt?",
+    context: [
+      {
+        title: "BASE Jumping",
+        body: "Der Sport macht Entscheidungsprozesse, Risiko, Vorbereitung und informelle Regeln besonders sichtbar.",
+      },
+      {
+        title: "Social Media",
+        body: "Plattformen tragen spektakuläre Momente weit über die Community hinaus, oft schneller als der Kontext dahinter.",
+      },
+      {
+        title: "Sponsoring",
+        body: "Sichtbarkeit kann zu sozialem und ökonomischem Wert werden. Dadurch entstehen Fragen nach Erwartung, Darstellung und Druck.",
+      },
+      {
+        title: "Forschungslücke",
+        body: "Bestehende Arbeiten betrachten Risiko, Medien oder Extremsport häufig getrennt. Dieses Projekt verbindet sie über die Perspektiven der Athlet:innen.",
+      },
+    ],
+    objective:
+      "Die Forschung untersucht, wie Sichtbarkeit, Anerkennung und Sponsoring-Strukturen mit Risikowahrnehmung, Sicherheitskultur und persönlichen Entscheidungen im modernen BASE Jumping zusammenhängen.",
+  },
+  thesis: {
+    label: "Wissenschaftliche Grundlage",
+    title: "Bachelorarbeit",
+    description:
+      "Diese interaktive Dokumentation basiert auf einer Bachelorarbeit an der Fachhochschule Graubünden (FHGR).\n\nInteressierte können die vollständige Arbeit herunterladen, um vertiefte Einblicke in Theorie, Methodik und wissenschaftliche Analyse zu erhalten.",
+    button: "PDF herunterladen",
+    fileName: "Falling for Fame - Bachelorarbeit",
+    pdfLabel: "PDF",
+    fileType: "PDF-Dokument",
+    fileMeta: "Die vollständige PDF-Datei wird später ergänzt.",
+  },
+  journey: {
+    label: "Rechercheweg",
+    title: "Von der ersten Idee zur Dokumentation.",
+    intro:
+      "Das Projekt folgte einem qualitativen Forschungsweg, geprägt von Zugang, Feldarbeit, Interviews und visuellem Material. Jeder Schritt half dabei, eine wissenschaftliche Frage in eine dokumentarische Erfahrung zu übersetzen.",
+    steps: [
+      {
+        title: "Idee",
+        body: "Ausgangspunkt war das Interesse daran, wie Extremsport, mediale Sichtbarkeit und Verantwortung zusammenhängen.",
+      },
+      {
+        title: "Forschungsfrage",
+        body: "Der Fokus verdichtete sich auf Social Media, Sponsoring, Risikowahrnehmung und Sicherheitskultur im BASE Jumping.",
+      },
+      {
+        title: "Literaturrecherche",
+        body: "Forschung zu Extremsport, Risiko, Entscheidungsprozessen, medialer Sichtbarkeit und Sponsoring bildete den Rahmen.",
+      },
+      {
+        title: "Feldzugang",
+        body: "Der Zugang entstand über bestehende Sportnetzwerke, direkte Kontaktaufnahme und Vertrauen innerhalb einer kleinen Community.",
+      },
+      {
+        title: "Interviews",
+        body: "Leitfadengestützte Gespräche schufen Raum für Erfahrungen, Wahrnehmungen und unterschiedliche Perspektiven.",
+      },
+      {
+        title: "Teilnehmende Beobachtung",
+        body: "Beobachtungen im Feld halfen, Routinen, Atmosphären, Gruppendynamiken und Produktionsbedingungen rund um reale Sprungumgebungen zu erfassen.",
+      },
+      {
+        title: "Photo Elicitation",
+        body: "Ausgewählte Bilder und Social-Media-Inhalte dienten als Gesprächsimpulse für vertiefte Reflexion über Darstellung, Bedeutung und Sichtbarkeit.",
+      },
+      {
+        title: "Analyse",
+        body: "Das gesammelte Material wurde codiert und mit einer qualitativen thematischen Analyse verglichen.",
+      },
+      {
+        title: "Dokumentation",
+        body: "Die Forschung wurde in ein interaktives Format übersetzt, das Prozess, Kontext und Storytelling zugänglich macht.",
+      },
+    ],
+  },
+  goals: {
+    label: "Projektziele",
+    title: "Was das Projekt erreichen möchte.",
+    statements: [
+      "Wissenschaftliche Forschung über den Hochschulkontext hinaus zugänglich machen.",
+      "Verständnis für eine komplexe Community schaffen, ohne sie zu verherrlichen oder zu verurteilen.",
+      "Unterschiedliche Perspektiven zeigen, statt den Sport auf Spektakel zu reduzieren.",
+      "Zur Reflexion über Sichtbarkeit, Verantwortung und Geschichten hinter Bildern anregen.",
+      "Dokumentarisches Storytelling und akademische Forschung für ein öffentliches Publikum verbinden.",
+    ],
+    closing: "Verständnis beginnt mit Kontext.",
+  },
+  credits: {
+    label: "Credits",
+    title: "Projekt-Credits",
+    items: [
+      { label: "Autor", value: "Jonas Teuscher" },
+      { label: "Studiengang", value: "Multimedia Production" },
+      { label: "Hochschule", value: "Fachhochschule Graubünden (FHGR)" },
+      { label: "Betreuungspersonen", value: "Wird ergänzt" },
+      { label: "Mitwirkende", value: "Interviewpartner:innen und dokumentarische Mitwirkende" },
+      { label: "Dank", value: "Den Mitgliedern der BASE-Jumping-Community, die Zeit, Zugang und Perspektiven geteilt haben" },
+    ],
+  },
 };
 
-export const timeline: TimelineItem[] = [
-  {
-    date: "Forschung",
-    title: "Literatur und Thesis-Framing",
-    body: "Akademischer Kontext, Forschungsfragen und Interviewdesign.",
-  },
-  {
-    date: "Feldarbeit",
-    title: "Beobachtung und Dokumentation",
-    body: "Fotografie, Notizen, Audiointerviews und Videomaterial.",
-  },
-  {
-    date: "Publikation",
-    title: "Interaktive Dokumentation",
-    body: "Zweisprachige Scrollytelling-Kapitel mit barrierefreien Medien.",
-  },
-];
+export const timeline = project.journey.steps.map((step) => ({
+  date: step.title,
+  title: step.title,
+  body: step.body,
+}));

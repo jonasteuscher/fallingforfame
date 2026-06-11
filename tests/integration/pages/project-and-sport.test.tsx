@@ -16,10 +16,12 @@ describe("project page", () => {
     expect(
       screen.getByRole("heading", { name: "The Project", level: 1 }),
     ).toBeVisible();
-    expect(screen.getByRole("heading", { name: "The Documentary" })).toBeVisible();
-    expect(screen.getByText("Why this documentary?")).toBeVisible();
+    expect(screen.getByText("The Documentary")).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Bachelor Thesis" })).toBeVisible();
+    expect(screen.getByText("Research question")).toBeVisible();
     expect(screen.getByText("Photo Elicitation")).toBeVisible();
-    expect(screen.getByText("Behind the scenes")).toBeVisible();
+    expect(screen.getAllByText("Behind the scenes")[0]).toBeVisible();
+    expect(screen.getByText("Understanding begins with context.")).toBeVisible();
   });
 
   it("renders localized German project content", async () => {
@@ -28,10 +30,12 @@ describe("project page", () => {
     expect(
       screen.getByRole("heading", { name: "Das Projekt", level: 1 }),
     ).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Die Dokumentation" })).toBeVisible();
-    expect(screen.getByText("Warum diese Dokumentation?")).toBeVisible();
+    expect(screen.getByText("Die Dokumentation")).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Bachelorarbeit" })).toBeVisible();
+    expect(screen.getAllByText("Forschungsfrage")[0]).toBeVisible();
     expect(screen.getByText("Photo Elicitation")).toBeVisible();
     expect(screen.getByText("Hinter den Kulissen")).toBeVisible();
+    expect(screen.getByText("Verständnis beginnt mit Kontext.")).toBeVisible();
   });
 
   it("generates localized metadata", async () => {

@@ -45,6 +45,8 @@ type ProjectDocumentationContent = {
     intro: string;
     countLabel: string;
     closeLabel: string;
+    previousLabel: string;
+    nextLabel: string;
     images: DocumentationImage[];
   };
   closing: {
@@ -57,6 +59,8 @@ type ProjectDocumentationChapterProps = {
   content: ProjectDocumentationContent;
 };
 
+export type ProjectBehindScenesContent = ProjectDocumentationContent["gallery"];
+
 export function ProjectDocumentationChapter({
   content,
 }: ProjectDocumentationChapterProps) {
@@ -67,7 +71,7 @@ export function ProjectDocumentationChapter({
       <DocumentationPeople content={content.people} />
       <DocumentationApproach content={content.approach} />
       <DocumentationInteractive content={content.interactive} />
-      <DocumentationGallery content={content.gallery} />
+      <ProjectBehindScenes content={content.gallery} />
       <DocumentationClosing content={content.closing} />
     </article>
   );
@@ -313,12 +317,14 @@ function DocumentationInteractive({
   );
 }
 
-function DocumentationGallery({
+export function ProjectBehindScenes({
   content,
 }: {
-  content: ProjectDocumentationContent["gallery"];
+  content: ProjectBehindScenesContent;
 }) {
-  const [activeImage, setActiveImage] = useState<DocumentationImage | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+  const activeImage =
+    activeImageIndex === null ? null : content.images[activeImageIndex] ?? null;
 
   useEffect(() => {
     if (!activeImage) {
@@ -330,7 +336,21 @@ function DocumentationGallery({
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setActiveImage(null);
+        setActiveImageIndex(null);
+      }
+
+      if (event.key === "ArrowLeft") {
+        setActiveImageIndex((current) =>
+          current === null
+            ? current
+            : (current - 1 + content.images.length) % content.images.length,
+        );
+      }
+
+      if (event.key === "ArrowRight") {
+        setActiveImageIndex((current) =>
+          current === null ? current : (current + 1) % content.images.length,
+        );
       }
     }
 
@@ -340,7 +360,7 @@ function DocumentationGallery({
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeImage]);
+  }, [activeImage, content.images.length]);
 
   return (
     <section
@@ -348,14 +368,14 @@ function DocumentationGallery({
       className="px-4 py-20 sm:px-6 lg:px-10 lg:py-28"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-6 lg:grid-cols-[0.42fr_1fr] lg:items-end">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-primary">
               {content.title}
             </p>
             <h2
               id="documentation-gallery-title"
-              className="mt-4 text-3xl font-semibold leading-tight text-foreground sm:text-5xl"
+              className="mt-4 max-w-5xl text-3xl font-semibold leading-tight text-foreground sm:text-5xl"
             >
               {content.intro}
             </h2>
@@ -369,7 +389,7 @@ function DocumentationGallery({
             <button
               key={`${image.src}-${index}`}
               type="button"
-              onClick={() => setActiveImage(image)}
+              onClick={() => setActiveImageIndex(index)}
               className={
                 index === 0 || index === 7
                   ? "group col-span-2 row-span-2 cursor-pointer overflow-hidden border border-border bg-surface text-left"
@@ -396,15 +416,43 @@ function DocumentationGallery({
           role="dialog"
           aria-modal="true"
           aria-label={activeImage.alt}
-          onClick={() => setActiveImage(null)}
+          onClick={() => setActiveImageIndex(null)}
         >
           <button
             type="button"
             className="absolute right-4 top-4 z-10 grid size-11 cursor-pointer place-items-center border border-white/35 bg-background/80 text-2xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary"
-            onClick={() => setActiveImage(null)}
+            onClick={() => setActiveImageIndex(null)}
             aria-label={content.closeLabel}
           >
             ×
+          </button>
+          <button
+            type="button"
+            className="absolute left-4 top-1/2 z-10 grid size-12 -translate-y-1/2 cursor-pointer place-items-center border border-white/35 bg-background/80 text-4xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary sm:left-6 sm:size-14"
+            onClick={(event) => {
+              event.stopPropagation();
+              setActiveImageIndex((current) =>
+                current === null
+                  ? current
+                  : (current - 1 + content.images.length) % content.images.length,
+              );
+            }}
+            aria-label={content.previousLabel}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className="absolute right-4 top-1/2 z-10 grid size-12 -translate-y-1/2 cursor-pointer place-items-center border border-white/35 bg-background/80 text-4xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary sm:right-6 sm:size-14"
+            onClick={(event) => {
+              event.stopPropagation();
+              setActiveImageIndex((current) =>
+                current === null ? current : (current + 1) % content.images.length,
+              );
+            }}
+            aria-label={content.nextLabel}
+          >
+            ›
           </button>
           <div
             className="relative h-[86dvh] w-full max-w-6xl"

@@ -1,54 +1,214 @@
-# The Documentary
+# ABOUT THE PROJECT — CONTENT README (EN)
 
-### More than a Research Project
+## Purpose
 
-Falling for Fame began as a bachelor's thesis exploring the relationship between social media, sponsorship, risk perception, and safety culture in modern BASE jumping.
+The About the Project page explains how *Falling for Fame* was created, why the research was conducted, and how the documentary combines academic research with visual storytelling.
 
-However, the project quickly evolved beyond a traditional academic publication.
+Unlike the Findings section, this page does not present research results or conclusions.
 
-Many of the questions raised by the research could not be fully understood through text alone. BASE jumping is a highly visual and deeply experiential activity. It takes place in environments that most people will never visit and involves decisions, emotions, and social dynamics that are difficult to communicate through written analysis alone.
+Its purpose is to provide transparency, context, and insight into the creation of the project.
 
-This documentary was created to bridge that gap.
+Visitors should understand:
 
-By combining academic research with photography, video, interviews, field observations, and interactive storytelling, the project aims to provide a deeper understanding of the people behind the sport and the realities that shape their decisions.
+* Why the project exists
+* Why BASE jumping was selected as a topic
+* What was researched
+* How the research was conducted
+* Who participated
+* What the project hopes to achieve
 
-### A Story About People
+The page should feel like a documentary production journal rather than an academic thesis.
 
-Although BASE jumping serves as the backdrop, this documentary is ultimately about people.
+---
 
-It explores how athletes navigate risk, visibility, responsibility, community, and personal ambition in an increasingly connected world.
+# Chapter 1 — The Documentary
 
-The goal is not to glorify or condemn the sport, but to present multiple perspectives and encourage informed reflection.
+## Goal
 
-### Documentary Approach
+Introduce the documentary itself.
 
-The project combines several forms of documentation:
+Explain how the project evolved from a bachelor's thesis into an interactive documentary experience.
 
-* Field observations
-* Interviews with athletes
-* Visual storytelling
-* Photography and video
-* Academic research
-* Photo elicitation methods
+## Key Messages
 
-Together, these elements create a multi-layered view of the sport that goes beyond statistics, headlines, or viral social media clips.
+* The project combines research and storytelling.
+* BASE jumping is difficult to understand through statistics alone.
+* Visual media can communicate experiences, environments, and perspectives that academic text cannot.
+* The documentary was created to make complex research more accessible.
 
-### Why an Interactive Documentary?
+## Suggested Visuals
 
-Modern audiences increasingly consume information through multimedia experiences.
+* Behind-the-scenes photos
+* Travel photos
+* Production photos
+* Equipment and filming setup
+* Fieldwork moments
 
-An interactive documentary allows visitors to move between stories, images, interviews, and research findings at their own pace.
+## Visitor Takeaway
 
-Rather than presenting a single narrative, the project encourages exploration and critical thinking.
+"This is more than a university project. It is an attempt to understand and communicate a complex reality."
 
-Every athlete, location, and experience shown throughout the documentary represents only one perspective within a much larger and more diverse community.
+---
 
-### Behind the Scenes
+# Chapter 2 — The Research
 
-The documentary was produced over several months and involved extensive planning, travel, interviews, observations, content collection, editing, and research.
+## Goal
 
-Many moments shown throughout the project took place outside the camera's field of view.
+Explain why the research was conducted.
 
-The preparation, conversations, reflections, and logistical challenges behind each scene are as much a part of the story as the jumps themselves.
+## Core Theme
 
-The images throughout this section provide a glimpse into that process.
+The project investigates the relationship between:
+
+* Social media
+* Sponsorship
+* Visibility
+* Risk perception
+* Safety culture
+
+within modern BASE jumping.
+
+## Research Context
+
+Modern BASE jumping exists in a media environment that is fundamentally different from previous decades.
+
+Athletes can document, publish, and distribute their experiences globally within seconds.
+
+This creates new opportunities and new challenges.
+
+## Research Question
+
+The documentary is based on the following research question:
+
+"In what ways do social media and sponsorship influence risk perception and safety culture within the BASE jumping community, and how are these influences perceived by athletes themselves?"
+
+## Visitor Takeaway
+
+"This project explores how visibility and risk interact in one of the world's most dangerous sports."
+
+---
+
+# Chapter 3 — How the Study Was Conducted
+
+## Goal
+
+Explain the methodology in an accessible way.
+
+## Methods
+
+### Semi-Structured Interviews
+
+Interviews with athletes and community members.
+
+Purpose:
+
+* Gather experiences
+* Understand perceptions
+* Explore different viewpoints
+
+### Participant Observation
+
+Observation within real-world BASE environments.
+
+Purpose:
+
+* Understand behaviours
+* Observe social dynamics
+* Capture context
+
+### Photo Elicitation
+
+Participants reflected on selected social media content and photographs.
+
+Purpose:
+
+* Stimulate discussion
+* Reveal meanings behind images
+* Explore self-representation
+
+### Qualitative Content Analysis
+
+All collected material was analysed systematically.
+
+Purpose:
+
+* Identify recurring themes
+* Compare perspectives
+* Develop findings
+
+## Visitor Takeaway
+
+"The project combines multiple methods to better understand a complex social phenomenon."
+
+---
+
+# Chapter 4 — The People Behind the Data
+
+## Goal
+
+Humanise the research process.
+
+## Focus
+
+The project is built around people rather than statistics.
+
+Present:
+
+* Athletes
+* Interview situations
+* Observation locations
+* Production moments
+* Access to the community
+
+## Key Message
+
+Research only becomes meaningful through the people who contribute their experiences and perspectives.
+
+## Visitor Takeaway
+
+"The stories behind the research are just as important as the data itself."
+
+---
+
+# Chapter 5 — Project Goals
+
+## Goal
+
+Explain what the documentary hopes to achieve.
+
+## Objectives
+
+* Make academic research accessible
+* Present multiple perspectives
+* Encourage critical reflection
+* Reduce stereotypes
+* Create understanding
+* Show the human side of the sport
+
+## Key Message
+
+The documentary does not seek to promote or discourage participation in BASE jumping.
+
+Instead, it aims to create informed understanding of a complex community and the forces that shape it.
+
+## Closing Statement
+
+Understanding begins with context.
+
+The more visible a story becomes, the more important it is to understand what lies behind it.
+
+---
+
+# Credits
+
+Include:
+
+* Author
+* Degree programme
+* University of Applied Sciences of the Grisons (FHGR)
+* Supervisors
+* Interview participants
+* Contributors
+* Special thanks
+
+Use a simple editorial layout.

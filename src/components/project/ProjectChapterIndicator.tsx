@@ -70,7 +70,7 @@ export function ProjectChapterIndicator({ chapters }: ProjectChapterIndicatorPro
   return (
     <nav
       aria-label="Project chapters"
-      className="fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 border-l border-border bg-background/92 px-4 py-5 backdrop-blur lg:block"
+      className="fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 rounded-sm border border-border bg-background/72 px-3 py-4 shadow-2xl backdrop-blur lg:block"
     >
       <ol className="grid gap-4">
         {chapters.map((chapter, index) => (
