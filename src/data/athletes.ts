@@ -11,6 +11,36 @@ const unknownExperience: AthleteExperience = {
 
 export const athletes: Athlete[] = [
   {
+    id: "tim-howell",
+    slug: "tim-howell",
+    name: "Tim Howell",
+    age: null,
+    country: "United Kingdom",
+    experience: unknownExperience,
+    profileImage: {
+      src: "/images/athletes/tim-howell/profile.jpg",
+      alt: "Portrait of Tim Howell in mountain terrain",
+    },
+    content: {
+      en: {
+        chapterKicker: "Portrait",
+        chapterTitle: "Tim Howell",
+        biography:
+          "A placeholder athlete profile prepared for future interview material, observation notes and multimedia documentation.",
+        quote:
+          "This page is ready for the athlete's voice once the interview content is edited.",
+      },
+      de: {
+        chapterKicker: "Portrait",
+        chapterTitle: "Tim Howell",
+        biography:
+          "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
+        quote:
+          "Diese Seite ist bereit fuer die Stimme des Athleten, sobald das Interviewmaterial redigiert ist.",
+      },
+    },
+  },
+  {
     id: "marcel-geser",
     slug: "marcel-geser",
     name: "Marcel Geser",
@@ -102,36 +132,6 @@ export const athletes: Athlete[] = [
       de: {
         chapterKicker: "Portrait",
         chapterTitle: "Josef Braun",
-        biography:
-          "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
-        quote:
-          "Diese Seite ist bereit fuer die Stimme des Athleten, sobald das Interviewmaterial redigiert ist.",
-      },
-    },
-  },
-  {
-    id: "tim-howell",
-    slug: "tim-howell",
-    name: "Tim Howell",
-    age: null,
-    country: "United Kingdom",
-    experience: unknownExperience,
-    profileImage: {
-      src: "/images/athletes/tim-howell/profile.jpg",
-      alt: "Portrait of Tim Howell in mountain terrain",
-    },
-    content: {
-      en: {
-        chapterKicker: "Portrait",
-        chapterTitle: "Tim Howell",
-        biography:
-          "A placeholder athlete profile prepared for future interview material, observation notes and multimedia documentation.",
-        quote:
-          "This page is ready for the athlete's voice once the interview content is edited.",
-      },
-      de: {
-        chapterKicker: "Portrait",
-        chapterTitle: "Tim Howell",
         biography:
           "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
         quote:

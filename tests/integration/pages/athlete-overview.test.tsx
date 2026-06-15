@@ -27,11 +27,11 @@ describe("athlete overview page", () => {
 
     const portraitLinks = screen.getAllByRole("link", { name: "Open portrait" });
     expect(portraitLinks.map((link) => link.getAttribute("href"))).toEqual([
+      "/en/athletes/tim-howell",
       "/en/athletes/marcel-geser",
       "/en/athletes/niclas-strohmeier",
       "/en/athletes/lukas-loibl",
       "/en/athletes/josef-braun",
-      "/en/athletes/tim-howell",
     ]);
   });
 
@@ -40,11 +40,11 @@ describe("athlete overview page", () => {
 
     const portraitLinks = screen.getAllByRole("link", { name: "Open portrait" });
     expect(portraitLinks.map((link) => link.getAttribute("href"))).toEqual([
+      "/de/athletes/tim-howell",
       "/de/athletes/marcel-geser",
       "/de/athletes/niclas-strohmeier",
       "/de/athletes/lukas-loibl",
       "/de/athletes/josef-braun",
-      "/de/athletes/tim-howell",
     ]);
   });
 });

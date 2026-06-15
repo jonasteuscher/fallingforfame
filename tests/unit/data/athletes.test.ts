@@ -26,11 +26,11 @@ describe("athletes data", () => {
 
   it("uses the exact expected slugs", () => {
     expect(athletes.map((athlete) => athlete.slug)).toEqual([
+      "tim-howell",
       "marcel-geser",
       "niclas-strohmeier",
       "lukas-loibl",
       "josef-braun",
-      "tim-howell",
     ]);
   });
 });
