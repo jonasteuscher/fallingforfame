@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
 
-import { ImageBlock } from "@/components/media/ImageBlock";
 import type { Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
 import type { Athlete } from "@/types/athlete";
@@ -15,16 +15,32 @@ export function AthleteStoryCard({ athlete, locale }: AthleteStoryCardProps) {
 
   return (
     <article className="grid min-w-0 gap-5 border-t border-border py-6 sm:gap-6 sm:py-8 md:grid-cols-[minmax(14rem,18rem)_1fr]">
-      <ImageBlock image={athlete.profileImage} />
+      <figure className="w-full min-w-0">
+        <div className="relative aspect-[4/3] overflow-hidden bg-surface-muted">
+          {athlete.images.portrait ? (
+            <Image
+              src={athlete.images.portrait}
+              alt=""
+              fill
+              sizes="(min-width: 768px) 18rem, 100vw"
+              className="object-cover"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-sm uppercase tracking-wide text-foreground/60">
+              Image placeholder
+            </div>
+          )}
+        </div>
+      </figure>
       <div className="min-w-0">
         <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-          {content.chapterKicker}
+          {content.title}
         </p>
         <h2 className="mt-2 text-2xl font-semibold text-foreground sm:text-3xl">
           {athlete.name}
         </h2>
         <p className="mt-4 max-w-reading leading-7 text-foreground/74">
-          {content.biography}
+          {content.shortBio}
         </p>
         <Link
           href={localizedPath(locale, `/athletes/${athlete.slug}`)}

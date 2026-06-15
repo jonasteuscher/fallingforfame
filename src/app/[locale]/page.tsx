@@ -159,9 +159,9 @@ export default async function HomePage({ params }: HomePageProps) {
                     )}
                     aria-hidden="true"
                   >
-                    {athlete.profileImage ? (
+                    {athlete.images.portrait ? (
                       <Image
-                        src={athlete.profileImage.src}
+                        src={athlete.images.portrait}
                         alt=""
                         fill
                         sizes="(min-width: 1280px) 20vw, (min-width: 640px) 50vw, 100vw"

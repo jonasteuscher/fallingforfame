@@ -13,7 +13,49 @@ describe("athletes data", () => {
       expect(athlete.experience).toBeTruthy();
       expect(athlete).toHaveProperty("age");
       expect(athlete).toHaveProperty("country");
+      expect(athlete.images.gallery).toEqual([]);
+      expect(athlete.audio).toEqual([]);
+      expect(athlete.video).toEqual([]);
+      expect(athlete.quotes).toEqual([]);
+      expect(athlete.links).toEqual([]);
+      expect(athlete.articles).toEqual([]);
+      expect(athlete.sponsorship).toBeTruthy();
     }
+  });
+
+  it("uses confirmed local portrait images where available", () => {
+    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.images.portrait)
+      .toBe("/images/athletes/tim-howell/profile.jpg");
+    expect(
+      athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.portrait,
+    ).toBe("/images/athletes/marcel-geser/profile.jpg");
+    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.portrait)
+      .toBe("/images/athletes/lukas-loibl/profile.webp");
+    expect(
+      athletes
+        .filter(
+          (athlete) =>
+            athlete.slug !== "tim-howell" &&
+            athlete.slug !== "marcel-geser" &&
+            athlete.slug !== "lukas-loibl",
+        )
+        .every((athlete) => athlete.images.portrait === null),
+    ).toBe(true);
+  });
+
+  it("uses confirmed local hero images where available", () => {
+    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.images.hero)
+      .toBe("/images/athletes/tim-howell/hero.jpg");
+    expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.hero)
+      .toBe("/images/athletes/marcel-geser/hero.jpg");
+    expect(
+      athletes
+        .filter(
+          (athlete) =>
+            athlete.slug !== "tim-howell" && athlete.slug !== "marcel-geser",
+        )
+        .every((athlete) => athlete.images.hero === null),
+    ).toBe(true);
   });
 
   it("has unique ids and slugs", () => {
@@ -26,11 +68,32 @@ describe("athletes data", () => {
 
   it("uses the exact expected slugs", () => {
     expect(athletes.map((athlete) => athlete.slug)).toEqual([
-      "tim-howell",
       "marcel-geser",
       "niclas-strohmeier",
-      "lukas-loibl",
       "josef-braun",
+      "lukas-loibl",
+      "tim-howell",
     ]);
+  });
+
+  it("contains verified athlete metadata and experience values", () => {
+    expect(athletes.map((athlete) => [athlete.slug, athlete.age, athlete.country]))
+      .toEqual([
+        ["marcel-geser", 45, "Switzerland"],
+        ["niclas-strohmeier", 28, "Germany"],
+        ["josef-braun", 27, "Germany"],
+        ["lukas-loibl", 26, "Austria"],
+        ["tim-howell", 37, "United Kingdom"],
+      ]);
+    expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.experience)
+      .toMatchObject({ skydives: 850, basejumps: 1500, sponsored: false });
+    expect(athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.experience)
+      .toMatchObject({ socialMediaReach: 500000, sponsored: false });
+    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.experience)
+      .toMatchObject({ socialMediaReach: 280000, sponsored: false });
+    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.experience)
+      .toMatchObject({ skydives: 3500, basejumps: 3000, sponsored: true });
+    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.experience)
+      .toMatchObject({ baseSeasons: 14, basejumps: 1450, sponsored: true });
   });
 });

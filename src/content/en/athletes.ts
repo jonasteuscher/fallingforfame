@@ -1,7 +1,11 @@
 export const athletes = {
-  title: "Athlete portraits",
+  eyebrow: "Athletes",
+  title: "Five perspectives on visibility, risk and safety.",
   intro:
-    "Three placeholder portraits prepare the structure for interviews, field recordings, photography and documentary video.",
+    "Meet the athletes whose experiences shape this documentary. Each profile explores how BASE jumpers navigate visibility, media attention, sponsorship and decision-making in one of the world's most unforgiving sports.",
+  gridCta: "View Profile",
+  gridAnchor: "Explore profiles",
+  portraitPlaceholder: "Portrait media pending",
 };
 
 export const athleteMeta = {

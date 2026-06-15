@@ -18,7 +18,7 @@ export function AthleteExperienceCards({
   labels,
   locale,
 }: AthleteExperienceCardsProps) {
-  const numberFormatter = new Intl.NumberFormat(locale);
+  const numberFormatter = new Intl.NumberFormat(locale === "de" ? "de-CH" : "en-US");
   const cards: Array<{
     key: keyof AthleteExperience;
     value: string;
