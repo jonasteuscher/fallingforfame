@@ -28,7 +28,7 @@ export default async function AthletesPage({ params }: AthletesPageProps) {
     <>
       <ScrollySection>
         <ChapterIntro
-          kicker={dictionary.site.home.kicker}
+          kicker={dictionary.site.home.hero.eyebrow}
           title={dictionary.site.athletes.title}
           body={dictionary.site.athletes.intro}
         />

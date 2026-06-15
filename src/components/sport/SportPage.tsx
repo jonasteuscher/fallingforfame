@@ -1283,7 +1283,7 @@ function CommunityNetwork({
         <p className="mt-5 max-w-2xl text-lg leading-8 text-foreground/72">
           {content.intro}
         </p>
-        <ol className="mt-10 grid gap-4 md:grid-cols-5">
+        <ol className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
           {content.nodes.map((node, index) => (
             <li
               key={node.name}
@@ -1292,7 +1292,7 @@ function CommunityNetwork({
               <span className="text-sm font-semibold uppercase tracking-wide text-primary">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-5 whitespace-pre-line text-xl font-semibold leading-tight text-foreground lg:text-2xl">
+              <h3 className="mt-5 whitespace-pre-line break-words text-xl font-semibold leading-tight text-foreground [overflow-wrap:anywhere] xl:text-2xl">
                 {node.name}
               </h3>
               <p className="mt-4 text-sm leading-6 text-foreground/72">

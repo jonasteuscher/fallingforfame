@@ -26,7 +26,7 @@ export const athletes: Athlete[] = [
         quote: "The camera changes the atmosphere, even when nobody says it out loud.",
       },
       de: {
-        chapterKicker: "Portraet",
+        chapterKicker: "Portrait",
         chapterTitle: "Marcel Geser",
         biography:
           "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
@@ -50,7 +50,7 @@ export const athletes: Athlete[] = [
         quote: "Most decisions happen before the jump day even begins.",
       },
       de: {
-        chapterKicker: "Portraet",
+        chapterKicker: "Portrait",
         chapterTitle: "Niclas Strohmeier",
         biography:
           "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
@@ -74,7 +74,7 @@ export const athletes: Athlete[] = [
         quote: "I want the story to show the work, not only the moment of impact.",
       },
       de: {
-        chapterKicker: "Portraet",
+        chapterKicker: "Portrait",
         chapterTitle: "Lukas Loibl",
         biography:
           "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
@@ -100,7 +100,7 @@ export const athletes: Athlete[] = [
           "This page is ready for the athlete's voice once the interview content is edited.",
       },
       de: {
-        chapterKicker: "Portraet",
+        chapterKicker: "Portrait",
         chapterTitle: "Josef Braun",
         biography:
           "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",
@@ -116,6 +116,10 @@ export const athletes: Athlete[] = [
     age: null,
     country: "United Kingdom",
     experience: unknownExperience,
+    profileImage: {
+      src: "/images/athletes/tim-howell/profile.jpg",
+      alt: "Portrait of Tim Howell in mountain terrain",
+    },
     content: {
       en: {
         chapterKicker: "Portrait",
@@ -126,7 +130,7 @@ export const athletes: Athlete[] = [
           "This page is ready for the athlete's voice once the interview content is edited.",
       },
       de: {
-        chapterKicker: "Portraet",
+        chapterKicker: "Portrait",
         chapterTitle: "Tim Howell",
         biography:
           "Ein Platzhalterprofil fuer zukuenftiges Interviewmaterial, Beobachtungsnotizen und multimediale Dokumentation.",

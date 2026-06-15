@@ -1,53 +1,58 @@
-import type { StoryChapter } from "@/types/story";
-
 export const home = {
-  kicker: "Multimedia documentary",
-  title: "Falling for Fame?",
-  subtitle: "Myth or Reality in Modern BASE Jumping?",
-  intro:
-    "A scrollytelling documentary about social media, risk-taking, safety culture and athlete identity in contemporary BASE jumping.",
+  hero: {
+    eyebrow: "Multimedia Documentary",
+    title: "Falling for Fame",
+    subtitle: "Myth or Reality in Modern BASE Jumping?",
+    intro:
+      "A scrollytelling documentary about social media, sponsorship, risk-taking, safety culture and athlete identity in contemporary BASE jumping.",
+    primaryCta: "Start the Story",
+    secondaryCta: "Meet the Athletes",
+    scrollIndicator: "Scroll to begin",
+    visualLabel: "Abstract cinematic mountain and exit point placeholder",
+  },
+  openingQuestion: {
+    title: "What happens when risk becomes visible?",
+    body: "BASE jumping has always involved exposure. But digital visibility changes how moments are prepared, performed, shared and remembered.",
+  },
+  tensions: {
+    eyebrow: "Core tensions",
+    title: "Three forces shape the story before the jump.",
+    items: [
+      {
+        title: "Visibility",
+        text: "Cameras, platforms and audiences shape how risk is represented.",
+      },
+      {
+        title: "Risk",
+        text: "The line between mastery and consequence is narrow.",
+      },
+      {
+        title: "Safety Culture",
+        text: "Experience, mentoring and community norms influence decisions before the exit.",
+      },
+    ],
+  },
+  athleteTeaser: {
+    headline: "Five athletes. Five perspectives.",
+    body: "The documentary follows athletes whose experiences reveal different relationships to visibility, craft, community and consequence.",
+    cta: "Explore the athletes",
+    cardLabel: "Athlete profile",
+  },
+  research: {
+    headline: "Built on research, interviews and field observation.",
+    body: "The project connects cinematic storytelling with a qualitative research process.",
+    methods: [
+      "Literature review",
+      "Field access",
+      "Interviews",
+      "Participant observation",
+      "Photo elicitation",
+      "Thematic analysis",
+    ],
+  },
+  finalCta: {
+    headline: "Begin with the sport.",
+    text: "Understand the environment, the equipment and the risks before entering the stories of the athletes.",
+    button: "About the Sport",
+  },
 };
-
-export const chapters: StoryChapter[] = [
-  {
-    id: "visibility",
-    kicker: "Chapter 01",
-    title: "Visibility changes the jump before it happens",
-    body: "The documentary begins before the exit point. Cameras, followers and sponsor expectations shape how risk is talked about, staged and remembered.",
-    image: {
-      src: "/images/chapters/visibility.jpg",
-      alt: "Mountain landscape prepared for future documentary imagery",
-      caption: "Placeholder for chapter photography.",
-    },
-  },
-  {
-    id: "safety",
-    kicker: "Chapter 02",
-    title: "Safety culture is carried by people",
-    body: "Rules, mentoring and informal community norms create a social infrastructure around decisions that outsiders often see only as individual risk.",
-  },
-  {
-    id: "identity",
-    kicker: "Chapter 03",
-    title: "Athlete identity sits between craft and audience",
-    body: "BASE jumpers navigate a tension between technical mastery, personal meaning and the pressure to be seen.",
-  },
-];
-
-export const statistics = [
-  {
-    value: "5",
-    label: "Athlete portraits",
-    detail: "Prepared for interview-led multimedia chapters.",
-  },
-  {
-    value: "2",
-    label: "Languages",
-    detail: "English and German content structures are available from launch.",
-  },
-  {
-    value: "∞",
-    label: "Media layers",
-    detail: "Photography, audio, video and field notes can be composed per chapter.",
-  },
-];

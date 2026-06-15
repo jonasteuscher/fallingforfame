@@ -15,6 +15,12 @@ export const athleteMeta = {
     Switzerland: "der Schweiz",
     "United Kingdom": "dem Vereinigten Königreich",
   },
+  countryNames: {
+    Austria: "Österreich",
+    Germany: "Deutschland",
+    Switzerland: "Schweiz",
+    "United Kingdom": "Vereinigtes Königreich",
+  },
 };
 
 export const athleteExperience = {

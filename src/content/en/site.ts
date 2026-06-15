@@ -1,6 +1,6 @@
 import { athletes, athleteExperience, athleteMeta } from "@/content/en/athletes";
 import { findings, findingsPage } from "@/content/en/findings";
-import { chapters, home, statistics } from "@/content/en/home";
+import { home } from "@/content/en/home";
 import { project, timeline } from "@/content/en/project";
 import { sport } from "@/content/en/sport";
 
@@ -26,4 +26,4 @@ export const site = {
   findings: findingsPage,
 };
 
-export { athleteExperience, athleteMeta, chapters, findings, statistics, timeline };
+export { athleteExperience, athleteMeta, findings, timeline };
