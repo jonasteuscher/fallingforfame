@@ -135,16 +135,14 @@ function ResearchChapter({ content }: { content: ProjectContent["research"] }) {
       />
       <div className="absolute inset-0 bg-background/84" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="grid gap-8 lg:grid-cols-[0.5fr_1fr] lg:items-end">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-              {content.label}
-            </p>
-            <h2 className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
-              {content.title}
-            </h2>
-          </div>
-          <p className="max-w-reading text-lg leading-8 text-foreground/76">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            {content.label}
+          </p>
+          <h2 className="mt-3 max-w-6xl text-4xl font-semibold leading-tight text-foreground sm:text-6xl lg:text-7xl">
+            {content.title}
+          </h2>
+          <p className="mt-8 max-w-5xl text-lg leading-8 text-foreground/76 md:text-xl md:leading-9">
             {content.intro}
           </p>
         </div>
@@ -166,7 +164,7 @@ function ResearchChapter({ content }: { content: ProjectContent["research"] }) {
             </article>
           ))}
         </div>
-        <p className="mt-12 max-w-4xl text-2xl font-semibold leading-tight text-foreground sm:text-4xl">
+        <p className="mt-12 max-w-6xl text-2xl font-semibold leading-tight text-foreground sm:text-4xl">
           {content.objective}
         </p>
       </div>
@@ -229,12 +227,12 @@ function ThesisChapter({ content }: { content: ProjectContent["thesis"] }) {
 function ResearchJourney({ content }: { content: ProjectContent["journey"] }) {
   return (
     <section id="research-journey" className="px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[360px_minmax(0,1fr)]">
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)]">
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.label}
           </p>
-          <h2 className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+          <h2 className="mt-3 max-w-2xl text-4xl font-semibold leading-tight text-foreground sm:text-5xl lg:text-6xl">
             {content.title}
           </h2>
           <p className="mt-5 text-lg leading-8 text-foreground/72">{content.intro}</p>

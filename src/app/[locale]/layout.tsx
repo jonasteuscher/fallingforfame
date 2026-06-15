@@ -32,7 +32,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <ScrollProgressIndicator />
       <SiteHeader locale={locale as Locale} navigation={dictionary.site.navigation} />
       <main className="flex-1 pt-14">{children}</main>
-      <SiteFooter />
+      <SiteFooter locale={locale as Locale} />
     </>
   );
 }

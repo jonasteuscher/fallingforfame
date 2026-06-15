@@ -100,7 +100,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
     isOpen && portalContainer
       ? createPortal(
           <div
-            className="fixed left-0 top-0 z-[100] h-[100dvh] w-screen overflow-y-auto bg-background text-foreground md:hidden"
+            className="fixed left-0 top-0 z-[100] h-[100dvh] w-screen overflow-y-auto bg-background text-foreground xl:hidden"
             role="dialog"
             aria-modal="true"
             aria-label={labels.menu}
@@ -190,7 +190,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
 
   return (
     <div className="flex items-center gap-3 text-sm">
-      <div className="hidden items-center gap-3 md:flex">
+      <div className="hidden items-center gap-3 xl:flex">
         {links.map((link) => (
           <Link
             key={link.href}
@@ -227,7 +227,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
             openMenu();
           }
         }}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-border text-foreground transition hover:border-primary focus-visible:border-primary md:hidden"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-border text-foreground transition hover:border-primary focus-visible:border-primary xl:hidden"
       >
         <span className="sr-only">
           {isOpen ? labels.closeMenuShort : labels.openMenuShort}

@@ -1,7 +1,11 @@
 export const athletes = {
-  title: "Athletenportraits",
+  eyebrow: "Athleten",
+  title: "Fünf Perspektiven auf Sichtbarkeit, Risiko und Sicherheit.",
   intro:
-    "Drei Platzhalterportraits bereiten die Struktur für Interviews, Field Recordings, Fotografie und dokumentarisches Video vor.",
+    "Lerne die Athleten kennen, deren Erfahrungen diese Dokumentation prägen. Jedes Profil zeigt, wie BASE Jumper mit Sichtbarkeit, medialer Aufmerksamkeit, Sponsoring und Entscheidungen in einer der kompromisslosesten Sportarten umgehen.",
+  gridCta: "Profil ansehen",
+  gridAnchor: "Profile ansehen",
+  portraitPlaceholder: "Portraitmedien ausstehend",
 };
 
 export const athleteMeta = {
@@ -14,6 +18,12 @@ export const athleteMeta = {
     Germany: "Deutschland",
     Switzerland: "der Schweiz",
     "United Kingdom": "dem Vereinigten Königreich",
+  },
+  countryNames: {
+    Austria: "Österreich",
+    Germany: "Deutschland",
+    Switzerland: "Schweiz",
+    "United Kingdom": "Vereinigtes Königreich",
   },
 };
 

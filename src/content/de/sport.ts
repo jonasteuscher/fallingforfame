@@ -365,11 +365,31 @@ export const sport = {
     intro:
       "BASE Jumping reicht über einzelne Athlet:innen hinaus. Jede Entscheidung ist Teil eines grösseren Ökosystems.",
     nodes: [
-      "Mentor:innen",
-      "Athlet:innen",
-      "Community",
-      "Grundeigentümer:innen",
-      "Öffentlichkeit",
+      {
+        name: "Mentor:innen",
+        description:
+          "Geben Ortswissen, Erfahrungswerte und Standards für eine verantwortungsvolle Entwicklung weiter.",
+      },
+      {
+        name: "Athlet:innen",
+        description:
+          "Tragen Verantwortung für Vorbereitung, Urteilsvermögen und die Folgen ihrer Entscheidungen.",
+      },
+      {
+        name: "Community",
+        description:
+          "Formt informelle Regeln zu Lernen, Zurückhaltung, Respekt und gegenseitiger Verantwortung.",
+      },
+      {
+        name: "Grundeigentümer\n:innen",
+        description:
+          "Beeinflussen Zugang durch Vertrauen, lokale Beziehungen und Erwartungen an respektvolles Verhalten.",
+      },
+      {
+        name: "Öffentlichkeit",
+        description:
+          "Nimmt den Sport über Bilder und Geschichten wahr. Darstellung wird dadurch Teil der Ethik.",
+      },
     ],
   },
   disciplines: {

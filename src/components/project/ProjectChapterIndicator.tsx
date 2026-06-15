@@ -31,6 +31,15 @@ export function ProjectChapterIndicator({ chapters }: ProjectChapterIndicatorPro
       }
 
       frame = window.requestAnimationFrame(() => {
+        const lastChapter = chapters.at(-1);
+        const distanceToBottom =
+          document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+
+        if (lastChapter && distanceToBottom <= 8) {
+          setActiveId(lastChapter.id);
+          return;
+        }
+
         const scrollAnchor = window.scrollY + window.innerHeight * 0.34;
         const activeChapter = chapters.reduce<(typeof chapters)[number] | undefined>(
           (current, chapter) => {

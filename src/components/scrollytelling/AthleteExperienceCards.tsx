@@ -18,7 +18,6 @@ export function AthleteExperienceCards({
   labels,
   locale,
 }: AthleteExperienceCardsProps) {
-  const numberFormatter = new Intl.NumberFormat(locale);
   const cards: Array<{
     key: keyof AthleteExperience;
     value: string;
@@ -26,22 +25,22 @@ export function AthleteExperienceCards({
   }> = [
     {
       key: "skydiveSeasons",
-      value: formatNullableNumber(experience.skydiveSeasons, numberFormatter, labels),
+      value: formatNullableNumber(experience.skydiveSeasons, locale, labels),
       label: labels.labels.skydiveSeasons,
     },
     {
       key: "skydives",
-      value: formatNullableNumber(experience.skydives, numberFormatter, labels),
+      value: formatNullableNumber(experience.skydives, locale, labels),
       label: labels.labels.skydives,
     },
     {
       key: "baseSeasons",
-      value: formatNullableNumber(experience.baseSeasons, numberFormatter, labels),
+      value: formatNullableNumber(experience.baseSeasons, locale, labels),
       label: labels.labels.baseSeasons,
     },
     {
       key: "basejumps",
-      value: formatNullableNumber(experience.basejumps, numberFormatter, labels),
+      value: formatNullableNumber(experience.basejumps, locale, labels),
       label: labels.labels.basejumps,
     },
     {
@@ -51,7 +50,7 @@ export function AthleteExperienceCards({
     },
     {
       key: "socialMediaReach",
-      value: formatNullableNumber(experience.socialMediaReach, numberFormatter, labels),
+      value: formatNullableNumber(experience.socialMediaReach, locale, labels),
       label: labels.labels.socialMediaReach,
     },
   ];
@@ -76,10 +75,14 @@ export function AthleteExperienceCards({
 
 function formatNullableNumber(
   value: number | null,
-  numberFormatter: Intl.NumberFormat,
+  locale: string,
   labels: AthleteExperienceLabels,
 ) {
-  return value === null ? labels.unknown : numberFormatter.format(value);
+  if (value === null) {
+    return labels.unknown;
+  }
+
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, locale === "de" ? "’" : ",");
 }
 
 function formatSponsored(value: boolean | null, labels: AthleteExperienceLabels) {

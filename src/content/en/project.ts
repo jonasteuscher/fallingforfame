@@ -123,7 +123,7 @@ export const project = {
       "Modern BASE jumping exists in a media environment that is very different from earlier decades. Athletes can document, publish and distribute their experiences globally within seconds.",
     questionLabel: "Research question",
     question:
-      "In what ways do social media and sponsorship influence risk perception and safety culture within the BASE jumping community, and how are these influences perceived by athletes themselves?",
+      "To what extent do social media and sponsorship, as intertwined systems of expectations and recognition, shape individual risk taking and the safety culture in BASE jumping?",
     context: [
       {
         title: "BASE jumping",
@@ -219,7 +219,11 @@ export const project = {
       { label: "Author", value: "Jonas Teuscher" },
       { label: "Degree programme", value: "Multimedia Production" },
       { label: "University", value: "University of Applied Sciences of the Grisons (FHGR)" },
-      { label: "Supervisors", value: "To be added" },
+      {
+        label: "Supervisors",
+        value:
+          "Prof. Marie-Therese Mäder (main supervisor), Nils Solanski (co-supervisor)",
+      },
       { label: "Contributors", value: "Interview participants and documentary contributors" },
       { label: "Special thanks", value: "The BASE jumping community members who shared time, access and perspective" },
     ],
