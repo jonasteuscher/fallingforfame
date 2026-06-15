@@ -363,7 +363,33 @@ export const sport = {
     title: "A shared responsibility",
     intro:
       "BASE jumping extends beyond the individual athlete. Every decision sits inside a wider ecosystem.",
-    nodes: ["Mentors", "Athletes", "Community", "Landowners", "Public"],
+    nodes: [
+      {
+        name: "Mentors",
+        description:
+          "Pass on site knowledge, progression standards and lessons that help newer jumpers make better decisions.",
+      },
+      {
+        name: "Athletes",
+        description:
+          "Carry responsibility for preparation, judgement and the way their choices affect access and others.",
+      },
+      {
+        name: "Community",
+        description:
+          "Creates informal norms around learning, restraint, respect and accountability.",
+      },
+      {
+        name: "Landowners",
+        description:
+          "Shape access through trust, local relationships and expectations around respectful behaviour.",
+      },
+      {
+        name: "Public",
+        description:
+          "Sees the sport through shared images, reports and stories, making representation part of the ethics.",
+      },
+    ],
   },
   disciplines: {
     title: "Disciplines gallery",

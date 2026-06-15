@@ -219,7 +219,10 @@ export const project = {
       { label: "Autor", value: "Jonas Teuscher" },
       { label: "Studiengang", value: "Multimedia Production" },
       { label: "Hochschule", value: "Fachhochschule Graubünden (FHGR)" },
-      { label: "Betreuungspersonen", value: "Wird ergänzt" },
+      {
+        label: "Betreuungspersonen",
+        value: "Prof. Marie-Therese Mäder (Hauptreferentin), Nils Solanski (Korreferat)",
+      },
       { label: "Mitwirkende", value: "Interviewpartner:innen und dokumentarische Mitwirkende" },
       { label: "Dank", value: "Den Mitgliedern der BASE-Jumping-Community, die Zeit, Zugang und Perspektiven geteilt haben" },
     ],

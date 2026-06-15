@@ -1077,38 +1077,42 @@ function EquipmentExplainer({
       className="px-4 pt-16 pb-28 sm:px-6 lg:px-10"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-            {content.title}
-          </p>
-          <h2
-            id="equipment-title"
-            className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
-          >
-            {title ?? content.title}
-          </h2>
-          <p className="mt-5 text-lg leading-8 text-foreground/72">{content.intro}</p>
-        </div>
-        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(280px,0.48fr)_minmax(0,1fr)] lg:items-start">
-          <figure className="sticky top-28 hidden aspect-[3/4] max-h-[72svh] overflow-hidden border-4 border-[#FE6B00] bg-surface-muted lg:block">
-            {allEquipmentImages.map((imageSrc) => (
-              <Image
-                key={imageSrc}
-                src={imageSrc}
-                alt=""
-                fill
-                sizes="(min-width: 1280px) 34vw, (min-width: 1024px) 38vw, 100vw"
-                className={`object-cover ${
-                  imageSrc === activeImage ? "opacity-100" : "opacity-0"
-                }`}
+        <div className="grid gap-10 lg:grid-cols-[minmax(500px,0.72fr)_minmax(0,1fr)] lg:items-start">
+          <aside className="lg:sticky lg:top-24 lg:self-start">
+            <div className="max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+                {content.title}
+              </p>
+              <h2
+                id="equipment-title"
+                className="mt-3 text-4xl font-semibold leading-tight text-foreground sm:text-6xl"
+              >
+                {title ?? content.title}
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-foreground/72">
+                {content.intro}
+              </p>
+            </div>
+            <figure className="relative mt-10 hidden aspect-[4/5] max-h-[calc(100svh-18rem)] min-h-[30rem] overflow-hidden border-4 border-[#FE6B00] bg-surface-muted lg:block">
+              {allEquipmentImages.map((imageSrc) => (
+                <Image
+                  key={imageSrc}
+                  src={imageSrc}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1280px) 42vw, (min-width: 1024px) 40vw, 100vw"
+                  className={`object-cover ${
+                    imageSrc === activeImage ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_14%,transparent)_0%,color-mix(in_srgb,var(--background)_24%,transparent)_100%)]"
               />
-            ))}
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_14%,transparent)_0%,color-mix(in_srgb,var(--background)_24%,transparent)_100%)]"
-            />
-          </figure>
-          <ol className="grid gap-4">
+            </figure>
+          </aside>
+          <ol className="grid gap-4 lg:pt-[14.5rem]">
             {content.items.map((item, index) => (
               <li
                 key={item.name}
@@ -1282,13 +1286,18 @@ function CommunityNetwork({
         <ol className="mt-10 grid gap-4 md:grid-cols-5">
           {content.nodes.map((node, index) => (
             <li
-              key={node}
-              className="relative min-h-36 border border-border bg-surface p-5"
+              key={node.name}
+              className="relative min-h-52 border border-border bg-surface p-5"
             >
               <span className="text-sm font-semibold uppercase tracking-wide text-primary">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-8 text-2xl font-semibold text-foreground">{node}</h3>
+              <h3 className="mt-5 whitespace-pre-line text-xl font-semibold leading-tight text-foreground lg:text-2xl">
+                {node.name}
+              </h3>
+              <p className="mt-4 text-sm leading-6 text-foreground/72">
+                {node.description}
+              </p>
             </li>
           ))}
         </ol>
