@@ -58,7 +58,7 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "In 2008, while working in intelligence services in Bern, Marcel began paragliding. During breaks he often watched paragliding videos on YouTube, following the sport even when he was away from the mountains.",
         de: "2008 begann Marcel mit dem Gleitschirmfliegen, während er in Bern im Nachrichtendienst arbeitete. In den Pausen schaute er oft Gleitschirmvideos auf YouTube und blieb so auch fern der Berge mit dem Fliegen verbunden.",
       },
-      media: { type: "image", src: null },
+      media: { type: "image", src: "/images/athletes/marcel-geser/story.jpg" },
     },
     {
       phase: { en: "03 — The Algorithm", de: "03 — Der Algorithmus" },

@@ -55,7 +55,11 @@ describe("athlete detail page", () => {
         "One recommendation was enough for BASE jumping to enter his imagination.",
       ),
     ).toBeVisible();
-    expect(screen.getByText("Documentary media pending")).toBeVisible();
+    expect(
+      container.querySelector(
+        'img[src="/images/athletes/marcel-geser/story.jpg"]',
+      ),
+    ).toBeInTheDocument();
     expect(
       screen.queryByText(
         "The detailed story will be added once interview material has been reviewed.",
