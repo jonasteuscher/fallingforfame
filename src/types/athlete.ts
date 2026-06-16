@@ -10,6 +10,29 @@ export type AthleteLocalizedContent = {
   primaryDisciplines: string[];
 };
 
+export type AthleteOriginStoryBeat = {
+  phase: {
+    en: string;
+    de: string;
+  };
+  title: {
+    en: string;
+    de: string;
+  };
+  body: {
+    en: string;
+    de: string;
+  };
+  quote?: {
+    en: string;
+    de: string;
+  };
+  media?: {
+    type: "image" | "video";
+    src: string | null;
+  };
+};
+
 export type AthleteImage = {
   src: string;
   alt: {
@@ -104,6 +127,7 @@ export type Athlete = {
     en: AthleteLocalizedContent;
     de: AthleteLocalizedContent;
   };
+  originStory: AthleteOriginStoryBeat[];
   audio: AthleteAudio[];
   video: AthleteVideo[];
   quotes: AthleteQuote[];

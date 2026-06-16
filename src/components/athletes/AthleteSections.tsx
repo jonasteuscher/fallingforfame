@@ -58,18 +58,90 @@ export function AthleteBaseStory({
   title: string;
 }) {
   const content = athlete.content[locale];
+  const beats = athlete.originStory.length > 0 ? athlete.originStory : null;
 
   return (
-    <SectionShell title={title}>
-      <div className="grid gap-8 xl:grid-cols-[0.42fr_1fr]">
-        <h3 className="text-2xl font-semibold leading-tight text-primary sm:text-4xl">
-          {content.baseStoryTitle}
-        </h3>
-        <p className="max-w-3xl text-2xl font-semibold leading-snug text-foreground sm:text-4xl">
-          {content.baseStory}
-        </p>
+    <section
+      id="origin-story"
+      className="relative border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+    >
+      <div className="mx-auto grid max-w-7xl gap-12 xl:grid-cols-[0.34fr_1fr]">
+        <header className="xl:sticky xl:top-28 xl:max-h-[calc(100svh-8rem)] xl:self-start">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+            {title}
+          </p>
+          <h2 className="mt-4 max-w-xl text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+            {content.baseStoryTitle}
+          </h2>
+        </header>
+
+        {beats ? (
+          <div className="relative">
+            <div
+              className="absolute left-3 top-0 hidden h-full w-px bg-border sm:block"
+              aria-hidden="true"
+            />
+            <ol className="space-y-16 sm:pl-12">
+              {beats.map((beat, index) => (
+                <li
+                  key={`${beat.phase.en}-${beat.title.en}`}
+                  className="relative motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+                  style={{ animationDelay: `${index * 120}ms` }}
+                >
+                  <span
+                    className="absolute -left-[3.25rem] top-1 hidden h-6 w-6 border border-primary bg-background sm:block"
+                    aria-hidden="true"
+                  />
+                  <article className="max-w-2xl">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+                      {beat.phase[locale]}
+                    </p>
+                    <h3 className="mt-3 text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
+                      {beat.title[locale]}
+                    </h3>
+                    <p className="mt-5 text-lg leading-8 text-foreground/76">
+                      {beat.body[locale]}
+                    </p>
+                  </article>
+
+                  {beat.quote ? (
+                    <figure className="my-12 border-l-4 border-primary pl-6 sm:pl-10">
+                      <blockquote className="max-w-4xl text-3xl font-semibold leading-tight text-foreground sm:text-5xl">
+                        {beat.quote[locale]}
+                      </blockquote>
+                    </figure>
+                  ) : null}
+
+                  {beat.media ? (
+                    <figure className="my-12 overflow-hidden border border-border bg-surface">
+                      {beat.media.src && beat.media.type === "image" ? (
+                        <Image
+                          src={beat.media.src}
+                          alt=""
+                          width={1600}
+                          height={900}
+                          className="aspect-video w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex aspect-video items-end bg-[linear-gradient(145deg,var(--surface-muted)_0%,var(--surface)_52%,var(--background)_100%)] p-6">
+                          <span className="max-w-40 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/62">
+                            Documentary media pending
+                          </span>
+                        </div>
+                      )}
+                    </figure>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+          </div>
+        ) : (
+          <p className="max-w-3xl text-2xl font-semibold leading-snug text-foreground sm:text-4xl">
+            {content.baseStory}
+          </p>
+        )}
       </div>
-    </SectionShell>
+    </section>
   );
 }
 

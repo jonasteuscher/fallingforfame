@@ -38,14 +38,29 @@ describe("athlete detail page", () => {
     expect(screen.getByText("1,500")).toBeVisible();
     expect(screen.getByText("No")).toBeVisible();
     expect(screen.getAllByText("Unknown")).toHaveLength(2);
+    expect(screen.getByText("Where It All Began")).toBeVisible();
     expect(
-      screen.getByRole("heading", { name: "How They Got Into BASE Jumping" }),
+      screen.getByRole("heading", { name: "Discovering a passion for flight" }),
+    ).toBeVisible();
+    expect(screen.getByText("01 — Before BASE")).toBeVisible();
+    expect(screen.getByText("A life already shaped by sport")).toBeVisible();
+    expect(screen.getByText("One video changes the direction")).toBeVisible();
+    expect(
+      screen.getByText(
+        /One day, YouTube recommended a BASE jumping video/,
+      ),
     ).toBeVisible();
     expect(
       screen.getByText(
-        "The detailed story will be added once interview material has been reviewed.",
+        "One recommendation was enough for BASE jumping to enter his imagination.",
       ),
     ).toBeVisible();
+    expect(screen.getByText("Documentary media pending")).toBeVisible();
+    expect(
+      screen.queryByText(
+        "The detailed story will be added once interview material has been reviewed.",
+      ),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("Selected interview quotes will appear here."))
       .toBeVisible();
     expect(screen.getByText("Audio excerpts from the interviews will be added here."))
@@ -75,14 +90,29 @@ describe("athlete detail page", () => {
       .toBeVisible();
     expect(screen.getByText("Aus der Schweiz | 45 Jahre")).toBeVisible();
     expect(screen.getByText("Gleitschirmpilot")).toBeVisible();
+    expect(screen.getByText("Wie alles begann")).toBeVisible();
     expect(
-      screen.getByRole("heading", { name: "Wie Sie Zum BASE Jumping Kamen" }),
+      screen.getByRole("heading", {
+        name: "Die Entdeckung einer Leidenschaft fürs Fliegen",
+      }),
+    ).toBeVisible();
+    expect(screen.getByText("01 — Vor BASE")).toBeVisible();
+    expect(screen.getByText("Der Weg in die Luft")).toBeVisible();
+    expect(
+      screen.getByText(
+        /Eines Tages schlug ihm YouTube ein BASE-Jumping-Video vor/,
+      ),
     ).toBeVisible();
     expect(
       screen.getByText(
-        "Die ausführliche Geschichte wird ergänzt, sobald das Interviewmaterial ausgewertet wurde.",
+        "Eine Empfehlung reichte, damit BASE Jumping in seiner Vorstellung auftauchte.",
       ),
     ).toBeVisible();
+    expect(
+      screen.queryByText(
+        "Die ausführliche Geschichte wird ergänzt, sobald das Interviewmaterial ausgewertet wurde.",
+      ),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("Ausgewählte Interviewzitate erscheinen hier."))
       .toBeVisible();
     expect(

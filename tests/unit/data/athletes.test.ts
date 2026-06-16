@@ -20,6 +20,28 @@ describe("athletes data", () => {
       expect(athlete.links).toEqual([]);
       expect(athlete.articles).toEqual([]);
       expect(athlete.sponsorship).toBeTruthy();
+      expect(athlete.originStory.length).toBeGreaterThanOrEqual(4);
+      for (const beat of athlete.originStory) {
+        expect(beat.phase.en).toBeTruthy();
+        expect(beat.phase.de).toBeTruthy();
+        expect(beat.title.en).toBeTruthy();
+        expect(beat.title.de).toBeTruthy();
+        expect(beat.body.en).toBeTruthy();
+        expect(beat.body.de).toBeTruthy();
+      }
+    }
+  });
+
+  it("does not contain placeholder origin story copy", () => {
+    for (const athlete of athletes) {
+      expect(athlete.content.en.baseStoryTitle).not.toBe("Story in development");
+      expect(athlete.content.de.baseStoryTitle).not.toBe("Geschichte in Entwicklung");
+      expect(athlete.content.en.baseStory).not.toContain(
+        "The detailed story will be added",
+      );
+      expect(athlete.content.de.baseStory).not.toContain(
+        "Die ausführliche Geschichte wird ergänzt",
+      );
     }
   });
 
