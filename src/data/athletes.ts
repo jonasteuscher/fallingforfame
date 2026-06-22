@@ -144,7 +144,6 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "After an accident interrupted that path, skydiving moved into focus. It was something he had wanted to do for years, but it was never the final goal on its own.",
         de: "Nach einem Unfall, der diesen Weg unterbrach, rückte Fallschirmspringen in den Vordergrund. Es war etwas, das ihn schon lange interessiert hatte, aber nie das eigentliche Endziel war.",
       },
-      media: { type: "image", src: null },
     },
     {
       phase: { en: "03 — Wingsuit Images", de: "03 — Wingsuit-Bilder" },
@@ -167,12 +166,16 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
       },
     },
     {
-      phase: { en: "05 — A Life Around Flying", de: "05 — Ein Leben ums Fliegen" },
-      title: { en: "From challenge to profession", de: "Von der Herausforderung zum Beruf" },
-      body: {
-        en: "What started as a personal challenge gradually became the centre of his life. Over time, the sport developed into a profession linking daily work, athletic identity and long-term mountain ambitions.",
-        de: "Aus einer persönlichen Herausforderung wurde nach und nach der Mittelpunkt seines Lebens. Später entwickelte sich daraus ein Beruf, der Arbeit, sportliche Identität und Projekte in den Bergen miteinander verbindet.",
+      phase: { en: "05 — Today", de: "05 — Heute" },
+      title: {
+        en: "Tunnel work and mountain projects",
+        de: "Tunnelarbeit und Projekte in den Bergen",
       },
+      body: {
+        en: "Today, Josef works as a tunnel instructor and realizes projects as a video flyer up in the mountains.",
+        de: "Heute arbeitet Josef als Tunnelinstruktor und realisiert als Video-Flyer Projekte oben in den Bergen.",
+      },
+      media: { type: "image", src: "/images/athletes/josef-braun/story.PNG" },
     },
   ],
   "lukas-loibl": [
@@ -191,7 +194,6 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "His friend entered skydiving first, while Lukas initially stayed with skateboarding and other teenage pursuits. The drive for progression was already there, even before he entered aviation sports.",
         de: "Sein Freund begann zuerst mit dem Fallschirmspringen, während Lukas zunächst beim Skateboarden und anderen Interessen seiner Jugend blieb. Der Wunsch nach Fortschritt war schon da, bevor der Flugsport begann.",
       },
-      media: { type: "image", src: null },
     },
     {
       phase: { en: "03 — Skydiving", de: "03 — Fallschirmspringen" },
@@ -220,6 +222,7 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "After three years in skydiving, Lukas moved into BASE jumping with the same commitment. What began with videos and a shared dream gradually became a life built around flying, training and the mountains.",
         de: "Nach drei Jahren im Fallschirmspringen wechselte Lukas ins BASE Jumping. Was mit Videos und einem gemeinsamen Traum begann, wurde Schritt für Schritt zu einem Leben rund ums Fliegen, Training und die Berge.",
       },
+      media: { type: "image", src: "/images/athletes/lukas-loibl/story.jpeg" },
     },
     {
       phase: { en: "06 — Today", de: "06 — Heute" },
@@ -344,7 +347,7 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
-    images: images(),
+    images: images(null, "/images/athletes/niclas-strohmeier/profile.jpg"),
     experience: experience(12, 630, 9, 1000, false, 500000),
     content: {
       en: {
@@ -391,7 +394,10 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
-    images: images(),
+    images: images(
+      "/images/athletes/josef-braun/hero.JPG",
+      "/images/athletes/josef-braun/profile.jpg",
+    ),
     experience: experience(8, 800, 5, 1500, false, 280000),
     content: {
       en: {
@@ -425,7 +431,18 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["josef-braun"],
     ...emptyMedia,
-    sponsors: [],
+    sponsors: [
+      {
+        name: "Group A",
+        logo: "/images/sponsors/group_a.avif",
+        url: "https://www.groupaworldwide.com/pages/josef-braun",
+      },
+      {
+        name: "Fly The Earth",
+        logo: "/images/sponsors/flytheearth.png",
+        url: "https://flytheearth.com/",
+      },
+    ],
   },
   {
     id: "lukas-loibl",
@@ -545,8 +562,8 @@ export const athletes: Athlete[] = [
     sponsors: [
       {
         name: "Jöttnar",
-        logo: "/images/sponsors/jottnar_white.png",
-        url: "https://www.jottnar.com/",
+        logo: "/images/sponsors/jottnar_black.png",
+        url: "https://www.jottnar.com/pages/pro-tim-howell",
       },
       {
         name: "Scarpa",
@@ -557,6 +574,11 @@ export const athletes: Athlete[] = [
         name: "Adrenalin BASE",
         logo: "/images/sponsors/adrenalin_base.png",
         url: "https://www.adrenalinbase.com/",
+      },
+      {
+        name: "Inigo Insurance",
+        logo: "/images/sponsors/inigo.png",
+        url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
       },
     ],
   },

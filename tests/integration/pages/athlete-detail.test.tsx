@@ -75,7 +75,9 @@ describe("athlete detail page", () => {
     expect(
       screen.getByText("Links to articles, podcasts and interviews will be added here."),
     ).toBeVisible();
-    expect(screen.queryByRole("heading", { name: "Sponsors" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: "Sponsors & Partnerships" }),
+    ).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "More Athlete Stories" }))
       .toBeVisible();
     expect(container.querySelector("audio")).toBeNull();
@@ -124,7 +126,9 @@ describe("athlete detail page", () => {
     expect(screen.getByText("Videomaterial wird hier ergänzt.")).toBeVisible();
     expect(screen.getByText("Profil-Links werden ergänzt, sobald sie bestätigt sind."))
       .toBeVisible();
-    expect(screen.queryByRole("heading", { name: "Sponsoren" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: "Sponsoren & Partnerschaften" }),
+    ).not.toBeInTheDocument();
     expect(screen.getAllByText("Unbekannt")).toHaveLength(2);
   });
 
@@ -177,5 +181,25 @@ describe("athlete detail page", () => {
     expect(
       screen.getByRole("link", { name: "Atair Canopies logo" }),
     ).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it("renders Josef Braun ambassador partnerships", async () => {
+    await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
+      }),
+    );
+
+    expect(
+      screen.getByRole("heading", { name: "Sponsors & Partnerships" }),
+    ).toBeVisible();
+    expect(screen.getByAltText("Group A logo")).toBeVisible();
+    expect(screen.getByAltText("Fly The Earth logo")).toBeVisible();
+    expect(screen.getByRole("link", { name: "Group A logo" })).toHaveAttribute(
+      "href",
+      "https://www.groupaworldwide.com/pages/josef-braun",
+    );
+    expect(screen.getByRole("link", { name: "Fly The Earth logo" }))
+      .toHaveAttribute("href", "https://flytheearth.com/");
   });
 });

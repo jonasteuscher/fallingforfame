@@ -16,7 +16,9 @@ describe("athlete overview page", () => {
       }),
     ).toBeVisible();
     expect(screen.getAllByRole("article")).toHaveLength(athletes.length);
-    expect(screen.getAllByText("Portrait media pending")).toHaveLength(2);
+    expect(screen.queryAllByText("Portrait media pending")).toHaveLength(
+      athletes.filter((athlete) => athlete.images.portrait === null).length,
+    );
     expect(screen.getByText("Paragliding Pilot")).toBeVisible();
     expect(screen.getByText("BASE Jumping Instructor / Coach")).toBeVisible();
     expect(screen.getByText("Professional Mountain Athlete")).toBeVisible();

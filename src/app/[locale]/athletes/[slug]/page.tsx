@@ -50,7 +50,7 @@ const pageLabels = {
     linksEmpty: "Profile links will be added once confirmed.",
     articlesTitle: "Articles & Media Coverage",
     articlesEmpty: "Links to articles, podcasts and interviews will be added here.",
-    sponsorsTitle: "Sponsors",
+    sponsorsTitle: "Sponsors & Partnerships",
     sponsorsEmpty: "Sponsor information will be added once confirmed.",
     moreTitle: "More Athlete Stories",
   },
@@ -79,7 +79,7 @@ const pageLabels = {
     articlesTitle: "Artikel & Medienberichte",
     articlesEmpty:
       "Links zu Artikeln, Podcasts und Interviews werden hier ergänzt.",
-    sponsorsTitle: "Sponsoren",
+    sponsorsTitle: "Sponsoren & Partnerschaften",
     sponsorsEmpty:
       "Sponsoring-Informationen werden ergänzt, sobald sie bestätigt sind.",
     moreTitle: "Weitere Athletenporträts",
