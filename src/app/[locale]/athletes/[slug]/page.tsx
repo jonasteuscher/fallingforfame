@@ -196,7 +196,6 @@ export default async function AthletePage({ params }: AthletePageProps) {
       <AthleteSponsorsSection
         sponsors={athlete.sponsors}
         title={labels.sponsorsTitle}
-        emptyText={labels.sponsorsEmpty}
         summary={athlete.sponsorship[locale]}
       />
 

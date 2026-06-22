@@ -307,57 +307,55 @@ export function AthleteArticlesSection({
 export function AthleteSponsorsSection({
   sponsors,
   title,
-  emptyText,
   summary,
 }: {
   sponsors: AthleteSponsor[];
   title: string;
-  emptyText: string;
   summary: string | null;
 }) {
-  const confirmedSponsors = sponsors.filter((sponsor) => sponsor.name);
+  const confirmedSponsors = sponsors.filter(
+    (
+      sponsor,
+    ): sponsor is AthleteSponsor & { logo: string; url: string } =>
+      Boolean(sponsor.name && sponsor.logo && sponsor.url),
+  );
+
+  if (confirmedSponsors.length === 0) {
+    return null;
+  }
 
   return (
     <SectionShell title={title}>
-      {confirmedSponsors.length > 0 || summary ? (
-        <div className="space-y-5">
-          {summary ? (
-            <p className="max-w-reading text-xl leading-8 text-foreground/78">
-              {summary}
-            </p>
-          ) : null}
-          {confirmedSponsors.length > 0 ? (
-            <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {confirmedSponsors.map((sponsor) => (
-                <li
-                  key={sponsor.name}
-                  className="border border-border bg-surface p-5 text-lg font-semibold text-foreground"
-                >
-                  <div className="flex min-h-20 items-center justify-center">
-                    {sponsor.logo ? (
-                      <Image
-                        src={sponsor.logo}
-                        alt={sponsor.name}
-                        width={160}
-                        height={80}
-                        className="max-h-16 w-auto object-contain"
-                      />
-                    ) : sponsor.url ? (
-                      <Link href={sponsor.url} target="_blank" rel="noreferrer">
-                        {sponsor.name}
-                      </Link>
-                    ) : (
-                      sponsor.name
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      ) : (
-        <EmptyState>{emptyText}</EmptyState>
-      )}
+      <div className="space-y-5">
+        {summary ? (
+          <p className="max-w-reading text-xl leading-8 text-foreground/78">
+            {summary}
+          </p>
+        ) : null}
+        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {confirmedSponsors.map((sponsor) => (
+            <li
+              key={sponsor.name}
+              className="border border-border bg-surface p-5 text-lg font-semibold text-foreground"
+            >
+              <Link
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-20 items-center justify-center transition opacity-80 hover:opacity-100 focus-visible:rounded-sm"
+              >
+                <Image
+                  src={sponsor.logo}
+                  alt={`${sponsor.name} logo`}
+                  width={260}
+                  height={130}
+                  className="max-h-24 w-auto object-contain"
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </SectionShell>
   );
 }

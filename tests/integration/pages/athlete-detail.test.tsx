@@ -75,8 +75,7 @@ describe("athlete detail page", () => {
     expect(
       screen.getByText("Links to articles, podcasts and interviews will be added here."),
     ).toBeVisible();
-    expect(screen.getByText("Sponsor information will be added once confirmed."))
-      .toBeVisible();
+    expect(screen.queryByRole("heading", { name: "Sponsors" })).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "More Athlete Stories" }))
       .toBeVisible();
     expect(container.querySelector("audio")).toBeNull();
@@ -125,8 +124,7 @@ describe("athlete detail page", () => {
     expect(screen.getByText("Videomaterial wird hier ergänzt.")).toBeVisible();
     expect(screen.getByText("Profil-Links werden ergänzt, sobald sie bestätigt sind."))
       .toBeVisible();
-    expect(screen.getByText("Sponsoring-Informationen werden ergänzt, sobald sie bestätigt sind."))
-      .toBeVisible();
+    expect(screen.queryByRole("heading", { name: "Sponsoren" })).not.toBeInTheDocument();
     expect(screen.getAllByText("Unbekannt")).toHaveLength(2);
   });
 
@@ -169,7 +167,15 @@ describe("athlete detail page", () => {
         "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
       ),
     ).toBeVisible();
-    expect(screen.getByText("Canopies")).toBeVisible();
-    expect(screen.getByText("Wingsuits")).toBeVisible();
+    expect(screen.getByAltText("Atair Canopies logo")).toBeVisible();
+    expect(screen.getByAltText("Moreboards logo")).toBeVisible();
+    expect(screen.getByAltText("Squirrel logo")).toBeVisible();
+    expect(screen.getByAltText("DJI logo")).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Atair Canopies logo" }),
+    ).toHaveAttribute("target", "_blank");
+    expect(
+      screen.getByRole("link", { name: "Atair Canopies logo" }),
+    ).toHaveAttribute("rel", "noopener noreferrer");
   });
 });

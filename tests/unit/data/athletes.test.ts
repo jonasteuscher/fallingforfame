@@ -122,4 +122,28 @@ describe("athletes data", () => {
     expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.experience)
       .toMatchObject({ baseSeasons: 14, basejumps: 1450, sponsored: true });
   });
+
+  it("contains athlete-specific sponsor data", () => {
+    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.sponsors)
+      .toMatchObject([
+        { name: "Jöttnar", logo: "/images/sponsors/jottnar_white.png" },
+        { name: "Scarpa", logo: "/images/sponsors/scarpa_originla.webp" },
+        { name: "Adrenalin BASE", logo: "/images/sponsors/adrenalin_base.png" },
+      ]);
+    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.sponsors)
+      .toMatchObject([
+        { name: "Atair Canopies", logo: "/images/sponsors/atair_white.png" },
+        { name: "Moreboards", logo: "/images/sponsors/moreboards.avif" },
+        { name: "Squirrel", logo: "/images/sponsors/squirrel_blue.png" },
+        { name: "DJI", logo: "/images/sponsors/dji_white.webp" },
+      ]);
+    expect(
+      athletes
+        .filter(
+          (athlete) =>
+            athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+        )
+        .every((athlete) => athlete.sponsors.length === 0),
+    ).toBe(true);
+  });
 });

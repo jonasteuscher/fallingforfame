@@ -474,10 +474,26 @@ export const athletes: Athlete[] = [
     originStory: originStories["lukas-loibl"],
     ...emptyMedia,
     sponsors: [
-      { name: "Canopies", logo: null, url: null },
-      { name: "Wingsuits", logo: null, url: null },
-      { name: "Cameras", logo: null, url: null },
-      { name: "Clothing", logo: null, url: null },
+      {
+        name: "Atair Canopies",
+        logo: "/images/sponsors/atair_white.png",
+        url: "https://ataircanopies.com/",
+      },
+      {
+        name: "Moreboards",
+        logo: "/images/sponsors/moreboards.avif",
+        url: "https://www.moreboards.com/",
+      },
+      {
+        name: "Squirrel",
+        logo: "/images/sponsors/squirrel_blue.png",
+        url: "https://squirrel.ws/",
+      },
+      {
+        name: "DJI",
+        logo: "/images/sponsors/dji_white.webp",
+        url: "https://www.dji.com/",
+      },
     ],
   },
   {
@@ -527,8 +543,21 @@ export const athletes: Athlete[] = [
     originStory: originStories["tim-howell"],
     ...emptyMedia,
     sponsors: [
-      { name: "Clothing", logo: null, url: null },
-      { name: "Equipment", logo: null, url: null },
+      {
+        name: "Jöttnar",
+        logo: "/images/sponsors/jottnar_white.png",
+        url: "https://www.jottnar.com/",
+      },
+      {
+        name: "Scarpa",
+        logo: "/images/sponsors/scarpa_originla.webp",
+        url: "https://scarpa.com/",
+      },
+      {
+        name: "Adrenalin BASE",
+        logo: "/images/sponsors/adrenalin_base.png",
+        url: "https://www.adrenalinbase.com/",
+      },
     ],
   },
 ];
