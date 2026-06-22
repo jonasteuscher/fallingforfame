@@ -81,11 +81,12 @@ export type AthleteLink = {
 };
 
 export type AthleteArticle = {
-  title: {
+  title?: {
     en: string;
     de: string;
   };
   publisher?: string | null;
+  logo?: string | null;
   url: string | null;
 };
 

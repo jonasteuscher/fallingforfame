@@ -334,6 +334,42 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["marcel-geser"],
     ...emptyMedia,
+    links: [
+      {
+        label: "Marcel Geser on YouTube",
+        url: "https://www.youtube.com/@marcelgeser2681",
+        type: "youtube",
+      },
+    ],
+    articles: [
+      {
+        title: {
+          en: "BASE jumper Marcel Geser on his risky hobby",
+          de: "BASE Jumper Marcel Geser über sein riskantes Hobby",
+        },
+        publisher: "Watson",
+        logo: "/images/publishers/watson.png",
+        url: "https://www.watson.ch/bern/579044624-basejumper-marcel-geser-ueber-sein-riskantes-hobby",
+      },
+      {
+        title: {
+          en: "Portrait of Marcel Geser",
+          de: "Porträt von Marcel Geser",
+        },
+        publisher: "Plattform J",
+        logo: "/images/publishers/platform-j.png",
+        url: "https://www.plattformj.ch/artikel/189584/",
+      },
+      {
+        title: {
+          en: "Podcast episode with Marcel Geser",
+          de: "Podcastfolge mit Marcel Geser",
+        },
+        publisher: "Spotify",
+        logo: "/images/publishers/spotify.svg",
+        url: "https://open.spotify.com/episode/0TjmjcF4ERqO4wJr1SApSt",
+      },
+    ],
     sponsors: [],
   },
   {
@@ -381,6 +417,28 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["niclas-strohmeier"],
     ...emptyMedia,
+    links: [
+      {
+        label: "Niclas Strohmeier on Facebook",
+        url: "https://www.facebook.com/niclas.strohmeier.5",
+        type: "facebook",
+      },
+      {
+        label: "Niclas Strohmeier on YouTube",
+        url: "https://www.youtube.com/@niclasstrohmeier",
+        type: "youtube",
+      },
+      {
+        label: "Niclas Strohmeier on Instagram",
+        url: "https://www.instagram.com/niclas_strohmeier",
+        type: "instagram",
+      },
+      {
+        label: "Niclas Strohmeier on TikTok",
+        url: "https://www.tiktok.com/@niclas.strohmeier41",
+        type: "tiktok",
+      },
+    ],
     sponsors: [],
   },
   {
@@ -431,6 +489,23 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["josef-braun"],
     ...emptyMedia,
+    links: [
+      {
+        label: "Josef Braun on Instagram",
+        url: "https://www.instagram.com/josef._.braun/?hl=en",
+        type: "instagram",
+      },
+      {
+        label: "Josef Braun on Facebook",
+        url: "https://www.facebook.com/profile.php?id=100024173528059&sk=photos",
+        type: "facebook",
+      },
+      {
+        label: "Josef Braun on YouTube",
+        url: "https://www.youtube.com/@josef_braun",
+        type: "youtube",
+      },
+    ],
     sponsors: [
       {
         name: "Group A",
@@ -490,6 +565,80 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["lukas-loibl"],
     ...emptyMedia,
+    links: [
+      {
+        label: "Lukas Loibl website",
+        url: "https://www.lukasloiblws.com/",
+        type: "website",
+      },
+      {
+        label: "Lukas Loibl Wingsuit School",
+        url: "https://www.lukasloiblws.com/wingsuitschool",
+        type: "website",
+      },
+      {
+        label: "Lukas Loibl on Instagram",
+        url: "https://www.instagram.com/lukasloibl.ws/?hl=en",
+        type: "instagram",
+      },
+      {
+        label: "Lukas Loibl on TikTok",
+        url: "https://www.tiktok.com/@flyingluke196",
+        type: "tiktok",
+      },
+      {
+        label: "Lukas Loibl on YouTube",
+        url: "https://www.youtube.com/channel/UCI4DHsDcCiiKRHwNrieMEOQ",
+        type: "youtube",
+      },
+    ],
+    articles: [
+      {
+        title: {
+          en: "Austrian wingsuit pilot claims world record",
+          de: "Österreichischer Wingsuit-Pilot holt Weltrekord",
+        },
+        publisher: "ORF Steiermark",
+        logo: "/images/publishers/orf.png",
+        url: "https://steiermark.orf.at/stories/3356300/",
+      },
+      {
+        title: {
+          en: "Wingsuit world record at 200 km/h through the Messnerin hole",
+          de: "Wingsuit-Weltrekord mit 200 km/h durchs Loch auf der Messnerin",
+        },
+        publisher: "Kleine Zeitung",
+        logo: "/images/publishers/kleine_zeitung.svg",
+        url: "https://www.kleinezeitung.at/artikel/27204736/wingsuit-weltrekord-mit-200-km-h-durchs-loch-auf-der-messnerin",
+      },
+      {
+        title: {
+          en: "Austrian wingsuit record through a rock opening",
+          de: "Österreichischer Wingsuit-Rekord durch ein Felsenloch",
+        },
+        publisher: "Kronen Zeitung",
+        logo: "/images/publishers/kronen-zeitung.png",
+        url: "https://www.krone.at/4006470",
+      },
+      {
+        title: {
+          en: "Austrian sets world record flying through a rock hole",
+          de: "Österreicher holt Weltrekord durch ein Felsenloch",
+        },
+        publisher: "oe24",
+        logo: "/images/publishers/oe24.png",
+        url: "https://www.oe24.at/a/oesterreicher-holt-weltrekord-mit-200-km-h-durch-felsenloch-900088410",
+      },
+      {
+        title: {
+          en: "Record flight: Wingsuit pilot flies through Messnerin Hole",
+          de: "Rekord-Flug: Wingsuit-Pilot durchfliegt Messnerin-Loch",
+        },
+        publisher: "MeinBezirk",
+        logo: "/images/publishers/meinbezirk.png",
+        url: "https://www.meinbezirk.at/bruck-an-der-mur/c-lokales/rekord-flug-wingsuit-pilot-durchfliegt-messnerin-loch_a8642106?ref=curate",
+      },
+    ],
     sponsors: [
       {
         name: "Atair Canopies",
@@ -559,6 +708,102 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["tim-howell"],
     ...emptyMedia,
+    links: [
+      {
+        label: "Tim Howell Adventure",
+        url: "https://timhowelladventure.com/",
+        type: "website",
+      },
+      {
+        label: "Tim Howell on Facebook",
+        url: "https://www.facebook.com/TimHowellAdventure/",
+        type: "facebook",
+      },
+      {
+        label: "Tim Howell on Instagram",
+        url: "https://www.instagram.com/tim_howell_adventure/",
+        type: "instagram",
+      },
+      {
+        label: "Tim Howell on TikTok",
+        url: "https://www.tiktok.com/@timhowelladventure",
+        type: "tiktok",
+      },
+    ],
+    articles: [
+      {
+        title: {
+          en: "Pro record: Tim Howell",
+          de: "Pro Record: Tim Howell",
+        },
+        publisher: "BASE Magazine",
+        logo: "/images/publishers/base_magazine.png",
+        url: "https://www.base-mag.com/pro-record-tim-howell/",
+      },
+      {
+        title: {
+          en: "Meet the daredevil BASE jumper who leaped from a Vietnam peak",
+          de: "Der BASE Jumper, der von einem Gipfel in Vietnam sprang",
+        },
+        publisher: "Red Bull",
+        logo: "/images/publishers/redbull.png",
+        url: "https://www.redbull.com/gb-en/theredbulletin/meet-daredevil-base-jumper-who-leaped-from-a-1364m-peak-in-vietnam",
+      },
+      {
+        title: {
+          en: "Travel meets BASE jumper Tim Howell",
+          de: "Travel trifft BASE Jumper Tim Howell",
+        },
+        publisher: "The Times",
+        logo: "/images/publishers/times.png",
+        url: "https://www.thetimes.com/travel/st-travel-meets-base-jumper-tim-howell-bbhxpxp8d",
+      },
+      {
+        title: {
+          en: "France BASE jump photo of the day",
+          de: "France BASE Jump als Foto des Tages",
+        },
+        publisher: "National Geographic",
+        logo: "/images/publishers/national-geographic.svg",
+        url: "https://www.nationalgeographic.com/photo-of-the-day/photo/france-base-jump",
+      },
+      {
+        title: {
+          en: "Tim Howell completes North BASE paralpinism project",
+          de: "Tim Howell vollendet North BASE Paralpinism Project",
+        },
+        publisher: "PlanetMountain",
+        logo: "/images/publishers/planetmountain.svg",
+        url: "https://www.planetmountain.com/en/news/interviews/tim-howell-completes-north-base-paralpinism-project-6-great-north-faces-alps.html",
+      },
+      {
+        title: {
+          en: "Tim Howell interview: BASE jumper and climber",
+          de: "Tim Howell im Interview: BASE Jumper und Kletterer",
+        },
+        publisher: "Chalkbloc",
+        logo: "/images/publishers/chalkbloc.png",
+        url: "https://chalkbloc.com/climbing-interviews/252-tim-howell-interview-base-jumper-and-climber",
+      },
+      {
+        title: {
+          en: "Tim Howell cancels Lhotse wingsuit flight after snake bite",
+          de: "Tim Howell sagt Lhotse-Wingsuitflug nach Schlangenbiss ab",
+        },
+        publisher: "ExplorersWeb",
+        logo: "/images/publishers/explorersweb.png",
+        url: "https://explorersweb.com/tim-howell-bitten-by-venomous-snake-cancels-lhotse-wingsuit-flight/",
+      },
+      {
+        title: {
+          en: "Exit Point episode with Tim Howell",
+          de: "Exit Point Folge mit Tim Howell",
+        },
+        publisher: "Spotify",
+        logo: "/images/publishers/spotify.svg",
+        url: "https://open.spotify.com/episode/4LrAOcBaArv205P9X7hQ0F",
+      },
+    ],
     sponsors: [
       {
         name: "Jöttnar",

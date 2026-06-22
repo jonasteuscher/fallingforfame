@@ -46,7 +46,7 @@ const pageLabels = {
     audioEmpty: "Audio excerpts from the interviews will be added here.",
     videoTitle: "Video Interviews & Jumps",
     videoEmpty: "Video material will be added here.",
-    linksTitle: "Profiles & External Links",
+    linksTitle: "Personal Links & Socials",
     linksEmpty: "Profile links will be added once confirmed.",
     articlesTitle: "Articles & Media Coverage",
     articlesEmpty: "Links to articles, podcasts and interviews will be added here.",
@@ -74,7 +74,7 @@ const pageLabels = {
     audioEmpty: "Audioausschnitte aus den Interviews werden hier ergänzt.",
     videoTitle: "Video-Interviews & Sprünge",
     videoEmpty: "Videomaterial wird hier ergänzt.",
-    linksTitle: "Profile & Externe Links",
+    linksTitle: "Persönliche Links & Social Media",
     linksEmpty: "Profil-Links werden ergänzt, sobald sie bestätigt sind.",
     articlesTitle: "Artikel & Medienberichte",
     articlesEmpty:
@@ -183,14 +183,12 @@ export default async function AthletePage({ params }: AthletePageProps) {
       <AthleteLinksSection
         links={athlete.links}
         title={labels.linksTitle}
-        emptyText={labels.linksEmpty}
       />
 
       <AthleteArticlesSection
         articles={athlete.articles}
         locale={locale}
         title={labels.articlesTitle}
-        emptyText={labels.articlesEmpty}
       />
 
       <AthleteSponsorsSection

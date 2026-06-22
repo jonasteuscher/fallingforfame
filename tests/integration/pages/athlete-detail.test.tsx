@@ -70,11 +70,20 @@ describe("athlete detail page", () => {
     expect(screen.getByText("Audio excerpts from the interviews will be added here."))
       .toBeVisible();
     expect(screen.getByText("Video material will be added here.")).toBeVisible();
-    expect(screen.getByText("Profile links will be added once confirmed."))
-      .toBeVisible();
     expect(
-      screen.getByText("Links to articles, podcasts and interviews will be added here."),
+      screen.getByRole("heading", { name: "Personal Links & Socials" }),
     ).toBeVisible();
+    expect(screen.getByRole("link", { name: /Marcel Geser on YouTube/ }))
+      .toHaveAttribute("target", "_blank");
+    expect(
+      screen.getByRole("heading", { name: "Articles & Media Coverage" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: /Spotify/ })).toHaveAttribute(
+      "rel",
+      "noopener noreferrer",
+    );
+    expect(screen.getByAltText("Watson logo")).toBeVisible();
+    expect(screen.getByAltText("Spotify logo")).toBeVisible();
     expect(
       screen.queryByRole("heading", { name: "Sponsors & Partnerships" }),
     ).not.toBeInTheDocument();
@@ -124,7 +133,10 @@ describe("athlete detail page", () => {
       screen.getByText("Audioausschnitte aus den Interviews werden hier ergänzt."),
     ).toBeVisible();
     expect(screen.getByText("Videomaterial wird hier ergänzt.")).toBeVisible();
-    expect(screen.getByText("Profil-Links werden ergänzt, sobald sie bestätigt sind."))
+    expect(
+      screen.getByRole("heading", { name: "Persönliche Links & Social Media" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: /Marcel Geser on YouTube/ }))
       .toBeVisible();
     expect(
       screen.queryByRole("heading", { name: "Sponsoren & Partnerschaften" }),

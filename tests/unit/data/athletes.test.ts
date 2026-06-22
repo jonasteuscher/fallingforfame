@@ -17,8 +17,8 @@ describe("athletes data", () => {
       expect(athlete.audio).toEqual([]);
       expect(athlete.video).toEqual([]);
       expect(athlete.quotes).toEqual([]);
-      expect(athlete.links).toEqual([]);
-      expect(athlete.articles).toEqual([]);
+      expect(Array.isArray(athlete.links)).toBe(true);
+      expect(Array.isArray(athlete.articles)).toBe(true);
       expect(athlete.sponsorship).toBeTruthy();
       expect(athlete.originStory.length).toBeGreaterThanOrEqual(4);
       for (const beat of athlete.originStory) {
@@ -179,6 +179,29 @@ describe("athletes data", () => {
         )
         .every((athlete) => athlete.sponsors.length === 0),
     ).toBe(true);
+  });
+
+  it("contains athlete-specific external links and media coverage", () => {
+    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.links)
+      .toHaveLength(3);
+    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.articles)
+      .toHaveLength(0);
+    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.links)
+      .toHaveLength(5);
+    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.articles)
+      .toHaveLength(5);
+    expect(athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.links)
+      .toHaveLength(4);
+    expect(athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.articles)
+      .toHaveLength(0);
+    expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.links)
+      .toMatchObject([{ type: "youtube" }]);
+    expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.articles)
+      .toHaveLength(3);
+    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.links)
+      .toHaveLength(4);
+    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.articles)
+      .toHaveLength(8);
   });
 
   it("uses Josef Braun's story image on the Today step", () => {

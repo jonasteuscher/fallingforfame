@@ -228,34 +228,50 @@ export function AthleteMediaSection({
 export function AthleteLinksSection({
   links,
   title,
-  emptyText,
 }: {
   links: AthleteLink[];
   title: string;
-  emptyText: string;
 }) {
-  const confirmedLinks = links.filter((link) => link.url);
+  const confirmedLinks = links.filter(
+    (link): link is AthleteLink & { url: string } => Boolean(link.url),
+  );
+
+  if (confirmedLinks.length === 0) {
+    return null;
+  }
 
   return (
     <SectionShell title={title}>
-      {confirmedLinks.length > 0 ? (
-        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {confirmedLinks.map((link) => (
-            <li key={`${link.type}-${link.label}`}>
-              <Link
-                href={link.url ?? ""}
-                target="_blank"
-                rel="noreferrer"
-                className="block border border-border bg-surface p-5 font-semibold text-foreground transition hover:border-primary focus-visible:rounded-sm"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <EmptyState>{emptyText}</EmptyState>
-      )}
+      <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        {confirmedLinks.map((link) => (
+          <li key={`${link.type}-${link.label}-${link.url}`}>
+            <Link
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-24 items-center gap-4 border border-border bg-surface p-5 font-semibold text-foreground transition hover:border-primary focus-visible:rounded-sm"
+            >
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center">
+                <Image
+                  src={getSocialIcon(link.type)}
+                  alt=""
+                  width={44}
+                  height={44}
+                  className="max-h-11 w-auto object-contain"
+                />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-xs uppercase tracking-wide text-foreground/54">
+                  {getSocialPlatformLabel(link.type)}
+                </span>
+                <span className="mt-1 block break-words text-lg leading-tight">
+                  {link.label}
+                </span>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </SectionShell>
   );
 }
@@ -264,44 +280,95 @@ export function AthleteArticlesSection({
   articles,
   locale,
   title,
-  emptyText,
 }: {
   articles: AthleteArticle[];
   locale: Locale;
   title: string;
-  emptyText: string;
 }) {
-  const confirmedArticles = articles.filter((article) => article.url);
+  const confirmedArticles = articles.filter(
+    (article): article is AthleteArticle & { url: string } =>
+      Boolean(article.url),
+  );
+
+  if (confirmedArticles.length === 0) {
+    return null;
+  }
 
   return (
     <SectionShell title={title}>
-      {confirmedArticles.length > 0 ? (
-        <ul className="grid gap-4">
-          {confirmedArticles.map((article) => (
-            <li key={article.title.en}>
-              <Link
-                href={article.url ?? ""}
-                target="_blank"
-                rel="noreferrer"
-                className="block border border-border bg-surface p-5 transition hover:border-primary focus-visible:rounded-sm"
-              >
-                <span className="block text-xl font-semibold text-foreground">
-                  {article.title[locale]}
+      <ul className="grid gap-4 sm:grid-cols-2">
+        {confirmedArticles.map((article) => (
+          <li key={article.url}>
+            <Link
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block h-full border border-border bg-surface p-5 transition hover:border-primary focus-visible:rounded-sm"
+            >
+              {article.logo ? (
+                <span className="mb-5 flex min-h-14 items-center">
+                  <Image
+                    src={article.logo}
+                    alt={`${article.publisher ?? getDomainLabel(article.url)} logo`}
+                    width={180}
+                    height={56}
+                    className="max-h-12 w-auto object-contain"
+                  />
                 </span>
-                {article.publisher ? (
-                  <span className="mt-2 block text-sm uppercase tracking-wide text-foreground/62">
-                    {article.publisher}
-                  </span>
-                ) : null}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <EmptyState>{emptyText}</EmptyState>
-      )}
+              ) : null}
+              <span className="block text-xl font-semibold text-foreground">
+                {getArticleLabel(article, locale)}
+              </span>
+              <span className="mt-2 block text-sm uppercase tracking-wide text-foreground/62">
+                {article.publisher ?? getDomainLabel(article.url)}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </SectionShell>
   );
+}
+
+const socialIcons: Record<AthleteLink["type"], string> = {
+  facebook: "/socials/facebook.png",
+  instagram: "/socials/instagram.png",
+  other: "/socials/website.svg",
+  tiktok: "/socials/tiktok.png",
+  website: "/socials/website.svg",
+  youtube: "/socials/youtube.png",
+};
+
+function getSocialIcon(type: AthleteLink["type"]) {
+  return socialIcons[type];
+}
+
+function getSocialPlatformLabel(type: AthleteLink["type"]) {
+  if (type === "website") {
+    return "Website";
+  }
+
+  if (type === "other") {
+    return "Link";
+  }
+
+  return type.charAt(0).toUpperCase() + type.slice(1);
+}
+
+function getArticleLabel(article: AthleteArticle, locale: Locale) {
+  return article.title?.[locale] ?? article.publisher ?? getDomainLabel(article.url);
+}
+
+function getDomainLabel(url: string | null) {
+  if (!url) {
+    return "";
+  }
+
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
 }
 
 export function AthleteSponsorsSection({
