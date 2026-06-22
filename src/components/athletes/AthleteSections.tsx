@@ -253,7 +253,7 @@ export function AthleteLinksSection({
             >
               <span className="flex h-14 w-14 shrink-0 items-center justify-center">
                 <Image
-                  src={getSocialIcon(link.type)}
+                  src={getSocialIcon(link)}
                   alt=""
                   width={44}
                   height={44}
@@ -306,13 +306,17 @@ export function AthleteArticlesSection({
               className="block h-full border border-border bg-surface p-5 transition hover:border-primary focus-visible:rounded-sm"
             >
               {article.logo ? (
-                <span className="mb-5 flex min-h-14 items-center">
+                <span className="relative mb-5 flex h-14 w-full max-w-44 items-center">
                   <Image
                     src={article.logo}
                     alt={`${article.publisher ?? getDomainLabel(article.url)} logo`}
-                    width={180}
-                    height={56}
-                    className="max-h-12 w-auto object-contain"
+                    fill
+                    sizes="176px"
+                    className="object-contain object-left"
+                    style={{
+                      transform: article.logoScale ? `scale(${article.logoScale})` : undefined,
+                      transformOrigin: "left center",
+                    }}
                   />
                 </span>
               ) : null}
@@ -339,8 +343,8 @@ const socialIcons: Record<AthleteLink["type"], string> = {
   youtube: "/socials/youtube.png",
 };
 
-function getSocialIcon(type: AthleteLink["type"]) {
-  return socialIcons[type];
+function getSocialIcon(link: AthleteLink) {
+  return link.icon ?? socialIcons[link.type];
 }
 
 function getSocialPlatformLabel(type: AthleteLink["type"]) {

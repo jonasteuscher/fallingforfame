@@ -45,11 +45,11 @@ describe("athlete overview page", () => {
       .filter((href): href is string => Boolean(href?.startsWith("/en/athletes/")));
 
     expect(profileLinks).toEqual([
+      "/en/athletes/tim-howell",
+      "/en/athletes/lukas-loibl",
       "/en/athletes/marcel-geser",
       "/en/athletes/niclas-strohmeier",
       "/en/athletes/josef-braun",
-      "/en/athletes/lukas-loibl",
-      "/en/athletes/tim-howell",
     ]);
   });
 
@@ -62,11 +62,11 @@ describe("athlete overview page", () => {
       .filter((href): href is string => Boolean(href?.startsWith("/de/athletes/")));
 
     expect(profileLinks).toEqual([
+      "/de/athletes/tim-howell",
+      "/de/athletes/lukas-loibl",
       "/de/athletes/marcel-geser",
       "/de/athletes/niclas-strohmeier",
       "/de/athletes/josef-braun",
-      "/de/athletes/lukas-loibl",
-      "/de/athletes/tim-howell",
     ]);
   });
 });

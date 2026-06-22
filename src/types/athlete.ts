@@ -78,6 +78,7 @@ export type AthleteLink = {
   label: string;
   url: string | null;
   type: "instagram" | "youtube" | "website" | "tiktok" | "facebook" | "other";
+  icon?: string | null;
 };
 
 export type AthleteArticle = {
@@ -87,6 +88,7 @@ export type AthleteArticle = {
   };
   publisher?: string | null;
   logo?: string | null;
+  logoScale?: number | null;
   url: string | null;
 };
 

@@ -104,22 +104,22 @@ describe("athletes data", () => {
 
   it("uses the exact expected slugs", () => {
     expect(athletes.map((athlete) => athlete.slug)).toEqual([
+      "tim-howell",
+      "lukas-loibl",
       "marcel-geser",
       "niclas-strohmeier",
       "josef-braun",
-      "lukas-loibl",
-      "tim-howell",
     ]);
   });
 
   it("contains verified athlete metadata and experience values", () => {
     expect(athletes.map((athlete) => [athlete.slug, athlete.age, athlete.country]))
       .toEqual([
+        ["tim-howell", 37, "United Kingdom"],
+        ["lukas-loibl", 26, "Austria"],
         ["marcel-geser", 45, "Switzerland"],
         ["niclas-strohmeier", 28, "Germany"],
         ["josef-braun", 27, "Germany"],
-        ["lukas-loibl", 26, "Austria"],
-        ["tim-howell", 37, "United Kingdom"],
       ]);
     expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.experience)
       .toMatchObject({ skydives: 850, basejumps: 1500, sponsored: false });
@@ -147,6 +147,11 @@ describe("athletes data", () => {
           name: "Inigo Insurance",
           logo: "/images/sponsors/inigo.png",
           url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
+        },
+        {
+          name: "Stirling Timepieces",
+          logo: "/images/sponsors/stirling.jpg",
+          url: "https://stirlingtimepieces.com/",
         },
       ]);
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.sponsors)

@@ -362,6 +362,7 @@ export const athletes: Athlete[] = [
         },
         publisher: "BASE Magazine",
         logo: "/images/publishers/base_magazine.png",
+        logoScale: 0.76,
         url: "https://www.base-mag.com/pro-record-tim-howell/",
       },
       {
@@ -388,7 +389,8 @@ export const athletes: Athlete[] = [
           de: "France BASE Jump als Foto des Tages",
         },
         publisher: "National Geographic",
-        logo: "/images/publishers/national-geographic.svg",
+        logo: "/images/publishers/national_geographic.png",
+        logoScale: 2.4,
         url: "https://www.nationalgeographic.com/photo-of-the-day/photo/france-base-jump",
       },
       {
@@ -424,7 +426,7 @@ export const athletes: Athlete[] = [
           de: "Exit Point Folge mit Tim Howell",
         },
         publisher: "Spotify",
-        logo: "/images/publishers/spotify.svg",
+        logo: "/images/publishers/spotify.webp",
         url: "https://open.spotify.com/episode/4LrAOcBaArv205P9X7hQ0F",
       },
     ],
@@ -448,6 +450,11 @@ export const athletes: Athlete[] = [
         name: "Inigo Insurance",
         logo: "/images/sponsors/inigo.png",
         url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
+      },
+      {
+        name: "Stirling Timepieces",
+        logo: "/images/sponsors/stirling.jpg",
+        url: "https://stirlingtimepieces.com/",
       },
     ],
   },
@@ -499,7 +506,7 @@ export const athletes: Athlete[] = [
     ...emptyMedia,
     links: [
       {
-        label: "Lukas Loibl website",
+        label: "Lukas Loibl Website",
         url: "https://www.lukasloiblws.com/",
         type: "website",
       },
@@ -507,6 +514,7 @@ export const athletes: Athlete[] = [
         label: "Lukas Loibl Wingsuit School",
         url: "https://www.lukasloiblws.com/wingsuitschool",
         type: "website",
+        icon: "/socials/lukas_logo.jpg",
       },
       {
         label: "Lukas Loibl on Instagram",
