@@ -221,6 +221,17 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         de: "Nach drei Jahren im Fallschirmspringen wechselte Lukas ins BASE Jumping. Was mit Videos und einem gemeinsamen Traum begann, wurde Schritt für Schritt zu einem Leben rund ums Fliegen, Training und die Berge.",
       },
     },
+    {
+      phase: { en: "06 — Today", de: "06 — Heute" },
+      title: {
+        en: "Pursuing the dream full time",
+        de: "Der Traum als Vollzeitweg",
+      },
+      body: {
+        en: "Today, Lukas has quit his job to pursue that dream full time: coaching at his own wingsuit school and working as a wingsuit pilot for sponsored projects.",
+        de: "Heute hat Lukas seinen Job gekuendigt, um diesen Traum vollzeit zu verfolgen: als Coach an seiner eigenen Wingsuit-Schule und als Wingsuit-Pilot fuer gesponserte Projekte.",
+      },
+    },
   ],
   "tim-howell": [
     {
@@ -427,7 +438,10 @@ export const athletes: Athlete[] = [
       en: "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
       de: "Mehrere Sponsoren seit 2022, darunter Canopies, Wingsuits, Kameras und Kleidung.",
     },
-    images: images(null, "/images/athletes/lukas-loibl/profile.webp"),
+    images: images(
+      "/images/athletes/lukas-loibl/hero1-web.jpeg",
+      "/images/athletes/lukas-loibl/profile-2.jpg",
+    ),
     experience: experience(6, 3500, 6, 3000, true, 200000),
     content: {
       en: {
@@ -440,7 +454,7 @@ export const athletes: Athlete[] = [
           "Lukas Loibl grew up watching wingsuit videos on YouTube with a close friend. The idea of flying through alpine terrain quickly became more than a passing interest. His friend entered skydiving first, while Lukas initially stayed with skateboarding and other teenage pursuits. Two years later he followed the same path and found in skydiving the kind of intensity and progression he had known from skateboarding, but with fewer injuries. The sport soon took over more and more of his life. He worked alongside school to pay for jumps and put most of his available time and energy into becoming better. After three years in skydiving, he moved into BASE jumping with the same commitment. Lukas describes that complete focus as one reason he was able to progress quickly. What began with videos and a shared dream with a friend gradually became a life built around flying, training and the mountains.",
         profession: "BASE Jumping Instructor / Coach",
         role: "Professional",
-        residence: "Austria",
+        residence: "Switzerland",
         primaryDisciplines: ["Slider Down", "Wingsuit"],
       },
       de: {
@@ -453,7 +467,7 @@ export const athletes: Athlete[] = [
           "Lukas Loibl wuchs mit Wingsuit-Videos auf YouTube auf, die er gemeinsam mit einem engen Freund anschaute. Die Vorstellung, durch alpines Gelände zu fliegen, liess ihn schnell nicht mehr los. Sein Freund begann zuerst mit dem Fallschirmspringen, während Lukas zunächst beim Skateboarden und anderen Interessen seiner Jugend blieb. Zwei Jahre später folgte er demselben Weg. Im Fallschirmspringen fand er eine ähnliche Intensität und Entwicklung wie zuvor beim Skateboarden, nur mit weniger Verletzungen. Der Sport nahm immer mehr Raum in seinem Leben ein. Neben der Schule arbeitete er, um Sprünge zu finanzieren, und steckte den grössten Teil seiner Zeit und Energie in seine Fortschritte. Nach drei Jahren im Fallschirmspringen wechselte er ins BASE Jumping und ging diesen Schritt mit derselben Hingabe an. Diese vollständige Ausrichtung auf den Sport sieht er als einen Grund, warum er schnell vorankam und sich später ein Leben rund ums Fliegen, Training und die Berge aufbauen konnte.",
         profession: "BASE-Jumping-Instruktor / Coach",
         role: "Professionell",
-        residence: "Österreich",
+        residence: "Schweiz",
         primaryDisciplines: ["Slider Down", "Wingsuit"],
       },
     },

@@ -52,7 +52,7 @@ describe("athletes data", () => {
       athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.portrait,
     ).toBe("/images/athletes/marcel-geser/profile.jpg");
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.portrait)
-      .toBe("/images/athletes/lukas-loibl/profile.webp");
+      .toBe("/images/athletes/lukas-loibl/profile-2.jpg");
     expect(
       athletes
         .filter(
@@ -70,11 +70,15 @@ describe("athletes data", () => {
       .toBe("/images/athletes/tim-howell/hero.jpg");
     expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.hero)
       .toBe("/images/athletes/marcel-geser/hero.jpg");
+    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.hero)
+      .toBe("/images/athletes/lukas-loibl/hero1-web.jpeg");
     expect(
       athletes
         .filter(
           (athlete) =>
-            athlete.slug !== "tim-howell" && athlete.slug !== "marcel-geser",
+            athlete.slug !== "tim-howell" &&
+            athlete.slug !== "marcel-geser" &&
+            athlete.slug !== "lukas-loibl",
         )
         .every((athlete) => athlete.images.hero === null),
     ).toBe(true);

@@ -136,6 +136,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
         placeholder={dictionary.site.athletes.portraitPlaceholder}
         country={country}
         labels={labels.profileMeta}
+        sponsoredLabels={dictionary.athleteExperience}
         unknown={dictionary.athleteExperience.unknown}
       />
 

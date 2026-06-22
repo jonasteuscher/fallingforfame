@@ -151,12 +151,18 @@ describe("athlete detail page", () => {
   });
 
   it("renders confirmed sponsor information", async () => {
-    await renderAsyncPage(
+    const { container } = await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "en", slug: "lukas-loibl" }),
       }),
     );
 
+    expect(
+      container.querySelector(
+        'img[src="/images/athletes/lukas-loibl/hero1-web.jpeg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Sponsored")).toBeVisible();
     expect(screen.getByText("Yes")).toBeVisible();
     expect(
       screen.getByText(
