@@ -287,6 +287,314 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
 
 export const athletes: Athlete[] = [
   {
+    id: "tim-howell",
+    slug: "tim-howell",
+    name: "Tim Howell",
+    age: 37,
+    country: "United Kingdom",
+    platforms: ["Instagram", "Facebook"],
+    sponsorship: {
+      en: "Multiple sponsors, primarily clothing and equipment. Sponsored for 7 years.",
+      de: "Mehrere Sponsoren, vor allem Kleidung und Ausrüstung. Seit 7 Jahren gesponsert.",
+    },
+    images: images(
+      "/images/athletes/tim-howell/hero.jpg",
+      "/images/athletes/tim-howell/profile.jpg",
+    ),
+    experience: experience(2, 250, 14, 1450, true, 100000),
+    content: {
+      en: {
+        title: "Professional",
+        shortBio:
+          "British professional mountain athlete based in Switzerland. Known for combining mountaineering, climbing and BASE jumping, he has spent more than a decade pursuing complex mountain objectives around the world.",
+        intro: "British professional mountain athlete based in Switzerland.",
+        baseStoryTitle: "Searching for freedom in the mountains",
+        baseStory:
+          "Tim Howell was drawn to risk, movement and adventure before BASE jumping entered his life. Climbing, freeride mountain biking and mountain sports shaped his early years and gave him a strong connection to steep terrain. When he began skydiving, it was not because he saw it as the destination. It was a step toward the larger goal of becoming a BASE jumper. Around the same period, he joined the military, but his attention increasingly moved toward mountain-based objectives. Once he entered BASE jumping, skydiving quickly became less important to him. What held his interest was not adrenaline alone. It was the mix of exploration, freedom and self-reliance that BASE jumping offered in remote mountain environments. For Tim, the sport opened a way to connect movement with place, planning and uncertainty. He continues to see it as an endless source of projects, shaped more by curiosity and mountain objectives than by simply collecting jumps.",
+        profession: "Professional Mountain Athlete",
+        role: "Professional",
+        residence: "Switzerland",
+        primaryDisciplines: ["Slider Down", "Wingsuit"],
+      },
+      de: {
+        title: "Professionell",
+        shortBio:
+          "Britischer Bergsportler mit Wohnsitz in der Schweiz. Er verbindet Alpinismus, Klettern und BASE Jumping und verfolgt seit über einem Jahrzehnt anspruchsvolle Projekte in den Bergen weltweit.",
+        intro: "Britischer Bergsportler mit Wohnsitz in der Schweiz.",
+        baseStoryTitle: "Auf der Suche nach Freiheit in den Bergen",
+        baseStory:
+          "Tim Howell fühlte sich schon vor dem BASE Jumping von Risiko, Abenteuer und Bewegung angezogen. Klettern, Freeride-Mountainbiken und Bergsport prägten seine frühen Jahre und brachten ihn immer wieder in steiles Gelände. Als er mit dem Fallschirmspringen begann, war das für ihn nicht das eigentliche Ziel. Es war ein notwendiger Schritt auf dem Weg zum BASE Jumping. In derselben Zeit trat er ins Militär ein, doch sein Interesse verlagerte sich zunehmend auf Projekte in den Bergen. Nachdem er ins BASE Jumping eingestiegen war, verlor das reine Fallschirmspringen für ihn schnell an Bedeutung. Was ihn am Sport festhielt, war nicht nur Adrenalin. Es war die Verbindung aus Erkundung, Freiheit und Eigenverantwortung in abgelegenen Berglandschaften. Für Tim wurde BASE Jumping zu einer Möglichkeit, Bewegung, Planung und Unsicherheit miteinander zu verbinden. Bis heute sieht er darin eine endlose Quelle neuer Projekte, getragen von Neugier und der Suche nach anspruchsvollen Zielen in den Bergen.",
+        profession: "Professioneller Bergsportler",
+        role: "Professionell",
+        residence: "Schweiz",
+        primaryDisciplines: ["Slider Down", "Wingsuit"],
+      },
+    },
+    originStory: originStories["tim-howell"],
+    ...emptyMedia,
+    links: [
+      {
+        label: "Tim Howell Adventure",
+        url: "https://timhowelladventure.com/",
+        type: "website",
+      },
+      {
+        label: "Tim Howell on Facebook",
+        url: "https://www.facebook.com/TimHowellAdventure/",
+        type: "facebook",
+      },
+      {
+        label: "Tim Howell on Instagram",
+        url: "https://www.instagram.com/tim_howell_adventure/",
+        type: "instagram",
+      },
+      {
+        label: "Tim Howell on TikTok",
+        url: "https://www.tiktok.com/@timhowelladventure",
+        type: "tiktok",
+      },
+    ],
+    articles: [
+      {
+        title: {
+          en: "Pro record: Tim Howell",
+          de: "Pro Record: Tim Howell",
+        },
+        publisher: "BASE Magazine",
+        logo: "/images/publishers/base_magazine.png",
+        url: "https://www.base-mag.com/pro-record-tim-howell/",
+      },
+      {
+        title: {
+          en: "Meet the daredevil BASE jumper who leaped from a Vietnam peak",
+          de: "Der BASE Jumper, der von einem Gipfel in Vietnam sprang",
+        },
+        publisher: "Red Bull",
+        logo: "/images/publishers/redbull.png",
+        url: "https://www.redbull.com/gb-en/theredbulletin/meet-daredevil-base-jumper-who-leaped-from-a-1364m-peak-in-vietnam",
+      },
+      {
+        title: {
+          en: "Travel meets BASE jumper Tim Howell",
+          de: "Travel trifft BASE Jumper Tim Howell",
+        },
+        publisher: "The Times",
+        logo: "/images/publishers/times.png",
+        url: "https://www.thetimes.com/travel/st-travel-meets-base-jumper-tim-howell-bbhxpxp8d",
+      },
+      {
+        title: {
+          en: "France BASE jump photo of the day",
+          de: "France BASE Jump als Foto des Tages",
+        },
+        publisher: "National Geographic",
+        logo: "/images/publishers/national-geographic.svg",
+        url: "https://www.nationalgeographic.com/photo-of-the-day/photo/france-base-jump",
+      },
+      {
+        title: {
+          en: "Tim Howell completes North BASE paralpinism project",
+          de: "Tim Howell vollendet North BASE Paralpinism Project",
+        },
+        publisher: "PlanetMountain",
+        logo: "/images/publishers/planetmountain.svg",
+        url: "https://www.planetmountain.com/en/news/interviews/tim-howell-completes-north-base-paralpinism-project-6-great-north-faces-alps.html",
+      },
+      {
+        title: {
+          en: "Tim Howell interview: BASE jumper and climber",
+          de: "Tim Howell im Interview: BASE Jumper und Kletterer",
+        },
+        publisher: "Chalkbloc",
+        logo: "/images/publishers/chalkbloc.png",
+        url: "https://chalkbloc.com/climbing-interviews/252-tim-howell-interview-base-jumper-and-climber",
+      },
+      {
+        title: {
+          en: "Tim Howell cancels Lhotse wingsuit flight after snake bite",
+          de: "Tim Howell sagt Lhotse-Wingsuitflug nach Schlangenbiss ab",
+        },
+        publisher: "ExplorersWeb",
+        logo: "/images/publishers/explorersweb.png",
+        url: "https://explorersweb.com/tim-howell-bitten-by-venomous-snake-cancels-lhotse-wingsuit-flight/",
+      },
+      {
+        title: {
+          en: "Exit Point episode with Tim Howell",
+          de: "Exit Point Folge mit Tim Howell",
+        },
+        publisher: "Spotify",
+        logo: "/images/publishers/spotify.svg",
+        url: "https://open.spotify.com/episode/4LrAOcBaArv205P9X7hQ0F",
+      },
+    ],
+    sponsors: [
+      {
+        name: "Jöttnar",
+        logo: "/images/sponsors/jottnar_black.png",
+        url: "https://www.jottnar.com/pages/pro-tim-howell",
+      },
+      {
+        name: "Scarpa",
+        logo: "/images/sponsors/scarpa_originla.webp",
+        url: "https://scarpa.com/",
+      },
+      {
+        name: "Adrenalin BASE",
+        logo: "/images/sponsors/adrenalin_base.png",
+        url: "https://www.adrenalinbase.com/",
+      },
+      {
+        name: "Inigo Insurance",
+        logo: "/images/sponsors/inigo.png",
+        url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
+      },
+    ],
+  },
+  {
+    id: "lukas-loibl",
+    slug: "lukas-loibl",
+    name: "Lukas Loibl",
+    age: 26,
+    country: "Austria",
+    platforms: ["Instagram", "YouTube"],
+    sponsorship: {
+      en: "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
+      de: "Mehrere Sponsoren seit 2022, darunter Canopies, Wingsuits, Kameras und Kleidung.",
+    },
+    images: images(
+      "/images/athletes/lukas-loibl/hero1-web.jpeg",
+      "/images/athletes/lukas-loibl/profile-2.jpg",
+    ),
+    experience: experience(6, 3500, 6, 3000, true, 200000),
+    content: {
+      en: {
+        title: "Professional",
+        shortBio:
+          "Austrian professional BASE jumping instructor and coach. With thousands of skydives and BASE jumps, he represents a fully professional approach to the sport and works closely with multiple industry sponsors.",
+        intro: "Austrian professional BASE jumping instructor and coach.",
+        baseStoryTitle: "From skateboarding to the mountains",
+        baseStory:
+          "Lukas Loibl grew up watching wingsuit videos on YouTube with a close friend. The idea of flying through alpine terrain quickly became more than a passing interest. His friend entered skydiving first, while Lukas initially stayed with skateboarding and other teenage pursuits. Two years later he followed the same path and found in skydiving the kind of intensity and progression he had known from skateboarding, but with fewer injuries. The sport soon took over more and more of his life. He worked alongside school to pay for jumps and put most of his available time and energy into becoming better. After three years in skydiving, he moved into BASE jumping with the same commitment. Lukas describes that complete focus as one reason he was able to progress quickly. What began with videos and a shared dream with a friend gradually became a life built around flying, training and the mountains.",
+        profession: "BASE Jumping Instructor / Coach",
+        role: "Professional",
+        residence: "Switzerland",
+        primaryDisciplines: ["Slider Down", "Wingsuit"],
+      },
+      de: {
+        title: "Professionell",
+        shortBio:
+          "Österreichischer BASE-Jumping-Instruktor und Coach. Mit mehreren tausend Fallschirm- und BASE-Sprüngen steht er für einen professionellen Zugang zum Sport und arbeitet mit verschiedenen Sponsoren aus der Branche zusammen.",
+        intro: "Österreichischer BASE-Jumping-Instruktor und Coach.",
+        baseStoryTitle: "Vom Skateboard in die Berge",
+        baseStory:
+          "Lukas Loibl wuchs mit Wingsuit-Videos auf YouTube auf, die er gemeinsam mit einem engen Freund anschaute. Die Vorstellung, durch alpines Gelände zu fliegen, liess ihn schnell nicht mehr los. Sein Freund begann zuerst mit dem Fallschirmspringen, während Lukas zunächst beim Skateboarden und anderen Interessen seiner Jugend blieb. Zwei Jahre später folgte er demselben Weg. Im Fallschirmspringen fand er eine ähnliche Intensität und Entwicklung wie zuvor beim Skateboarden, nur mit weniger Verletzungen. Der Sport nahm immer mehr Raum in seinem Leben ein. Neben der Schule arbeitete er, um Sprünge zu finanzieren, und steckte den grössten Teil seiner Zeit und Energie in seine Fortschritte. Nach drei Jahren im Fallschirmspringen wechselte er ins BASE Jumping und ging diesen Schritt mit derselben Hingabe an. Diese vollständige Ausrichtung auf den Sport sieht er als einen Grund, warum er schnell vorankam und sich später ein Leben rund ums Fliegen, Training und die Berge aufbauen konnte.",
+        profession: "BASE-Jumping-Instruktor / Coach",
+        role: "Professionell",
+        residence: "Schweiz",
+        primaryDisciplines: ["Slider Down", "Wingsuit"],
+      },
+    },
+    originStory: originStories["lukas-loibl"],
+    ...emptyMedia,
+    links: [
+      {
+        label: "Lukas Loibl website",
+        url: "https://www.lukasloiblws.com/",
+        type: "website",
+      },
+      {
+        label: "Lukas Loibl Wingsuit School",
+        url: "https://www.lukasloiblws.com/wingsuitschool",
+        type: "website",
+      },
+      {
+        label: "Lukas Loibl on Instagram",
+        url: "https://www.instagram.com/lukasloibl.ws/?hl=en",
+        type: "instagram",
+      },
+      {
+        label: "Lukas Loibl on TikTok",
+        url: "https://www.tiktok.com/@flyingluke196",
+        type: "tiktok",
+      },
+      {
+        label: "Lukas Loibl on YouTube",
+        url: "https://www.youtube.com/channel/UCI4DHsDcCiiKRHwNrieMEOQ",
+        type: "youtube",
+      },
+    ],
+    articles: [
+      {
+        title: {
+          en: "Austrian wingsuit pilot claims world record",
+          de: "Österreichischer Wingsuit-Pilot holt Weltrekord",
+        },
+        publisher: "ORF Steiermark",
+        logo: "/images/publishers/orf.png",
+        url: "https://steiermark.orf.at/stories/3356300/",
+      },
+      {
+        title: {
+          en: "Wingsuit world record at 200 km/h through the Messnerin hole",
+          de: "Wingsuit-Weltrekord mit 200 km/h durchs Loch auf der Messnerin",
+        },
+        publisher: "Kleine Zeitung",
+        logo: "/images/publishers/kleine_zeitung.svg",
+        url: "https://www.kleinezeitung.at/artikel/27204736/wingsuit-weltrekord-mit-200-km-h-durchs-loch-auf-der-messnerin",
+      },
+      {
+        title: {
+          en: "Austrian wingsuit record through a rock opening",
+          de: "Österreichischer Wingsuit-Rekord durch ein Felsenloch",
+        },
+        publisher: "Kronen Zeitung",
+        logo: "/images/publishers/kronen-zeitung.png",
+        url: "https://www.krone.at/4006470",
+      },
+      {
+        title: {
+          en: "Austrian sets world record flying through a rock hole",
+          de: "Österreicher holt Weltrekord durch ein Felsenloch",
+        },
+        publisher: "oe24",
+        logo: "/images/publishers/oe24.png",
+        url: "https://www.oe24.at/a/oesterreicher-holt-weltrekord-mit-200-km-h-durch-felsenloch-900088410",
+      },
+      {
+        title: {
+          en: "Record flight: Wingsuit pilot flies through Messnerin Hole",
+          de: "Rekord-Flug: Wingsuit-Pilot durchfliegt Messnerin-Loch",
+        },
+        publisher: "MeinBezirk",
+        logo: "/images/publishers/meinbezirk.png",
+        url: "https://www.meinbezirk.at/bruck-an-der-mur/c-lokales/rekord-flug-wingsuit-pilot-durchfliegt-messnerin-loch_a8642106?ref=curate",
+      },
+    ],
+    sponsors: [
+      {
+        name: "Atair Canopies",
+        logo: "/images/sponsors/atair_white.png",
+        url: "https://ataircanopies.com/",
+      },
+      {
+        name: "Moreboards",
+        logo: "/images/sponsors/moreboards.avif",
+        url: "https://www.moreboards.com/",
+      },
+      {
+        name: "Squirrel",
+        logo: "/images/sponsors/squirrel_blue.png",
+        url: "https://squirrel.ws/",
+      },
+      {
+        name: "DJI",
+        logo: "/images/sponsors/dji_white.webp",
+        url: "https://www.dji.com/",
+      },
+    ],
+  },
+  {
     id: "marcel-geser",
     slug: "marcel-geser",
     name: "Marcel Geser",
@@ -519,314 +827,7 @@ export const athletes: Athlete[] = [
       },
     ],
   },
-  {
-    id: "lukas-loibl",
-    slug: "lukas-loibl",
-    name: "Lukas Loibl",
-    age: 26,
-    country: "Austria",
-    platforms: ["Instagram", "YouTube"],
-    sponsorship: {
-      en: "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
-      de: "Mehrere Sponsoren seit 2022, darunter Canopies, Wingsuits, Kameras und Kleidung.",
-    },
-    images: images(
-      "/images/athletes/lukas-loibl/hero1-web.jpeg",
-      "/images/athletes/lukas-loibl/profile-2.jpg",
-    ),
-    experience: experience(6, 3500, 6, 3000, true, 200000),
-    content: {
-      en: {
-        title: "Professional",
-        shortBio:
-          "Austrian professional BASE jumping instructor and coach. With thousands of skydives and BASE jumps, he represents a fully professional approach to the sport and works closely with multiple industry sponsors.",
-        intro: "Austrian professional BASE jumping instructor and coach.",
-        baseStoryTitle: "From skateboarding to the mountains",
-        baseStory:
-          "Lukas Loibl grew up watching wingsuit videos on YouTube with a close friend. The idea of flying through alpine terrain quickly became more than a passing interest. His friend entered skydiving first, while Lukas initially stayed with skateboarding and other teenage pursuits. Two years later he followed the same path and found in skydiving the kind of intensity and progression he had known from skateboarding, but with fewer injuries. The sport soon took over more and more of his life. He worked alongside school to pay for jumps and put most of his available time and energy into becoming better. After three years in skydiving, he moved into BASE jumping with the same commitment. Lukas describes that complete focus as one reason he was able to progress quickly. What began with videos and a shared dream with a friend gradually became a life built around flying, training and the mountains.",
-        profession: "BASE Jumping Instructor / Coach",
-        role: "Professional",
-        residence: "Switzerland",
-        primaryDisciplines: ["Slider Down", "Wingsuit"],
-      },
-      de: {
-        title: "Professionell",
-        shortBio:
-          "Österreichischer BASE-Jumping-Instruktor und Coach. Mit mehreren tausend Fallschirm- und BASE-Sprüngen steht er für einen professionellen Zugang zum Sport und arbeitet mit verschiedenen Sponsoren aus der Branche zusammen.",
-        intro: "Österreichischer BASE-Jumping-Instruktor und Coach.",
-        baseStoryTitle: "Vom Skateboard in die Berge",
-        baseStory:
-          "Lukas Loibl wuchs mit Wingsuit-Videos auf YouTube auf, die er gemeinsam mit einem engen Freund anschaute. Die Vorstellung, durch alpines Gelände zu fliegen, liess ihn schnell nicht mehr los. Sein Freund begann zuerst mit dem Fallschirmspringen, während Lukas zunächst beim Skateboarden und anderen Interessen seiner Jugend blieb. Zwei Jahre später folgte er demselben Weg. Im Fallschirmspringen fand er eine ähnliche Intensität und Entwicklung wie zuvor beim Skateboarden, nur mit weniger Verletzungen. Der Sport nahm immer mehr Raum in seinem Leben ein. Neben der Schule arbeitete er, um Sprünge zu finanzieren, und steckte den grössten Teil seiner Zeit und Energie in seine Fortschritte. Nach drei Jahren im Fallschirmspringen wechselte er ins BASE Jumping und ging diesen Schritt mit derselben Hingabe an. Diese vollständige Ausrichtung auf den Sport sieht er als einen Grund, warum er schnell vorankam und sich später ein Leben rund ums Fliegen, Training und die Berge aufbauen konnte.",
-        profession: "BASE-Jumping-Instruktor / Coach",
-        role: "Professionell",
-        residence: "Schweiz",
-        primaryDisciplines: ["Slider Down", "Wingsuit"],
-      },
-    },
-    originStory: originStories["lukas-loibl"],
-    ...emptyMedia,
-    links: [
-      {
-        label: "Lukas Loibl website",
-        url: "https://www.lukasloiblws.com/",
-        type: "website",
-      },
-      {
-        label: "Lukas Loibl Wingsuit School",
-        url: "https://www.lukasloiblws.com/wingsuitschool",
-        type: "website",
-      },
-      {
-        label: "Lukas Loibl on Instagram",
-        url: "https://www.instagram.com/lukasloibl.ws/?hl=en",
-        type: "instagram",
-      },
-      {
-        label: "Lukas Loibl on TikTok",
-        url: "https://www.tiktok.com/@flyingluke196",
-        type: "tiktok",
-      },
-      {
-        label: "Lukas Loibl on YouTube",
-        url: "https://www.youtube.com/channel/UCI4DHsDcCiiKRHwNrieMEOQ",
-        type: "youtube",
-      },
-    ],
-    articles: [
-      {
-        title: {
-          en: "Austrian wingsuit pilot claims world record",
-          de: "Österreichischer Wingsuit-Pilot holt Weltrekord",
-        },
-        publisher: "ORF Steiermark",
-        logo: "/images/publishers/orf.png",
-        url: "https://steiermark.orf.at/stories/3356300/",
-      },
-      {
-        title: {
-          en: "Wingsuit world record at 200 km/h through the Messnerin hole",
-          de: "Wingsuit-Weltrekord mit 200 km/h durchs Loch auf der Messnerin",
-        },
-        publisher: "Kleine Zeitung",
-        logo: "/images/publishers/kleine_zeitung.svg",
-        url: "https://www.kleinezeitung.at/artikel/27204736/wingsuit-weltrekord-mit-200-km-h-durchs-loch-auf-der-messnerin",
-      },
-      {
-        title: {
-          en: "Austrian wingsuit record through a rock opening",
-          de: "Österreichischer Wingsuit-Rekord durch ein Felsenloch",
-        },
-        publisher: "Kronen Zeitung",
-        logo: "/images/publishers/kronen-zeitung.png",
-        url: "https://www.krone.at/4006470",
-      },
-      {
-        title: {
-          en: "Austrian sets world record flying through a rock hole",
-          de: "Österreicher holt Weltrekord durch ein Felsenloch",
-        },
-        publisher: "oe24",
-        logo: "/images/publishers/oe24.png",
-        url: "https://www.oe24.at/a/oesterreicher-holt-weltrekord-mit-200-km-h-durch-felsenloch-900088410",
-      },
-      {
-        title: {
-          en: "Record flight: Wingsuit pilot flies through Messnerin Hole",
-          de: "Rekord-Flug: Wingsuit-Pilot durchfliegt Messnerin-Loch",
-        },
-        publisher: "MeinBezirk",
-        logo: "/images/publishers/meinbezirk.png",
-        url: "https://www.meinbezirk.at/bruck-an-der-mur/c-lokales/rekord-flug-wingsuit-pilot-durchfliegt-messnerin-loch_a8642106?ref=curate",
-      },
-    ],
-    sponsors: [
-      {
-        name: "Atair Canopies",
-        logo: "/images/sponsors/atair_white.png",
-        url: "https://ataircanopies.com/",
-      },
-      {
-        name: "Moreboards",
-        logo: "/images/sponsors/moreboards.avif",
-        url: "https://www.moreboards.com/",
-      },
-      {
-        name: "Squirrel",
-        logo: "/images/sponsors/squirrel_blue.png",
-        url: "https://squirrel.ws/",
-      },
-      {
-        name: "DJI",
-        logo: "/images/sponsors/dji_white.webp",
-        url: "https://www.dji.com/",
-      },
-    ],
-  },
-  {
-    id: "tim-howell",
-    slug: "tim-howell",
-    name: "Tim Howell",
-    age: 37,
-    country: "United Kingdom",
-    platforms: ["Instagram", "Facebook"],
-    sponsorship: {
-      en: "Multiple sponsors, primarily clothing and equipment. Sponsored for 7 years.",
-      de: "Mehrere Sponsoren, vor allem Kleidung und Ausrüstung. Seit 7 Jahren gesponsert.",
-    },
-    images: images(
-      "/images/athletes/tim-howell/hero.jpg",
-      "/images/athletes/tim-howell/profile.jpg",
-    ),
-    experience: experience(2, 250, 14, 1450, true, 100000),
-    content: {
-      en: {
-        title: "Professional",
-        shortBio:
-          "British professional mountain athlete based in Switzerland. Known for combining mountaineering, climbing and BASE jumping, he has spent more than a decade pursuing complex mountain objectives around the world.",
-        intro: "British professional mountain athlete based in Switzerland.",
-        baseStoryTitle: "Searching for freedom in the mountains",
-        baseStory:
-          "Tim Howell was drawn to risk, movement and adventure before BASE jumping entered his life. Climbing, freeride mountain biking and mountain sports shaped his early years and gave him a strong connection to steep terrain. When he began skydiving, it was not because he saw it as the destination. It was a step toward the larger goal of becoming a BASE jumper. Around the same period, he joined the military, but his attention increasingly moved toward mountain-based objectives. Once he entered BASE jumping, skydiving quickly became less important to him. What held his interest was not adrenaline alone. It was the mix of exploration, freedom and self-reliance that BASE jumping offered in remote mountain environments. For Tim, the sport opened a way to connect movement with place, planning and uncertainty. He continues to see it as an endless source of projects, shaped more by curiosity and mountain objectives than by simply collecting jumps.",
-        profession: "Professional Mountain Athlete",
-        role: "Professional",
-        residence: "Switzerland",
-        primaryDisciplines: ["Slider Down", "Wingsuit"],
-      },
-      de: {
-        title: "Professionell",
-        shortBio:
-          "Britischer Bergsportler mit Wohnsitz in der Schweiz. Er verbindet Alpinismus, Klettern und BASE Jumping und verfolgt seit über einem Jahrzehnt anspruchsvolle Projekte in den Bergen weltweit.",
-        intro: "Britischer Bergsportler mit Wohnsitz in der Schweiz.",
-        baseStoryTitle: "Auf der Suche nach Freiheit in den Bergen",
-        baseStory:
-          "Tim Howell fühlte sich schon vor dem BASE Jumping von Risiko, Abenteuer und Bewegung angezogen. Klettern, Freeride-Mountainbiken und Bergsport prägten seine frühen Jahre und brachten ihn immer wieder in steiles Gelände. Als er mit dem Fallschirmspringen begann, war das für ihn nicht das eigentliche Ziel. Es war ein notwendiger Schritt auf dem Weg zum BASE Jumping. In derselben Zeit trat er ins Militär ein, doch sein Interesse verlagerte sich zunehmend auf Projekte in den Bergen. Nachdem er ins BASE Jumping eingestiegen war, verlor das reine Fallschirmspringen für ihn schnell an Bedeutung. Was ihn am Sport festhielt, war nicht nur Adrenalin. Es war die Verbindung aus Erkundung, Freiheit und Eigenverantwortung in abgelegenen Berglandschaften. Für Tim wurde BASE Jumping zu einer Möglichkeit, Bewegung, Planung und Unsicherheit miteinander zu verbinden. Bis heute sieht er darin eine endlose Quelle neuer Projekte, getragen von Neugier und der Suche nach anspruchsvollen Zielen in den Bergen.",
-        profession: "Professioneller Bergsportler",
-        role: "Professionell",
-        residence: "Schweiz",
-        primaryDisciplines: ["Slider Down", "Wingsuit"],
-      },
-    },
-    originStory: originStories["tim-howell"],
-    ...emptyMedia,
-    links: [
-      {
-        label: "Tim Howell Adventure",
-        url: "https://timhowelladventure.com/",
-        type: "website",
-      },
-      {
-        label: "Tim Howell on Facebook",
-        url: "https://www.facebook.com/TimHowellAdventure/",
-        type: "facebook",
-      },
-      {
-        label: "Tim Howell on Instagram",
-        url: "https://www.instagram.com/tim_howell_adventure/",
-        type: "instagram",
-      },
-      {
-        label: "Tim Howell on TikTok",
-        url: "https://www.tiktok.com/@timhowelladventure",
-        type: "tiktok",
-      },
-    ],
-    articles: [
-      {
-        title: {
-          en: "Pro record: Tim Howell",
-          de: "Pro Record: Tim Howell",
-        },
-        publisher: "BASE Magazine",
-        logo: "/images/publishers/base_magazine.png",
-        url: "https://www.base-mag.com/pro-record-tim-howell/",
-      },
-      {
-        title: {
-          en: "Meet the daredevil BASE jumper who leaped from a Vietnam peak",
-          de: "Der BASE Jumper, der von einem Gipfel in Vietnam sprang",
-        },
-        publisher: "Red Bull",
-        logo: "/images/publishers/redbull.png",
-        url: "https://www.redbull.com/gb-en/theredbulletin/meet-daredevil-base-jumper-who-leaped-from-a-1364m-peak-in-vietnam",
-      },
-      {
-        title: {
-          en: "Travel meets BASE jumper Tim Howell",
-          de: "Travel trifft BASE Jumper Tim Howell",
-        },
-        publisher: "The Times",
-        logo: "/images/publishers/times.png",
-        url: "https://www.thetimes.com/travel/st-travel-meets-base-jumper-tim-howell-bbhxpxp8d",
-      },
-      {
-        title: {
-          en: "France BASE jump photo of the day",
-          de: "France BASE Jump als Foto des Tages",
-        },
-        publisher: "National Geographic",
-        logo: "/images/publishers/national-geographic.svg",
-        url: "https://www.nationalgeographic.com/photo-of-the-day/photo/france-base-jump",
-      },
-      {
-        title: {
-          en: "Tim Howell completes North BASE paralpinism project",
-          de: "Tim Howell vollendet North BASE Paralpinism Project",
-        },
-        publisher: "PlanetMountain",
-        logo: "/images/publishers/planetmountain.svg",
-        url: "https://www.planetmountain.com/en/news/interviews/tim-howell-completes-north-base-paralpinism-project-6-great-north-faces-alps.html",
-      },
-      {
-        title: {
-          en: "Tim Howell interview: BASE jumper and climber",
-          de: "Tim Howell im Interview: BASE Jumper und Kletterer",
-        },
-        publisher: "Chalkbloc",
-        logo: "/images/publishers/chalkbloc.png",
-        url: "https://chalkbloc.com/climbing-interviews/252-tim-howell-interview-base-jumper-and-climber",
-      },
-      {
-        title: {
-          en: "Tim Howell cancels Lhotse wingsuit flight after snake bite",
-          de: "Tim Howell sagt Lhotse-Wingsuitflug nach Schlangenbiss ab",
-        },
-        publisher: "ExplorersWeb",
-        logo: "/images/publishers/explorersweb.png",
-        url: "https://explorersweb.com/tim-howell-bitten-by-venomous-snake-cancels-lhotse-wingsuit-flight/",
-      },
-      {
-        title: {
-          en: "Exit Point episode with Tim Howell",
-          de: "Exit Point Folge mit Tim Howell",
-        },
-        publisher: "Spotify",
-        logo: "/images/publishers/spotify.svg",
-        url: "https://open.spotify.com/episode/4LrAOcBaArv205P9X7hQ0F",
-      },
-    ],
-    sponsors: [
-      {
-        name: "Jöttnar",
-        logo: "/images/sponsors/jottnar_black.png",
-        url: "https://www.jottnar.com/pages/pro-tim-howell",
-      },
-      {
-        name: "Scarpa",
-        logo: "/images/sponsors/scarpa_originla.webp",
-        url: "https://scarpa.com/",
-      },
-      {
-        name: "Adrenalin BASE",
-        logo: "/images/sponsors/adrenalin_base.png",
-        url: "https://www.adrenalinbase.com/",
-      },
-      {
-        name: "Inigo Insurance",
-        logo: "/images/sponsors/inigo.png",
-        url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
-      },
-    ],
-  },
+
 ];
 
 export function getAthleteBySlug(slug: string) {
