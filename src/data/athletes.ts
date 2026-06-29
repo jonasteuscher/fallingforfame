@@ -117,7 +117,7 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "At seventeen, Niclas completed his skydiving licence. He built experience step by step until, at twenty and with around 340 skydives, he attended a BASE course.",
         de: "Mit siebzehn machte Niclas seine Fallschirmlizenz. Danach sammelte er Schritt für Schritt Erfahrung, bis er mit zwanzig und rund 340 Skydives einen BASE-Kurs besuchte.",
       },
-      media: { type: "image", src: null },
+      media: { type: "image", src: "/images/athletes/niclas-strohmeier/story.jpg" },
     },
     {
       phase: { en: "04 — Moving Closer", de: "04 — Näher an die Berge" },
@@ -175,7 +175,7 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "Today, Josef works as a tunnel instructor and realizes projects as a video flyer up in the mountains.",
         de: "Heute arbeitet Josef als Tunnelinstruktor und realisiert als Video-Flyer Projekte oben in den Bergen.",
       },
-      media: { type: "image", src: "/images/athletes/josef-braun/story.PNG" },
+      media: { type: "image", src: "/images/athletes/josef-braun/story.jpg" },
     },
   ],
   "lukas-loibl": [
@@ -470,8 +470,8 @@ export const athletes: Athlete[] = [
       de: "Mehrere Sponsoren seit 2022, darunter Canopies, Wingsuits, Kameras und Kleidung.",
     },
     images: images(
-      "/images/athletes/lukas-loibl/hero1-web.jpeg",
-      "/images/athletes/lukas-loibl/profile-2.jpg",
+      "/images/athletes/lukas-loibl/hero.jpeg",
+      "/images/athletes/lukas-loibl/profile.jpg",
     ),
     experience: experience(6, 3500, 6, 3000, true, 200000),
     content: {
@@ -682,7 +682,7 @@ export const athletes: Athlete[] = [
           de: "Podcastfolge mit Marcel Geser",
         },
         publisher: "Spotify",
-        logo: "/images/publishers/spotify.svg",
+        logo: "/images/publishers/spotify.webp",
         url: "https://open.spotify.com/episode/0TjmjcF4ERqO4wJr1SApSt",
       },
     ],
@@ -699,7 +699,10 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
-    images: images(null, "/images/athletes/niclas-strohmeier/profile.jpg"),
+    images: images(
+      "/images/athletes/niclas-strohmeier/hero.jpg",
+      "/images/athletes/niclas-strohmeier/profile.jpg",
+    ),
     experience: experience(12, 630, 9, 1000, false, 500000),
     content: {
       en: {

@@ -21,7 +21,7 @@ const disciplineImages = [
   "/images/sport/disciplines/Urban.jpg",
   "/images/sport/disciplines/Low.jpg",
   "/images/sport/disciplines/Multiway.jpg",
-  "/images/sport/disciplines/Skibase.png",
+  "/images/sport/disciplines/Skibase.jpg",
   "/images/sport/disciplines/Tandem.webp",
 ] as const;
 
@@ -713,6 +713,8 @@ function HeightComparisonScrolly({
             skydivingAltitude={content.skydivingAltitude}
             baseAltitude={content.baseAltitude}
             baseReaction={content.baseReaction}
+            summaryLabel={content.scrolly.summaryVisualLabel}
+            summaryValue={content.scrolly.summaryVisualValue}
             scrollProgress={1}
             mobileOverview
           />
@@ -726,6 +728,8 @@ function HeightComparisonScrolly({
               skydivingAltitude={content.skydivingAltitude}
               baseAltitude={content.baseAltitude}
               baseReaction={content.baseReaction}
+              summaryLabel={content.scrolly.summaryVisualLabel}
+              summaryValue={content.scrolly.summaryVisualValue}
               scrollProgress={scrollProgress}
               activeStepProgress={activeStepProgress}
             />
@@ -826,6 +830,8 @@ function HeightVisual({
   skydivingAltitude,
   baseAltitude,
   baseReaction,
+  summaryLabel,
+  summaryValue,
   scrollProgress = 0,
   activeStepProgress = 0,
   compact = false,
@@ -837,6 +843,8 @@ function HeightVisual({
   skydivingAltitude: string;
   baseAltitude: string;
   baseReaction: string;
+  summaryLabel: string;
+  summaryValue: string;
   scrollProgress?: number;
   activeStepProgress?: number;
   compact?: boolean;
@@ -848,14 +856,13 @@ function HeightVisual({
   const displayedLabel = mobileOverview ? "Basejumping vs. Skydiving" : currentLabel;
   const currentValue =
     visual === "summary"
-      ? "Everything changes"
+      ? summaryValue
       : visual === "baseTime"
         ? baseReaction
         : isBase
           ? baseAltitude
           : skydivingAltitude;
   const displayedValue = mobileOverview ? baseReaction : currentValue;
-  const summaryLabel = "In summary:";
   const fallbackProgressByVisual: Record<HeightStepContent["visual"], number> = {
     skydivingAltitude: 0.12,
     skydivingMargin: 0.34,

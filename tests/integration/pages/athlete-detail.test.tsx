@@ -173,7 +173,7 @@ describe("athlete detail page", () => {
 
     expect(
       container.querySelector(
-        'img[src="/images/athletes/lukas-loibl/hero1-web.jpeg"]',
+        'img[src="/images/athletes/lukas-loibl/hero.jpeg"]',
       ),
     ).toBeInTheDocument();
     expect(screen.getByText("Sponsored")).toBeVisible();

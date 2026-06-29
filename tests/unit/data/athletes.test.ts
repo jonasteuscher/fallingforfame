@@ -52,7 +52,7 @@ describe("athletes data", () => {
       athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.portrait,
     ).toBe("/images/athletes/marcel-geser/profile.jpg");
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.portrait)
-      .toBe("/images/athletes/lukas-loibl/profile-2.jpg");
+      .toBe("/images/athletes/lukas-loibl/profile.jpg");
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.images.portrait)
       .toBe("/images/athletes/josef-braun/profile.jpg");
     expect(
@@ -78,9 +78,11 @@ describe("athletes data", () => {
     expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.hero)
       .toBe("/images/athletes/marcel-geser/hero.jpg");
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.hero)
-      .toBe("/images/athletes/lukas-loibl/hero1-web.jpeg");
+      .toBe("/images/athletes/lukas-loibl/hero.jpeg");
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.images.hero)
       .toBe("/images/athletes/josef-braun/hero.JPG");
+    expect(athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.images.hero)
+      .toBe("/images/athletes/niclas-strohmeier/hero.jpg");
     expect(
       athletes
         .filter(
@@ -88,7 +90,8 @@ describe("athletes data", () => {
             athlete.slug !== "tim-howell" &&
             athlete.slug !== "marcel-geser" &&
             athlete.slug !== "lukas-loibl" &&
-            athlete.slug !== "josef-braun",
+            athlete.slug !== "josef-braun" &&
+            athlete.slug !== "niclas-strohmeier",
         )
         .every((athlete) => athlete.images.hero === null),
     ).toBe(true);
@@ -217,7 +220,7 @@ describe("athletes data", () => {
 
     expect(todayStep?.media).toEqual({
       type: "image",
-      src: "/images/athletes/josef-braun/story.PNG",
+      src: "/images/athletes/josef-braun/story.jpg",
     });
     expect(josef?.originStory[1]?.media).toBeUndefined();
   });
@@ -233,5 +236,17 @@ describe("athletes data", () => {
       src: "/images/athletes/lukas-loibl/story.jpeg",
     });
     expect(lukas?.originStory[1]?.media).toBeUndefined();
+  });
+
+  it("uses Niclas Strohmeier's story image on the Skydiving step", () => {
+    const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
+    const skydivingStep = niclas?.originStory.find(
+      (beat) => beat.phase.en === "03 — Skydiving",
+    );
+
+    expect(skydivingStep?.media).toEqual({
+      type: "image",
+      src: "/images/athletes/niclas-strohmeier/story.jpg",
+    });
   });
 });
