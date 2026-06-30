@@ -561,7 +561,7 @@ export const athletes: Athlete[] = [
         label: "Lukas Loibl Wingsuit School",
         url: "https://www.lukasloiblws.com/wingsuitschool",
         type: "website",
-        icon: "/socials/lukas_logo.jpg",
+        icon: "/socials/lukas_logo.png",
       },
       {
         label: "Lukas Loibl on Instagram",
