@@ -237,7 +237,7 @@ export const project = {
       { label: "Hochschule", value: "Fachhochschule Graubünden (FHGR)" },
       {
         label: "Betreuungspersonen",
-        value: "Prof. Marie-Therese Mäder (Hauptreferentin), Nils Solanski (Korreferat)",
+        value: "Prof. Dr. Marie-Therese Mäder (Hauptreferentin), Nils Solanski (Korreferat)",
       },
       { label: "Mitwirkende", value: "Interviewpartner:innen und dokumentarische Mitwirkende" },
       { label: "Dank", value: "Den Mitgliedern der BASE-Jumping-Community, die Zeit, Zugang und Perspektiven geteilt haben" },
