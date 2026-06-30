@@ -46,6 +46,23 @@ vi.mock("next/image", () => ({
       ...imgProps,
     });
   },
+  getImageProps: ({
+    src,
+    sizes,
+  }: {
+    src: string | { src: string };
+    sizes?: string;
+  }) => {
+    const imageSrc = typeof src === "string" ? src : src.src;
+
+    return {
+      props: {
+        src: imageSrc,
+        srcSet: imageSrc,
+        sizes,
+      },
+    };
+  },
 }));
 
 vi.mock("next/navigation", () => ({

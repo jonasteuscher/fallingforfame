@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import Image, { getImageProps } from "next/image";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type { Locale } from "@/i18n/config";
 import type { AthleteImage } from "@/types/athlete";
@@ -28,6 +28,11 @@ const labels = {
   },
 } as const;
 
+const thumbnailSizes =
+  "(min-width: 1280px) 30vw, (min-width: 640px) 46vw, 92vw";
+const lightboxSizes =
+  "(min-width: 1280px) 1280px, (min-width: 768px) 90vw, 100vw";
+
 export function AthleteGalleryLightbox({
   images,
   locale,
@@ -35,6 +40,48 @@ export function AthleteGalleryLightbox({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const activeImage = activeIndex === null ? null : images[activeIndex];
   const text = labels[locale];
+  const warmedImages = useRef(new Set<string>());
+
+  const lightboxPreloadProps = useMemo(
+    () =>
+      images.map((image) => {
+        const { props } = getImageProps({
+          src: image.src,
+          alt: "",
+          width: 1600,
+          height: 1200,
+          quality: 72,
+          sizes: lightboxSizes,
+        });
+
+        return {
+          src: props.src,
+          srcSet: props.srcSet,
+          sizes: props.sizes,
+        };
+      }),
+    [images],
+  );
+
+  const warmImage = useCallback((index: number) => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const image = lightboxPreloadProps[index];
+
+    if (!image || warmedImages.current.has(image.src)) {
+      return;
+    }
+
+    warmedImages.current.add(image.src);
+
+    const preloadImage = new window.Image();
+    preloadImage.decoding = "async";
+    preloadImage.sizes = image.sizes ?? lightboxSizes;
+    preloadImage.srcset = image.srcSet ?? "";
+    preloadImage.src = image.src;
+  }, [lightboxPreloadProps]);
 
   useEffect(() => {
     if (activeIndex === null) {
@@ -70,6 +117,15 @@ export function AthleteGalleryLightbox({
     };
   }, [activeIndex, images.length]);
 
+  useEffect(() => {
+    if (activeIndex === null || images.length <= 1) {
+      return;
+    }
+
+    warmImage((activeIndex + 1) % images.length);
+    warmImage((activeIndex - 1 + images.length) % images.length);
+  }, [activeIndex, images.length, warmImage]);
+
   function showPrevious() {
     setActiveIndex((current) =>
       current === null ? current : (current - 1 + images.length) % images.length,
@@ -94,13 +150,17 @@ export function AthleteGalleryLightbox({
               type="button"
               className="group block w-full cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               aria-label={`${text.open}: ${image.alt[locale]}`}
+              onFocus={() => warmImage(index)}
               onClick={() => setActiveIndex(index)}
+              onPointerEnter={() => warmImage(index)}
             >
               <Image
                 src={image.src}
                 alt={image.alt[locale]}
                 width={1200}
                 height={900}
+                sizes={thumbnailSizes}
+                quality={68}
                 className="aspect-[4/3] w-full cursor-pointer object-cover transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
               />
             </button>
@@ -142,7 +202,10 @@ export function AthleteGalleryLightbox({
                 src={activeImage.src}
                 alt={activeImage.alt[locale]}
                 fill
-                sizes="100vw"
+                sizes={lightboxSizes}
+                quality={72}
+                loading="eager"
+                fetchPriority="high"
                 className="object-contain"
               />
             </div>

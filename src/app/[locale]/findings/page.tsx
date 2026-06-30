@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 
-import { ChapterIntro, FindingCard, ScrollySection } from "@/components/scrollytelling";
+import {
+  ChapterIntro,
+  FindingCard,
+  ScrollySection,
+} from "@/components/scrollytelling";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
 
@@ -28,13 +32,15 @@ export default async function FindingsPage({ params }: FindingsPageProps) {
           body={dictionary.site.findings.intro}
         />
       </ScrollySection>
-      <ScrollySection fullHeight={false}>
-        <div className="grid gap-4 md:grid-cols-3">
-          {dictionary.findings.map((finding) => (
-            <FindingCard key={finding.id} finding={finding} />
-          ))}
-        </div>
-      </ScrollySection>
+      {dictionary.findings.length > 0 ? (
+        <ScrollySection fullHeight={false}>
+          <div className="grid gap-4 md:grid-cols-3">
+            {dictionary.findings.map((finding) => (
+              <FindingCard key={finding.id} finding={finding} />
+            ))}
+          </div>
+        </ScrollySection>
+      ) : null}
     </>
   );
 }
