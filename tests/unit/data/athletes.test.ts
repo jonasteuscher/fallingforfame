@@ -2,9 +2,19 @@ import { describe, expect, it } from "vitest";
 
 import { athletes } from "@/data/athletes";
 
+const expectedMediaCounts = new Map([
+  ["tim-howell", { images: 19 }],
+  ["lukas-loibl", { images: 7 }],
+  ["marcel-geser", { images: 9 }],
+  ["niclas-strohmeier", { images: 7 }],
+  ["josef-braun", { images: 4 }],
+]);
+
 describe("athletes data", () => {
   it("contains required fields for every athlete", () => {
     for (const athlete of athletes) {
+      const mediaCounts = expectedMediaCounts.get(athlete.slug);
+
       expect(athlete.id).toBeTruthy();
       expect(athlete.slug).toBeTruthy();
       expect(athlete.name).toBeTruthy();
@@ -13,7 +23,7 @@ describe("athletes data", () => {
       expect(athlete.experience).toBeTruthy();
       expect(athlete).toHaveProperty("age");
       expect(athlete).toHaveProperty("country");
-      expect(athlete.images.gallery).toEqual([]);
+      expect(athlete.images.gallery).toHaveLength(mediaCounts?.images ?? 0);
       expect(athlete.audio).toEqual([]);
       expect(athlete.video).toEqual([]);
       expect(athlete.quotes).toEqual([]);
@@ -193,7 +203,17 @@ describe("athletes data", () => {
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.links)
       .toHaveLength(3);
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.articles)
-      .toHaveLength(0);
+      .toEqual([
+        {
+          title: {
+            en: "Jack Simpson Podcast with Josef Braun",
+            de: "Jack Simpson Podcast with Josef Braun",
+          },
+          publisher: "Spotify",
+          logo: "/images/publishers/spotify.webp",
+          url: "https://open.spotify.com/episode/3X4xOWb8lMYXub1Fw96rM6?si=81846fae04874b6c",
+        },
+      ]);
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.links)
       .toHaveLength(5);
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.articles)

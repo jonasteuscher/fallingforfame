@@ -10,11 +10,13 @@ import type {
   Athlete,
   AthleteArticle,
   AthleteAudio,
+  AthleteImage,
   AthleteLink,
   AthleteSponsor,
   AthleteVideo,
 } from "@/types/athlete";
 import { AthleteCard } from "@/components/athletes/AthleteCard";
+import { AthleteGalleryLightbox } from "@/components/athletes/AthleteGalleryLightbox";
 
 type SectionShellProps = {
   eyebrow?: string;
@@ -168,6 +170,30 @@ export function AthleteQuoteSection({
             />
           ))}
         </div>
+      ) : (
+        <EmptyState>{emptyText}</EmptyState>
+      )}
+    </SectionShell>
+  );
+}
+
+export function AthleteGallerySection({
+  images,
+  locale,
+  title,
+  emptyText,
+}: {
+  images: AthleteImage[];
+  locale: Locale;
+  title: string;
+  emptyText: string;
+}) {
+  const confirmedImages = images.filter((image) => image.src);
+
+  return (
+    <SectionShell title={title}>
+      {confirmedImages.length > 0 ? (
+        <AthleteGalleryLightbox images={confirmedImages} locale={locale} />
       ) : (
         <EmptyState>{emptyText}</EmptyState>
       )}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { AthleteCard } from "@/components/athletes";
@@ -31,10 +32,17 @@ export default async function AthletesPage({ params }: AthletesPageProps) {
     <>
       <section className="relative isolate flex min-h-[calc(100svh-3.5rem)] items-end overflow-hidden px-4 pb-16 pt-28 sm:px-6 xl:px-10">
         <div className="absolute inset-0 -z-20 bg-surface" aria-hidden="true">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,var(--surface-muted),transparent_34%),linear-gradient(135deg,var(--background)_0%,var(--surface)_54%,var(--accent)_100%)]" />
-          <div className="absolute bottom-0 left-0 h-2/3 w-full bg-[linear-gradient(158deg,transparent_0%,transparent_45%,var(--background)_46%,var(--surface)_74%,var(--background)_100%)] opacity-80" />
+          <Image
+            src="/images/athletes/hero_athletes.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
         </div>
-        <div className="absolute inset-0 -z-10 bg-background/58" />
+        <div className="absolute inset-0 -z-10 bg-background/62" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-background via-background/48 to-background/0" />
 
         <div className="mx-auto w-full max-w-7xl">
           <div className="max-w-5xl">

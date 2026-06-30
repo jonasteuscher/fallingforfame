@@ -15,12 +15,31 @@ const emptyMedia = {
 function images(
   hero: string | null = null,
   portrait: string | null = null,
+  gallery: Athlete["images"]["gallery"] = [],
 ): Athlete["images"] {
   return {
     hero,
     portrait,
-    gallery: [],
+    gallery,
   };
+}
+
+function publicAssetPath(...segments: string[]) {
+  return `/${segments.map((segment) => encodeURIComponent(segment)).join("/")}`;
+}
+
+function athleteGallery(
+  slug: string,
+  name: string,
+  filenames: string[],
+): Athlete["images"]["gallery"] {
+  return filenames.map((filename, index) => ({
+    src: publicAssetPath("images", "athletes", slug, "gallery", filename),
+    alt: {
+      en: `${name} gallery image ${index + 1}`,
+      de: `${name} Galerie-Bild ${index + 1}`,
+    },
+  }));
 }
 
 function experience(
@@ -300,6 +319,27 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/tim-howell/hero.jpg",
       "/images/athletes/tim-howell/profile.jpg",
+      athleteGallery("tim-howell", "Tim Howell", [
+        "1 (2 of 5).jpg",
+        "Copy of Ski Base-1.jpg",
+        "DSC00644-2.jpg",
+        "DSC00677-7.jpg",
+        "DSC06515.jpg",
+        "DSC07258.jpg",
+        "EH218967-2.jpg",
+        "IMG_9937-2.jpg",
+        "IcelandJuly18-01.jpg",
+        "KVD17585.jpg",
+        "KVD32106.jpg",
+        "Sept 18-5.jpg",
+        "The Vase Jump.jpg",
+        "Tim Howell - May2018-23.jpg",
+        "_ZOL5788.jpg",
+        "charley-radcliffe-jottnar-social-27.jpg",
+        "charley-radcliffe-jottnar-social-31.jpg",
+        "for tim (1 of 1).jpg",
+        "moab-22.jpg",
+      ]),
     ),
     experience: experience(2, 250, 14, 1450, true, 100000),
     content: {
@@ -472,6 +512,15 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/lukas-loibl/hero.jpeg",
       "/images/athletes/lukas-loibl/profile.jpg",
+      athleteGallery("lukas-loibl", "Lukas Loibl", [
+        "D9A50B94-6169-4E85-8800-8924444F81E9.png",
+        "IMG_7228.jpeg",
+        "IMG_9389.jpeg",
+        "IMG_9586.jpeg",
+        "IMG_9990.jpeg",
+        "Luki-2.jpeg",
+        "_DSC3618.jpeg",
+      ]),
     ),
     experience: experience(6, 3500, 6, 3000, true, 200000),
     content: {
@@ -616,6 +665,17 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/marcel-geser/hero.jpg",
       "/images/athletes/marcel-geser/profile.jpg",
+      athleteGallery("marcel-geser", "Marcel Geser", [
+        "DJI_20250607050910_0491_D.jpg",
+        "GPAB9481.jpg",
+        "IMG_5161.jpg",
+        "Snapshot_202309249_180900 2.jpg",
+        "abutz-20251013-DSC_0542.jpg",
+        "abutz-20251013-DSC_0603.jpg",
+        "abutz-20251013-DSC_0648.jpg",
+        "d82a0d50-72f4-40a5-9916-5f82009bd6a9.jpg",
+        "marcel1.jpg",
+      ]),
     ),
     experience: experience(14, 850, 13, 1500, false, null),
     content: {
@@ -702,6 +762,15 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/niclas-strohmeier/hero.jpg",
       "/images/athletes/niclas-strohmeier/profile.jpg",
+      athleteGallery("niclas-strohmeier", "Niclas Strohmeier", [
+        "515298052_24257388017217950_2023238047916629265_n.jpg",
+        "681423427_26985451711078220_85980921819799839_n.jpg",
+        "IMG_4159.PNG",
+        "IMG_7569.PNG",
+        "IMG_9233.JPG",
+        "story.jpg",
+        "yellow slick jump.jpg",
+      ]),
     ),
     experience: experience(12, 630, 9, 1000, false, 500000),
     content: {
@@ -774,6 +843,12 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/josef-braun/hero.JPG",
       "/images/athletes/josef-braun/profile.jpg",
+      athleteGallery("josef-braun", "Josef Braun", [
+        "469340793_1835003297315437_4282046965683917746_n.jpg",
+        "479193872_1885098192305947_5112094249666224347_n.jpg",
+        "481926393_1903292847153148_1366487483073375849_n.jpg",
+        "485131123_1911964859619280_2705298699952572428_n.jpg",
+      ]),
     ),
     experience: experience(8, 800, 5, 1500, false, 280000),
     content: {
@@ -823,6 +898,17 @@ export const athletes: Athlete[] = [
         label: "Josef Braun on YouTube",
         url: "https://www.youtube.com/@josef_braun",
         type: "youtube",
+      },
+    ],
+    articles: [
+      {
+        title: {
+          en: "Jack Simpson Podcast with Josef Braun",
+          de: "Jack Simpson Podcast with Josef Braun",
+        },
+        publisher: "Spotify",
+        logo: "/images/publishers/spotify.webp",
+        url: "https://open.spotify.com/episode/3X4xOWb8lMYXub1Fw96rM6?si=81846fae04874b6c",
       },
     ],
     sponsors: [

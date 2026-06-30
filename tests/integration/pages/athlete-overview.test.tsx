@@ -7,7 +7,9 @@ import { renderAsyncPage } from "../../test-utils/render-pages";
 
 describe("athlete overview page", () => {
   it("renders the English documentary overview and all athlete cards", async () => {
-    await renderAsyncPage(AthletesPage({ params: Promise.resolve({ locale: "en" }) }));
+    const { container } = await renderAsyncPage(
+      AthletesPage({ params: Promise.resolve({ locale: "en" }) }),
+    );
 
     expect(
       screen.getByRole("heading", {
@@ -15,6 +17,9 @@ describe("athlete overview page", () => {
         level: 1,
       }),
     ).toBeVisible();
+    expect(
+      container.querySelector('img[src="/images/athletes/hero_athletes.jpg"]'),
+    ).toBeInTheDocument();
     expect(screen.getAllByRole("article")).toHaveLength(athletes.length);
     expect(screen.queryAllByText("Portrait media pending")).toHaveLength(
       athletes.filter((athlete) => athlete.images.portrait === null).length,

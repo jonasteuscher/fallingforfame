@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import AthletePage from "@/app/[locale]/athletes/[slug]/page";
@@ -65,11 +65,30 @@ describe("athlete detail page", () => {
         "The detailed story will be added once interview material has been reviewed.",
       ),
     ).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Photo Gallery" })).toBeVisible();
+    expect(
+      container.querySelector(
+        'img[src="/images/athletes/marcel-geser/gallery/DJI_20250607050910_0491_D.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: /Open image full size: Marcel Geser gallery image 1/,
+      }),
+    );
+    expect(screen.getByRole("dialog")).toBeVisible();
+    expect(screen.getByText("Image 1 / 9")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Next image" }));
+    expect(screen.getByText("Image 2 / 9")).toBeVisible();
+    fireEvent.click(screen.getAllByRole("button", { name: "Close full-size image" })[0]);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.getByText("Selected interview quotes will appear here."))
       .toBeVisible();
     expect(screen.getByText("Audio excerpts from the interviews will be added here."))
       .toBeVisible();
     expect(screen.getByText("Video material will be added here.")).toBeVisible();
+    expect(container.querySelector("video")).toBeNull();
+    expect(screen.queryByRole("button", { name: "Play video" })).not.toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "Personal Links & Socials" }),
     ).toBeVisible();
@@ -127,6 +146,7 @@ describe("athlete detail page", () => {
         "Die ausführliche Geschichte wird ergänzt, sobald das Interviewmaterial ausgewertet wurde.",
       ),
     ).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Fotogalerie" })).toBeVisible();
     expect(screen.getByText("Ausgewählte Interviewzitate erscheinen hier."))
       .toBeVisible();
     expect(

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import {
   AthleteArticlesSection,
   AthleteBaseStory,
+  AthleteGallerySection,
   AthleteHero,
   AthleteLinksSection,
   AthleteMediaSection,
@@ -40,6 +41,8 @@ const pageLabels = {
     },
     cardMeta: { profession: "Profession", role: "Role", primary: "Primary" },
     baseStoryTitle: "Where It All Began",
+    galleryTitle: "Photo Gallery",
+    galleryEmpty: "Photo material will be added here.",
     quotesTitle: "Interview Quotes",
     quotesEmpty: "Selected interview quotes will appear here.",
     audioTitle: "Audio Interviews",
@@ -68,6 +71,8 @@ const pageLabels = {
     },
     cardMeta: { profession: "Beruf", role: "Rolle", primary: "Disziplin" },
     baseStoryTitle: "Wie alles begann",
+    galleryTitle: "Fotogalerie",
+    galleryEmpty: "Fotomaterial wird hier ergänzt.",
     quotesTitle: "Interviewzitate",
     quotesEmpty: "Ausgewählte Interviewzitate erscheinen hier.",
     audioTitle: "Audio-Interviews",
@@ -157,6 +162,13 @@ export default async function AthletePage({ params }: AthletePageProps) {
         athlete={athlete}
         locale={locale}
         title={labels.baseStoryTitle}
+      />
+
+      <AthleteGallerySection
+        images={athlete.images.gallery}
+        locale={locale}
+        title={labels.galleryTitle}
+        emptyText={labels.galleryEmpty}
       />
 
       <AthleteQuoteSection
