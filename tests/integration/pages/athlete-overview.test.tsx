@@ -7,7 +7,9 @@ import { renderAsyncPage } from "../../test-utils/render-pages";
 
 describe("athlete overview page", () => {
   it("renders the English documentary overview and all athlete cards", async () => {
-    await renderAsyncPage(AthletesPage({ params: Promise.resolve({ locale: "en" }) }));
+    const { container } = await renderAsyncPage(
+      AthletesPage({ params: Promise.resolve({ locale: "en" }) }),
+    );
 
     expect(
       screen.getByRole("heading", {
@@ -15,8 +17,13 @@ describe("athlete overview page", () => {
         level: 1,
       }),
     ).toBeVisible();
+    expect(
+      container.querySelector('img[src="/images/athletes/hero_athletes.jpg"]'),
+    ).toBeInTheDocument();
     expect(screen.getAllByRole("article")).toHaveLength(athletes.length);
-    expect(screen.getAllByText("Portrait media pending")).toHaveLength(2);
+    expect(screen.queryAllByText("Portrait media pending")).toHaveLength(
+      athletes.filter((athlete) => athlete.images.portrait === null).length,
+    );
     expect(screen.getByText("Paragliding Pilot")).toBeVisible();
     expect(screen.getByText("BASE Jumping Instructor / Coach")).toBeVisible();
     expect(screen.getByText("Professional Mountain Athlete")).toBeVisible();
@@ -43,11 +50,11 @@ describe("athlete overview page", () => {
       .filter((href): href is string => Boolean(href?.startsWith("/en/athletes/")));
 
     expect(profileLinks).toEqual([
+      "/en/athletes/tim-howell",
+      "/en/athletes/lukas-loibl",
       "/en/athletes/marcel-geser",
       "/en/athletes/niclas-strohmeier",
       "/en/athletes/josef-braun",
-      "/en/athletes/lukas-loibl",
-      "/en/athletes/tim-howell",
     ]);
   });
 
@@ -60,11 +67,11 @@ describe("athlete overview page", () => {
       .filter((href): href is string => Boolean(href?.startsWith("/de/athletes/")));
 
     expect(profileLinks).toEqual([
+      "/de/athletes/tim-howell",
+      "/de/athletes/lukas-loibl",
       "/de/athletes/marcel-geser",
       "/de/athletes/niclas-strohmeier",
       "/de/athletes/josef-braun",
-      "/de/athletes/lukas-loibl",
-      "/de/athletes/tim-howell",
     ]);
   });
 });

@@ -224,7 +224,7 @@ export const sport = {
         title: "Social media visibility",
         body: "Video platforms shape how the public sees the sport. Spectacular footage brings BASE jumping to new audiences, but often shows the jump itself more clearly than the preparation behind it.",
         image: {
-          src: "/images/sport/history/2010.png",
+          src: "/images/sport/history/2010.jpg",
           alt: "Social media era reference for BASE jumping visibility.",
         },
       },
@@ -257,6 +257,8 @@ export const sport = {
       intro:
         "Skydiving and BASE jumping are not only different because of the exit platform. They differ in altitude, available reaction time, equipment setup and decision pressure.",
       summaryTitle: "Comparison summary",
+      summaryVisualLabel: "In summary:",
+      summaryVisualValue: "Everything changes",
       metricLabel: "Metric",
       steps: [
         {

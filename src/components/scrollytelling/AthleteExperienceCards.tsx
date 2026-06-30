@@ -44,11 +44,6 @@ export function AthleteExperienceCards({
       label: labels.labels.basejumps,
     },
     {
-      key: "sponsored",
-      value: formatSponsored(experience.sponsored, labels),
-      label: labels.labels.sponsored,
-    },
-    {
       key: "socialMediaReach",
       value: formatNullableNumber(experience.socialMediaReach, locale, labels),
       label: labels.labels.socialMediaReach,
@@ -57,7 +52,7 @@ export function AthleteExperienceCards({
 
   return (
     <section aria-label="Athlete experience statistics">
-      <dl className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+      <dl className="grid grid-cols-1 gap-3 min-[380px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
         {cards.map((card) => (
           <div key={card.key} className="min-w-0 border border-border bg-surface p-4">
             <dt className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
@@ -83,12 +78,4 @@ function formatNullableNumber(
   }
 
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, locale === "de" ? "’" : ",");
-}
-
-function formatSponsored(value: boolean | null, labels: AthleteExperienceLabels) {
-  if (value === null) {
-    return labels.unknown;
-  }
-
-  return value ? labels.yes : labels.no;
 }

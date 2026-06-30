@@ -10,11 +10,13 @@ import type {
   Athlete,
   AthleteArticle,
   AthleteAudio,
+  AthleteImage,
   AthleteLink,
   AthleteSponsor,
   AthleteVideo,
 } from "@/types/athlete";
 import { AthleteCard } from "@/components/athletes/AthleteCard";
+import { AthleteGalleryLightbox } from "@/components/athletes/AthleteGalleryLightbox";
 
 type SectionShellProps = {
   eyebrow?: string;
@@ -58,18 +60,90 @@ export function AthleteBaseStory({
   title: string;
 }) {
   const content = athlete.content[locale];
+  const beats = athlete.originStory.length > 0 ? athlete.originStory : null;
 
   return (
-    <SectionShell title={title}>
-      <div className="grid gap-8 xl:grid-cols-[0.42fr_1fr]">
-        <h3 className="text-2xl font-semibold leading-tight text-primary sm:text-4xl">
-          {content.baseStoryTitle}
-        </h3>
-        <p className="max-w-3xl text-2xl font-semibold leading-snug text-foreground sm:text-4xl">
-          {content.baseStory}
-        </p>
+    <section
+      id="origin-story"
+      className="relative border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+    >
+      <div className="mx-auto grid max-w-7xl gap-12 xl:grid-cols-[0.34fr_1fr]">
+        <header className="xl:sticky xl:top-28 xl:max-h-[calc(100svh-8rem)] xl:self-start">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+            {title}
+          </p>
+          <h2 className="mt-4 max-w-xl text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+            {content.baseStoryTitle}
+          </h2>
+        </header>
+
+        {beats ? (
+          <div className="relative">
+            <div
+              className="absolute left-3 top-0 hidden h-full w-px bg-border sm:block"
+              aria-hidden="true"
+            />
+            <ol className="space-y-16 sm:pl-12">
+              {beats.map((beat, index) => (
+                <li
+                  key={`${beat.phase.en}-${beat.title.en}`}
+                  className="relative motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+                  style={{ animationDelay: `${index * 120}ms` }}
+                >
+                  <span
+                    className="absolute -left-[3.25rem] top-1 hidden h-6 w-6 border border-primary bg-background sm:block"
+                    aria-hidden="true"
+                  />
+                  <article className="max-w-2xl">
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+                      {beat.phase[locale]}
+                    </p>
+                    <h3 className="mt-3 text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
+                      {beat.title[locale]}
+                    </h3>
+                    <p className="mt-5 text-lg leading-8 text-foreground/76">
+                      {beat.body[locale]}
+                    </p>
+                  </article>
+
+                  {beat.quote ? (
+                    <figure className="my-12 border-l-4 border-primary pl-6 sm:pl-10">
+                      <blockquote className="max-w-4xl text-3xl font-semibold leading-tight text-foreground sm:text-5xl">
+                        {beat.quote[locale]}
+                      </blockquote>
+                    </figure>
+                  ) : null}
+
+                  {beat.media ? (
+                    <figure className="my-12 overflow-hidden border border-border bg-surface">
+                      {beat.media.src && beat.media.type === "image" ? (
+                        <Image
+                          src={beat.media.src}
+                          alt=""
+                          width={1600}
+                          height={900}
+                          className="aspect-video w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex aspect-video items-end bg-[linear-gradient(145deg,var(--surface-muted)_0%,var(--surface)_52%,var(--background)_100%)] p-6">
+                          <span className="max-w-40 text-xs font-semibold uppercase tracking-[0.22em] text-foreground/62">
+                            Documentary media pending
+                          </span>
+                        </div>
+                      )}
+                    </figure>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+          </div>
+        ) : (
+          <p className="max-w-3xl text-2xl font-semibold leading-snug text-foreground sm:text-4xl">
+            {content.baseStory}
+          </p>
+        )}
       </div>
-    </SectionShell>
+    </section>
   );
 }
 
@@ -96,6 +170,30 @@ export function AthleteQuoteSection({
             />
           ))}
         </div>
+      ) : (
+        <EmptyState>{emptyText}</EmptyState>
+      )}
+    </SectionShell>
+  );
+}
+
+export function AthleteGallerySection({
+  images,
+  locale,
+  title,
+  emptyText,
+}: {
+  images: AthleteImage[];
+  locale: Locale;
+  title: string;
+  emptyText: string;
+}) {
+  const confirmedImages = images.filter((image) => image.src);
+
+  return (
+    <SectionShell title={title}>
+      {confirmedImages.length > 0 ? (
+        <AthleteGalleryLightbox images={confirmedImages} locale={locale} />
       ) : (
         <EmptyState>{emptyText}</EmptyState>
       )}
@@ -156,34 +254,50 @@ export function AthleteMediaSection({
 export function AthleteLinksSection({
   links,
   title,
-  emptyText,
 }: {
   links: AthleteLink[];
   title: string;
-  emptyText: string;
 }) {
-  const confirmedLinks = links.filter((link) => link.url);
+  const confirmedLinks = links.filter(
+    (link): link is AthleteLink & { url: string } => Boolean(link.url),
+  );
+
+  if (confirmedLinks.length === 0) {
+    return null;
+  }
 
   return (
     <SectionShell title={title}>
-      {confirmedLinks.length > 0 ? (
-        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {confirmedLinks.map((link) => (
-            <li key={`${link.type}-${link.label}`}>
-              <Link
-                href={link.url ?? ""}
-                target="_blank"
-                rel="noreferrer"
-                className="block border border-border bg-surface p-5 font-semibold text-foreground transition hover:border-primary focus-visible:rounded-sm"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <EmptyState>{emptyText}</EmptyState>
-      )}
+      <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        {confirmedLinks.map((link) => (
+          <li key={`${link.type}-${link.label}-${link.url}`}>
+            <Link
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-24 items-center gap-4 border border-border bg-surface p-5 font-semibold text-foreground transition hover:border-primary focus-visible:rounded-sm"
+            >
+              <span className="flex h-14 w-14 shrink-0 items-center justify-center">
+                <Image
+                  src={getSocialIcon(link)}
+                  alt=""
+                  width={44}
+                  height={44}
+                  className="max-h-11 w-auto object-contain"
+                />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-xs uppercase tracking-wide text-foreground/54">
+                  {getSocialPlatformLabel(link.type)}
+                </span>
+                <span className="mt-1 block break-words text-lg leading-tight">
+                  {link.label}
+                </span>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </SectionShell>
   );
 }
@@ -192,100 +306,153 @@ export function AthleteArticlesSection({
   articles,
   locale,
   title,
-  emptyText,
 }: {
   articles: AthleteArticle[];
   locale: Locale;
   title: string;
-  emptyText: string;
 }) {
-  const confirmedArticles = articles.filter((article) => article.url);
+  const confirmedArticles = articles.filter(
+    (article): article is AthleteArticle & { url: string } =>
+      Boolean(article.url),
+  );
+
+  if (confirmedArticles.length === 0) {
+    return null;
+  }
 
   return (
     <SectionShell title={title}>
-      {confirmedArticles.length > 0 ? (
-        <ul className="grid gap-4">
-          {confirmedArticles.map((article) => (
-            <li key={article.title.en}>
-              <Link
-                href={article.url ?? ""}
-                target="_blank"
-                rel="noreferrer"
-                className="block border border-border bg-surface p-5 transition hover:border-primary focus-visible:rounded-sm"
-              >
-                <span className="block text-xl font-semibold text-foreground">
-                  {article.title[locale]}
+      <ul className="grid gap-4 sm:grid-cols-2">
+        {confirmedArticles.map((article) => (
+          <li key={article.url}>
+            <Link
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block h-full border border-border bg-surface p-5 transition hover:border-primary focus-visible:rounded-sm"
+            >
+              {article.logo ? (
+                <span className="relative mb-5 flex h-14 w-full max-w-44 items-center">
+                  <Image
+                    src={article.logo}
+                    alt={`${article.publisher ?? getDomainLabel(article.url)} logo`}
+                    fill
+                    sizes="176px"
+                    className="object-contain object-left"
+                    style={{
+                      transform: article.logoScale ? `scale(${article.logoScale})` : undefined,
+                      transformOrigin: "left center",
+                    }}
+                  />
                 </span>
-                {article.publisher ? (
-                  <span className="mt-2 block text-sm uppercase tracking-wide text-foreground/62">
-                    {article.publisher}
-                  </span>
-                ) : null}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <EmptyState>{emptyText}</EmptyState>
-      )}
+              ) : null}
+              <span className="block text-xl font-semibold text-foreground">
+                {getArticleLabel(article, locale)}
+              </span>
+              <span className="mt-2 block text-sm uppercase tracking-wide text-foreground/62">
+                {article.publisher ?? getDomainLabel(article.url)}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </SectionShell>
   );
+}
+
+const socialIcons: Record<AthleteLink["type"], string> = {
+  facebook: "/socials/facebook.png",
+  instagram: "/socials/instagram.png",
+  other: "/socials/website.svg",
+  tiktok: "/socials/tiktok.png",
+  website: "/socials/website.svg",
+  youtube: "/socials/youtube.png",
+};
+
+function getSocialIcon(link: AthleteLink) {
+  return link.icon ?? socialIcons[link.type];
+}
+
+function getSocialPlatformLabel(type: AthleteLink["type"]) {
+  if (type === "website") {
+    return "Website";
+  }
+
+  if (type === "other") {
+    return "Link";
+  }
+
+  return type.charAt(0).toUpperCase() + type.slice(1);
+}
+
+function getArticleLabel(article: AthleteArticle, locale: Locale) {
+  return article.title?.[locale] ?? article.publisher ?? getDomainLabel(article.url);
+}
+
+function getDomainLabel(url: string | null) {
+  if (!url) {
+    return "";
+  }
+
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
 }
 
 export function AthleteSponsorsSection({
   sponsors,
   title,
-  emptyText,
   summary,
 }: {
   sponsors: AthleteSponsor[];
   title: string;
-  emptyText: string;
   summary: string | null;
 }) {
-  const confirmedSponsors = sponsors.filter((sponsor) => sponsor.name);
+  const confirmedSponsors = sponsors.filter(
+    (
+      sponsor,
+    ): sponsor is AthleteSponsor & { logo: string; url: string } =>
+      Boolean(sponsor.name && sponsor.logo && sponsor.url),
+  );
+
+  if (confirmedSponsors.length === 0) {
+    return null;
+  }
 
   return (
     <SectionShell title={title}>
-      {confirmedSponsors.length > 0 || summary ? (
-        <div className="space-y-5">
-          {summary ? (
-            <p className="max-w-reading text-xl leading-8 text-foreground/78">
-              {summary}
-            </p>
-          ) : null}
-          {confirmedSponsors.length > 0 ? (
-            <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {confirmedSponsors.map((sponsor) => (
-                <li
-                  key={sponsor.name}
-                  className="border border-border bg-surface p-5 text-lg font-semibold text-foreground"
-                >
-                  <div className="flex min-h-20 items-center justify-center">
-                    {sponsor.logo ? (
-                      <Image
-                        src={sponsor.logo}
-                        alt={sponsor.name}
-                        width={160}
-                        height={80}
-                        className="max-h-16 w-auto object-contain"
-                      />
-                    ) : sponsor.url ? (
-                      <Link href={sponsor.url} target="_blank" rel="noreferrer">
-                        {sponsor.name}
-                      </Link>
-                    ) : (
-                      sponsor.name
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      ) : (
-        <EmptyState>{emptyText}</EmptyState>
-      )}
+      <div className="space-y-5">
+        {summary ? (
+          <p className="max-w-reading text-xl leading-8 text-foreground/78">
+            {summary}
+          </p>
+        ) : null}
+        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {confirmedSponsors.map((sponsor) => (
+            <li
+              key={sponsor.name}
+              className="border border-border bg-surface p-5 text-lg font-semibold text-foreground"
+            >
+              <Link
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-20 items-center justify-center transition opacity-80 hover:opacity-100 focus-visible:rounded-sm"
+              >
+                <Image
+                  src={sponsor.logo}
+                  alt={`${sponsor.name} logo`}
+                  width={260}
+                  height={130}
+                  className="max-h-24 w-auto object-contain"
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </SectionShell>
   );
 }

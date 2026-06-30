@@ -224,7 +224,7 @@ export const sport = {
         title: "Sichtbarkeit durch Social Media",
         body: "Videoplattformen prägen die öffentliche Wahrnehmung. Spektakuläre Aufnahmen erreichen neue Zielgruppen, zeigen aber oft den Sprung deutlicher als die Vorbereitung dahinter.",
         image: {
-          src: "/images/sport/history/2010.png",
+          src: "/images/sport/history/2010.jpg",
           alt: "Referenz zur Social-Media-Ära und Sichtbarkeit von BASE Jumping.",
         },
       },
@@ -257,6 +257,8 @@ export const sport = {
       intro:
         "Skydiving und BASE Jumping unterscheiden sich nicht nur durch die Absprungplattform. Sie unterscheiden sich in Höhe, verfügbarer Reaktionszeit, Ausrüstung und Entscheidungsdruck.",
       summaryTitle: "Vergleich im Überblick",
+      summaryVisualLabel: "Zusammengefasst:",
+      summaryVisualValue: "Alles verändert sich",
       metricLabel: "Kategorie",
       steps: [
         {

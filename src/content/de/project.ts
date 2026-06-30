@@ -5,6 +5,7 @@ export const project = {
   scrollCta: "Weiter in die Geschichte",
   chapterIndicator: [
     { id: "the-documentary", label: "Dokumentation" },
+    { id: "why-this-project", label: "Warum dieses Projekt?" },
     { id: "behind-the-scenes", label: "Behind the Scenes" },
     { id: "the-research", label: "Forschung" },
     { id: "research-journey", label: "Rechercheweg" },
@@ -42,6 +43,21 @@ export const project = {
         body: "Die wissenschaftliche Grundlage hält den Fokus auf Social Media, Sponsoring, Sichtbarkeit, Risikowahrnehmung und Sicherheitskultur.",
       },
     ],
+  },
+  motivation: {
+    image: {
+      src: "/images/project/motivation.jpg",
+      alt: "Portrait des Autors während der dokumentarischen Feldarbeit.",
+    },
+    label: "Persönlicher Zugang",
+    title: "Motivation hinter dem Projekt",
+    blocks: [
+      "2019 absolvierte ich meinen ersten Fallschirmsprung. Was als einmaliges Erlebnis begann, entwickelte sich schnell zu einer anhaltenden Faszination für Sportarten, die von aussen oft nur über Risiko wahrgenommen werden. Mit zunehmender Erfahrung wurde mir jedoch bewusst, dass hinter diesen Aktivitäten weit mehr steckt als Nervenkitzel: Ausbildung, Vorbereitung, Verantwortung und eine ausgeprägte Sicherheitskultur.",
+      "Gleichzeitig fiel mir auf, wie stark soziale Medien die Wahrnehmung solcher Sportarten prägen. Sichtbar werden meist die spektakulärsten Sekunden eines Sprungs. Unsichtbar bleiben häufig die Vorbereitung, die Entscheidungsprozesse und die Menschen hinter den Bildern. Dadurch entstand die Frage, wie Athlet:innen selbst mit Sichtbarkeit, Reichweite und öffentlicher Aufmerksamkeit umgehen.",
+      "Aus dieser Beobachtung entwickelte sich schliesslich die Forschungsfrage dieser Arbeit. Falling for Fame verbindet wissenschaftliche Untersuchung und dokumentarisches Storytelling, um einen differenzierteren Blick auf BASE Jumping zu ermöglichen. Nicht auf der Suche nach Spektakel, sondern nach den Geschichten, Entscheidungen und Perspektiven hinter den Bildern.",
+    ],
+    quote:
+      "Mich interessierte nicht nur, was Menschen zum Springen bewegt. Mich interessierte, wie Sichtbarkeit verändert, was andere davon sehen.",
   },
   documentation: {
     gallery: {

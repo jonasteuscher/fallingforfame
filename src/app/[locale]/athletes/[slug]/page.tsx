@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import {
   AthleteArticlesSection,
   AthleteBaseStory,
+  AthleteGallerySection,
   AthleteHero,
   AthleteLinksSection,
   AthleteMediaSection,
@@ -39,18 +40,20 @@ const pageLabels = {
       disciplines: "Primary Disciplines",
     },
     cardMeta: { profession: "Profession", role: "Role", primary: "Primary" },
-    baseStoryTitle: "How They Got Into BASE Jumping",
+    baseStoryTitle: "Where It All Began",
+    galleryTitle: "Photo Gallery",
+    galleryEmpty: "Photo material will be added here.",
     quotesTitle: "Interview Quotes",
     quotesEmpty: "Selected interview quotes will appear here.",
     audioTitle: "Audio Interviews",
     audioEmpty: "Audio excerpts from the interviews will be added here.",
     videoTitle: "Video Interviews & Jumps",
     videoEmpty: "Video material will be added here.",
-    linksTitle: "Profiles & External Links",
+    linksTitle: "Personal Links & Socials",
     linksEmpty: "Profile links will be added once confirmed.",
     articlesTitle: "Articles & Media Coverage",
     articlesEmpty: "Links to articles, podcasts and interviews will be added here.",
-    sponsorsTitle: "Sponsors",
+    sponsorsTitle: "Sponsors & Partnerships",
     sponsorsEmpty: "Sponsor information will be added once confirmed.",
     moreTitle: "More Athlete Stories",
   },
@@ -67,19 +70,21 @@ const pageLabels = {
       disciplines: "Primäre Disziplinen",
     },
     cardMeta: { profession: "Beruf", role: "Rolle", primary: "Disziplin" },
-    baseStoryTitle: "Wie Sie Zum BASE Jumping Kamen",
+    baseStoryTitle: "Wie alles begann",
+    galleryTitle: "Fotogalerie",
+    galleryEmpty: "Fotomaterial wird hier ergänzt.",
     quotesTitle: "Interviewzitate",
     quotesEmpty: "Ausgewählte Interviewzitate erscheinen hier.",
     audioTitle: "Audio-Interviews",
     audioEmpty: "Audioausschnitte aus den Interviews werden hier ergänzt.",
     videoTitle: "Video-Interviews & Sprünge",
     videoEmpty: "Videomaterial wird hier ergänzt.",
-    linksTitle: "Profile & Externe Links",
+    linksTitle: "Persönliche Links & Social Media",
     linksEmpty: "Profil-Links werden ergänzt, sobald sie bestätigt sind.",
     articlesTitle: "Artikel & Medienberichte",
     articlesEmpty:
       "Links zu Artikeln, Podcasts und Interviews werden hier ergänzt.",
-    sponsorsTitle: "Sponsoren",
+    sponsorsTitle: "Sponsoren & Partnerschaften",
     sponsorsEmpty:
       "Sponsoring-Informationen werden ergänzt, sobald sie bestätigt sind.",
     moreTitle: "Weitere Athletenporträts",
@@ -136,6 +141,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
         placeholder={dictionary.site.athletes.portraitPlaceholder}
         country={country}
         labels={labels.profileMeta}
+        sponsoredLabels={dictionary.athleteExperience}
         unknown={dictionary.athleteExperience.unknown}
       />
 
@@ -156,6 +162,13 @@ export default async function AthletePage({ params }: AthletePageProps) {
         athlete={athlete}
         locale={locale}
         title={labels.baseStoryTitle}
+      />
+
+      <AthleteGallerySection
+        images={athlete.images.gallery}
+        locale={locale}
+        title={labels.galleryTitle}
+        emptyText={labels.galleryEmpty}
       />
 
       <AthleteQuoteSection
@@ -182,20 +195,17 @@ export default async function AthletePage({ params }: AthletePageProps) {
       <AthleteLinksSection
         links={athlete.links}
         title={labels.linksTitle}
-        emptyText={labels.linksEmpty}
       />
 
       <AthleteArticlesSection
         articles={athlete.articles}
         locale={locale}
         title={labels.articlesTitle}
-        emptyText={labels.articlesEmpty}
       />
 
       <AthleteSponsorsSection
         sponsors={athlete.sponsors}
         title={labels.sponsorsTitle}
-        emptyText={labels.sponsorsEmpty}
         summary={athlete.sponsorship[locale]}
       />
 

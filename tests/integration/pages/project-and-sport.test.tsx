@@ -17,6 +17,10 @@ describe("project page", () => {
       screen.getByRole("heading", { name: "The Project", level: 1 }),
     ).toBeVisible();
     expect(screen.getByText("The Documentary")).toBeVisible();
+    expect(screen.getByText("Personal perspective")).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Motivation behind the project" }),
+    ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Bachelor Thesis" })).toBeVisible();
     expect(screen.getByText("Research question")).toBeVisible();
     expect(screen.getByText("Photo Elicitation")).toBeVisible();
@@ -31,6 +35,12 @@ describe("project page", () => {
       screen.getByRole("heading", { name: "Das Projekt", level: 1 }),
     ).toBeVisible();
     expect(screen.getByText("Die Dokumentation")).toBeVisible();
+    expect(screen.getByText("Persönlicher Zugang")).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "Motivation hinter dem Projekt",
+      }),
+    ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Bachelorarbeit" })).toBeVisible();
     expect(screen.getAllByText("Forschungsfrage")[0]).toBeVisible();
     expect(screen.getByText("Photo Elicitation")).toBeVisible();

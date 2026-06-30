@@ -14,6 +14,7 @@ export function ProjectPage({ content }: ProjectPageProps) {
     <article className="bg-background text-foreground">
       <ProjectHero content={content} />
       <DocumentaryChapter content={content.documentary} />
+      <ProjectMotivation content={content.motivation} />
       <section id="behind-the-scenes">
         <ProjectBehindScenes content={content.documentation.gallery} />
       </section>
@@ -23,6 +24,69 @@ export function ProjectPage({ content }: ProjectPageProps) {
       <ThesisChapter content={content.thesis} />
       <Credits content={content.credits} />
     </article>
+  );
+}
+
+function ProjectMotivation({
+  content,
+}: {
+  content: ProjectContent["motivation"];
+}) {
+  return (
+    <section
+      id="why-this-project"
+      className="border-y border-border bg-background"
+    >
+      <div className="mx-auto grid min-h-[140svh] max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1fr)] lg:items-start lg:gap-16 lg:px-10 lg:py-20">
+        <div className="lg:sticky lg:top-20 lg:h-[calc(100svh-5rem)]">
+          <figure className="relative aspect-[4/5] h-[min(78svh,48rem)] overflow-hidden bg-surface lg:h-full lg:aspect-auto">
+            <Image
+              src={content.image.src}
+              alt={content.image.alt}
+              fill
+              priority
+              quality={92}
+              sizes="(min-width: 1024px) 42vw, 92vw"
+              className="object-cover"
+            />
+            <div
+              className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--background)_18%,transparent),transparent_42%),linear-gradient(180deg,transparent_48%,color-mix(in_srgb,var(--background)_54%,transparent)_100%)]"
+              aria-hidden="true"
+            />
+          </figure>
+        </div>
+
+        <div className="flex flex-col gap-16 lg:gap-20">
+          <header className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
+              {content.label}
+            </p>
+            <h2 className="mt-5 text-4xl font-semibold leading-tight text-foreground sm:text-6xl lg:text-7xl">
+              {content.title}
+            </h2>
+          </header>
+
+          <div className="grid gap-10 sm:gap-12">
+            {content.blocks.map((block, index) => (
+              <article key={block} className="max-w-reading">
+                <p className="mb-4 font-mono text-sm font-semibold text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <p className="text-xl leading-9 text-foreground/78 sm:text-2xl sm:leading-10">
+                  {block}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-border px-4 py-24 sm:px-6 lg:px-10 lg:py-36">
+        <blockquote className="mx-auto max-w-6xl text-center text-4xl font-semibold leading-tight text-foreground sm:text-6xl lg:text-7xl">
+          “{content.quote}”
+        </blockquote>
+      </div>
+    </section>
   );
 }
 

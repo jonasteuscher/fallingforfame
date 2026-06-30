@@ -5,6 +5,7 @@ export const project = {
   scrollCta: "Scroll to enter the story",
   chapterIndicator: [
     { id: "the-documentary", label: "Documentary" },
+    { id: "why-this-project", label: "Why this project?" },
     { id: "behind-the-scenes", label: "Behind the scenes" },
     { id: "the-research", label: "Research" },
     { id: "research-journey", label: "Journey" },
@@ -42,6 +43,21 @@ export const project = {
         body: "The academic foundation keeps the documentary focused on questions of social media, sponsorship, visibility, risk perception and safety culture.",
       },
     ],
+  },
+  motivation: {
+    image: {
+      src: "/images/project/motivation.jpg",
+      alt: "Portrait of the author during documentary fieldwork.",
+    },
+    label: "Personal perspective",
+    title: "Motivation behind the project",
+    blocks: [
+      "In 2019, I completed my first skydive. What began as a one-time experience quickly developed into a lasting fascination with sports that are often perceived from the outside only through risk. With growing experience, I began to understand that there is far more behind these activities than adrenaline: training, preparation, responsibility and a strong safety culture.",
+      "At the same time, I noticed how strongly social media shapes the way these sports are perceived. What usually becomes visible are the most spectacular seconds of a jump. What often remains invisible are the preparation, the decision-making processes and the people behind the images. This raised the question of how athletes themselves deal with visibility, reach and public attention.",
+      "From this observation, the research question of this project gradually emerged. Falling for Fame combines academic research and documentary storytelling to create a more nuanced view of BASE jumping. Not in search of spectacle, but in search of the stories, decisions and perspectives behind the images.",
+    ],
+    quote:
+      "I was not only interested in what moves people to jump. I was interested in how visibility changes what others get to see.",
   },
   documentation: {
     gallery: {

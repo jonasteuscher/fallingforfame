@@ -165,7 +165,10 @@ export default async function HomePage({ params }: HomePageProps) {
                         alt=""
                         fill
                         sizes="(min-width: 1280px) 20vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover transition duration-500 group-hover:scale-105 motion-reduce:transition-none"
+                        className={cn(
+                          "object-cover transition duration-500 group-hover:scale-105 motion-reduce:transition-none",
+                          athlete.slug === "lukas-loibl" && "object-[center_24%]",
+                        )}
                       />
                     ) : (
                       <>

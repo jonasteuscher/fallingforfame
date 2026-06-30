@@ -17,6 +17,14 @@ type AthletePortraitIntroProps = {
     platforms: string;
     disciplines: string;
   };
+  sponsoredLabels: {
+    unknown: string;
+    yes: string;
+    no: string;
+    labels: {
+      sponsored: string;
+    };
+  };
   unknown: string;
 };
 
@@ -26,6 +34,7 @@ export function AthletePortraitIntro({
   placeholder,
   country,
   labels,
+  sponsoredLabels,
   unknown,
 }: AthletePortraitIntroProps) {
   const content = athlete.content[locale];
@@ -40,6 +49,10 @@ export function AthletePortraitIntro({
       value: athlete.platforms.length > 0 ? athlete.platforms.join(", ") : unknown,
     },
     { label: labels.disciplines, value: content.primaryDisciplines.join(", ") },
+    {
+      label: sponsoredLabels.labels.sponsored,
+      value: formatSponsored(athlete.experience.sponsored, sponsoredLabels),
+    },
   ];
 
   return (
@@ -94,4 +107,15 @@ export function AthletePortraitIntro({
       </div>
     </section>
   );
+}
+
+function formatSponsored(
+  value: boolean | null,
+  labels: AthletePortraitIntroProps["sponsoredLabels"],
+) {
+  if (value === null) {
+    return labels.unknown;
+  }
+
+  return value ? labels.yes : labels.no;
 }

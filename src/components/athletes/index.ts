@@ -4,6 +4,7 @@ export { AthletePortraitIntro } from "@/components/athletes/AthletePortraitIntro
 export {
   AthleteArticlesSection,
   AthleteBaseStory,
+  AthleteGallerySection,
   AthleteLinksSection,
   AthleteMediaSection,
   AthleteQuoteSection,
