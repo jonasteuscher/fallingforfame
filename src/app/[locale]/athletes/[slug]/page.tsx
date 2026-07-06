@@ -30,6 +30,8 @@ const pageLabels = {
   en: {
     scrollHint: "Scroll the profile",
     experienceTitle: "Experience",
+    experienceSubtitle:
+      "A progression measured through years and continuous learning.",
     profileMeta: {
       age: "Age",
       country: "Country",
@@ -60,6 +62,8 @@ const pageLabels = {
   de: {
     scrollHint: "Profil entdecken",
     experienceTitle: "Erfahrung",
+    experienceSubtitle:
+      "Eine Entwicklung, gemessen in Jahren und kontinuierlichem Lernen.",
     profileMeta: {
       age: "Alter",
       country: "Land",
@@ -145,11 +149,16 @@ export default async function AthletePage({ params }: AthletePageProps) {
         unknown={dictionary.athleteExperience.unknown}
       />
 
-      <section className="border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="mb-10 text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+      <section className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 xl:px-10">
+          <h2 className="text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
             {labels.experienceTitle}
           </h2>
+          <p className="mt-5 max-w-reading text-lg leading-8 text-foreground/76">
+            {labels.experienceSubtitle}
+          </p>
+        </div>
+        <div className="mt-10">
           <AthleteExperienceCards
             experience={athlete.experience}
             labels={dictionary.athleteExperience}

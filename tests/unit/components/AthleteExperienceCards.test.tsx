@@ -25,7 +25,7 @@ const unknownExperience: AthleteExperience = {
 };
 
 describe("AthleteExperienceCards", () => {
-  it("renders five statistic cards with translated labels", () => {
+  it("renders five experience milestones with translated labels", async () => {
     const { container } = render(
       <AthleteExperienceCards
         experience={filledExperience}
@@ -34,14 +34,18 @@ describe("AthleteExperienceCards", () => {
       />,
     );
 
-    expect(container.querySelectorAll("dt")).toHaveLength(5);
     expect(
-      screen.getByRole("region", { name: "Athlete experience statistics" }),
+      screen.getByRole("region", { name: "Athlete experience progression" }),
     ).toBeInTheDocument();
+    expect(container.querySelectorAll("li")).toHaveLength(5);
+    expect(screen.getByRole("heading", { name: "Skydiving Foundation" }))
+      .toBeVisible();
+    expect(screen.getByRole("heading", { name: "Entering BASE" })).toBeVisible();
     expect(screen.getByText("Skydive seasons")).toBeVisible();
     expect(screen.getByText("BASE jumps")).toBeVisible();
     expect(screen.getByText("Overall social media reach")).toBeVisible();
-    expect(screen.getByText("1,200")).toBeVisible();
+    expect(await screen.findByText("1,200+", undefined, { timeout: 2500 }))
+      .toBeVisible();
     expect(screen.queryByText("Sponsored")).not.toBeInTheDocument();
   });
 
@@ -55,6 +59,7 @@ describe("AthleteExperienceCards", () => {
     );
 
     expect(screen.getAllByText("Unknown")).toHaveLength(5);
+    expect(screen.getByRole("heading", { name: "Public Visibility" })).toBeVisible();
   });
 
   it("renders Unbekannt for null values in German", () => {
@@ -68,6 +73,7 @@ describe("AthleteExperienceCards", () => {
 
     expect(screen.getAllByText("Unbekannt")).toHaveLength(5);
     expect(screen.getByText("Skydive Saisons")).toBeVisible();
+    expect(screen.getByText("BASE Jumper seit")).toBeVisible();
     expect(screen.queryByText("Gesponsert")).not.toBeInTheDocument();
   });
 });

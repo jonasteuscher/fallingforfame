@@ -34,8 +34,10 @@ describe("athlete detail page", () => {
     expect(screen.getByText("Paragliding Pilot")).toBeVisible();
     expect(screen.getAllByText("Hobby BASE Jumper").length).toBeGreaterThan(0);
     expect(screen.getByRole("heading", { name: "Experience" })).toBeVisible();
-    expect(screen.getByText("850")).toBeVisible();
-    expect(screen.getByText("1,500")).toBeVisible();
+    expect(await screen.findByText("850+", undefined, { timeout: 2500 }))
+      .toBeVisible();
+    expect(await screen.findByText("1,500+", undefined, { timeout: 2500 }))
+      .toBeVisible();
     expect(screen.getByText("No")).toBeVisible();
     expect(screen.getAllByText("Unknown")).toHaveLength(2);
     expect(screen.getByText("Where It All Began")).toBeVisible();
@@ -171,7 +173,8 @@ describe("athlete detail page", () => {
       }),
     );
 
-    expect(screen.getByText("500,000")).toBeVisible();
+    expect(await screen.findByText("500,000", undefined, { timeout: 2500 }))
+      .toBeVisible();
     expect(screen.getByText("Instagram, YouTube")).toBeVisible();
     unmount();
 
@@ -181,7 +184,8 @@ describe("athlete detail page", () => {
       }),
     );
 
-    expect(screen.getByText("500’000")).toBeVisible();
+    expect(await screen.findByText("500’000", undefined, { timeout: 2500 }))
+      .toBeVisible();
   });
 
   it("renders confirmed sponsor information", async () => {
