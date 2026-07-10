@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import AthletePage from "@/app/[locale]/athletes/[slug]/page";
@@ -38,6 +38,18 @@ describe("athlete detail page", () => {
         screen.getByRole("heading", { name: athlete.name, level: 1 }),
       ).toBeVisible();
       expect(screen.getByText(athlete.heroQuote.en)).toBeVisible();
+      expect(
+        screen.getByRole("heading", { name: "Profile and Experience" }),
+      ).toBeVisible();
+      expect(screen.getByAltText(`${athlete.name} portrait`)).toHaveAttribute(
+        "src",
+        athlete.images.portrait,
+      );
+      expect(screen.getByText("BASE since")).toBeVisible();
+      expect(screen.getByText("BASE jumps")).toBeVisible();
+      expect(screen.getByText("Skydives")).toBeVisible();
+      expect(screen.getByText("Reach")).toBeVisible();
+      expect(screen.getByText("Sponsorship")).toBeVisible();
       unmount();
     }
   });
@@ -119,13 +131,21 @@ describe("athlete detail page", () => {
     ).toBeVisible();
     expect(screen.getByText("Paragliding Pilot")).toBeVisible();
     expect(screen.getAllByText("Hobby BASE Jumper").length).toBeGreaterThan(0);
-    expect(screen.getByRole("heading", { name: "Experience" })).toBeVisible();
-    expect(await screen.findByText("850+", undefined, { timeout: 2500 }))
-      .toBeVisible();
-    expect(await screen.findByText("1,500+", undefined, { timeout: 2500 }))
-      .toBeVisible();
-    expect(screen.getByText("No")).toBeVisible();
-    expect(screen.getAllByText("Unknown")).toHaveLength(2);
+    expect(
+      screen.getByRole("heading", { name: "Profile and Experience" }),
+    ).toBeVisible();
+    expect(screen.queryByRole("heading", { name: "Experience" }))
+      .not.toBeInTheDocument();
+    expect(container.querySelector("#portrait-introduction")).not.toBeInTheDocument();
+    expect(screen.getByAltText("Marcel Geser portrait")).toHaveAttribute(
+      "src",
+      "/images/athletes/marcel-geser/profile.jpg",
+    );
+    expect(screen.getByText("2014")).toBeInTheDocument();
+    expect(screen.getByText("850+")).toBeInTheDocument();
+    expect(screen.getByText("1,500+")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("No")).toBeVisible());
+    expect(screen.getAllByText("Unknown")).toHaveLength(1);
     expect(screen.getByText("Where It All Began")).toBeVisible();
     expect(
       screen.getByRole("heading", { name: "Discovering a passion for flight" }),
@@ -211,6 +231,11 @@ describe("athlete detail page", () => {
       .toBeVisible();
     expect(screen.getByText("Aus der Schweiz | 45 Jahre")).toBeVisible();
     expect(screen.getByText("Gleitschirmpilot")).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Profil und Erfahrung" }))
+      .toBeVisible();
+    expect(screen.getByText("BASE seit")).toBeVisible();
+    expect(screen.getByText("Reichweite")).toBeVisible();
+    expect(screen.getByText("1’500+")).toBeInTheDocument();
     expect(screen.getByText("Wie alles begann")).toBeVisible();
     expect(
       screen.getByRole("heading", {
@@ -249,7 +274,7 @@ describe("athlete detail page", () => {
     expect(
       screen.queryByRole("heading", { name: "Sponsoren & Partnerschaften" }),
     ).not.toBeInTheDocument();
-    expect(screen.getAllByText("Unbekannt")).toHaveLength(2);
+    expect(screen.getAllByText("Unbekannt")).toHaveLength(1);
   });
 
   it("renders formatted reach and sponsorship information", async () => {
@@ -259,9 +284,9 @@ describe("athlete detail page", () => {
       }),
     );
 
-    expect(await screen.findByText("500,000", undefined, { timeout: 2500 }))
-      .toBeVisible();
-    expect(screen.getByText("Instagram, YouTube")).toBeVisible();
+    expect(screen.getByText("500,000+")).toBeInTheDocument();
+    expect(screen.getByText("Tourism Professional")).toBeVisible();
+    expect(screen.getByText("Terminal")).toBeVisible();
     unmount();
 
     await renderAsyncPage(
@@ -270,8 +295,7 @@ describe("athlete detail page", () => {
       }),
     );
 
-    expect(await screen.findByText("500’000", undefined, { timeout: 2500 }))
-      .toBeVisible();
+    expect(screen.getByText("500’000+")).toBeInTheDocument();
   });
 
   it("renders confirmed sponsor information", async () => {
@@ -286,8 +310,8 @@ describe("athlete detail page", () => {
         'img[src="/images/athletes/lukas-loibl/hero.jpeg"]',
       ),
     ).toBeInTheDocument();
-    expect(screen.getByText("Sponsored")).toBeVisible();
-    expect(screen.getByText("Yes")).toBeVisible();
+    expect(screen.getByText("Sponsorship")).toBeVisible();
+    await waitFor(() => expect(screen.getByText("Yes")).toBeVisible());
     expect(
       screen.getByText(
         "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",

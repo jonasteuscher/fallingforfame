@@ -1,6 +1,6 @@
 export { AthleteCard } from "@/components/athletes/AthleteCard";
 export { AthleteHero } from "@/components/athletes/AthleteHero";
-export { AthletePortraitIntro } from "@/components/athletes/AthletePortraitIntro";
+export { AthleteProfileOverview } from "@/components/athletes/AthleteProfileOverview";
 export {
   AthleteArticlesSection,
   AthleteBaseStory,
