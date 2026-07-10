@@ -136,6 +136,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
         athlete={athlete}
         title={athlete.content[locale].title}
         meta={athleteMeta}
+        quote={athlete.heroQuote[locale]}
         scrollHint={labels.scrollHint}
       />
 

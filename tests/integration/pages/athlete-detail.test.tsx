@@ -5,6 +5,26 @@ import AthletePage from "@/app/[locale]/athletes/[slug]/page";
 import { athletes } from "@/data/athletes";
 import { renderAsyncPage } from "../../test-utils/render-pages";
 
+const expectedHeroQuotes = new Map([
+  ["tim-howell", "Knowledge dispels fear."],
+  [
+    "lukas-loibl",
+    "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+  ],
+  [
+    "marcel-geser",
+    "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+  ],
+  [
+    "niclas-strohmeier",
+    "Die langsame Progression ist die sichere Progression.",
+  ],
+  [
+    "josef-braun",
+    "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+  ],
+]);
+
 describe("athlete detail page", () => {
   it("renders every athlete detail page", async () => {
     for (const athlete of athletes) {
@@ -16,6 +36,67 @@ describe("athlete detail page", () => {
 
       expect(
         screen.getByRole("heading", { name: athlete.name, level: 1 }),
+      ).toBeVisible();
+      expect(screen.getByText(athlete.heroQuote.en)).toBeVisible();
+      unmount();
+    }
+  });
+
+  it("renders only the matching hero quote for each athlete", async () => {
+    for (const athlete of athletes) {
+      const { unmount } = await renderAsyncPage(
+        AthletePage({
+          params: Promise.resolve({ locale: "en", slug: athlete.slug }),
+        }),
+      );
+
+      for (const [slug, quote] of expectedHeroQuotes) {
+        if (slug === athlete.slug) {
+          expect(screen.getByText(quote)).toBeVisible();
+        } else {
+          expect(screen.queryByText(quote)).not.toBeInTheDocument();
+        }
+      }
+
+      unmount();
+    }
+  });
+
+  it("updates the hero quote when navigating between athlete pages", async () => {
+    const { rerender } = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "tim-howell" }),
+      }),
+    );
+
+    expect(screen.getByText("Knowledge dispels fear.")).toBeVisible();
+
+    rerender(
+      await AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
+      }),
+    );
+
+    expect(screen.queryByText("Knowledge dispels fear.")).not.toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+      ),
+    ).toBeVisible();
+  });
+
+  it("renders localized hero quotes", async () => {
+    for (const locale of ["en", "de"] as const) {
+      const { unmount } = await renderAsyncPage(
+        AthletePage({
+          params: Promise.resolve({ locale, slug: "marcel-geser" }),
+        }),
+      );
+
+      expect(
+        screen.getByText(
+          "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+        ),
       ).toBeVisible();
       unmount();
     }
@@ -31,6 +112,11 @@ describe("athlete detail page", () => {
     expect(screen.getByRole("heading", { name: "Marcel Geser", level: 1 }))
       .toBeVisible();
     expect(screen.getByText("From Switzerland | 45 years")).toBeVisible();
+    expect(
+      screen.getByText(
+        "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+      ),
+    ).toBeVisible();
     expect(screen.getByText("Paragliding Pilot")).toBeVisible();
     expect(screen.getAllByText("Hobby BASE Jumper").length).toBeGreaterThan(0);
     expect(screen.getByRole("heading", { name: "Experience" })).toBeVisible();

@@ -10,23 +10,16 @@ export type AthleteLocalizedContent = {
   primaryDisciplines: string[];
 };
 
+export type LocalizedText = {
+  en: string;
+  de: string;
+};
+
 export type AthleteOriginStoryBeat = {
-  phase: {
-    en: string;
-    de: string;
-  };
-  title: {
-    en: string;
-    de: string;
-  };
-  body: {
-    en: string;
-    de: string;
-  };
-  quote?: {
-    en: string;
-    de: string;
-  };
+  phase: LocalizedText;
+  title: LocalizedText;
+  body: LocalizedText;
+  quote?: LocalizedText;
   media?: {
     type: "image" | "video";
     src: string | null;
@@ -35,43 +28,25 @@ export type AthleteOriginStoryBeat = {
 
 export type AthleteImage = {
   src: string;
-  alt: {
-    en: string;
-    de: string;
-  };
+  alt: LocalizedText;
 };
 
 export type AthleteAudio = {
-  title: {
-    en: string;
-    de: string;
-  };
-  description?: {
-    en: string;
-    de: string;
-  };
+  title: LocalizedText;
+  description?: LocalizedText;
   src: string | null;
   duration?: string | null;
 };
 
 export type AthleteVideo = {
-  title: {
-    en: string;
-    de: string;
-  };
-  description?: {
-    en: string;
-    de: string;
-  };
+  title: LocalizedText;
+  description?: LocalizedText;
   src: string | null;
   poster?: string | null;
 };
 
 export type AthleteQuote = {
-  text: {
-    en: string;
-    de: string;
-  };
+  text: LocalizedText;
 };
 
 export type AthleteLink = {
@@ -120,6 +95,7 @@ export type Athlete = {
     en: string | null;
     de: string | null;
   };
+  heroQuote: LocalizedText;
   images: {
     hero: string | null;
     portrait: string | null;

@@ -316,6 +316,10 @@ export const athletes: Athlete[] = [
       en: "Multiple sponsors, primarily clothing and equipment. Sponsored for 7 years.",
       de: "Mehrere Sponsoren, vor allem Kleidung und Ausrüstung. Seit 7 Jahren gesponsert.",
     },
+    heroQuote: {
+      en: "Knowledge dispels fear.",
+      de: "Knowledge dispels fear.",
+    },
     images: images(
       "/images/athletes/tim-howell/hero.jpg",
       "/images/athletes/tim-howell/profile.jpg",
@@ -508,6 +512,10 @@ export const athletes: Athlete[] = [
       en: "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
       de: "Mehrere Sponsoren seit 2022, darunter Canopies, Wingsuits, Kameras und Kleidung.",
     },
+    heroQuote: {
+      en: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+      de: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+    },
     images: images(
       "/images/athletes/lukas-loibl/hero.jpeg",
       "/images/athletes/lukas-loibl/profile.jpg",
@@ -660,6 +668,10 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
+    heroQuote: {
+      en: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+      de: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+    },
     images: images(
       "/images/athletes/marcel-geser/hero.jpg",
       "/images/athletes/marcel-geser/profile.jpg",
@@ -757,6 +769,10 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
+    heroQuote: {
+      en: "Die langsame Progression ist die sichere Progression.",
+      de: "Die langsame Progression ist die sichere Progression.",
+    },
     images: images(
       "/images/athletes/niclas-strohmeier/hero.jpg",
       "/images/athletes/niclas-strohmeier/profile.jpg",
@@ -835,6 +851,10 @@ export const athletes: Athlete[] = [
     sponsorship: {
       en: null,
       de: null,
+    },
+    heroQuote: {
+      en: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+      de: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
     },
     images: images(
       "/images/athletes/josef-braun/hero.JPG",

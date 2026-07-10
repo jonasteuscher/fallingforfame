@@ -10,6 +10,26 @@ const expectedMediaCounts = new Map([
   ["josef-braun", { images: 4 }],
 ]);
 
+const expectedHeroQuotes = new Map([
+  ["tim-howell", "Knowledge dispels fear."],
+  [
+    "lukas-loibl",
+    "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+  ],
+  [
+    "marcel-geser",
+    "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+  ],
+  [
+    "niclas-strohmeier",
+    "Die langsame Progression ist die sichere Progression.",
+  ],
+  [
+    "josef-braun",
+    "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+  ],
+]);
+
 describe("athletes data", () => {
   it("contains required fields for every athlete", () => {
     for (const athlete of athletes) {
@@ -20,6 +40,8 @@ describe("athletes data", () => {
       expect(athlete.name).toBeTruthy();
       expect(athlete.content.en).toBeTruthy();
       expect(athlete.content.de).toBeTruthy();
+      expect(athlete.heroQuote.en).toBeTruthy();
+      expect(athlete.heroQuote.de).toBeTruthy();
       expect(athlete.experience).toBeTruthy();
       expect(athlete).toHaveProperty("age");
       expect(athlete).toHaveProperty("country");
@@ -39,6 +61,16 @@ describe("athletes data", () => {
         expect(beat.body.en).toBeTruthy();
         expect(beat.body.de).toBeTruthy();
       }
+    }
+  });
+
+  it("contains the exact athlete-specific hero quotes for both locales", () => {
+    for (const athlete of athletes) {
+      const expectedQuote = expectedHeroQuotes.get(athlete.slug);
+
+      expect(expectedQuote).toBeTruthy();
+      expect(athlete.heroQuote.en).toBe(expectedQuote);
+      expect(athlete.heroQuote.de).toBe(expectedQuote);
     }
   });
 
