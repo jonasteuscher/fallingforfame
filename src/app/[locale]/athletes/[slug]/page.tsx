@@ -11,12 +11,13 @@ import {
   AthleteProfileOverview,
   AthleteQuoteSection,
   AthleteSponsorsSection,
+  InterviewFeature,
   MoreAthletes,
 } from "@/components/athletes";
 import { athletes, getAthleteBySlug } from "@/data/athletes";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import type { Athlete } from "@/types/athlete";
+import type { Athlete, AthleteInterviewFeature } from "@/types/athlete";
 
 type AthletePageProps = {
   params: Promise<{
@@ -64,6 +65,11 @@ const pageLabels = {
     sponsorsTitle: "Sponsors & Partnerships",
     sponsorsEmpty: "Sponsor information will be added once confirmed.",
     moreTitle: "More Athlete Stories",
+    interviewFeature: {
+      play: (title: string) => `Play ${title}`,
+      fullscreen: (title: string) => `Open ${title} fullscreen`,
+      exitFullscreen: (title: string) => `Exit ${title} fullscreen`,
+    },
   },
   de: {
     scrollHint: "Profil entdecken",
@@ -105,6 +111,11 @@ const pageLabels = {
     sponsorsEmpty:
       "Sponsoring-Informationen werden ergänzt, sobald sie bestätigt sind.",
     moreTitle: "Weitere Athletenporträts",
+    interviewFeature: {
+      play: (title: string) => `${title} abspielen`,
+      fullscreen: (title: string) => `${title} im Vollbild öffnen`,
+      exitFullscreen: (title: string) => `${title} Vollbild verlassen`,
+    },
   },
 } as const;
 
@@ -141,6 +152,19 @@ export default async function AthletePage({ params }: AthletePageProps) {
   const labels = pageLabels[locale];
   const athleteMeta = formatAthleteMeta(athlete, dictionary.athleteMeta);
   const moreAthletes = athletes.filter((item) => item.slug !== athlete.slug);
+  const renderInterviewFeatures = (
+    placement: AthleteInterviewFeature["placement"],
+  ) =>
+    (athlete.interviewFeatures ?? [])
+      .filter((feature) => feature.placement === placement)
+      .map((feature) => (
+        <InterviewFeature
+          key={feature.id}
+          feature={feature}
+          locale={locale}
+          labels={formatInterviewLabels(feature, locale, labels.interviewFeature)}
+        />
+      ));
 
   return (
     <>
@@ -180,12 +204,16 @@ export default async function AthletePage({ params }: AthletePageProps) {
         title={labels.baseStoryTitle}
       />
 
+      {renderInterviewFeatures("after-origin")}
+
       <AthleteGallerySection
         images={athlete.images.gallery}
         locale={locale}
         title={labels.galleryTitle}
         emptyText={labels.galleryEmpty}
       />
+
+      {renderInterviewFeatures("after-gallery")}
 
       <AthleteQuoteSection
         athlete={athlete}
@@ -256,4 +284,22 @@ function formatAthleteMeta(
     athlete.age === null ? labels.ageUnknown : `${athlete.age} ${labels.years}`;
 
   return `${countryText} | ${ageText}`;
+}
+
+function formatInterviewLabels(
+  feature: AthleteInterviewFeature,
+  locale: Locale,
+  labels: {
+    play: (title: string) => string;
+    fullscreen: (title: string) => string;
+    exitFullscreen: (title: string) => string;
+  },
+) {
+  const title = feature.iframeTitle[locale];
+
+  return {
+    play: labels.play(title),
+    fullscreen: labels.fullscreen(title),
+    exitFullscreen: labels.exitFullscreen(title),
+  };
 }

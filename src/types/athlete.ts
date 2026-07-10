@@ -45,6 +45,26 @@ export type AthleteVideo = {
   poster?: string | null;
 };
 
+export type AthleteInterviewFeature = {
+  id: string;
+  placement: "after-origin" | "after-gallery";
+  chapter: LocalizedText;
+  quote: string;
+  intro?: LocalizedText;
+  iframeTitle: LocalizedText;
+  poster: string | null;
+  videos: {
+    en: {
+      provider: "youtube";
+      videoId: string;
+    };
+    de: {
+      provider: "youtube";
+      videoId: string;
+    };
+  };
+};
+
 export type AthleteQuote = {
   text: LocalizedText;
 };
@@ -107,6 +127,7 @@ export type Athlete = {
     de: AthleteLocalizedContent;
   };
   originStory: AthleteOriginStoryBeat[];
+  interviewFeatures?: AthleteInterviewFeature[];
   audio: AthleteAudio[];
   video: AthleteVideo[];
   quotes: AthleteQuote[];

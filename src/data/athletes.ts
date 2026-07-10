@@ -374,6 +374,56 @@ export const athletes: Athlete[] = [
       },
     },
     originStory: originStories["tim-howell"],
+    interviewFeatures: [
+      {
+        id: "career",
+        placement: "after-origin",
+        chapter: {
+          en: "Interview Excerpt",
+          de: "Interviewauszug",
+        },
+        quote: "YOU'RE ONLY AS GOOD\nAS YOUR LAST STUNT",
+        iframeTitle: {
+          en: "Tim Howell interview",
+          de: "Tim Howell Interview",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "MJ-CSQxONJs",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "nZcqDTgsYGM",
+          },
+        },
+      },
+      {
+        id: "decision-making",
+        placement: "after-gallery",
+        chapter: {
+          en: "04 — DECISION MAKING",
+          de: "04 — DECISION MAKING",
+        },
+        quote: "MAKE THE\nRIGHT DECISION",
+        iframeTitle: {
+          en: "Tim Howell interview about decision making",
+          de: "Tim Howell Interview über Decision Making",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "PXHxp9K1lfo",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "Bi4Ba7mDy9Y",
+          },
+        },
+      },
+    ],
     ...emptyMedia,
     links: [
       {

@@ -74,6 +74,120 @@ describe("athlete detail page", () => {
     }
   });
 
+  it("renders Tim Howell's interview features in their documentary positions only on his profile", async () => {
+    const { container, unmount } = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "tim-howell" }),
+      }),
+    );
+
+    const originStory = container.querySelector("#origin-story");
+    const careerInterview = container.querySelector(
+      '[data-interview-feature-id="career"]',
+    );
+    const decisionInterview = container.querySelector(
+      '[data-interview-feature-id="decision-making"]',
+    );
+    const gallerySection = screen.getByRole("heading", { name: "Photo Gallery" })
+      .closest("section");
+    const quotesSection = screen.getByRole("heading", { name: "Interview Quotes" })
+      .closest("section");
+
+    expect(originStory).toBeInTheDocument();
+    expect(careerInterview).toBeInTheDocument();
+    expect(decisionInterview).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: /YOU'RE ONLY AS GOOD\s+AS YOUR LAST STUNT/,
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("button", { name: "Play Tim Howell interview" }))
+      .toBeVisible();
+    expect(screen.getByText("04 — DECISION MAKING")).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: /MAKE THE\s+RIGHT DECISION/,
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Tim Howell interview about decision making",
+      }),
+    ).toBeVisible();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/MJ-CSQxONJs/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/PXHxp9K1lfo/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(originStory?.compareDocumentPosition(careerInterview as Node))
+      .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(gallerySection?.compareDocumentPosition(decisionInterview as Node))
+      .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(decisionInterview?.compareDocumentPosition(quotesSection as Node))
+      .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    unmount();
+
+    await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "marcel-geser" }),
+      }),
+    );
+
+    expect(
+      screen.queryByRole("heading", {
+        name: "YOU'RE ONLY AS GOOD AS YOUR LAST STUNT",
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", {
+        name: "MAKE THE RIGHT DECISION",
+      }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders the German Tim Howell interview data for German visitors", async () => {
+    await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "de", slug: "tim-howell" }),
+      }),
+    );
+
+    expect(screen.getByText("Interviewauszug")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Tim Howell Interview abspielen" }))
+      .toBeVisible();
+    expect(
+      screen.queryByText(
+        "Ein längerer Auszug aus dem Interview, als ruhiger Moment innerhalb des Porträts.",
+      ),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText("04 — DECISION MAKING")).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Tim Howell Interview über Decision Making abspielen",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.queryByText(
+        "Ein ruhigeres Kapitel über Einschätzung, Geduld und den Moment, in dem man zurücktritt.",
+      ),
+    ).not.toBeInTheDocument();
+    expect(
+      document.querySelector(
+        'img[src="https://i.ytimg.com/vi/nZcqDTgsYGM/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      document.querySelector(
+        'img[src="https://i.ytimg.com/vi/Bi4Ba7mDy9Y/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+  });
+
   it("updates the hero quote when navigating between athlete pages", async () => {
     const { rerender } = await renderAsyncPage(
       AthletePage({

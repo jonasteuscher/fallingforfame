@@ -74,6 +74,46 @@ describe("athletes data", () => {
     }
   });
 
+  it("contains Tim Howell's localized interview feature data", () => {
+    const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+
+    expect(tim?.interviewFeatures).toMatchObject([
+      {
+        id: "career",
+        placement: "after-origin",
+        chapter: {
+          en: "Interview Excerpt",
+          de: "Interviewauszug",
+        },
+        quote: "YOU'RE ONLY AS GOOD\nAS YOUR LAST STUNT",
+        poster: null,
+        videos: {
+          en: { provider: "youtube", videoId: "MJ-CSQxONJs" },
+          de: { provider: "youtube", videoId: "nZcqDTgsYGM" },
+        },
+      },
+      {
+        id: "decision-making",
+        placement: "after-gallery",
+        chapter: {
+          en: "04 — DECISION MAKING",
+          de: "04 — DECISION MAKING",
+        },
+        quote: "MAKE THE\nRIGHT DECISION",
+        poster: null,
+        videos: {
+          en: { provider: "youtube", videoId: "PXHxp9K1lfo" },
+          de: { provider: "youtube", videoId: "Bi4Ba7mDy9Y" },
+        },
+      },
+    ]);
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "tim-howell")
+        .every((athlete) => athlete.interviewFeatures === undefined),
+    ).toBe(true);
+  });
+
   it("does not contain placeholder origin story copy", () => {
     for (const athlete of athletes) {
       expect(athlete.content.en.baseStoryTitle).not.toBe("Story in development");
