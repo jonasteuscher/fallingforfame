@@ -257,15 +257,15 @@ function BaseAcronymStory({
             />
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--background)_88%,transparent)_0%,color-mix(in_srgb,var(--background)_58%,transparent)_44%,color-mix(in_srgb,var(--background)_14%,transparent)_100%)]"
+              className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--background)_72%,transparent)_0%,color-mix(in_srgb,var(--background)_42%,transparent)_44%,color-mix(in_srgb,var(--background)_8%,transparent)_100%)]"
             />
             <div
               aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background/82 via-background/48 to-transparent"
+              className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background/62 via-background/30 to-transparent"
             />
             <div
               aria-hidden="true"
-              className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-background/42 to-transparent"
+              className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-background/26 to-transparent"
             />
             <div className="relative z-10 mx-auto flex min-h-[58svh] max-w-7xl items-end">
               <div className="pb-10">

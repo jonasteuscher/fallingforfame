@@ -36,7 +36,7 @@ export const sport = {
           src: "/images/sport/acronym/icons/antenne.png",
           alt: "Icon representing antennas as the A in BASE.",
         },
-        backgroundImage: "/images/sport/acronym/background/antenna.jpg",
+        backgroundImage: "/images/sport/acronym/background/antenna1.jpg",
       },
       {
         letter: "S",
