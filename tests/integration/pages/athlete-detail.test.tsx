@@ -162,7 +162,7 @@ describe("athlete detail page", () => {
     expect(screen.queryByText(/Replaceable:/)).not.toBeInTheDocument();
     await waitFor(() =>
       expect(
-        container.querySelector('source[src="/video/tim-howell/Iran.mp4"]'),
+        container.querySelector('source[src="/video/tim-howell/The_jump.mp4"]'),
       ).toBeInTheDocument(),
     );
     expect(originStory?.compareDocumentPosition(careerInterview as Node))

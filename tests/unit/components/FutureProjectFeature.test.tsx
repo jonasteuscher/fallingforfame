@@ -63,7 +63,7 @@ describe("FutureProjectFeature", () => {
     await waitFor(() =>
       expect(video.querySelector("source")).toHaveAttribute(
         "src",
-        "/video/tim-howell/a_leap_from_the_top_of_the_world_(teaser) (1080p).mp4",
+        "/video/tim-howell/Future_project.mp4",
       ),
     );
   });

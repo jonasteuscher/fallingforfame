@@ -101,7 +101,7 @@ describe("ScrollScrubVideo", () => {
     await waitFor(() =>
       expect(container.querySelector("source")).toHaveAttribute(
         "src",
-        "/video/tim-howell/Iran.mp4",
+        "/video/tim-howell/The_jump.mp4",
       ),
     );
   });
@@ -117,7 +117,7 @@ describe("ScrollScrubVideo", () => {
     await waitFor(() =>
       expect(container.querySelector("source")).toHaveAttribute(
         "src",
-        "/video/tim-howell/Iran.mp4",
+        "/video/tim-howell/The_jump.mp4",
       ),
     );
     Object.defineProperty(section, "offsetHeight", {

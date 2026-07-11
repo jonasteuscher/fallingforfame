@@ -467,7 +467,7 @@ export const athletes: Athlete[] = [
       },
       displayTitle: "THE JUMP",
       video: {
-        src: "/video/tim-howell/Iran.mp4",
+        src: "/video/tim-howell/The_jump.mp4",
         type: "video/mp4",
       },
       poster: null,
@@ -518,7 +518,7 @@ export const athletes: Athlete[] = [
         de: "Ein kommendes Projekt von Tim Howell.",
       },
       video: {
-        src: "/video/tim-howell/a_leap_from_the_top_of_the_world_(teaser) (1080p).mp4",
+        src: "/video/tim-howell/Future_project.mp4",
         poster: null,
       },
     },
