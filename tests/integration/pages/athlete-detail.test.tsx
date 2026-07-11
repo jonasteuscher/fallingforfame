@@ -6,7 +6,7 @@ import { athletes } from "@/data/athletes";
 import { renderAsyncPage } from "../../test-utils/render-pages";
 
 const expectedHeroQuotes = new Map([
-  ["tim-howell", "Knowledge dispels fear."],
+  ["tim-howell", "There is nothing anybody can tell me that's going to make me jump."],
   [
     "lukas-loibl",
     "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
@@ -93,8 +93,9 @@ describe("athlete detail page", () => {
     );
     const gallerySection = screen.getByRole("heading", { name: "Photo Gallery" })
       .closest("section");
-    const jumpsSection = screen.getByRole("heading", { name: "Jumps" })
-      .closest("section");
+    const scrollVideo = container.querySelector(
+      '[data-scroll-scrub-video-id="iran-jump"]',
+    );
     const futureProject = container.querySelector("[data-future-project-feature]");
     const linksSection = screen.getByRole("heading", {
       name: "Personal Links & Socials",
@@ -104,6 +105,7 @@ describe("athlete detail page", () => {
     expect(careerInterview).toBeInTheDocument();
     expect(decisionInterview).toBeInTheDocument();
     expect(audioStory).toBeInTheDocument();
+    expect(scrollVideo).toBeInTheDocument();
     expect(futureProject).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
@@ -154,16 +156,37 @@ describe("athlete detail page", () => {
         )
         .closest("div"),
     ).toHaveClass("aspect-video");
+    expect(screen.getByRole("heading", { name: "THE JUMP" })).toBeVisible();
+    expect(screen.getByText("SCROLL THROUGH")).toBeVisible();
+    expect(screen.queryByText(/Replaceable editorial cue/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Replaceable:/)).not.toBeInTheDocument();
+    await waitFor(() =>
+      expect(
+        container.querySelector('source[src="/video/tim-howell/Iran.mp4"]'),
+      ).toBeInTheDocument(),
+    );
     expect(originStory?.compareDocumentPosition(careerInterview as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      (careerInterview?.compareDocumentPosition(scrollVideo as Node) ?? 0) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      (scrollVideo?.compareDocumentPosition(audioStory as Node) ?? 0) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      (audioStory?.compareDocumentPosition(gallerySection as Node) ?? 0) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(gallerySection?.compareDocumentPosition(decisionInterview as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(decisionInterview?.compareDocumentPosition(audioStory as Node))
+    expect(decisionInterview?.compareDocumentPosition(futureProject as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(audioStory?.compareDocumentPosition(jumpsSection as Node))
-      .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(futureProject?.compareDocumentPosition(linksSection as Node))
-      .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      (futureProject?.compareDocumentPosition(linksSection as Node) ?? 0) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     unmount();
 
     await renderAsyncPage(
@@ -229,7 +252,11 @@ describe("athlete detail page", () => {
       }),
     );
 
-    expect(screen.getByText("Knowledge dispels fear.")).toBeVisible();
+    expect(
+      screen.getByText(
+        "There is nothing anybody can tell me that's going to make me jump.",
+      ),
+    ).toBeVisible();
 
     rerender(
       await AthletePage({
@@ -237,7 +264,11 @@ describe("athlete detail page", () => {
       }),
     );
 
-    expect(screen.queryByText("Knowledge dispels fear.")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "There is nothing anybody can tell me that's going to make me jump.",
+      ),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByText(
         "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
@@ -340,8 +371,6 @@ describe("athlete detail page", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(screen.queryByText("Interview Quotes")).not.toBeInTheDocument();
     expect(screen.queryByText("Audio Interviews")).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Jumps" })).toBeVisible();
-    expect(screen.getByText("Video material will be added here.")).toBeVisible();
     expect(container.querySelector("video")).toBeNull();
     expect(screen.queryByRole("button", { name: "Play video" })).not.toBeInTheDocument();
     expect(
@@ -409,8 +438,6 @@ describe("athlete detail page", () => {
     expect(screen.getByRole("heading", { name: "Fotogalerie" })).toBeVisible();
     expect(screen.queryByText("Interviewzitate")).not.toBeInTheDocument();
     expect(screen.queryByText("Audio-Interviews")).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Sprünge" })).toBeVisible();
-    expect(screen.getByText("Videomaterial wird hier ergänzt.")).toBeVisible();
     expect(
       screen.getByRole("heading", { name: "Persönliche Links & Social Media" }),
     ).toBeVisible();

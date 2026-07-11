@@ -61,12 +61,16 @@ export function AthleteHero({
             </blockquote>
           ) : null}
         </div>
-        <div className="flex max-w-full items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-foreground/72 motion-safe:animate-[fade-in-up_700ms_ease-out_360ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0">
+        <a
+          href="#profile-experience"
+          className="group flex max-w-max items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-foreground/72 outline-none transition hover:text-foreground focus-visible:text-foreground motion-safe:animate-[fade-in-up_700ms_ease-out_360ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+          aria-label={scrollHint}
+        >
           <span className="h-px w-12 bg-primary" aria-hidden="true" />
-          <span className="min-w-0 break-words [overflow-wrap:anywhere]">
+          <span className="min-w-0 break-words [overflow-wrap:anywhere] group-focus-visible:underline">
             {scrollHint}
           </span>
-        </div>
+        </a>
       </div>
     </section>
   );

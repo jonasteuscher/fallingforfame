@@ -7,13 +7,13 @@ import {
   AthleteGallerySection,
   AthleteHero,
   AthleteLinksSection,
-  AthleteMediaSection,
   AthleteProfileOverview,
   AthleteSponsorsSection,
   AudioStory,
   FutureProjectFeature,
   InterviewFeature,
   MoreAthletes,
+  ScrollScrubVideo,
 } from "@/components/athletes";
 import { athletes, getAthleteBySlug } from "@/data/athletes";
 import { isLocale, locales, type Locale } from "@/i18n/config";
@@ -53,8 +53,6 @@ const pageLabels = {
     baseStoryTitle: "Where It All Began",
     galleryTitle: "Photo Gallery",
     galleryEmpty: "Photo material will be added here.",
-    videoTitle: "Jumps",
-    videoEmpty: "Video material will be added here.",
     linksTitle: "Personal Links & Socials",
     linksEmpty: "Profile links will be added once confirmed.",
     articlesTitle: "Articles & Media Coverage",
@@ -93,8 +91,6 @@ const pageLabels = {
     baseStoryTitle: "Wie alles begann",
     galleryTitle: "Fotogalerie",
     galleryEmpty: "Fotomaterial wird hier ergänzt.",
-    videoTitle: "Sprünge",
-    videoEmpty: "Videomaterial wird hier ergänzt.",
     linksTitle: "Persönliche Links & Social Media",
     linksEmpty: "Profil-Links werden ergänzt, sobald sie bestätigt sind.",
     articlesTitle: "Artikel & Medienberichte",
@@ -199,6 +195,14 @@ export default async function AthletePage({ params }: AthletePageProps) {
 
       {renderInterviewFeatures("after-origin")}
 
+      <ScrollScrubVideo video={athlete.scrollVideo} locale={locale} />
+
+      {(athlete.audioStories ?? [])
+        .filter((story) => story.placement === "after-gallery")
+        .map((story) => (
+          <AudioStory key={story.id} story={story} locale={locale} />
+        ))}
+
       <AthleteGallerySection
         images={athlete.images.gallery}
         locale={locale}
@@ -207,19 +211,6 @@ export default async function AthletePage({ params }: AthletePageProps) {
       />
 
       {renderInterviewFeatures("after-gallery")}
-
-      {(athlete.audioStories ?? [])
-        .filter((story) => story.placement === "after-gallery")
-        .map((story) => (
-          <AudioStory key={story.id} story={story} locale={locale} />
-        ))}
-
-      <AthleteMediaSection
-        locale={locale}
-        title={labels.videoTitle}
-        emptyText={labels.videoEmpty}
-        video={athlete.video}
-      />
 
       <FutureProjectFeature athlete={athlete} locale={locale} />
 

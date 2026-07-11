@@ -4,6 +4,9 @@ import { describe, expect, it } from "vitest";
 import { AthleteHero } from "@/components/athletes/AthleteHero";
 import { athletes } from "@/data/athletes";
 
+const timHeroQuote =
+  "There is nothing anybody can tell me that's going to make me jump.";
+
 describe("AthleteHero", () => {
   it("renders the hero quote semantically", () => {
     const athlete = athletes.find((item) => item.slug === "tim-howell");
@@ -22,13 +25,13 @@ describe("AthleteHero", () => {
       />,
     );
 
-    expect(screen.getByText("Knowledge dispels fear.")).toBeVisible();
-    expect(container.querySelector("blockquote")).toHaveTextContent(
-      "Knowledge dispels fear.",
-    );
+    expect(screen.getByText(timHeroQuote)).toBeVisible();
+    expect(container.querySelector("blockquote")).toHaveTextContent(timHeroQuote);
     expect(container.querySelector("blockquote p")).toHaveClass(
       "[overflow-wrap:anywhere]",
     );
+    expect(screen.getByRole("link", { name: "Scroll the profile" }))
+      .toHaveAttribute("href", "#profile-experience");
   });
 
   it("still renders when optional athlete metadata is missing", () => {
@@ -52,7 +55,7 @@ describe("AthleteHero", () => {
       screen.getByRole("heading", { name: "Tim Howell", level: 1 }),
     ).toBeVisible();
     expect(screen.getByText("Country unknown | Age unknown")).toBeVisible();
-    expect(screen.getByText("Knowledge dispels fear.")).toBeVisible();
+    expect(screen.getByText(timHeroQuote)).toBeVisible();
   });
 
   it("constrains mobile overflow-prone hero content", () => {

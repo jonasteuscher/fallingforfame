@@ -317,8 +317,8 @@ export const athletes: Athlete[] = [
       de: "Mehrere Sponsoren, vor allem Kleidung und Ausrüstung. Seit 7 Jahren gesponsert.",
     },
     heroQuote: {
-      en: "Knowledge dispels fear.",
-      de: "Knowledge dispels fear.",
+      en: "There is nothing anybody can tell me that's going to make me jump.",
+      de: "There is nothing anybody can tell me that's going to make me jump.",
     },
     images: images(
       "/images/athletes/tim-howell/hero.jpg",
@@ -455,6 +455,29 @@ export const athletes: Athlete[] = [
         ],
       },
     ],
+    scrollVideo: {
+      id: "iran-jump",
+      chapter: {
+        en: "SCROLL THROUGH",
+        de: "SCROLL THROUGH",
+      },
+      title: {
+        en: "The Jump",
+        de: "Der Sprung",
+      },
+      displayTitle: "THE JUMP",
+      video: {
+        src: "/video/tim-howell/Iran.mp4",
+        type: "video/mp4",
+      },
+      poster: null,
+      scrollLength: 4,
+      fallbackLabel: {
+        en: "Tim Howell BASE jump in Iran",
+        de: "Tim Howell BASE Jump im Iran",
+      },
+      cues: [],
+    },
     futureProject: {
       chapter: {
         en: "FUTURE PROJECT",

@@ -87,6 +87,11 @@ Object.defineProperty(window.HTMLMediaElement.prototype, "pause", {
   writable: true,
 });
 
+Object.defineProperty(window.HTMLMediaElement.prototype, "load", {
+  value: vi.fn(),
+  writable: true,
+});
+
 afterEach(() => {
   cleanup();
   document.documentElement.style.overflow = "";

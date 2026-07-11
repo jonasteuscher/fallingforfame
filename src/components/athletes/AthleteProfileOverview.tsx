@@ -56,8 +56,9 @@ export function AthleteProfileOverview({
 
   return (
     <section
+      id="profile-experience"
       aria-labelledby="profile-experience-title"
-      className="border-b border-border px-4 py-16 sm:px-6 sm:py-20 xl:px-10 xl:py-24"
+      className="scroll-mt-16 border-b border-border px-4 py-16 sm:scroll-mt-20 sm:px-6 sm:py-20 xl:px-10 xl:py-24"
     >
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">

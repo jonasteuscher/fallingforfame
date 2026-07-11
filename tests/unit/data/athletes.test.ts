@@ -11,7 +11,7 @@ const expectedMediaCounts = new Map([
 ]);
 
 const expectedHeroQuotes = new Map([
-  ["tim-howell", "Knowledge dispels fear."],
+  ["tim-howell", "There is nothing anybody can tell me that's going to make me jump."],
   [
     "lukas-loibl",
     "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
@@ -173,6 +173,40 @@ describe("athletes data", () => {
       athletes
         .filter((athlete) => athlete.slug !== "tim-howell")
         .every((athlete) => athlete.futureProject === undefined),
+    ).toBe(true);
+  });
+
+  it("contains Tim Howell's scroll scrub jump data only on his profile", () => {
+    const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+
+    expect(tim?.scrollVideo).toMatchObject({
+      id: "iran-jump",
+      chapter: {
+        en: "SCROLL THROUGH",
+        de: "SCROLL THROUGH",
+      },
+      title: {
+        en: "The Jump",
+        de: "Der Sprung",
+      },
+      displayTitle: "THE JUMP",
+      video: {
+        src: "/video/tim-howell/Iran.mp4",
+        type: "video/mp4",
+      },
+      poster: null,
+      scrollLength: 4,
+      fallbackLabel: {
+        en: "Tim Howell BASE jump in Iran",
+        de: "Tim Howell BASE Jump im Iran",
+      },
+    });
+    expect(tim?.scrollVideo?.description).toBeUndefined();
+    expect(tim?.scrollVideo?.cues).toEqual([]);
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "tim-howell")
+        .every((athlete) => athlete.scrollVideo === undefined),
     ).toBe(true);
   });
 
