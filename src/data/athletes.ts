@@ -379,8 +379,8 @@ export const athletes: Athlete[] = [
         id: "career",
         placement: "after-origin",
         chapter: {
-          en: "Interview Excerpt",
-          de: "Interviewauszug",
+          en: "Social Media",
+          de: "Social Media",
         },
         quote: "YOU'RE ONLY AS GOOD\nAS YOUR LAST STUNT",
         iframeTitle: {
@@ -403,8 +403,8 @@ export const athletes: Athlete[] = [
         id: "decision-making",
         placement: "after-gallery",
         chapter: {
-          en: "04 — DECISION MAKING",
-          de: "04 — DECISION MAKING",
+          en: "DECISION MAKING",
+          de: "DECISION MAKING",
         },
         quote: "MAKE THE\nRIGHT DECISION",
         iframeTitle: {
@@ -415,7 +415,7 @@ export const athletes: Athlete[] = [
         videos: {
           en: {
             provider: "youtube",
-            videoId: "PXHxp9K1lfo",
+            videoId: "N9JUEpIOwkA",
           },
           de: {
             provider: "youtube",

@@ -103,7 +103,7 @@ describe("athlete detail page", () => {
     ).toBeVisible();
     expect(screen.getByRole("button", { name: "Play Tim Howell interview" }))
       .toBeVisible();
-    expect(screen.getByText("04 — DECISION MAKING")).toBeVisible();
+    expect(screen.getByText("DECISION MAKING")).toBeVisible();
     expect(
       screen.getByRole("heading", {
         name: /MAKE THE\s+RIGHT DECISION/,
@@ -121,7 +121,7 @@ describe("athlete detail page", () => {
     ).toBeInTheDocument();
     expect(
       container.querySelector(
-        'img[src="https://i.ytimg.com/vi/PXHxp9K1lfo/maxresdefault.jpg"]',
+        'img[src="https://i.ytimg.com/vi/N9JUEpIOwkA/maxresdefault.jpg"]',
       ),
     ).toBeInTheDocument();
     expect(originStory?.compareDocumentPosition(careerInterview as Node))
@@ -157,7 +157,7 @@ describe("athlete detail page", () => {
       }),
     );
 
-    expect(screen.getByText("Interviewauszug")).toBeVisible();
+    expect(screen.getByText("Social Media")).toBeVisible();
     expect(screen.getByRole("button", { name: "Tim Howell Interview abspielen" }))
       .toBeVisible();
     expect(
@@ -165,7 +165,7 @@ describe("athlete detail page", () => {
         "Ein längerer Auszug aus dem Interview, als ruhiger Moment innerhalb des Porträts.",
       ),
     ).not.toBeInTheDocument();
-    expect(screen.getByText("04 — DECISION MAKING")).toBeVisible();
+    expect(screen.getByText("DECISION MAKING")).toBeVisible();
     expect(
       screen.getByRole("button", {
         name: "Tim Howell Interview über Decision Making abspielen",

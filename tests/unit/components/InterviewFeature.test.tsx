@@ -117,7 +117,7 @@ describe("InterviewFeature", () => {
       <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
     );
 
-    expect(screen.getByText("Interview Excerpt")).toBeVisible();
+    expect(screen.getByText("Social Media")).toBeVisible();
     expect(screen.getByRole("heading", { name: /YOU'RE ONLY AS GOOD/ }))
       .toBeVisible();
     expect(
@@ -219,17 +219,17 @@ describe("InterviewFeature", () => {
       />,
     );
 
-    expect(screen.getByText("04 — DECISION MAKING")).toBeVisible();
+    expect(screen.getByText("DECISION MAKING")).toBeVisible();
     expect(
       screen.getByRole("heading", { name: /MAKE THE\s+RIGHT DECISION/ }),
     ).toBeVisible();
     expect(screen.getByAltText("")).toHaveAttribute(
       "src",
-      "https://i.ytimg.com/vi/PXHxp9K1lfo/maxresdefault.jpg",
+      "https://i.ytimg.com/vi/N9JUEpIOwkA/maxresdefault.jpg",
     );
     fireEvent.click(screen.getByRole("button", { name: labels.play }));
     await waitFor(() => expect(playerConstructor).toHaveBeenCalledTimes(1));
-    expect(playerConstructor.mock.calls[0]?.[1].videoId).toBe("PXHxp9K1lfo");
+    expect(playerConstructor.mock.calls[0]?.[1].videoId).toBe("N9JUEpIOwkA");
     unmount();
 
     playerConstructor.mockClear();
