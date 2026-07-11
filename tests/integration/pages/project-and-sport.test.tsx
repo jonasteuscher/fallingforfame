@@ -26,6 +26,10 @@ describe("project page", () => {
     expect(screen.getByText("Photo Elicitation")).toBeVisible();
     expect(screen.getAllByText("Behind the scenes")[0]).toBeVisible();
     expect(screen.getByText("Understanding begins with context.")).toBeVisible();
+    expect(screen.getByRole("navigation", { name: "Project chapters" }))
+      .toBeVisible();
+    expect(screen.getByRole("link", { name: "Documentary" }))
+      .toHaveAttribute("href", "#the-documentary");
   });
 
   it("renders localized German project content", async () => {

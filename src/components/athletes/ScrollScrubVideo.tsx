@@ -3,6 +3,11 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import type { Locale } from "@/i18n/config";
+import {
+  clearActiveVideo,
+  registerVideoPlayer,
+  requestVideoPlayback,
+} from "@/lib/videoPlaybackManager";
 import type { AthleteScrollVideo, AthleteScrollVideoCue } from "@/types/athlete";
 
 type ScrollScrubVideoProps = {
@@ -345,6 +350,15 @@ function VideoFallback({
   locale: Locale;
   headingId: string;
 }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const videoId = useId();
+
+  useEffect(() => {
+    return registerVideoPlayer(videoId, () => {
+      videoRef.current?.pause();
+    });
+  }, [videoId]);
+
   return (
     <section
       aria-labelledby={headingId}
@@ -369,11 +383,15 @@ function VideoFallback({
         ) : null}
         <div className="mt-10 aspect-video w-full overflow-hidden bg-black shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)] sm:mt-14">
           <video
+            ref={videoRef}
             controls
             playsInline
             preload="metadata"
             poster={video.poster ?? undefined}
             aria-label={video.fallbackLabel[locale]}
+            onPlay={() => requestVideoPlayback(videoId)}
+            onPause={() => clearActiveVideo(videoId)}
+            onEnded={() => clearActiveVideo(videoId)}
             className="h-full w-full bg-black object-cover"
           >
             <source src={video.video.src} type={video.video.type} />

@@ -24,11 +24,17 @@ type SectionShellProps = {
   eyebrow?: string;
   title: string;
   children: ReactNode;
+  compact?: boolean;
 };
 
-function SectionShell({ eyebrow, title, children }: SectionShellProps) {
+function SectionShell({ eyebrow, title, children, compact = false }: SectionShellProps) {
   return (
-    <section className="border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10">
+    <section
+      className={[
+        "border-t border-border px-4 sm:px-6 xl:px-10",
+        compact ? "py-14 sm:py-18" : "py-20 sm:py-28",
+      ].join(" ")}
+    >
       <div className="mx-auto max-w-7xl">
         {eyebrow ? (
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
@@ -184,18 +190,33 @@ export function AthleteGallerySection({
   locale,
   title,
   emptyText,
+  initialVisibleCount,
+  viewAllLabel,
+  showLessLabel,
+  variant,
 }: {
   images: AthleteImage[];
   locale: Locale;
   title: string;
   emptyText: string;
+  initialVisibleCount?: number;
+  viewAllLabel?: string;
+  showLessLabel?: string;
+  variant?: "grid" | "editorial";
 }) {
   const confirmedImages = images.filter((image) => image.src);
 
   return (
     <SectionShell title={title}>
       {confirmedImages.length > 0 ? (
-        <AthleteGalleryLightbox images={confirmedImages} locale={locale} />
+        <AthleteGalleryLightbox
+          images={confirmedImages}
+          locale={locale}
+          initialVisibleCount={initialVisibleCount}
+          viewAllLabel={viewAllLabel}
+          showLessLabel={showLessLabel}
+          variant={variant}
+        />
       ) : (
         <EmptyState>{emptyText}</EmptyState>
       )}
@@ -256,9 +277,11 @@ export function AthleteMediaSection({
 export function AthleteLinksSection({
   links,
   title,
+  compact = false,
 }: {
   links: AthleteLink[];
   title: string;
+  compact?: boolean;
 }) {
   const confirmedLinks = links.filter(
     (link): link is AthleteLink & { url: string } => Boolean(link.url),
@@ -269,30 +292,38 @@ export function AthleteLinksSection({
   }
 
   return (
-    <SectionShell title={title}>
-      <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+    <SectionShell title={title} compact={compact}>
+      <ul className={compact ? "flex flex-wrap gap-3" : "grid gap-3 sm:grid-cols-2 xl:grid-cols-3"}>
         {confirmedLinks.map((link) => (
           <li key={`${link.type}-${link.label}-${link.url}`}>
             <Link
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-24 items-center gap-4 border border-border bg-surface p-5 font-semibold text-foreground transition hover:border-primary focus-visible:rounded-sm"
+              className={[
+                "flex items-center gap-4 border border-border bg-surface font-semibold text-foreground transition hover:border-primary focus-visible:rounded-sm",
+                compact ? "min-h-12 px-4 py-3" : "min-h-24 p-5",
+              ].join(" ")}
             >
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center">
+              <span
+                className={[
+                  "flex shrink-0 items-center justify-center",
+                  compact ? "h-8 w-8" : "h-14 w-14",
+                ].join(" ")}
+              >
                 <Image
                   src={getSocialIcon(link)}
                   alt=""
                   width={44}
                   height={44}
-                  className="max-h-11 w-auto object-contain"
+                  className={compact ? "max-h-7 w-auto object-contain" : "max-h-11 w-auto object-contain"}
                 />
               </span>
               <span className="min-w-0">
-                <span className="block text-xs uppercase tracking-wide text-foreground/54">
+                <span className={compact ? "sr-only" : "block text-xs uppercase tracking-wide text-foreground/54"}>
                   {getSocialPlatformLabel(link.type)}
                 </span>
-                <span className="mt-1 block break-words text-lg leading-tight">
+                <span className={compact ? "block break-words text-sm leading-tight" : "mt-1 block break-words text-lg leading-tight"}>
                   {link.label}
                 </span>
               </span>
@@ -310,12 +341,16 @@ export function AthleteArticlesSection({
   title,
   viewAllLabel,
   showLessLabel,
+  compact = false,
+  initialVisibleCount,
 }: {
   articles: AthleteArticle[];
   locale: Locale;
   title: string;
   viewAllLabel: string;
   showLessLabel: string;
+  compact?: boolean;
+  initialVisibleCount?: number;
 }) {
   const confirmedArticles = articles.filter(
     (article): article is AthleteArticle & { url: string } =>
@@ -327,12 +362,14 @@ export function AthleteArticlesSection({
   }
 
   return (
-    <SectionShell title={title}>
+    <SectionShell title={title} compact={compact}>
       <AthleteArticleList
         articles={confirmedArticles}
         locale={locale}
         viewAllLabel={viewAllLabel}
         showLessLabel={showLessLabel}
+        initialVisibleCount={initialVisibleCount}
+        compact={compact}
       />
     </SectionShell>
   );
@@ -407,10 +444,12 @@ export function AthleteSponsorsSection({
   sponsors,
   title,
   summary,
+  compact = false,
 }: {
   sponsors: AthleteSponsor[];
   title: string;
   summary: string | null;
+  compact?: boolean;
 }) {
   const confirmedSponsors = sponsors.filter(
     (
@@ -424,31 +463,31 @@ export function AthleteSponsorsSection({
   }
 
   return (
-    <SectionShell title={title}>
+    <SectionShell title={title} compact={compact}>
       <div className="space-y-5">
         {summary ? (
-          <p className="max-w-reading text-xl leading-8 text-foreground/78">
+          <p className={compact ? "max-w-3xl text-base leading-7 text-foreground/72" : "max-w-reading text-xl leading-8 text-foreground/78"}>
             {summary}
           </p>
         ) : null}
-        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <ul className={compact ? "flex flex-wrap gap-3" : "grid gap-3 sm:grid-cols-2 xl:grid-cols-4"}>
           {confirmedSponsors.map((sponsor) => (
             <li
               key={sponsor.name}
-              className="border border-border bg-surface p-5 text-lg font-semibold text-foreground"
+              className={compact ? "border border-border bg-surface px-4 py-3 text-lg font-semibold text-foreground" : "border border-border bg-surface p-5 text-lg font-semibold text-foreground"}
             >
               <Link
                 href={sponsor.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-20 items-center justify-center transition opacity-80 hover:opacity-100 focus-visible:rounded-sm"
+                className={compact ? "flex min-h-12 items-center justify-center transition opacity-80 hover:opacity-100 focus-visible:rounded-sm" : "flex min-h-20 items-center justify-center transition opacity-80 hover:opacity-100 focus-visible:rounded-sm"}
               >
                 <Image
                   src={sponsor.logo}
                   alt={`${sponsor.name} logo`}
                   width={260}
                   height={130}
-                  className="max-h-24 w-auto object-contain"
+                  className={compact ? "max-h-12 w-auto object-contain" : "max-h-24 w-auto object-contain"}
                 />
               </Link>
             </li>

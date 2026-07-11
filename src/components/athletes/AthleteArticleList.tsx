@@ -14,35 +14,47 @@ type AthleteArticleListProps = {
   locale: Locale;
   viewAllLabel: string;
   showLessLabel: string;
+  initialVisibleCount?: number;
+  compact?: boolean;
 };
 
-const initialArticleCount = 4;
+const defaultInitialArticleCount = 4;
 
 export function AthleteArticleList({
   articles,
   locale,
   viewAllLabel,
   showLessLabel,
+  initialVisibleCount = defaultInitialArticleCount,
+  compact = false,
 }: AthleteArticleListProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const hasHiddenArticles = articles.length > initialArticleCount;
+  const hasHiddenArticles = articles.length > initialVisibleCount;
   const visibleArticles = isExpanded
     ? articles
-    : articles.slice(0, initialArticleCount);
+    : articles.slice(0, initialVisibleCount);
 
   return (
     <div>
-      <ul className="grid gap-4 sm:grid-cols-2">
+      <ul className={compact ? "grid gap-3" : "grid gap-4 sm:grid-cols-2"}>
         {visibleArticles.map((article) => (
           <li key={article.url}>
             <Link
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="block h-full border border-border bg-surface p-5 transition hover:border-primary focus-visible:rounded-sm"
+              className={[
+                "block h-full border border-border bg-surface transition hover:border-primary focus-visible:rounded-sm",
+                compact ? "p-4" : "p-5",
+              ].join(" ")}
             >
               {article.logo ? (
-                <span className="relative mb-5 flex h-14 w-full max-w-44 items-center">
+                <span
+                  className={[
+                    "relative flex w-full items-center",
+                    compact ? "mb-3 h-8 max-w-32" : "mb-5 h-14 max-w-44",
+                  ].join(" ")}
+                >
                   <Image
                     src={article.logo}
                     alt={`${article.publisher ?? getDomainLabel(article.url)} logo`}
@@ -58,7 +70,7 @@ export function AthleteArticleList({
                   />
                 </span>
               ) : null}
-              <span className="block text-xl font-semibold text-foreground">
+              <span className={compact ? "block text-base font-semibold leading-snug text-foreground" : "block text-xl font-semibold text-foreground"}>
                 {getArticleLabel(article, locale)}
               </span>
               <span className="mt-2 block text-sm uppercase tracking-wide text-foreground/62">

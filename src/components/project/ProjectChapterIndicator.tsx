@@ -11,16 +11,6 @@ type ProjectChapterIndicatorProps = {
 
 export function ProjectChapterIndicator({ chapters }: ProjectChapterIndicatorProps) {
   const [activeId, setActiveId] = useState(chapters[0]?.id);
-  const scrollToChapter = (chapterId: string) => {
-    const element = document.getElementById(chapterId);
-
-    if (!element) {
-      return;
-    }
-
-    setActiveId(chapterId);
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   useEffect(() => {
     let frame = 0;
@@ -79,44 +69,37 @@ export function ProjectChapterIndicator({ chapters }: ProjectChapterIndicatorPro
   return (
     <nav
       aria-label="Project chapters"
-      className="fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 rounded-sm border border-border bg-background/72 px-3 py-4 shadow-2xl backdrop-blur lg:block"
+      className="fixed bottom-3 left-1/2 z-40 max-w-[calc(100vw-1rem)] -translate-x-1/2 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur md:bottom-auto md:left-auto md:right-4 md:top-1/2 md:-translate-y-1/2 md:translate-x-0"
     >
-      <ol className="grid gap-4">
-        {chapters.map((chapter, index) => (
-          <li key={chapter.id}>
-            <button
-              type="button"
-              onClick={() => scrollToChapter(chapter.id)}
-              className={
-                activeId === chapter.id
-                  ? "flex cursor-pointer items-center justify-end gap-3 text-primary"
-                  : "flex cursor-pointer items-center justify-end gap-3 text-foreground/56 transition-colors hover:text-primary"
-              }
-              aria-current={activeId === chapter.id ? "location" : undefined}
-            >
-              <span
-                className={
-                  activeId === chapter.id
-                    ? "whitespace-nowrap text-xs font-semibold uppercase tracking-wide opacity-100"
-                    : "whitespace-nowrap text-xs font-semibold uppercase tracking-wide opacity-70"
-                }
+      <ol className="flex gap-1 md:flex-col">
+        {chapters.map((chapter) => {
+          const isActive = activeId === chapter.id;
+
+          return (
+            <li key={chapter.id}>
+              <a
+                href={`#${chapter.id}`}
+                aria-label={chapter.label}
+                aria-current={isActive ? "location" : undefined}
+                className={[
+                  "group flex min-h-11 min-w-11 items-center justify-center gap-2 px-2 text-xs font-semibold uppercase tracking-[0.16em] text-foreground/62 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none md:justify-start",
+                  isActive ? "text-primary" : "",
+                ].join(" ")}
               >
-                {chapter.label}
-              </span>
-              <span
-                aria-hidden="true"
-                className={
-                  activeId === chapter.id
-                    ? "h-10 w-1 bg-primary"
-                    : "h-8 w-px bg-foreground/46"
-                }
-              />
-              <span className="sr-only">
-                {String(index + 1).padStart(2, "0")} {chapter.label}
-              </span>
-            </button>
-          </li>
-        ))}
+                <span
+                  className={[
+                    "block h-1.5 w-1.5 rounded-full border border-current transition motion-reduce:transition-none",
+                    isActive ? "scale-125 bg-primary" : "bg-transparent",
+                  ].join(" ")}
+                  aria-hidden="true"
+                />
+                <span className="hidden md:inline" aria-hidden="true">
+                  {chapter.label}
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );

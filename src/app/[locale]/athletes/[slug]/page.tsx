@@ -8,6 +8,7 @@ import {
   AthleteGallerySection,
   AthleteHero,
   AthleteLinksSection,
+  AthleteNarrativeNav,
   AthleteProfileOverview,
   AthleteSponsorsSection,
   AudioStory,
@@ -52,11 +53,13 @@ const pageLabels = {
     cardMeta: { profession: "Profession", role: "Role", primary: "Primary" },
     baseStoryTitle: "Where It All Began",
     galleryTitle: "Photo Gallery",
+    galleryViewAll: "View full gallery",
+    galleryShowLess: "Show curated selection",
     galleryEmpty: "Photo material will be added here.",
     linksTitle: "Personal Links & Socials",
     linksEmpty: "Profile links will be added once confirmed.",
     articlesTitle: "Articles & Media Coverage",
-    articlesViewAll: "View all",
+    articlesViewAll: "View all coverage",
     articlesShowLess: "Show less",
     articlesEmpty: "Links to articles, podcasts and interviews will be added here.",
     sponsorsTitle: "Sponsors & Partnerships",
@@ -69,6 +72,15 @@ const pageLabels = {
       cta: "Explore Findings",
     },
     moreTitle: "More Athlete Stories",
+    continuationTitle: "Continue with another perspective",
+    narrativeNavLabel: "Tim Howell profile sections",
+    narrativeActs: {
+      person: "Person",
+      attraction: "Attraction",
+      publicImage: "Public Image",
+      decision: "Decision",
+      future: "Future",
+    },
     interviewFeature: {
       play: (title: string) => `Play ${title}`,
       fullscreen: (title: string) => `Open ${title} fullscreen`,
@@ -98,11 +110,13 @@ const pageLabels = {
     cardMeta: { profession: "Beruf", role: "Rolle", primary: "Disziplin" },
     baseStoryTitle: "Wie alles begann",
     galleryTitle: "Fotogalerie",
+    galleryViewAll: "Ganze Galerie anzeigen",
+    galleryShowLess: "Kuratierte Auswahl anzeigen",
     galleryEmpty: "Fotomaterial wird hier ergänzt.",
     linksTitle: "Persönliche Links & Social Media",
     linksEmpty: "Profil-Links werden ergänzt, sobald sie bestätigt sind.",
     articlesTitle: "Artikel & Medienberichte",
-    articlesViewAll: "Alle anzeigen",
+    articlesViewAll: "Alle Berichte anzeigen",
     articlesShowLess: "Weniger anzeigen",
     articlesEmpty:
       "Links zu Artikeln, Podcasts und Interviews werden hier ergänzt.",
@@ -117,6 +131,15 @@ const pageLabels = {
       cta: "Erkenntnisse öffnen",
     },
     moreTitle: "Weitere Athletenporträts",
+    continuationTitle: "Mit einer anderen Perspektive weitergehen",
+    narrativeNavLabel: "Tim Howell Profilabschnitte",
+    narrativeActs: {
+      person: "Person",
+      attraction: "Anziehung",
+      publicImage: "Öffentlichkeit",
+      decision: "Entscheidung",
+      future: "Zukunft",
+    },
     interviewFeature: {
       play: (title: string) => `${title} abspielen`,
       fullscreen: (title: string) => `${title} im Vollbild öffnen`,
@@ -171,69 +194,99 @@ export default async function AthletePage({ params }: AthletePageProps) {
           labels={formatInterviewLabels(feature, locale, labels.interviewFeature)}
         />
       ));
+  const isTimHowell = athlete.slug === "tim-howell";
+  const narrativeNavItems = [
+    { id: "person", label: labels.narrativeActs.person },
+    { id: "attraction", label: labels.narrativeActs.attraction },
+    { id: "public-image", label: labels.narrativeActs.publicImage },
+    { id: "decision", label: labels.narrativeActs.decision },
+    { id: "future", label: labels.narrativeActs.future },
+  ];
 
   return (
     <>
-      <AthleteHero
-        athlete={athlete}
-        title={athlete.content[locale].title}
-        meta={athleteMeta}
-        quote={athlete.heroQuote[locale]}
-        scrollHint={labels.scrollHint}
-      />
+      {isTimHowell ? (
+        <AthleteNarrativeNav
+          items={narrativeNavItems}
+          ariaLabel={labels.narrativeNavLabel}
+        />
+      ) : null}
 
-      <AthleteProfileOverview
-        athlete={athlete}
-        locale={locale}
-        portraitAlt={getAthletePortraitAlt(athlete, locale)}
-        portraitPlaceholder={dictionary.site.athletes.portraitPlaceholder}
-        labels={{
-          eyebrow: labels.profileOverview.eyebrow,
-          title: labels.profileOverview.title,
-          baseSince: labels.profileOverview.baseSince,
-          baseJumps: labels.profileOverview.baseJumps,
-          skydives: labels.profileOverview.skydives,
-          reach: labels.profileOverview.reach,
-          sponsorship: labels.profileOverview.sponsorship,
-          profession: labels.profileMeta.profession,
-          role: labels.profileMeta.role,
-          disciplines: labels.profileMeta.disciplines,
-          unknown: dictionary.athleteExperience.unknown,
-          yes: dictionary.athleteExperience.yes,
-          no: dictionary.athleteExperience.no,
-        }}
-      />
+      <div id={isTimHowell ? "person" : undefined} className="scroll-mt-20">
+        <AthleteHero
+          athlete={athlete}
+          title={athlete.content[locale].title}
+          meta={athleteMeta}
+          quote={athlete.heroQuote[locale]}
+          scrollHint={labels.scrollHint}
+        />
 
-      <AthleteBaseStory
-        athlete={athlete}
-        locale={locale}
-        title={labels.baseStoryTitle}
-      />
+        <AthleteProfileOverview
+          athlete={athlete}
+          locale={locale}
+          portraitAlt={getAthletePortraitAlt(athlete, locale)}
+          portraitPlaceholder={dictionary.site.athletes.portraitPlaceholder}
+          labels={{
+            eyebrow: labels.profileOverview.eyebrow,
+            title: labels.profileOverview.title,
+            baseSince: labels.profileOverview.baseSince,
+            baseJumps: labels.profileOverview.baseJumps,
+            skydives: labels.profileOverview.skydives,
+            reach: labels.profileOverview.reach,
+            sponsorship: labels.profileOverview.sponsorship,
+            profession: labels.profileMeta.profession,
+            role: labels.profileMeta.role,
+            disciplines: labels.profileMeta.disciplines,
+            unknown: dictionary.athleteExperience.unknown,
+            yes: dictionary.athleteExperience.yes,
+            no: dictionary.athleteExperience.no,
+          }}
+        />
+      </div>
 
-      {renderInterviewFeatures("after-origin")}
+      <div id={isTimHowell ? "attraction" : undefined} className="scroll-mt-20">
+        <AthleteBaseStory
+          athlete={athlete}
+          locale={locale}
+          title={labels.baseStoryTitle}
+        />
+      </div>
 
-      <ScrollScrubVideo video={athlete.scrollVideo} locale={locale} />
+      <div id={isTimHowell ? "public-image" : undefined} className="scroll-mt-20">
+        {renderInterviewFeatures("after-origin")}
+      </div>
 
-      {(athlete.audioStories ?? [])
-        .filter((story) => story.placement === "after-gallery")
-        .map((story) => (
-          <AudioStory key={story.id} story={story} locale={locale} />
-        ))}
+      <div id={isTimHowell ? "decision" : undefined} className="scroll-mt-20">
+        <ScrollScrubVideo video={athlete.scrollVideo} locale={locale} />
+
+        {(athlete.audioStories ?? [])
+          .filter((story) => story.placement === "after-gallery")
+          .map((story) => (
+            <AudioStory key={story.id} story={story} locale={locale} />
+          ))}
+
+        {renderInterviewFeatures("after-gallery")}
+      </div>
 
       <AthleteGallerySection
         images={athlete.images.gallery}
         locale={locale}
         title={labels.galleryTitle}
         emptyText={labels.galleryEmpty}
+        initialVisibleCount={isTimHowell ? 9 : undefined}
+        viewAllLabel={labels.galleryViewAll}
+        showLessLabel={labels.galleryShowLess}
+        variant={isTimHowell ? "editorial" : "grid"}
       />
 
-      {renderInterviewFeatures("after-gallery")}
-
-      <FutureProjectFeature athlete={athlete} locale={locale} />
+      <div id={isTimHowell ? "future" : undefined} className="scroll-mt-20">
+        <FutureProjectFeature athlete={athlete} locale={locale} />
+      </div>
 
       <AthleteLinksSection
         links={athlete.links}
         title={labels.linksTitle}
+        compact={isTimHowell}
       />
 
       <AthleteArticlesSection
@@ -242,12 +295,15 @@ export default async function AthletePage({ params }: AthletePageProps) {
         title={labels.articlesTitle}
         viewAllLabel={labels.articlesViewAll}
         showLessLabel={labels.articlesShowLess}
+        compact={isTimHowell}
+        initialVisibleCount={isTimHowell ? 3 : undefined}
       />
 
       <AthleteSponsorsSection
         sponsors={athlete.sponsors}
         title={labels.sponsorsTitle}
         summary={athlete.sponsorship[locale]}
+        compact={isTimHowell}
       />
 
       <AthleteFindingsLinkSection
@@ -261,12 +317,13 @@ export default async function AthletePage({ params }: AthletePageProps) {
       <MoreAthletes
         athletes={moreAthletes}
         locale={locale}
-        title={labels.moreTitle}
+        title={isTimHowell ? labels.continuationTitle : labels.moreTitle}
         cta={dictionary.site.athletes.gridCta}
         placeholder={dictionary.site.athletes.portraitPlaceholder}
         countryLabels={dictionary.athleteMeta.countryNames}
         cardLabels={labels.cardMeta}
       />
+
     </>
   );
 }

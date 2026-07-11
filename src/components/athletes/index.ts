@@ -1,4 +1,5 @@
 export { AthleteCard } from "@/components/athletes/AthleteCard";
+export { AthleteNarrativeNav } from "@/components/athletes/AthleteNarrativeNav";
 export { AudioStory } from "@/components/athletes/AudioStory";
 export { FutureProjectFeature } from "@/components/athletes/FutureProjectFeature";
 export { AthleteHero } from "@/components/athletes/AthleteHero";

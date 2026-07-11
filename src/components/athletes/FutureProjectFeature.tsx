@@ -3,6 +3,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 
 import type { Locale } from "@/i18n/config";
+import {
+  clearActiveVideo,
+  registerVideoPlayer,
+  requestVideoPlayback,
+} from "@/lib/videoPlaybackManager";
 import type { Athlete, AthleteFutureProject } from "@/types/athlete";
 
 type FutureProjectFeatureProps = {
@@ -39,8 +44,15 @@ function FutureProjectSection({
   const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const headingId = useId();
+  const videoId = useId();
   const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
   const videoLabel = `${athleteName} — Future Project: ${project.title[locale]}`;
+
+  useEffect(() => {
+    return registerVideoPlayer(videoId, () => {
+      videoRef.current?.pause();
+    });
+  }, [videoId]);
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -128,6 +140,9 @@ function FutureProjectSection({
               poster={project.video.poster ?? undefined}
               title={videoLabel}
               aria-label={videoLabel}
+              onPlay={() => requestVideoPlayback(videoId)}
+              onPause={() => clearActiveVideo(videoId)}
+              onEnded={() => clearActiveVideo(videoId)}
               className="h-full w-full bg-black object-cover"
             >
               {hasEnteredViewport ? (
