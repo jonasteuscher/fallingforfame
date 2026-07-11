@@ -5,10 +5,16 @@ import {
   type ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
+
+import {
+  pauseActiveVideo,
+  subscribeToVideoPlayback,
+} from "@/lib/videoPlaybackManager";
 
 type AudioContextValue = {
   activeId: string | null;
@@ -23,6 +29,8 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const play = useCallback(async (id: string, element: HTMLAudioElement) => {
+    pauseActiveVideo();
+
     if (activeElementRef.current && activeElementRef.current !== element) {
       activeElementRef.current.pause();
     }
@@ -37,6 +45,8 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     activeElementRef.current = null;
     setActiveId(null);
   }, []);
+
+  useEffect(() => subscribeToVideoPlayback(stop), [stop]);
 
   const value = useMemo(
     () => ({

@@ -9,6 +9,10 @@ import type { AthleteImage } from "@/types/athlete";
 type AthleteGalleryLightboxProps = {
   images: AthleteImage[];
   locale: Locale;
+  initialVisibleCount?: number;
+  viewAllLabel?: string;
+  showLessLabel?: string;
+  variant?: "grid" | "editorial";
 };
 
 const labels = {
@@ -36,11 +40,22 @@ const lightboxSizes =
 export function AthleteGalleryLightbox({
   images,
   locale,
+  initialVisibleCount,
+  viewAllLabel,
+  showLessLabel,
+  variant = "grid",
 }: AthleteGalleryLightboxProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
   const activeImage = activeIndex === null ? null : images[activeIndex];
   const text = labels[locale];
   const warmedImages = useRef(new Set<string>());
+  const hasHiddenImages =
+    initialVisibleCount !== undefined && images.length > initialVisibleCount;
+  const visibleImages =
+    hasHiddenImages && !isExpanded
+      ? images.slice(0, initialVisibleCount)
+      : images;
 
   const lightboxPreloadProps = useMemo(
     () =>
@@ -140,11 +155,28 @@ export function AthleteGalleryLightbox({
 
   return (
     <>
-      <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {images.map((image, index) => (
+      <ul
+        className={
+          variant === "editorial"
+            ? "grid gap-5 sm:grid-cols-2 xl:grid-cols-6"
+            : "grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
+        }
+      >
+        {visibleImages.map((image, index) => (
           <li
             key={image.src}
-            className="overflow-hidden border border-border bg-surface"
+            className={[
+              "self-start overflow-hidden border border-border bg-surface",
+              variant === "editorial" && index % 5 === 0
+                ? "sm:col-span-2 xl:col-span-4"
+                : "",
+              variant === "editorial" && index % 5 === 1
+                ? "xl:col-span-2 xl:row-span-2"
+                : "",
+              variant === "editorial" && index % 5 > 1
+                ? "xl:col-span-2"
+                : "",
+            ].join(" ")}
           >
             <button
               type="button"
@@ -161,12 +193,33 @@ export function AthleteGalleryLightbox({
                 height={900}
                 sizes={thumbnailSizes}
                 quality={68}
-                className="aspect-[4/3] w-full cursor-pointer object-cover transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
+                className={[
+                  "w-full cursor-pointer object-cover transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none",
+                  variant === "editorial" && index % 5 === 0
+                    ? "aspect-[16/9]"
+                    : "aspect-[4/3]",
+                  variant === "editorial" && index % 5 === 1
+                    ? "xl:aspect-[3/4]"
+                    : "",
+                ].join(" ")}
               />
             </button>
           </li>
         ))}
       </ul>
+
+      {hasHiddenImages ? (
+        <button
+          type="button"
+          onClick={() => setIsExpanded((current) => !current)}
+          aria-expanded={isExpanded}
+          className="mt-8 inline-flex min-h-12 cursor-pointer items-center border border-primary bg-primary px-5 text-sm font-semibold uppercase tracking-[0.18em] text-background transition hover:bg-transparent hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+        >
+          {isExpanded
+            ? (showLessLabel ?? text.previous)
+            : (viewAllLabel ?? text.next)}
+        </button>
+      ) : null}
 
       {activeImage ? (
         <div

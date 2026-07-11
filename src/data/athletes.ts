@@ -465,6 +465,10 @@ export const athletes: Athlete[] = [
           de: "Social Media",
         },
         quote: "YOU'RE ONLY AS GOOD\nAS YOUR LAST STUNT",
+        intro: {
+          en: "Presented here as a pressure around public visibility: the spectacular moment is seen, while preparation and restraint often remain outside the frame.",
+          de: "Hier steht der Satz für den Druck öffentlicher Sichtbarkeit: Der spektakuläre Moment ist sichtbar, während Vorbereitung und Zurückhaltung oft ausserhalb des Bildes bleiben.",
+        },
         iframeTitle: {
           en: "Tim Howell interview",
           de: "Tim Howell Interview",

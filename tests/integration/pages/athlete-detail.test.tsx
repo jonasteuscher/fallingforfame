@@ -118,6 +118,12 @@ describe("athlete detail page", () => {
     const linksSection = screen.getByRole("heading", {
       name: "Personal Links & Socials",
     }).closest("section");
+    const findingsSection = screen.getByRole("heading", {
+      name: "From Profile To Findings",
+    }).closest("section");
+    const continuationSection = screen.getByRole("heading", {
+      name: "Continue with another perspective",
+    }).closest("section");
 
     expect(originStory).toBeInTheDocument();
     expect(careerInterview).toBeInTheDocument();
@@ -197,12 +203,22 @@ describe("athlete detail page", () => {
       (audioStory?.compareDocumentPosition(gallerySection as Node) ?? 0) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(gallerySection?.compareDocumentPosition(decisionInterview as Node))
-      .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(decisionInterview?.compareDocumentPosition(futureProject as Node))
+    expect(
+      (audioStory?.compareDocumentPosition(decisionInterview as Node) ?? 0) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      (decisionInterview?.compareDocumentPosition(gallerySection as Node) ?? 0) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(gallerySection?.compareDocumentPosition(futureProject as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
       (futureProject?.compareDocumentPosition(linksSection as Node) ?? 0) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      (findingsSection?.compareDocumentPosition(continuationSection as Node) ?? 0) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(screen.getByRole("heading", { name: "Articles & Media Coverage" }))
@@ -216,9 +232,21 @@ describe("athlete detail page", () => {
     expect(
       screen.getByText("Tim Howell completes North BASE paralpinism project"),
     ).toBeVisible();
-    expect(screen.getByText("Travel meets BASE jumper Tim Howell")).toBeVisible();
+    expect(screen.queryByText("Travel meets BASE jumper Tim Howell"))
+      .not.toBeInTheDocument();
     expect(screen.queryByText("Pro record: Tim Howell")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "View all" }));
+    expect(
+      screen.getByRole("heading", { name: "Continue with another perspective" }),
+    ).toBeVisible();
+    expect(screen.getByRole("navigation", { name: "Tim Howell profile sections" }))
+      .toBeVisible();
+    expect(screen.getByRole("link", { name: "Decision" })).toHaveAttribute(
+      "href",
+      "#decision",
+    );
+    expect(screen.getByRole("button", { name: "View full gallery" }))
+      .toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(screen.getByRole("button", { name: "View all coverage" }));
     expect(screen.getByText("Pro record: Tim Howell")).toBeVisible();
     expect(screen.getByRole("button", { name: "Show less" })).toHaveAttribute(
       "aria-expanded",
