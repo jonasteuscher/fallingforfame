@@ -361,18 +361,12 @@ export const athletes: Athlete[] = [
       athleteGallery(
         "tim-howell",
         [
-          "1 (2 of 5).jpg",
           "Copy of Ski Base-1.jpg",
           "DSC00644-2.jpg",
-          "DSC00677-7.jpg",
-          "DSC06515.jpg",
-          "DSC07258.jpg",
           "EH218967-2.jpg",
-          "IMG_9937-2.jpg",
           "IcelandJuly18-01.jpg",
           "KVD17585.jpg",
           "KVD32106.jpg",
-          "The Vase Jump.jpg",
           "Tim Howell - May2018-23.jpg",
           "_ZOL5788.jpg",
           "charley-radcliffe-jottnar-social-27.jpg",
@@ -382,10 +376,6 @@ export const athletes: Athlete[] = [
         ],
         [
           {
-            en: "BASE jumper exiting above a turquoise coastline and cliffs",
-            de: "BASE Jumper beim Absprung über türkisfarbener Küste und Klippen",
-          },
-          {
             en: "Paragliders flying beside snowy cliffs in the mountains",
             de: "Gleitschirme fliegen neben verschneiten Felswänden in den Bergen",
           },
@@ -394,24 +384,8 @@ export const athletes: Athlete[] = [
             de: "Tim Howell steht mit Bergausrüstung auf einem felsigen Gipfel",
           },
           {
-            en: "Tim Howell looking out from a steep cliff edge with a helmet",
-            de: "Tim Howell blickt mit Helm von einer steilen Felskante ins Tal",
-          },
-          {
-            en: "BASE jumper leaving a coastal cliff above blue water",
-            de: "BASE Jumper springt von einer Küstenklippe über blauem Wasser",
-          },
-          {
-            en: "BASE jumper exiting a cliff opening above a tropical bay",
-            de: "BASE Jumper springt aus einer Felsöffnung über einer tropischen Bucht",
-          },
-          {
             en: "Wingsuit flyer above a snowy mountain plateau",
             de: "Wingsuit-Flieger über einem verschneiten Bergplateau",
-          },
-          {
-            en: "BASE jumper flying past waterfalls in a rocky gorge",
-            de: "BASE Jumper fliegt an Wasserfällen in einer felsigen Schlucht vorbei",
           },
           {
             en: "BASE jumper flying beside a green cliff with a waterfall",
@@ -424,10 +398,6 @@ export const athletes: Athlete[] = [
           {
             en: "BASE jumper exiting from a rocky launch site above a valley",
             de: "BASE Jumper springt von einem felsigen Absprungort über einem Tal",
-          },
-          {
-            en: "Tall rock pillar rising above a forested canyon",
-            de: "Hohe Felssäule über einer bewaldeten Schlucht",
           },
           {
             en: "BASE canopy opening beside a cliff with snowy mountains behind",

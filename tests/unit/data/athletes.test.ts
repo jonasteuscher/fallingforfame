@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { athletes } from "@/data/athletes";
 
 const expectedMediaCounts = new Map([
-  ["tim-howell", { images: 18 }],
+  ["tim-howell", { images: 12 }],
   ["lukas-loibl", { images: 6 }],
   ["marcel-geser", { images: 9 }],
   ["niclas-strohmeier", { images: 5 }],
