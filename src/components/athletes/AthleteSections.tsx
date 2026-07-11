@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { AthleteArticleList } from "@/components/athletes/AthleteArticleList";
 import { AudioPlayer } from "@/components/media/AudioPlayer";
 import { VideoPlayer } from "@/components/media/VideoPlayer";
 import { PullQuote } from "@/components/scrollytelling";
 import type { Locale } from "@/i18n/config";
+import { localizedPath } from "@/i18n/navigation";
 import type {
   Athlete,
   AthleteArticle,
@@ -119,7 +121,7 @@ export function AthleteBaseStory({
                       {beat.media.src && beat.media.type === "image" ? (
                         <Image
                           src={beat.media.src}
-                          alt=""
+                          alt={beat.media.alt?.[locale] ?? ""}
                           width={1600}
                           height={900}
                           className="aspect-video w-full object-cover"
@@ -306,10 +308,14 @@ export function AthleteArticlesSection({
   articles,
   locale,
   title,
+  viewAllLabel,
+  showLessLabel,
 }: {
   articles: AthleteArticle[];
   locale: Locale;
   title: string;
+  viewAllLabel: string;
+  showLessLabel: string;
 }) {
   const confirmedArticles = articles.filter(
     (article): article is AthleteArticle & { url: string } =>
@@ -322,41 +328,53 @@ export function AthleteArticlesSection({
 
   return (
     <SectionShell title={title}>
-      <ul className="grid gap-4 sm:grid-cols-2">
-        {confirmedArticles.map((article) => (
-          <li key={article.url}>
-            <Link
-              href={article.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block h-full border border-border bg-surface p-5 transition hover:border-primary focus-visible:rounded-sm"
-            >
-              {article.logo ? (
-                <span className="relative mb-5 flex h-14 w-full max-w-44 items-center">
-                  <Image
-                    src={article.logo}
-                    alt={`${article.publisher ?? getDomainLabel(article.url)} logo`}
-                    fill
-                    sizes="176px"
-                    className="object-contain object-left"
-                    style={{
-                      transform: article.logoScale ? `scale(${article.logoScale})` : undefined,
-                      transformOrigin: "left center",
-                    }}
-                  />
-                </span>
-              ) : null}
-              <span className="block text-xl font-semibold text-foreground">
-                {getArticleLabel(article, locale)}
-              </span>
-              <span className="mt-2 block text-sm uppercase tracking-wide text-foreground/62">
-                {article.publisher ?? getDomainLabel(article.url)}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <AthleteArticleList
+        articles={confirmedArticles}
+        locale={locale}
+        viewAllLabel={viewAllLabel}
+        showLessLabel={showLessLabel}
+      />
     </SectionShell>
+  );
+}
+
+export function AthleteFindingsLinkSection({
+  locale,
+  eyebrow,
+  title,
+  body,
+  cta,
+}: {
+  locale: Locale;
+  eyebrow: string;
+  title: string;
+  body: string;
+  cta: string;
+}) {
+  return (
+    <section className="border-t border-border px-4 py-20 sm:px-6 sm:py-24 xl:px-10">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+          {eyebrow}
+        </p>
+        <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(0,0.72fr)_auto] lg:items-end">
+          <div>
+            <h2 className="max-w-4xl text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+              {title}
+            </h2>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-foreground/76">
+              {body}
+            </p>
+          </div>
+          <Link
+            href={localizedPath(locale, "/findings")}
+            className="inline-flex min-h-12 w-fit items-center border border-primary bg-primary px-5 text-sm font-semibold uppercase tracking-[0.18em] text-background transition hover:bg-transparent hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            {cta}
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -383,22 +401,6 @@ function getSocialPlatformLabel(type: AthleteLink["type"]) {
   }
 
   return type.charAt(0).toUpperCase() + type.slice(1);
-}
-
-function getArticleLabel(article: AthleteArticle, locale: Locale) {
-  return article.title?.[locale] ?? article.publisher ?? getDomainLabel(article.url);
-}
-
-function getDomainLabel(url: string | null) {
-  if (!url) {
-    return "";
-  }
-
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
 }
 
 export function AthleteSponsorsSection({

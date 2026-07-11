@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { athletes } from "@/data/athletes";
 
 const expectedMediaCounts = new Map([
-  ["tim-howell", { images: 18 }],
+  ["tim-howell", { images: 12 }],
   ["lukas-loibl", { images: 6 }],
   ["marcel-geser", { images: 9 }],
   ["niclas-strohmeier", { images: 5 }],
@@ -248,6 +248,19 @@ describe("athletes data", () => {
     }
   });
 
+  it("uses descriptive localized alt text for athlete gallery images", () => {
+    for (const athlete of athletes) {
+      for (const image of athlete.images.gallery) {
+        expect(image.alt.en).toBeTruthy();
+        expect(image.alt.de).toBeTruthy();
+        expect(image.alt.en).not.toMatch(/gallery image|image \d/i);
+        expect(image.alt.de).not.toMatch(/Galerie-Bild|Bild \d/i);
+        expect(image.alt.en).not.toContain(image.src);
+        expect(image.alt.de).not.toContain(image.src);
+      }
+    }
+  });
+
   it("uses confirmed local portrait images where available", () => {
     expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.images.portrait)
       .toBe("/images/athletes/tim-howell/profile.jpg");
@@ -431,9 +444,13 @@ describe("athletes data", () => {
       (beat) => beat.phase.en === "05 — Today",
     );
 
-    expect(todayStep?.media).toEqual({
+    expect(todayStep?.media).toMatchObject({
       type: "image",
       src: "/images/athletes/josef-braun/story.jpg",
+      alt: {
+        en: "Wingsuit flyer exiting beside a rocky cliff face",
+        de: "Wingsuit-Flieger springt neben einer felsigen Wand ab",
+      },
     });
     expect(josef?.originStory[1]?.media).toBeUndefined();
   });
@@ -444,9 +461,13 @@ describe("athletes data", () => {
       (beat) => beat.phase.en === "05 — Into BASE",
     );
 
-    expect(baseStep?.media).toEqual({
+    expect(baseStep?.media).toMatchObject({
       type: "image",
       src: "/images/athletes/lukas-loibl/story.jpeg",
+      alt: {
+        en: "Wingsuit flyer passing through a rocky arch",
+        de: "Wingsuit-Flieger fliegt durch einen felsigen Bogen",
+      },
     });
     expect(lukas?.originStory[1]?.media).toBeUndefined();
   });
@@ -457,9 +478,13 @@ describe("athletes data", () => {
       (beat) => beat.phase.en === "03 — Skydiving",
     );
 
-    expect(skydivingStep?.media).toEqual({
+    expect(skydivingStep?.media).toMatchObject({
       type: "image",
       src: "/images/athletes/niclas-strohmeier/story.jpg",
+      alt: {
+        en: "Wingsuit flyer in a yellow suit against a bright sky",
+        de: "Wingsuit-Flieger in gelbem Anzug vor hellem Himmel",
+      },
     });
   });
 });

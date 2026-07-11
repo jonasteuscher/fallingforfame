@@ -47,7 +47,7 @@ export const project = {
   motivation: {
     image: {
       src: "/images/project/motivation.jpg",
-      alt: "Portrait of the author during documentary fieldwork.",
+      alt: "Documentary author smiling with parachute gear in a wooded area",
     },
     label: "Personal perspective",
     title: "Motivation behind the project",
@@ -71,19 +71,19 @@ export const project = {
       images: [
         {
           src: "/images/project/bts/me.jpg",
-          alt: "Documentary author on a mountain path during fieldwork.",
+          alt: "Documentary author holding a rope on a snowy cliff path",
         },
         {
           src: "/images/project/bts/DSC_1849.JPG",
-          alt: "Behind-the-scenes production moment from the documentary process.",
+          alt: "Person in red trousers standing among snowy trees",
         },
         {
           src: "/images/project/bts/DSC_1894.JPG",
-          alt: "Behind-the-scenes fieldwork photograph from the documentary production.",
+          alt: "Person checking parachute gear above a green mountain valley",
         },
         {
           src: "/images/project/bts/DSC_1947.JPG",
-          alt: "Behind-the-scenes photograph from project fieldwork.",
+          alt: "Person with a packed parachute standing above a steep valley",
         },
         {
           src: "/images/project/bts/DSC_1959.JPG",
@@ -91,39 +91,39 @@ export const project = {
         },
         {
           src: "/images/project/bts/IMG_0226 2.JPG",
-          alt: "Travel and production moment captured during the documentary.",
+          alt: "Lakeside path with benches and mountains across the water",
         },
         {
           src: "/images/project/bts/IMG_0230 2.JPG",
-          alt: "Behind-the-scenes image from documentary travel and fieldwork.",
+          alt: "Small mountain hut below snowy peaks and a bare tree",
         },
         {
           src: "/images/project/bts/IMG_0232 2.JPG",
-          alt: "Documentary production photograph from the research process.",
+          alt: "Person walking through forest with parachute gear on the ground",
         },
         {
           src: "/images/project/bts/IMG_0935 2.JPG",
-          alt: "Behind-the-scenes image showing the production environment.",
+          alt: "Packed parachute gear lying on a forest floor",
         },
         {
           src: "/images/project/bts/IMG_0942 2.JPG",
-          alt: "Fieldwork photograph from the documentary project.",
+          alt: "Person standing in a meadow below a rocky mountain face",
         },
         {
           src: "/images/project/bts/IMG_1169.jpg",
-          alt: "Behind-the-scenes production detail from the documentary.",
+          alt: "Person walking across snow below a dark alpine rock wall",
         },
         {
           src: "/images/project/bts/IMG_9235.JPG",
-          alt: "Behind-the-scenes moment from documentary filming.",
+          alt: "Folding chair and camera tripod set up in an alpine meadow",
         },
         {
           src: "/images/project/bts/IMG_9244.JPG",
-          alt: "Production photograph from the documentary fieldwork.",
+          alt: "Two people with camera gear on snowy rocks",
         },
         {
           src: "/images/project/bts/IMG_9262.JPG",
-          alt: "Behind-the-scenes photograph from the project production.",
+          alt: "Mountain hut below snow-covered peaks",
         },
         {
           src: "/images/project/bts/DSC_1908.JPG",

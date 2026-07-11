@@ -23,7 +23,7 @@ export const sport = {
           "Urban structures and towers where access, wind and landing areas create complex constraints.",
         image: {
           src: "/images/sport/acronym/icons/building.png",
-          alt: "Icon representing buildings as the B in BASE.",
+          alt: "Simple line icon of tall buildings.",
         },
         backgroundImage: "/images/sport/acronym/background/building.jpg",
       },
@@ -34,7 +34,7 @@ export const sport = {
           "Masts and antenna structures, often exposed to weather and access limitations.",
         image: {
           src: "/images/sport/acronym/icons/antenne.png",
-          alt: "Icon representing antennas as the A in BASE.",
+          alt: "Simple line icon of a radio antenna.",
         },
         backgroundImage: "/images/sport/acronym/background/antenna1.jpg",
       },
@@ -45,7 +45,7 @@ export const sport = {
           "Bridges and similar spans where object height, airflow and landing options vary widely.",
         image: {
           src: "/images/sport/acronym/icons/brucke.png",
-          alt: "Icon representing bridge spans as the S in BASE.",
+          alt: "Simple line icon of a bridge span.",
         },
         backgroundImage: "/images/sport/acronym/background/bridge.jpg",
       },
@@ -56,7 +56,7 @@ export const sport = {
           "Cliffs, mountains and natural formations that define much of the alpine BASE environment.",
         image: {
           src: "/images/sport/acronym/icons/earth.png",
-          alt: "Icon representing earth and cliffs as the E in BASE.",
+          alt: "Simple line icon of a cliff and mountains.",
         },
         backgroundImage: "/images/sport/acronym/background/earth-2.jpg",
       },
@@ -180,7 +180,7 @@ export const sport = {
         body: "A skydiver, filmmaker and pioneer helps turn isolated fixed-object jumps into a recognisable activity. His films and organising work shaped how the early scene understood itself.",
         image: {
           src: "/images/sport/history/1970.jpg",
-          alt: "Archival portrait connected to the early BASE jumping scene.",
+          alt: "Black-and-white portrait of a parachutist wearing a helmet and gear.",
         },
       },
       {
@@ -198,7 +198,7 @@ export const sport = {
         body: "The four object categories become part of the sport's identity. Jumpers who completed Building, Antenna, Span and Earth could apply for an official BASE number, a tradition that continues today.",
         image: {
           src: "/images/sport/history/1981.jpg",
-          alt: "Visual reference for the BASE number system period.",
+          alt: "Illustration listing building, antenna, span and earth as BASE objects.",
         },
       },
       {
@@ -207,7 +207,7 @@ export const sport = {
         body: "Knowledge circulates through mentorship, personal networks and direct experience. Limited access to equipment and experienced jumpers creates a culture built around patience, commitment and learning from others.",
         image: {
           src: "/images/sport/history/1990.webp",
-          alt: "BASE jumping community reference from the 1990s.",
+          alt: "Several BASE jumpers exiting from a cliff above a valley.",
         },
       },
       {
@@ -216,7 +216,7 @@ export const sport = {
         body: "Information and imagery begin circulating globally. Online forums, digital cameras and video platforms make knowledge easier to access, while also spreading dramatic images beyond the community.",
         image: {
           src: "/images/sport/history/2000.jpeg",
-          alt: "Digital-era reference for BASE jumping forums and online exchange.",
+          alt: "Blue forum page titled The 2000s Forum Post Does Not Exist.",
         },
       },
       {
@@ -225,7 +225,7 @@ export const sport = {
         body: "Video platforms shape how the public sees the sport. Spectacular footage brings BASE jumping to new audiences, but often shows the jump itself more clearly than the preparation behind it.",
         image: {
           src: "/images/sport/history/2010.jpg",
-          alt: "Social media era reference for BASE jumping visibility.",
+          alt: "Grid of BASE jumping images and videos from social media.",
         },
       },
       {
@@ -234,7 +234,7 @@ export const sport = {
         body: "Global travel, technology and media connect athletes worldwide. Even as equipment and communication evolve, gravity, weather, terrain and human decision making remain the defining factors.",
         image: {
           src: "/images/sport/history/2020.jpg",
-          alt: "Modern BASE jumper in an alpine landscape.",
+          alt: "BASE jumper exiting a platform above a forested valley.",
         },
       },
     ],

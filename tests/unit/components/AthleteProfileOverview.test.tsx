@@ -45,7 +45,7 @@ describe("AthleteProfileOverview", () => {
         athlete={athlete}
         locale="en"
         labels={enLabels}
-        portraitAlt="Marcel Geser portrait"
+        portraitAlt="Marcel Geser wearing a helmet and blue wingsuit gear"
         portraitPlaceholder="Portrait media pending"
       />,
     );
@@ -53,7 +53,9 @@ describe("AthleteProfileOverview", () => {
     expect(
       screen.getByRole("heading", { name: "Profile and Experience", level: 2 }),
     ).toBeVisible();
-    expect(screen.getByAltText("Marcel Geser portrait")).toHaveAttribute(
+    expect(
+      screen.getByAltText("Marcel Geser wearing a helmet and blue wingsuit gear"),
+    ).toHaveAttribute(
       "src",
       "/images/athletes/marcel-geser/profile.jpg",
     );
@@ -72,7 +74,7 @@ describe("AthleteProfileOverview", () => {
         athlete={athleteFixture("niclas-strohmeier")}
         locale="de"
         labels={deLabels}
-        portraitAlt="Porträt von Niclas Strohmeier"
+        portraitAlt="Niclas Strohmeier mit weissem Helm fliegt nah an grünen Felsen"
         portraitPlaceholder="Portraitmedien ausstehend"
       />,
     );
@@ -112,7 +114,7 @@ describe("AthleteProfileOverview", () => {
         athlete={athlete}
         locale="en"
         labels={enLabels}
-        portraitAlt="Tim Howell portrait"
+        portraitAlt="Tim Howell wearing a cap and harness in front of mountains"
         portraitPlaceholder="Portrait media pending"
       />,
     );
@@ -127,7 +129,7 @@ describe("AthleteProfileOverview", () => {
         athlete={athleteFixture("lukas-loibl")}
         locale="en"
         labels={enLabels}
-        portraitAlt="Lukas Loibl portrait"
+        portraitAlt="Lukas Loibl smiling in a yellow jacket outdoors"
         portraitPlaceholder="Portrait media pending"
       />,
     );

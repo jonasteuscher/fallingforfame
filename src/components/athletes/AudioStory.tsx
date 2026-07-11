@@ -383,7 +383,7 @@ function AudioStoryCard({
             {story.portrait ? (
               <Image
                 src={story.portrait}
-                alt=""
+                alt={story.portraitAlt?.[locale] ?? ""}
                 width={420}
                 height={520}
                 className="aspect-[4/5] w-36 object-cover object-top md:w-full"
