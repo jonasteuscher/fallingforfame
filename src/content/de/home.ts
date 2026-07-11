@@ -8,7 +8,7 @@ export const home = {
     primaryCta: "Story starten",
     secondaryCta: "Athleten kennenlernen",
     scrollIndicator: "Scrollen zum Start",
-    visualLabel: "Abstrakter filmischer Platzhalter fuer Berg und Exit Point",
+    visualLabel: "Wingsuit-Flieger fliegt an einer steilen Felswand über Berggelände vorbei",
   },
   openingQuestion: {
     title: "Was passiert, wenn Risiko sichtbar wird?",

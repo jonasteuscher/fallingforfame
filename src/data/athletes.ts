@@ -30,14 +30,14 @@ function publicAssetPath(...segments: string[]) {
 
 function athleteGallery(
   slug: string,
-  name: string,
   filenames: string[],
+  altTexts: Athlete["images"]["gallery"][number]["alt"][],
 ): Athlete["images"]["gallery"] {
   return filenames.map((filename, index) => ({
     src: publicAssetPath("images", "athletes", slug, "gallery", filename),
-    alt: {
-      en: `${name} gallery image ${index + 1}`,
-      de: `${name} Galerie-Bild ${index + 1}`,
+    alt: altTexts[index] ?? {
+      en: "BASE jumper in mountain terrain",
+      de: "BASE Jumper in bergigem Gelände",
     },
   }));
 }
@@ -77,7 +77,14 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "In 2008, while working in intelligence services in Bern, Marcel began paragliding. During breaks he often watched paragliding videos on YouTube, following the sport even when he was away from the mountains.",
         de: "2008 begann Marcel mit dem Gleitschirmfliegen, während er in Bern im Nachrichtendienst arbeitete. In den Pausen schaute er oft Gleitschirmvideos auf YouTube und blieb so auch fern der Berge mit dem Fliegen verbunden.",
       },
-      media: { type: "image", src: "/images/athletes/marcel-geser/story.jpg" },
+      media: {
+        type: "image",
+        src: "/images/athletes/marcel-geser/story.jpg",
+        alt: {
+          en: "Marcel Geser flying in a blue wingsuit beside a green cliff",
+          de: "Marcel Geser fliegt in blauem Wingsuit neben einer grünen Felswand",
+        },
+      },
     },
     {
       phase: { en: "03 — The Algorithm", de: "03 — Der Algorithmus" },
@@ -136,7 +143,14 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "At seventeen, Niclas completed his skydiving licence. He built experience step by step until, at twenty and with around 340 skydives, he attended a BASE course.",
         de: "Mit siebzehn machte Niclas seine Fallschirmlizenz. Danach sammelte er Schritt für Schritt Erfahrung, bis er mit zwanzig und rund 340 Skydives einen BASE-Kurs besuchte.",
       },
-      media: { type: "image", src: "/images/athletes/niclas-strohmeier/story.jpg" },
+      media: {
+        type: "image",
+        src: "/images/athletes/niclas-strohmeier/story.jpg",
+        alt: {
+          en: "Wingsuit flyer in a yellow suit against a bright sky",
+          de: "Wingsuit-Flieger in gelbem Anzug vor hellem Himmel",
+        },
+      },
     },
     {
       phase: { en: "04 — Moving Closer", de: "04 — Näher an die Berge" },
@@ -194,7 +208,14 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "Today, Josef works as a tunnel instructor and realizes projects as a video flyer up in the mountains.",
         de: "Heute arbeitet Josef als Tunnelinstruktor und realisiert als Video-Flyer Projekte oben in den Bergen.",
       },
-      media: { type: "image", src: "/images/athletes/josef-braun/story.jpg" },
+      media: {
+        type: "image",
+        src: "/images/athletes/josef-braun/story.jpg",
+        alt: {
+          en: "Wingsuit flyer exiting beside a rocky cliff face",
+          de: "Wingsuit-Flieger springt neben einer felsigen Wand ab",
+        },
+      },
     },
   ],
   "lukas-loibl": [
@@ -241,7 +262,14 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "After three years in skydiving, Lukas moved into BASE jumping with the same commitment. What began with videos and a shared dream gradually became a life built around flying, training and the mountains.",
         de: "Nach drei Jahren im Fallschirmspringen wechselte Lukas ins BASE Jumping. Was mit Videos und einem gemeinsamen Traum begann, wurde Schritt für Schritt zu einem Leben rund ums Fliegen, Training und die Berge.",
       },
-      media: { type: "image", src: "/images/athletes/lukas-loibl/story.jpeg" },
+      media: {
+        type: "image",
+        src: "/images/athletes/lukas-loibl/story.jpeg",
+        alt: {
+          en: "Wingsuit flyer passing through a rocky arch",
+          de: "Wingsuit-Flieger fliegt durch einen felsigen Bogen",
+        },
+      },
     },
     {
       phase: { en: "06 — Today", de: "06 — Heute" },
@@ -283,7 +311,14 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
         en: "Around the same period, he joined the military, but his attention increasingly moved toward mountain-based objectives and the possibilities of remote terrain.",
         de: "In derselben Zeit trat er ins Militär ein, doch sein Interesse verlagerte sich zunehmend auf Projekte in den Bergen und auf die Möglichkeiten abgelegener Landschaften.",
       },
-      media: { type: "image", src: "/images/athletes/tim-howell/story.JPG" },
+      media: {
+        type: "image",
+        src: "/images/athletes/tim-howell/story.JPG",
+        alt: {
+          en: "Tim Howell jumping from a snowy alpine ridge",
+          de: "Tim Howell springt von einem verschneiten alpinen Grat",
+        },
+      },
     },
     {
       phase: { en: "04 — Discovering BASE", de: "04 — BASE entdecken" },
@@ -323,26 +358,103 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/tim-howell/hero.jpg",
       "/images/athletes/tim-howell/profile.jpg",
-      athleteGallery("tim-howell", "Tim Howell", [
-        "1 (2 of 5).jpg",
-        "Copy of Ski Base-1.jpg",
-        "DSC00644-2.jpg",
-        "DSC00677-7.jpg",
-        "DSC06515.jpg",
-        "DSC07258.jpg",
-        "EH218967-2.jpg",
-        "IMG_9937-2.jpg",
-        "IcelandJuly18-01.jpg",
-        "KVD17585.jpg",
-        "KVD32106.jpg",
-        "The Vase Jump.jpg",
-        "Tim Howell - May2018-23.jpg",
-        "_ZOL5788.jpg",
-        "charley-radcliffe-jottnar-social-27.jpg",
-        "charley-radcliffe-jottnar-social-31.jpg",
-        "for tim (1 of 1).jpg",
-        "moab-22.jpg",
-      ]),
+      athleteGallery(
+        "tim-howell",
+        [
+          "1 (2 of 5).jpg",
+          "Copy of Ski Base-1.jpg",
+          "DSC00644-2.jpg",
+          "DSC00677-7.jpg",
+          "DSC06515.jpg",
+          "DSC07258.jpg",
+          "EH218967-2.jpg",
+          "IMG_9937-2.jpg",
+          "IcelandJuly18-01.jpg",
+          "KVD17585.jpg",
+          "KVD32106.jpg",
+          "The Vase Jump.jpg",
+          "Tim Howell - May2018-23.jpg",
+          "_ZOL5788.jpg",
+          "charley-radcliffe-jottnar-social-27.jpg",
+          "charley-radcliffe-jottnar-social-31.jpg",
+          "for tim (1 of 1).jpg",
+          "moab-22.jpg",
+        ],
+        [
+          {
+            en: "BASE jumper exiting above a turquoise coastline and cliffs",
+            de: "BASE Jumper beim Absprung über türkisfarbener Küste und Klippen",
+          },
+          {
+            en: "Paragliders flying beside snowy cliffs in the mountains",
+            de: "Gleitschirme fliegen neben verschneiten Felswänden in den Bergen",
+          },
+          {
+            en: "Tim Howell standing on a rocky summit with mountain gear",
+            de: "Tim Howell steht mit Bergausrüstung auf einem felsigen Gipfel",
+          },
+          {
+            en: "Tim Howell looking out from a steep cliff edge with a helmet",
+            de: "Tim Howell blickt mit Helm von einer steilen Felskante ins Tal",
+          },
+          {
+            en: "BASE jumper leaving a coastal cliff above blue water",
+            de: "BASE Jumper springt von einer Küstenklippe über blauem Wasser",
+          },
+          {
+            en: "BASE jumper exiting a cliff opening above a tropical bay",
+            de: "BASE Jumper springt aus einer Felsöffnung über einer tropischen Bucht",
+          },
+          {
+            en: "Wingsuit flyer above a snowy mountain plateau",
+            de: "Wingsuit-Flieger über einem verschneiten Bergplateau",
+          },
+          {
+            en: "BASE jumper flying past waterfalls in a rocky gorge",
+            de: "BASE Jumper fliegt an Wasserfällen in einer felsigen Schlucht vorbei",
+          },
+          {
+            en: "BASE jumper flying beside a green cliff with a waterfall",
+            de: "BASE Jumper fliegt neben einer grünen Felswand mit Wasserfall",
+          },
+          {
+            en: "BASE jumper flying above a rocky ridge against a blue sky",
+            de: "BASE Jumper fliegt über einem Felsgrat vor blauem Himmel",
+          },
+          {
+            en: "BASE jumper exiting from a rocky launch site above a valley",
+            de: "BASE Jumper springt von einem felsigen Absprungort über einem Tal",
+          },
+          {
+            en: "Tall rock pillar rising above a forested canyon",
+            de: "Hohe Felssäule über einer bewaldeten Schlucht",
+          },
+          {
+            en: "BASE canopy opening beside a cliff with snowy mountains behind",
+            de: "BASE-Schirm öffnet sich neben einer Felswand vor verschneiten Bergen",
+          },
+          {
+            en: "BASE jumper flying beside a cliff above deep blue water",
+            de: "BASE Jumper fliegt neben einer Felswand über tiefblauem Wasser",
+          },
+          {
+            en: "Tim Howell packing parachute gear on the ground",
+            de: "Tim Howell packt Fallschirmausrüstung am Boden",
+          },
+          {
+            en: "Tim Howell standing on a snowy alpine ridge with a pack",
+            de: "Tim Howell steht mit Rucksack auf einem verschneiten alpinen Grat",
+          },
+          {
+            en: "Small canopy flying above a dark mountain lake",
+            de: "Kleiner Schirm fliegt über einem dunklen Bergsee",
+          },
+          {
+            en: "BASE jumper flying beneath a sandstone arch in desert terrain",
+            de: "BASE Jumper fliegt unter einem Sandsteinbogen in der Wüste",
+          },
+        ],
+      ),
     ),
     experience: experience(2, 250, 14, 1450, true, 100000),
     content: {
@@ -445,6 +557,10 @@ export const athletes: Athlete[] = [
           de: "/audio/tim-howell/Tim_knowledge_dispels_fear_DE.srt",
         },
         portrait: "/images/athletes/tim-howell/audio.jpg",
+        portraitAlt: {
+          en: "Tim Howell smiling in a red jacket and red beanie in snowy mountains",
+          de: "Tim Howell lächelt in roter Jacke und roter Mütze in verschneiten Bergen",
+        },
         duration: "01:05",
         waveform: [
           0.18, 0.28, 0.42, 0.76, 0.55, 0.34, 0.62, 0.88, 0.48, 0.26, 0.58,
@@ -548,31 +664,12 @@ export const athletes: Athlete[] = [
     articles: [
       {
         title: {
-          en: "Pro record: Tim Howell",
-          de: "Pro Record: Tim Howell",
-        },
-        publisher: "BASE Magazine",
-        logo: "/images/publishers/base_magazine.png",
-        logoScale: 0.76,
-        url: "https://www.base-mag.com/pro-record-tim-howell/",
-      },
-      {
-        title: {
           en: "Meet the daredevil BASE jumper who leaped from a Vietnam peak",
           de: "Der BASE Jumper, der von einem Gipfel in Vietnam sprang",
         },
         publisher: "Red Bull",
         logo: "/images/publishers/redbull.png",
         url: "https://www.redbull.com/gb-en/theredbulletin/meet-daredevil-base-jumper-who-leaped-from-a-1364m-peak-in-vietnam",
-      },
-      {
-        title: {
-          en: "Travel meets BASE jumper Tim Howell",
-          de: "Travel trifft BASE Jumper Tim Howell",
-        },
-        publisher: "The Times",
-        logo: "/images/publishers/times.png",
-        url: "https://www.thetimes.com/travel/st-travel-meets-base-jumper-tim-howell-bbhxpxp8d",
       },
       {
         title: {
@@ -592,6 +689,25 @@ export const athletes: Athlete[] = [
         publisher: "PlanetMountain",
         logo: "/images/publishers/planetmountain.svg",
         url: "https://www.planetmountain.com/en/news/interviews/tim-howell-completes-north-base-paralpinism-project-6-great-north-faces-alps.html",
+      },
+      {
+        title: {
+          en: "Travel meets BASE jumper Tim Howell",
+          de: "Travel trifft BASE Jumper Tim Howell",
+        },
+        publisher: "The Times",
+        logo: "/images/publishers/times.png",
+        url: "https://www.thetimes.com/travel/st-travel-meets-base-jumper-tim-howell-bbhxpxp8d",
+      },
+      {
+        title: {
+          en: "Pro record: Tim Howell",
+          de: "Pro Record: Tim Howell",
+        },
+        publisher: "BASE Magazine",
+        logo: "/images/publishers/base_magazine.png",
+        logoScale: 0.76,
+        url: "https://www.base-mag.com/pro-record-tim-howell/",
       },
       {
         title: {
@@ -667,14 +783,43 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/lukas-loibl/hero.jpeg",
       "/images/athletes/lukas-loibl/profile.jpg",
-      athleteGallery("lukas-loibl", "Lukas Loibl", [
-        "D9A50B94-6169-4E85-8800-8924444F81E9.png",
-        "IMG_9389.jpeg",
-        "IMG_9586.jpeg",
-        "IMG_9990.jpeg",
-        "Luki-2.jpeg",
-        "_DSC3618.jpeg",
-      ]),
+      athleteGallery(
+        "lukas-loibl",
+        [
+          "D9A50B94-6169-4E85-8800-8924444F81E9.png",
+          "IMG_9389.jpeg",
+          "IMG_9586.jpeg",
+          "IMG_9990.jpeg",
+          "Luki-2.jpeg",
+          "_DSC3618.jpeg",
+        ],
+        [
+          {
+            en: "Wingsuit flyer passing close to a rocky cliff",
+            de: "Wingsuit-Flieger fliegt nah an einer felsigen Wand vorbei",
+          },
+          {
+            en: "Wingsuit flyer seen through a natural rock arch",
+            de: "Wingsuit-Flieger durch einen natürlichen Felsbogen gesehen",
+          },
+          {
+            en: "Lukas Loibl carrying parachute gear on a forest path",
+            de: "Lukas Loibl trägt Fallschirmausrüstung auf einem Waldweg",
+          },
+          {
+            en: "Rock arch in a steep mountain face",
+            de: "Felsbogen in einer steilen Bergwand",
+          },
+          {
+            en: "Lukas Loibl standing in a field with packed jumping gear",
+            de: "Lukas Loibl steht mit gepackter Sprungausrüstung auf einer Wiese",
+          },
+          {
+            en: "Wingsuit flyer passing below a rocky opening",
+            de: "Wingsuit-Flieger fliegt unter einer Felsöffnung hindurch",
+          },
+        ],
+      ),
     ),
     experience: experience(6, 3500, 6, 3000, true, 200000),
     content: {
@@ -823,17 +968,58 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/marcel-geser/hero.jpg",
       "/images/athletes/marcel-geser/profile.jpg",
-      athleteGallery("marcel-geser", "Marcel Geser", [
-        "DJI_20250607050910_0491_D.jpg",
-        "GPAB9481.jpg",
-        "IMG_5161.jpg",
-        "Snapshot_202309249_180900 2.jpg",
-        "abutz-20251013-DSC_0542.jpg",
-        "abutz-20251013-DSC_0603.jpg",
-        "abutz-20251013-DSC_0648.jpg",
-        "d82a0d50-72f4-40a5-9916-5f82009bd6a9.jpg",
-        "marcel1.jpg",
-      ]),
+      athleteGallery(
+        "marcel-geser",
+        [
+          "DJI_20250607050910_0491_D.jpg",
+          "GPAB9481.jpg",
+          "IMG_5161.jpg",
+          "Snapshot_202309249_180900 2.jpg",
+          "abutz-20251013-DSC_0542.jpg",
+          "abutz-20251013-DSC_0603.jpg",
+          "abutz-20251013-DSC_0648.jpg",
+          "d82a0d50-72f4-40a5-9916-5f82009bd6a9.jpg",
+          "marcel1.jpg",
+        ],
+        [
+          {
+            en: "Wingsuit pilot standing on a grassy launch slope",
+            de: "Wingsuit-Pilot steht auf einem grasigen Absprunghang",
+          },
+          {
+            en: "Wingsuit pilot flying head down between steep canyon walls",
+            de: "Wingsuit-Pilot fliegt kopfüber zwischen steilen Schluchtwänden",
+          },
+          {
+            en: "Wingsuit pilot standing on a rocky summit above alpine peaks",
+            de: "Wingsuit-Pilot steht auf einem Felsgipfel über alpinen Bergen",
+          },
+          {
+            en: "Blue wingsuit and helmet on snow beside a mountain ridge",
+            de: "Blauer Wingsuit und Helm im Schnee neben einem Berggrat",
+          },
+          {
+            en: "Marcel Geser standing in a blue wingsuit above a lake",
+            de: "Marcel Geser steht in blauem Wingsuit oberhalb eines Sees",
+          },
+          {
+            en: "Marcel Geser standing in a wingsuit on a grassy hillside",
+            de: "Marcel Geser steht im Wingsuit auf einem grasigen Berghang",
+          },
+          {
+            en: "Wingsuit flyer gliding below a cliff under a blue sky",
+            de: "Wingsuit-Flieger gleitet unter einer Felswand vor blauem Himmel",
+          },
+          {
+            en: "Wingsuit flyer leaving a rocky cliff above a valley",
+            de: "Wingsuit-Flieger springt von einer Felswand über einem Tal",
+          },
+          {
+            en: "Marcel Geser standing on a cliff edge with parachute gear",
+            de: "Marcel Geser steht mit Fallschirmausrüstung an einer Felskante",
+          },
+        ],
+      ),
     ),
     experience: experience(14, 850, 13, 1500, false, null),
     content: {
@@ -924,13 +1110,38 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/niclas-strohmeier/hero.jpg",
       "/images/athletes/niclas-strohmeier/profile.jpg",
-      athleteGallery("niclas-strohmeier", "Niclas Strohmeier", [
-        "515298052_24257388017217950_2023238047916629265_n.jpg",
-        "681423427_26985451711078220_85980921819799839_n.jpg",
-        "IMG_4159.PNG",
-        "IMG_9233.JPG",
-        "yellow slick jump.jpg",
-      ]),
+      athleteGallery(
+        "niclas-strohmeier",
+        [
+          "515298052_24257388017217950_2023238047916629265_n.jpg",
+          "681423427_26985451711078220_85980921819799839_n.jpg",
+          "IMG_4159.PNG",
+          "IMG_9233.JPG",
+          "yellow slick jump.jpg",
+        ],
+        [
+          {
+            en: "BASE jumper in a white wingsuit above a forested valley",
+            de: "BASE Jumper in weissem Wingsuit über einem bewaldeten Tal",
+          },
+          {
+            en: "Niclas Strohmeier waving beside a Swiss flag on a mountain ridge",
+            de: "Niclas Strohmeier winkt neben einer Schweizer Fahne auf einem Berggrat",
+          },
+          {
+            en: "BASE jumper in a red jacket standing below a snowy cliff",
+            de: "BASE Jumper in roter Jacke steht unter einer verschneiten Felswand",
+          },
+          {
+            en: "Niclas Strohmeier smiling with a helmet camera in forest terrain",
+            de: "Niclas Strohmeier lächelt mit Helmkamera in einem Waldgebiet",
+          },
+          {
+            en: "Niclas Strohmeier wearing a helmet with cameras in mountain terrain",
+            de: "Niclas Strohmeier trägt einen Helm mit Kameras in bergigem Gelände",
+          },
+        ],
+      ),
     ),
     experience: experience(12, 630, 9, 1000, false, 500000),
     content: {
@@ -1007,12 +1218,33 @@ export const athletes: Athlete[] = [
     images: images(
       "/images/athletes/josef-braun/hero.JPG",
       "/images/athletes/josef-braun/profile.jpg",
-      athleteGallery("josef-braun", "Josef Braun", [
-        "469340793_1835003297315437_4282046965683917746_n.jpg",
-        "479193872_1885098192305947_5112094249666224347_n.jpg",
-        "481926393_1903292847153148_1366487483073375849_n.jpg",
-        "485131123_1911964859619280_2705298699952572428_n.jpg",
-      ]),
+      athleteGallery(
+        "josef-braun",
+        [
+          "469340793_1835003297315437_4282046965683917746_n.jpg",
+          "479193872_1885098192305947_5112094249666224347_n.jpg",
+          "481926393_1903292847153148_1366487483073375849_n.jpg",
+          "485131123_1911964859619280_2705298699952572428_n.jpg",
+        ],
+        [
+          {
+            en: "Two people standing on a snowy mountain viewpoint",
+            de: "Zwei Personen stehen auf einem verschneiten Aussichtspunkt in den Bergen",
+          },
+          {
+            en: "Wingsuit flyer above a rocky forested valley",
+            de: "Wingsuit-Flieger über einem felsigen, bewaldeten Tal",
+          },
+          {
+            en: "Wingsuit flyer passing above a lake at sunset",
+            de: "Wingsuit-Flieger fliegt bei Sonnenuntergang über einem See",
+          },
+          {
+            en: "BASE jumper in a white wingsuit above a snowy slope",
+            de: "BASE Jumper in weissem Wingsuit über einem verschneiten Hang",
+          },
+        ],
+      ),
     ),
     experience: experience(8, 800, 5, 1500, false, 280000),
     content: {

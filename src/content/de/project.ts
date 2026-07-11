@@ -47,7 +47,7 @@ export const project = {
   motivation: {
     image: {
       src: "/images/project/motivation.jpg",
-      alt: "Portrait des Autors während der dokumentarischen Feldarbeit.",
+      alt: "Autor der Dokumentation lächelt mit Fallschirmausrüstung in einem Waldgebiet",
     },
     label: "Persönlicher Zugang",
     title: "Motivation hinter dem Projekt",
@@ -71,19 +71,19 @@ export const project = {
       images: [
         {
           src: "/images/project/bts/me.jpg",
-          alt: "Autor der Dokumentation auf einem Bergpfad während der Feldarbeit.",
+          alt: "Autor der Dokumentation hält ein Seil auf einem verschneiten Felsenpfad",
         },
         {
           src: "/images/project/bts/DSC_1849.JPG",
-          alt: "Hinter-den-Kulissen-Moment aus dem dokumentarischen Prozess.",
+          alt: "Person in roter Hose steht zwischen verschneiten Bäumen",
         },
         {
           src: "/images/project/bts/DSC_1894.JPG",
-          alt: "Feldarbeitsfoto aus der Produktion der Dokumentation.",
+          alt: "Person kontrolliert Fallschirmausrüstung über einem grünen Bergtal",
         },
         {
           src: "/images/project/bts/DSC_1947.JPG",
-          alt: "Hinter-den-Kulissen-Foto aus der Feldarbeit.",
+          alt: "Person mit gepacktem Fallschirm steht über einem steilen Tal",
         },
         {
           src: "/images/project/bts/DSC_1959.JPG",
@@ -91,39 +91,39 @@ export const project = {
         },
         {
           src: "/images/project/bts/IMG_0226 2.JPG",
-          alt: "Reise- und Produktionsmoment während der Dokumentation.",
+          alt: "Weg am See mit Bänken und Bergen auf der anderen Uferseite",
         },
         {
           src: "/images/project/bts/IMG_0230 2.JPG",
-          alt: "Hinter-den-Kulissen-Bild aus Reise und Feldarbeit.",
+          alt: "Kleine Berghütte unter verschneiten Gipfeln und einem kahlen Baum",
         },
         {
           src: "/images/project/bts/IMG_0232 2.JPG",
-          alt: "Produktionsfoto aus dem Forschungsprozess.",
+          alt: "Person geht durch den Wald mit Fallschirmausrüstung am Boden",
         },
         {
           src: "/images/project/bts/IMG_0935 2.JPG",
-          alt: "Hinter-den-Kulissen-Bild der Produktionsumgebung.",
+          alt: "Gepackte Fallschirmausrüstung liegt auf einem Waldboden",
         },
         {
           src: "/images/project/bts/IMG_0942 2.JPG",
-          alt: "Feldarbeitsfoto aus dem Dokumentationsprojekt.",
+          alt: "Person steht auf einer Wiese unter einer felsigen Bergwand",
         },
         {
           src: "/images/project/bts/IMG_1169.jpg",
-          alt: "Produktionsdetail aus der Dokumentation.",
+          alt: "Person geht über Schnee unter einer dunklen alpinen Felswand",
         },
         {
           src: "/images/project/bts/IMG_9235.JPG",
-          alt: "Hinter-den-Kulissen-Moment während der Dreharbeiten.",
+          alt: "Klappstuhl und Kamerastativ stehen auf einer alpinen Wiese",
         },
         {
           src: "/images/project/bts/IMG_9244.JPG",
-          alt: "Produktionsfoto aus der dokumentarischen Feldarbeit.",
+          alt: "Zwei Personen mit Kameraausrüstung auf verschneiten Felsen",
         },
         {
           src: "/images/project/bts/IMG_9262.JPG",
-          alt: "Hinter-den-Kulissen-Foto aus der Projektproduktion.",
+          alt: "Berghütte unter schneebedeckten Gipfeln",
         },
         {
           src: "/images/project/bts/DSC_1908.JPG",

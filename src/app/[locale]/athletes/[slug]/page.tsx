@@ -34,7 +34,6 @@ const pageLabels = {
     profileOverview: {
       eyebrow: "Profile",
       title: "Profile and Experience",
-      portraitAlt: (name: string) => `${name} portrait`,
       baseSince: "BASE since",
       baseJumps: "BASE jumps",
       skydives: "Skydives",
@@ -57,6 +56,8 @@ const pageLabels = {
     linksTitle: "Personal Links & Socials",
     linksEmpty: "Profile links will be added once confirmed.",
     articlesTitle: "Articles & Media Coverage",
+    articlesViewAll: "View all",
+    articlesShowLess: "Show less",
     articlesEmpty: "Links to articles, podcasts and interviews will be added here.",
     sponsorsTitle: "Sponsors & Partnerships",
     sponsorsEmpty: "Sponsor information will be added once confirmed.",
@@ -79,7 +80,6 @@ const pageLabels = {
     profileOverview: {
       eyebrow: "Profil",
       title: "Profil und Erfahrung",
-      portraitAlt: (name: string) => `Porträt von ${name}`,
       baseSince: "BASE seit",
       baseJumps: "BASE Jumps",
       skydives: "Skydives",
@@ -102,6 +102,8 @@ const pageLabels = {
     linksTitle: "Persönliche Links & Social Media",
     linksEmpty: "Profil-Links werden ergänzt, sobald sie bestätigt sind.",
     articlesTitle: "Artikel & Medienberichte",
+    articlesViewAll: "Alle anzeigen",
+    articlesShowLess: "Weniger anzeigen",
     articlesEmpty:
       "Links zu Artikeln, Podcasts und Interviews werden hier ergänzt.",
     sponsorsTitle: "Sponsoren & Partnerschaften",
@@ -183,7 +185,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
       <AthleteProfileOverview
         athlete={athlete}
         locale={locale}
-        portraitAlt={labels.profileOverview.portraitAlt(athlete.name)}
+        portraitAlt={getAthletePortraitAlt(athlete, locale)}
         portraitPlaceholder={dictionary.site.athletes.portraitPlaceholder}
         labels={{
           eyebrow: labels.profileOverview.eyebrow,
@@ -238,6 +240,8 @@ export default async function AthletePage({ params }: AthletePageProps) {
         articles={athlete.articles}
         locale={locale}
         title={labels.articlesTitle}
+        viewAllLabel={labels.articlesViewAll}
+        showLessLabel={labels.articlesShowLess}
       />
 
       <AthleteSponsorsSection
@@ -311,4 +315,31 @@ function firstName(name: string) {
 
 function possessiveName(name: string) {
   return name.endsWith("s") ? `${name}'` : `${name}'s`;
+}
+
+function getAthletePortraitAlt(athlete: Athlete, locale: Locale) {
+  const descriptions: Record<string, { en: string; de: string }> = {
+    "tim-howell": {
+      en: "Tim Howell wearing a cap and harness in front of mountains",
+      de: "Tim Howell mit Kappe und Gurtzeug vor Bergen",
+    },
+    "lukas-loibl": {
+      en: "Lukas Loibl smiling in a yellow jacket outdoors",
+      de: "Lukas Loibl lächelt draussen in einer gelben Jacke",
+    },
+    "marcel-geser": {
+      en: "Marcel Geser wearing a helmet and blue wingsuit gear",
+      de: "Marcel Geser mit Helm und blauer Wingsuit-Ausrüstung",
+    },
+    "niclas-strohmeier": {
+      en: "Niclas Strohmeier in a white helmet flying close to green cliffs",
+      de: "Niclas Strohmeier mit weissem Helm fliegt nah an grünen Felsen",
+    },
+    "josef-braun": {
+      en: "Josef Braun smiling with parachute gear in a wooded area",
+      de: "Josef Braun lächelt mit Fallschirmausrüstung in einem Waldgebiet",
+    },
+  };
+
+  return descriptions[athlete.slug]?.[locale] ?? athlete.name;
 }

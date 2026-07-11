@@ -25,6 +25,15 @@ const expectedHeroQuotes = new Map([
   ],
 ]);
 
+const athletePortraitAlt: Record<string, string> = {
+  "tim-howell": "Tim Howell wearing a cap and harness in front of mountains",
+  "lukas-loibl": "Lukas Loibl smiling in a yellow jacket outdoors",
+  "marcel-geser": "Marcel Geser wearing a helmet and blue wingsuit gear",
+  "niclas-strohmeier":
+    "Niclas Strohmeier in a white helmet flying close to green cliffs",
+  "josef-braun": "Josef Braun smiling with parachute gear in a wooded area",
+};
+
 describe("athlete detail page", () => {
   it("renders every athlete detail page", async () => {
     for (const athlete of athletes) {
@@ -41,7 +50,7 @@ describe("athlete detail page", () => {
       expect(
         screen.getByRole("heading", { name: "Profile and Experience" }),
       ).toBeVisible();
-      expect(screen.getByAltText(`${athlete.name} portrait`)).toHaveAttribute(
+      expect(screen.getByAltText(athletePortraitAlt[athlete.slug])).toHaveAttribute(
         "src",
         athlete.images.portrait,
       );
@@ -196,6 +205,25 @@ describe("athlete detail page", () => {
       (futureProject?.compareDocumentPosition(linksSection as Node) ?? 0) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(screen.getByRole("heading", { name: "Articles & Media Coverage" }))
+      .toBeVisible();
+    expect(
+      screen.getByText(
+        "Meet the daredevil BASE jumper who leaped from a Vietnam peak",
+      ),
+    ).toBeVisible();
+    expect(screen.getByText("France BASE jump photo of the day")).toBeVisible();
+    expect(
+      screen.getByText("Tim Howell completes North BASE paralpinism project"),
+    ).toBeVisible();
+    expect(screen.getByText("Travel meets BASE jumper Tim Howell")).toBeVisible();
+    expect(screen.queryByText("Pro record: Tim Howell")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "View all" }));
+    expect(screen.getByText("Pro record: Tim Howell")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Show less" })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
     unmount();
 
     await renderAsyncPage(
@@ -325,7 +353,9 @@ describe("athlete detail page", () => {
     expect(screen.queryByRole("heading", { name: "Experience" }))
       .not.toBeInTheDocument();
     expect(container.querySelector("#portrait-introduction")).not.toBeInTheDocument();
-    expect(screen.getByAltText("Marcel Geser portrait")).toHaveAttribute(
+    expect(
+      screen.getByAltText("Marcel Geser wearing a helmet and blue wingsuit gear"),
+    ).toHaveAttribute(
       "src",
       "/images/athletes/marcel-geser/profile.jpg",
     );
@@ -369,7 +399,7 @@ describe("athlete detail page", () => {
     ).toBeInTheDocument();
     fireEvent.click(
       screen.getByRole("button", {
-        name: /Open image full size: Marcel Geser gallery image 1/,
+        name: /Open image full size: Wingsuit pilot standing on a grassy launch slope/,
       }),
     );
     expect(screen.getByRole("dialog")).toBeVisible();

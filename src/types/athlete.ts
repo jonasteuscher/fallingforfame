@@ -23,6 +23,7 @@ export type AthleteOriginStoryBeat = {
   media?: {
     type: "image" | "video";
     src: string | null;
+    alt?: LocalizedText;
   };
 };
 
@@ -80,6 +81,7 @@ export type AthleteAudioStory = {
     de: string;
   };
   portrait: string | null;
+  portraitAlt?: LocalizedText;
   duration?: string | null;
   waveform: number[];
 };
