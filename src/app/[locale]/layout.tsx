@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
+import { AudioProvider } from "@/components/audio";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { ScrollProgressIndicator } from "@/components/scrollytelling";
@@ -28,11 +29,11 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const dictionary = getDictionary(locale as Locale);
 
   return (
-    <>
+    <AudioProvider>
       <ScrollProgressIndicator />
       <SiteHeader locale={locale as Locale} navigation={dictionary.site.navigation} />
       <main className="flex-1 pt-14">{children}</main>
       <SiteFooter locale={locale as Locale} />
-    </>
+    </AudioProvider>
   );
 }

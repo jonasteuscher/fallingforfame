@@ -253,7 +253,7 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
           id={headingId}
           className="mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
         >
-          {`"${feature.quote}"`}
+          {feature.quote}
         </h2>
         {feature.intro ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
@@ -284,7 +284,7 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
                     type="button"
                     onClick={startPlayback}
                     aria-label={labels.play}
-                    className="group/play absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-primary/70 bg-primary text-background shadow-[0_0_48px_color-mix(in_srgb,var(--primary)_42%,transparent)] transition duration-300 hover:scale-105 hover:bg-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none sm:h-24 sm:w-24"
+                    className="group/play absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-primary/70 bg-primary text-background shadow-[0_0_48px_color-mix(in_srgb,var(--primary)_42%,transparent)] transition duration-300 hover:scale-105 hover:bg-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none sm:h-24 sm:w-24"
                   >
                     <span
                       aria-hidden="true"

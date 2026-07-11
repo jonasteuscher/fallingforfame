@@ -114,6 +114,39 @@ describe("athletes data", () => {
     ).toBe(true);
   });
 
+  it("contains Tim Howell's reusable audio story data only on his profile", () => {
+    const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+
+    expect(tim?.audioStories).toMatchObject([
+      {
+        id: "knowledge-dispels-fear",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Knowledge Dispels Fear",
+          de: "Knowledge Dispels Fear",
+        },
+        audio: {
+          src: "/audio/tim-howell/Tim_knowledge_dispels_fear - isolated.mp3",
+        },
+        transcript: {
+          en: "/audio/tim-howell/Tim_knowledge_dispels_fear_EN.srt",
+          de: "/audio/tim-howell/Tim_knowledge_dispels_fear_DE.srt",
+        },
+        portrait: "/images/athletes/tim-howell/audio.jpg",
+      },
+    ]);
+    expect(tim?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "tim-howell")
+        .every((athlete) => athlete.audioStories === undefined),
+    ).toBe(true);
+  });
+
   it("does not contain placeholder origin story copy", () => {
     for (const athlete of athletes) {
       expect(athlete.content.en.baseStoryTitle).not.toBe("Story in development");

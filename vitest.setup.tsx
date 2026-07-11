@@ -77,6 +77,16 @@ Object.defineProperty(window, "scrollTo", {
   writable: true,
 });
 
+Object.defineProperty(window.HTMLMediaElement.prototype, "play", {
+  value: vi.fn(() => Promise.resolve()),
+  writable: true,
+});
+
+Object.defineProperty(window.HTMLMediaElement.prototype, "pause", {
+  value: vi.fn(),
+  writable: true,
+});
+
 afterEach(() => {
   cleanup();
   document.documentElement.style.overflow = "";

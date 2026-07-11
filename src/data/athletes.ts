@@ -424,6 +424,37 @@ export const athletes: Athlete[] = [
         },
       },
     ],
+    audioStories: [
+      {
+        id: "knowledge-dispels-fear",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Knowledge Dispels Fear",
+          de: "Knowledge Dispels Fear",
+        },
+        displayTitle: "KNOWLEDGE\nDISPELS FEAR",
+        audio: {
+          src: "/audio/tim-howell/Tim_knowledge_dispels_fear - isolated.mp3",
+        },
+        transcript: {
+          en: "/audio/tim-howell/Tim_knowledge_dispels_fear_EN.srt",
+          de: "/audio/tim-howell/Tim_knowledge_dispels_fear_DE.srt",
+        },
+        portrait: "/images/athletes/tim-howell/audio.jpg",
+        duration: "01:05",
+        waveform: [
+          0.18, 0.28, 0.42, 0.76, 0.55, 0.34, 0.62, 0.88, 0.48, 0.26, 0.58,
+          0.72, 0.36, 0.2, 0.44, 0.67, 0.84, 0.52, 0.31, 0.49, 0.73, 0.6,
+          0.29, 0.41, 0.69, 0.92, 0.57, 0.33, 0.5, 0.78, 0.63, 0.38, 0.24,
+          0.46, 0.7, 0.86, 0.54, 0.3, 0.43, 0.65, 0.8, 0.51, 0.27, 0.39,
+          0.59, 0.74, 0.45, 0.22,
+        ],
+      },
+    ],
     ...emptyMedia,
     links: [
       {

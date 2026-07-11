@@ -65,6 +65,25 @@ export type AthleteInterviewFeature = {
   };
 };
 
+export type AthleteAudioStory = {
+  id: string;
+  placement: "after-gallery";
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle: string;
+  description?: LocalizedText;
+  audio: {
+    src: string;
+  };
+  transcript: {
+    en: string;
+    de: string;
+  };
+  portrait: string | null;
+  duration?: string | null;
+  waveform: number[];
+};
+
 export type AthleteQuote = {
   text: LocalizedText;
 };
@@ -128,6 +147,7 @@ export type Athlete = {
   };
   originStory: AthleteOriginStoryBeat[];
   interviewFeatures?: AthleteInterviewFeature[];
+  audioStories?: AthleteAudioStory[];
   audio: AthleteAudio[];
   video: AthleteVideo[];
   quotes: AthleteQuote[];

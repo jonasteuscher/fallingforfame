@@ -9,8 +9,8 @@ import {
   AthleteLinksSection,
   AthleteMediaSection,
   AthleteProfileOverview,
-  AthleteQuoteSection,
   AthleteSponsorsSection,
+  AudioStory,
   InterviewFeature,
   MoreAthletes,
 } from "@/components/athletes";
@@ -52,11 +52,7 @@ const pageLabels = {
     baseStoryTitle: "Where It All Began",
     galleryTitle: "Photo Gallery",
     galleryEmpty: "Photo material will be added here.",
-    quotesTitle: "Interview Quotes",
-    quotesEmpty: "Selected interview quotes will appear here.",
-    audioTitle: "Audio Interviews",
-    audioEmpty: "Audio excerpts from the interviews will be added here.",
-    videoTitle: "Video Interviews & Jumps",
+    videoTitle: "Jumps",
     videoEmpty: "Video material will be added here.",
     linksTitle: "Personal Links & Socials",
     linksEmpty: "Profile links will be added once confirmed.",
@@ -96,11 +92,7 @@ const pageLabels = {
     baseStoryTitle: "Wie alles begann",
     galleryTitle: "Fotogalerie",
     galleryEmpty: "Fotomaterial wird hier ergänzt.",
-    quotesTitle: "Interviewzitate",
-    quotesEmpty: "Ausgewählte Interviewzitate erscheinen hier.",
-    audioTitle: "Audio-Interviews",
-    audioEmpty: "Audioausschnitte aus den Interviews werden hier ergänzt.",
-    videoTitle: "Video-Interviews & Sprünge",
+    videoTitle: "Sprünge",
     videoEmpty: "Videomaterial wird hier ergänzt.",
     linksTitle: "Persönliche Links & Social Media",
     linksEmpty: "Profil-Links werden ergänzt, sobald sie bestätigt sind.",
@@ -215,19 +207,11 @@ export default async function AthletePage({ params }: AthletePageProps) {
 
       {renderInterviewFeatures("after-gallery")}
 
-      <AthleteQuoteSection
-        athlete={athlete}
-        locale={locale}
-        title={labels.quotesTitle}
-        emptyText={labels.quotesEmpty}
-      />
-
-      <AthleteMediaSection
-        locale={locale}
-        title={labels.audioTitle}
-        emptyText={labels.audioEmpty}
-        audio={athlete.audio}
-      />
+      {(athlete.audioStories ?? [])
+        .filter((story) => story.placement === "after-gallery")
+        .map((story) => (
+          <AudioStory key={story.id} story={story} locale={locale} />
+        ))}
 
       <AthleteMediaSection
         locale={locale}

@@ -88,14 +88,18 @@ describe("athlete detail page", () => {
     const decisionInterview = container.querySelector(
       '[data-interview-feature-id="decision-making"]',
     );
+    const audioStory = container.querySelector(
+      '[data-audio-story-id="knowledge-dispels-fear"]',
+    );
     const gallerySection = screen.getByRole("heading", { name: "Photo Gallery" })
       .closest("section");
-    const quotesSection = screen.getByRole("heading", { name: "Interview Quotes" })
+    const jumpsSection = screen.getByRole("heading", { name: "Jumps" })
       .closest("section");
 
     expect(originStory).toBeInTheDocument();
     expect(careerInterview).toBeInTheDocument();
     expect(decisionInterview).toBeInTheDocument();
+    expect(audioStory).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         name: /YOU'RE ONLY AS GOOD\s+AS YOUR LAST STUNT/,
@@ -124,11 +128,20 @@ describe("athlete detail page", () => {
         'img[src="https://i.ytimg.com/vi/N9JUEpIOwkA/maxresdefault.jpg"]',
       ),
     ).toBeInTheDocument();
+    expect(screen.getByText("AUDIO STORY")).toBeVisible();
+    expect(
+      screen.getAllByRole("heading", { name: /KNOWLEDGE\s+DISPELS FEAR/ })[0],
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }),
+    ).toBeVisible();
     expect(originStory?.compareDocumentPosition(careerInterview as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(gallerySection?.compareDocumentPosition(decisionInterview as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(decisionInterview?.compareDocumentPosition(quotesSection as Node))
+    expect(decisionInterview?.compareDocumentPosition(audioStory as Node))
+      .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(audioStory?.compareDocumentPosition(jumpsSection as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     unmount();
 
@@ -304,10 +317,9 @@ describe("athlete detail page", () => {
     expect(screen.getByText("Image 2 / 9")).toBeVisible();
     fireEvent.click(screen.getAllByRole("button", { name: "Close full-size image" })[0]);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    expect(screen.getByText("Selected interview quotes will appear here."))
-      .toBeVisible();
-    expect(screen.getByText("Audio excerpts from the interviews will be added here."))
-      .toBeVisible();
+    expect(screen.queryByText("Interview Quotes")).not.toBeInTheDocument();
+    expect(screen.queryByText("Audio Interviews")).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Jumps" })).toBeVisible();
     expect(screen.getByText("Video material will be added here.")).toBeVisible();
     expect(container.querySelector("video")).toBeNull();
     expect(screen.queryByRole("button", { name: "Play video" })).not.toBeInTheDocument();
@@ -374,11 +386,9 @@ describe("athlete detail page", () => {
       ),
     ).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Fotogalerie" })).toBeVisible();
-    expect(screen.getByText("Ausgewählte Interviewzitate erscheinen hier."))
-      .toBeVisible();
-    expect(
-      screen.getByText("Audioausschnitte aus den Interviews werden hier ergänzt."),
-    ).toBeVisible();
+    expect(screen.queryByText("Interviewzitate")).not.toBeInTheDocument();
+    expect(screen.queryByText("Audio-Interviews")).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Sprünge" })).toBeVisible();
     expect(screen.getByText("Videomaterial wird hier ergänzt.")).toBeVisible();
     expect(
       screen.getByRole("heading", { name: "Persönliche Links & Social Media" }),
