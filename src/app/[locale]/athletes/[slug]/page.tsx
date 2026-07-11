@@ -7,17 +7,18 @@ import {
   AthleteGallerySection,
   AthleteHero,
   AthleteLinksSection,
-  AthleteMediaSection,
-  AthletePortraitIntro,
-  AthleteQuoteSection,
+  AthleteProfileOverview,
   AthleteSponsorsSection,
+  AudioStory,
+  FutureProjectFeature,
+  InterviewFeature,
   MoreAthletes,
+  ScrollScrubVideo,
 } from "@/components/athletes";
-import { AthleteExperienceCards } from "@/components/scrollytelling";
 import { athletes, getAthleteBySlug } from "@/data/athletes";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import type { Athlete } from "@/types/athlete";
+import type { Athlete, AthleteInterviewFeature } from "@/types/athlete";
 
 type AthletePageProps = {
   params: Promise<{
@@ -29,7 +30,16 @@ type AthletePageProps = {
 const pageLabels = {
   en: {
     scrollHint: "Scroll the profile",
-    experienceTitle: "Experience",
+    profileOverview: {
+      eyebrow: "Profile",
+      title: "Profile and Experience",
+      portraitAlt: (name: string) => `${name} portrait`,
+      baseSince: "BASE since",
+      baseJumps: "BASE jumps",
+      skydives: "Skydives",
+      reach: "Reach",
+      sponsorship: "Sponsorship",
+    },
     profileMeta: {
       age: "Age",
       country: "Country",
@@ -43,12 +53,6 @@ const pageLabels = {
     baseStoryTitle: "Where It All Began",
     galleryTitle: "Photo Gallery",
     galleryEmpty: "Photo material will be added here.",
-    quotesTitle: "Interview Quotes",
-    quotesEmpty: "Selected interview quotes will appear here.",
-    audioTitle: "Audio Interviews",
-    audioEmpty: "Audio excerpts from the interviews will be added here.",
-    videoTitle: "Video Interviews & Jumps",
-    videoEmpty: "Video material will be added here.",
     linksTitle: "Personal Links & Socials",
     linksEmpty: "Profile links will be added once confirmed.",
     articlesTitle: "Articles & Media Coverage",
@@ -56,10 +60,24 @@ const pageLabels = {
     sponsorsTitle: "Sponsors & Partnerships",
     sponsorsEmpty: "Sponsor information will be added once confirmed.",
     moreTitle: "More Athlete Stories",
+    interviewFeature: {
+      play: (title: string) => `Play ${title}`,
+      fullscreen: (title: string) => `Open ${title} fullscreen`,
+      exitFullscreen: (title: string) => `Exit ${title} fullscreen`,
+    },
   },
   de: {
     scrollHint: "Profil entdecken",
-    experienceTitle: "Erfahrung",
+    profileOverview: {
+      eyebrow: "Profil",
+      title: "Profil und Erfahrung",
+      portraitAlt: (name: string) => `Porträt von ${name}`,
+      baseSince: "BASE seit",
+      baseJumps: "BASE Jumps",
+      skydives: "Skydives",
+      reach: "Reichweite",
+      sponsorship: "Sponsoring",
+    },
     profileMeta: {
       age: "Alter",
       country: "Land",
@@ -73,12 +91,6 @@ const pageLabels = {
     baseStoryTitle: "Wie alles begann",
     galleryTitle: "Fotogalerie",
     galleryEmpty: "Fotomaterial wird hier ergänzt.",
-    quotesTitle: "Interviewzitate",
-    quotesEmpty: "Ausgewählte Interviewzitate erscheinen hier.",
-    audioTitle: "Audio-Interviews",
-    audioEmpty: "Audioausschnitte aus den Interviews werden hier ergänzt.",
-    videoTitle: "Video-Interviews & Sprünge",
-    videoEmpty: "Videomaterial wird hier ergänzt.",
     linksTitle: "Persönliche Links & Social Media",
     linksEmpty: "Profil-Links werden ergänzt, sobald sie bestätigt sind.",
     articlesTitle: "Artikel & Medienberichte",
@@ -88,6 +100,11 @@ const pageLabels = {
     sponsorsEmpty:
       "Sponsoring-Informationen werden ergänzt, sobald sie bestätigt sind.",
     moreTitle: "Weitere Athletenporträts",
+    interviewFeature: {
+      play: (title: string) => `${title} abspielen`,
+      fullscreen: (title: string) => `${title} im Vollbild öffnen`,
+      exitFullscreen: (title: string) => `${title} Vollbild verlassen`,
+    },
   },
 } as const;
 
@@ -123,8 +140,20 @@ export default async function AthletePage({ params }: AthletePageProps) {
   const dictionary = getDictionary(locale);
   const labels = pageLabels[locale];
   const athleteMeta = formatAthleteMeta(athlete, dictionary.athleteMeta);
-  const country = formatCountry(athlete.country, dictionary.athleteMeta.countryNames);
   const moreAthletes = athletes.filter((item) => item.slug !== athlete.slug);
+  const renderInterviewFeatures = (
+    placement: AthleteInterviewFeature["placement"],
+  ) =>
+    (athlete.interviewFeatures ?? [])
+      .filter((feature) => feature.placement === placement)
+      .map((feature) => (
+        <InterviewFeature
+          key={feature.id}
+          feature={feature}
+          locale={locale}
+          labels={formatInterviewLabels(feature, locale, labels.interviewFeature)}
+        />
+      ));
 
   return (
     <>
@@ -132,37 +161,47 @@ export default async function AthletePage({ params }: AthletePageProps) {
         athlete={athlete}
         title={athlete.content[locale].title}
         meta={athleteMeta}
+        quote={athlete.heroQuote[locale]}
         scrollHint={labels.scrollHint}
       />
 
-      <AthletePortraitIntro
+      <AthleteProfileOverview
         athlete={athlete}
         locale={locale}
-        placeholder={dictionary.site.athletes.portraitPlaceholder}
-        country={country}
-        labels={labels.profileMeta}
-        sponsoredLabels={dictionary.athleteExperience}
-        unknown={dictionary.athleteExperience.unknown}
+        portraitAlt={labels.profileOverview.portraitAlt(athlete.name)}
+        portraitPlaceholder={dictionary.site.athletes.portraitPlaceholder}
+        labels={{
+          eyebrow: labels.profileOverview.eyebrow,
+          title: labels.profileOverview.title,
+          baseSince: labels.profileOverview.baseSince,
+          baseJumps: labels.profileOverview.baseJumps,
+          skydives: labels.profileOverview.skydives,
+          reach: labels.profileOverview.reach,
+          sponsorship: labels.profileOverview.sponsorship,
+          profession: labels.profileMeta.profession,
+          role: labels.profileMeta.role,
+          disciplines: labels.profileMeta.disciplines,
+          unknown: dictionary.athleteExperience.unknown,
+          yes: dictionary.athleteExperience.yes,
+          no: dictionary.athleteExperience.no,
+        }}
       />
-
-      <section className="border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="mb-10 text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
-            {labels.experienceTitle}
-          </h2>
-          <AthleteExperienceCards
-            experience={athlete.experience}
-            labels={dictionary.athleteExperience}
-            locale={locale}
-          />
-        </div>
-      </section>
 
       <AthleteBaseStory
         athlete={athlete}
         locale={locale}
         title={labels.baseStoryTitle}
       />
+
+      {renderInterviewFeatures("after-origin")}
+
+      <ScrollScrubVideo video={athlete.scrollVideo} locale={locale} />
+
+      {(athlete.audioStories ?? [])
+        .filter((story) => story.placement === "after-gallery")
+        .map((story) => (
+          <AudioStory key={story.id} story={story} locale={locale} />
+        ))}
 
       <AthleteGallerySection
         images={athlete.images.gallery}
@@ -171,26 +210,9 @@ export default async function AthletePage({ params }: AthletePageProps) {
         emptyText={labels.galleryEmpty}
       />
 
-      <AthleteQuoteSection
-        athlete={athlete}
-        locale={locale}
-        title={labels.quotesTitle}
-        emptyText={labels.quotesEmpty}
-      />
+      {renderInterviewFeatures("after-gallery")}
 
-      <AthleteMediaSection
-        locale={locale}
-        title={labels.audioTitle}
-        emptyText={labels.audioEmpty}
-        audio={athlete.audio}
-      />
-
-      <AthleteMediaSection
-        locale={locale}
-        title={labels.videoTitle}
-        emptyText={labels.videoEmpty}
-        video={athlete.video}
-      />
+      <FutureProjectFeature athlete={athlete} locale={locale} />
 
       <AthleteLinksSection
         links={athlete.links}
@@ -222,10 +244,6 @@ export default async function AthletePage({ params }: AthletePageProps) {
   );
 }
 
-function formatCountry(country: string | null, labels: Record<string, string>) {
-  return country ? (labels[country] ?? country) : null;
-}
-
 function formatAthleteMeta(
   athlete: Athlete,
   labels: {
@@ -244,4 +262,22 @@ function formatAthleteMeta(
     athlete.age === null ? labels.ageUnknown : `${athlete.age} ${labels.years}`;
 
   return `${countryText} | ${ageText}`;
+}
+
+function formatInterviewLabels(
+  feature: AthleteInterviewFeature,
+  locale: Locale,
+  labels: {
+    play: (title: string) => string;
+    fullscreen: (title: string) => string;
+    exitFullscreen: (title: string) => string;
+  },
+) {
+  const title = feature.iframeTitle[locale];
+
+  return {
+    play: labels.play(title),
+    fullscreen: labels.fullscreen(title),
+    exitFullscreen: labels.exitFullscreen(title),
+  };
 }

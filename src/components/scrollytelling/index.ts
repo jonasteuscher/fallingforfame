@@ -1,4 +1,3 @@
-export { AthleteExperienceCards } from "./AthleteExperienceCards";
 export { AthleteStoryCard } from "./AthleteStoryCard";
 export { AudioStoryBlock } from "./AudioStoryBlock";
 export { ChapterDivider } from "./ChapterDivider";

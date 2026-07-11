@@ -154,7 +154,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <article className="flex h-full flex-col">
                   <div
                     className={cn(
-                      "relative min-h-36 overflow-hidden bg-background",
+                      "relative aspect-square overflow-hidden bg-background",
                       index % 2 === 0 && "bg-surface-muted",
                     )}
                     aria-hidden="true"
@@ -167,7 +167,7 @@ export default async function HomePage({ params }: HomePageProps) {
                         sizes="(min-width: 1280px) 20vw, (min-width: 640px) 50vw, 100vw"
                         className={cn(
                           "object-cover transition duration-500 group-hover:scale-105 motion-reduce:transition-none",
-                          athlete.slug === "lukas-loibl" && "object-[center_24%]",
+                          getAthleteTeaserImagePosition(athlete.slug),
                         )}
                       />
                     ) : (
@@ -238,4 +238,21 @@ export default async function HomePage({ params }: HomePageProps) {
 
 function formatCountry(country: string | null, labels: Record<string, string>) {
   return country ? (labels[country] ?? country) : null;
+}
+
+function getAthleteTeaserImagePosition(slug: string) {
+  switch (slug) {
+    case "lukas-loibl":
+      return "object-[center_34%]";
+    case "niclas-strohmeier":
+      return "object-[center_58%]";
+    case "josef-braun":
+      return "object-[center_28%]";
+    case "tim-howell":
+      return "object-[center_42%]";
+    case "marcel-geser":
+      return "object-[center_48%]";
+    default:
+      return "object-center";
+  }
 }

@@ -316,6 +316,10 @@ export const athletes: Athlete[] = [
       en: "Multiple sponsors, primarily clothing and equipment. Sponsored for 7 years.",
       de: "Mehrere Sponsoren, vor allem Kleidung und Ausrüstung. Seit 7 Jahren gesponsert.",
     },
+    heroQuote: {
+      en: "There is nothing anybody can tell me that's going to make me jump.",
+      de: "There is nothing anybody can tell me that's going to make me jump.",
+    },
     images: images(
       "/images/athletes/tim-howell/hero.jpg",
       "/images/athletes/tim-howell/profile.jpg",
@@ -370,6 +374,154 @@ export const athletes: Athlete[] = [
       },
     },
     originStory: originStories["tim-howell"],
+    interviewFeatures: [
+      {
+        id: "career",
+        placement: "after-origin",
+        chapter: {
+          en: "Social Media",
+          de: "Social Media",
+        },
+        quote: "YOU'RE ONLY AS GOOD\nAS YOUR LAST STUNT",
+        iframeTitle: {
+          en: "Tim Howell interview",
+          de: "Tim Howell Interview",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "MJ-CSQxONJs",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "nZcqDTgsYGM",
+          },
+        },
+      },
+      {
+        id: "decision-making",
+        placement: "after-gallery",
+        chapter: {
+          en: "DECISION MAKING",
+          de: "DECISION MAKING",
+        },
+        quote: "MAKE THE\nRIGHT DECISION",
+        iframeTitle: {
+          en: "Tim Howell interview about decision making",
+          de: "Tim Howell Interview über Decision Making",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "N9JUEpIOwkA",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "Bi4Ba7mDy9Y",
+          },
+        },
+      },
+    ],
+    audioStories: [
+      {
+        id: "knowledge-dispels-fear",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Knowledge Dispels Fear",
+          de: "Knowledge Dispels Fear",
+        },
+        displayTitle: "KNOWLEDGE\nDISPELS FEAR",
+        audio: {
+          src: "/audio/tim-howell/Tim_knowledge_dispels_fear - isolated.mp3",
+        },
+        transcript: {
+          en: "/audio/tim-howell/Tim_knowledge_dispels_fear_EN.srt",
+          de: "/audio/tim-howell/Tim_knowledge_dispels_fear_DE.srt",
+        },
+        portrait: "/images/athletes/tim-howell/audio.jpg",
+        duration: "01:05",
+        waveform: [
+          0.18, 0.28, 0.42, 0.76, 0.55, 0.34, 0.62, 0.88, 0.48, 0.26, 0.58,
+          0.72, 0.36, 0.2, 0.44, 0.67, 0.84, 0.52, 0.31, 0.49, 0.73, 0.6,
+          0.29, 0.41, 0.69, 0.92, 0.57, 0.33, 0.5, 0.78, 0.63, 0.38, 0.24,
+          0.46, 0.7, 0.86, 0.54, 0.3, 0.43, 0.65, 0.8, 0.51, 0.27, 0.39,
+          0.59, 0.74, 0.45, 0.22,
+        ],
+      },
+    ],
+    scrollVideo: {
+      id: "iran-jump",
+      chapter: {
+        en: "SCROLL THROUGH",
+        de: "SCROLL THROUGH",
+      },
+      title: {
+        en: "The Jump",
+        de: "Der Sprung",
+      },
+      displayTitle: "THE JUMP",
+      video: {
+        src: "/video/tim-howell/The_jump.mp4",
+        type: "video/mp4",
+      },
+      poster: null,
+      scrollLength: 4,
+      fallbackLabel: {
+        en: "Tim Howell BASE jump in Iran",
+        de: "Tim Howell BASE Jump im Iran",
+      },
+      cues: [
+        {
+          start: 0.08,
+          end: 0.22,
+          text: {
+            en: "The line begins long before the exit.",
+            de: "Die Linie beginnt lange vor dem Exit.",
+          },
+        },
+        {
+          start: 0.38,
+          end: 0.52,
+          text: {
+            en: "Every movement is prepared.",
+            de: "Jede Bewegung ist vorbereitet.",
+          },
+        },
+        {
+          start: 0.72,
+          end: 0.88,
+          text: {
+            en: "In the end, the decision remains.",
+            de: "Am Ende bleibt die Entscheidung.",
+          },
+        },
+      ],
+    },
+    futureProject: {
+      chapter: {
+        en: "FUTURE PROJECT",
+        de: "FUTURE PROJECT",
+      },
+      title: {
+        en: "A Leap from the Top of the World",
+        de: "A Leap from the Top of the World",
+      },
+      displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
+      description: {
+        en: "An upcoming project by Tim Howell.",
+        de: "Ein kommendes Projekt von Tim Howell.",
+      },
+      video: {
+        src: "/video/tim-howell/Future_project.mp4",
+        poster: null,
+      },
+    },
     ...emptyMedia,
     links: [
       {
@@ -508,6 +660,10 @@ export const athletes: Athlete[] = [
       en: "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
       de: "Mehrere Sponsoren seit 2022, darunter Canopies, Wingsuits, Kameras und Kleidung.",
     },
+    heroQuote: {
+      en: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+      de: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+    },
     images: images(
       "/images/athletes/lukas-loibl/hero.jpeg",
       "/images/athletes/lukas-loibl/profile.jpg",
@@ -561,7 +717,7 @@ export const athletes: Athlete[] = [
         label: "Lukas Loibl Wingsuit School",
         url: "https://www.lukasloiblws.com/wingsuitschool",
         type: "website",
-        icon: "/socials/lukas_logo.jpg",
+        icon: "/socials/lukas_logo.png",
       },
       {
         label: "Lukas Loibl on Instagram",
@@ -660,6 +816,10 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
+    heroQuote: {
+      en: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+      de: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+    },
     images: images(
       "/images/athletes/marcel-geser/hero.jpg",
       "/images/athletes/marcel-geser/profile.jpg",
@@ -757,6 +917,10 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
+    heroQuote: {
+      en: "Die langsame Progression ist die sichere Progression.",
+      de: "Die langsame Progression ist die sichere Progression.",
+    },
     images: images(
       "/images/athletes/niclas-strohmeier/hero.jpg",
       "/images/athletes/niclas-strohmeier/profile.jpg",
@@ -835,6 +999,10 @@ export const athletes: Athlete[] = [
     sponsorship: {
       en: null,
       de: null,
+    },
+    heroQuote: {
+      en: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+      de: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
     },
     images: images(
       "/images/athletes/josef-braun/hero.JPG",

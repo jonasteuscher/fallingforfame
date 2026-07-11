@@ -10,23 +10,16 @@ export type AthleteLocalizedContent = {
   primaryDisciplines: string[];
 };
 
+export type LocalizedText = {
+  en: string;
+  de: string;
+};
+
 export type AthleteOriginStoryBeat = {
-  phase: {
-    en: string;
-    de: string;
-  };
-  title: {
-    en: string;
-    de: string;
-  };
-  body: {
-    en: string;
-    de: string;
-  };
-  quote?: {
-    en: string;
-    de: string;
-  };
+  phase: LocalizedText;
+  title: LocalizedText;
+  body: LocalizedText;
+  quote?: LocalizedText;
   media?: {
     type: "image" | "video";
     src: string | null;
@@ -35,43 +28,97 @@ export type AthleteOriginStoryBeat = {
 
 export type AthleteImage = {
   src: string;
-  alt: {
-    en: string;
-    de: string;
-  };
+  alt: LocalizedText;
 };
 
 export type AthleteAudio = {
-  title: {
-    en: string;
-    de: string;
-  };
-  description?: {
-    en: string;
-    de: string;
-  };
+  title: LocalizedText;
+  description?: LocalizedText;
   src: string | null;
   duration?: string | null;
 };
 
 export type AthleteVideo = {
-  title: {
-    en: string;
-    de: string;
-  };
-  description?: {
-    en: string;
-    de: string;
-  };
+  title: LocalizedText;
+  description?: LocalizedText;
   src: string | null;
   poster?: string | null;
 };
 
-export type AthleteQuote = {
-  text: {
+export type AthleteInterviewFeature = {
+  id: string;
+  placement: "after-origin" | "after-gallery";
+  chapter: LocalizedText;
+  quote: string;
+  intro?: LocalizedText;
+  iframeTitle: LocalizedText;
+  poster: string | null;
+  videos: {
+    en: {
+      provider: "youtube";
+      videoId: string;
+    };
+    de: {
+      provider: "youtube";
+      videoId: string;
+    };
+  };
+};
+
+export type AthleteAudioStory = {
+  id: string;
+  placement: "after-gallery";
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle: string;
+  description?: LocalizedText;
+  audio: {
+    src: string;
+  };
+  transcript: {
     en: string;
     de: string;
   };
+  portrait: string | null;
+  duration?: string | null;
+  waveform: number[];
+};
+
+export type AthleteFutureProject = {
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle: string;
+  description?: LocalizedText;
+  video: {
+    src: string;
+    poster?: string | null;
+  };
+};
+
+export type AthleteScrollVideoCue = {
+  start: number;
+  end: number;
+  text: LocalizedText;
+};
+
+export type AthleteScrollVideo = {
+  id: string;
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle: string;
+  description?: LocalizedText;
+  video: {
+    src: string;
+    type: "video/mp4";
+  };
+  poster?: string | null;
+  scrollLength: number;
+  fallbackLabel: LocalizedText;
+  cues?: AthleteScrollVideoCue[];
+};
+
+export type AthleteQuote = {
+  text: LocalizedText;
 };
 
 export type AthleteLink = {
@@ -120,6 +167,7 @@ export type Athlete = {
     en: string | null;
     de: string | null;
   };
+  heroQuote: LocalizedText;
   images: {
     hero: string | null;
     portrait: string | null;
@@ -131,6 +179,10 @@ export type Athlete = {
     de: AthleteLocalizedContent;
   };
   originStory: AthleteOriginStoryBeat[];
+  interviewFeatures?: AthleteInterviewFeature[];
+  audioStories?: AthleteAudioStory[];
+  scrollVideo?: AthleteScrollVideo;
+  futureProject?: AthleteFutureProject;
   audio: AthleteAudio[];
   video: AthleteVideo[];
   quotes: AthleteQuote[];

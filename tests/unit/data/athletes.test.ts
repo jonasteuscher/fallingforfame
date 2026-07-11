@@ -10,6 +10,26 @@ const expectedMediaCounts = new Map([
   ["josef-braun", { images: 4 }],
 ]);
 
+const expectedHeroQuotes = new Map([
+  ["tim-howell", "There is nothing anybody can tell me that's going to make me jump."],
+  [
+    "lukas-loibl",
+    "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+  ],
+  [
+    "marcel-geser",
+    "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+  ],
+  [
+    "niclas-strohmeier",
+    "Die langsame Progression ist die sichere Progression.",
+  ],
+  [
+    "josef-braun",
+    "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+  ],
+]);
+
 describe("athletes data", () => {
   it("contains required fields for every athlete", () => {
     for (const athlete of athletes) {
@@ -20,6 +40,8 @@ describe("athletes data", () => {
       expect(athlete.name).toBeTruthy();
       expect(athlete.content.en).toBeTruthy();
       expect(athlete.content.de).toBeTruthy();
+      expect(athlete.heroQuote.en).toBeTruthy();
+      expect(athlete.heroQuote.de).toBeTruthy();
       expect(athlete.experience).toBeTruthy();
       expect(athlete).toHaveProperty("age");
       expect(athlete).toHaveProperty("country");
@@ -40,6 +62,177 @@ describe("athletes data", () => {
         expect(beat.body.de).toBeTruthy();
       }
     }
+  });
+
+  it("contains the exact athlete-specific hero quotes for both locales", () => {
+    for (const athlete of athletes) {
+      const expectedQuote = expectedHeroQuotes.get(athlete.slug);
+
+      expect(expectedQuote).toBeTruthy();
+      expect(athlete.heroQuote.en).toBe(expectedQuote);
+      expect(athlete.heroQuote.de).toBe(expectedQuote);
+    }
+  });
+
+  it("contains Tim Howell's localized interview feature data", () => {
+    const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+
+    expect(tim?.interviewFeatures).toMatchObject([
+      {
+        id: "career",
+        placement: "after-origin",
+        chapter: {
+          en: "Social Media",
+          de: "Social Media",
+        },
+        quote: "YOU'RE ONLY AS GOOD\nAS YOUR LAST STUNT",
+        poster: null,
+        videos: {
+          en: { provider: "youtube", videoId: "MJ-CSQxONJs" },
+          de: { provider: "youtube", videoId: "nZcqDTgsYGM" },
+        },
+      },
+      {
+        id: "decision-making",
+        placement: "after-gallery",
+        chapter: {
+          en: "DECISION MAKING",
+          de: "DECISION MAKING",
+        },
+        quote: "MAKE THE\nRIGHT DECISION",
+        poster: null,
+        videos: {
+          en: { provider: "youtube", videoId: "N9JUEpIOwkA" },
+          de: { provider: "youtube", videoId: "Bi4Ba7mDy9Y" },
+        },
+      },
+    ]);
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "tim-howell")
+        .every((athlete) => athlete.interviewFeatures === undefined),
+    ).toBe(true);
+  });
+
+  it("contains Tim Howell's reusable audio story data only on his profile", () => {
+    const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+
+    expect(tim?.audioStories).toMatchObject([
+      {
+        id: "knowledge-dispels-fear",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Knowledge Dispels Fear",
+          de: "Knowledge Dispels Fear",
+        },
+        audio: {
+          src: "/audio/tim-howell/Tim_knowledge_dispels_fear - isolated.mp3",
+        },
+        transcript: {
+          en: "/audio/tim-howell/Tim_knowledge_dispels_fear_EN.srt",
+          de: "/audio/tim-howell/Tim_knowledge_dispels_fear_DE.srt",
+        },
+        portrait: "/images/athletes/tim-howell/audio.jpg",
+      },
+    ]);
+    expect(tim?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "tim-howell")
+        .every((athlete) => athlete.audioStories === undefined),
+    ).toBe(true);
+  });
+
+  it("contains Tim Howell's future project data only on his profile", () => {
+    const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+
+    expect(tim?.futureProject).toMatchObject({
+      chapter: {
+        en: "FUTURE PROJECT",
+        de: "FUTURE PROJECT",
+      },
+      title: {
+        en: "A Leap from the Top of the World",
+        de: "A Leap from the Top of the World",
+      },
+      displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
+      description: {
+        en: "An upcoming project by Tim Howell.",
+        de: "Ein kommendes Projekt von Tim Howell.",
+      },
+      video: {
+        src: "/video/tim-howell/Future_project.mp4",
+        poster: null,
+      },
+    });
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "tim-howell")
+        .every((athlete) => athlete.futureProject === undefined),
+    ).toBe(true);
+  });
+
+  it("contains Tim Howell's scroll scrub jump data only on his profile", () => {
+    const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+
+    expect(tim?.scrollVideo).toMatchObject({
+      id: "iran-jump",
+      chapter: {
+        en: "SCROLL THROUGH",
+        de: "SCROLL THROUGH",
+      },
+      title: {
+        en: "The Jump",
+        de: "Der Sprung",
+      },
+      displayTitle: "THE JUMP",
+      video: {
+        src: "/video/tim-howell/The_jump.mp4",
+        type: "video/mp4",
+      },
+      poster: null,
+      scrollLength: 4,
+      fallbackLabel: {
+        en: "Tim Howell BASE jump in Iran",
+        de: "Tim Howell BASE Jump im Iran",
+      },
+    });
+    expect(tim?.scrollVideo?.description).toBeUndefined();
+    expect(tim?.scrollVideo?.cues).toEqual([
+      {
+        start: 0.08,
+        end: 0.22,
+        text: {
+          en: "The line begins long before the exit.",
+          de: "Die Linie beginnt lange vor dem Exit.",
+        },
+      },
+      {
+        start: 0.38,
+        end: 0.52,
+        text: {
+          en: "Every movement is prepared.",
+          de: "Jede Bewegung ist vorbereitet.",
+        },
+      },
+      {
+        start: 0.72,
+        end: 0.88,
+        text: {
+          en: "In the end, the decision remains.",
+          de: "Am Ende bleibt die Entscheidung.",
+        },
+      },
+    ]);
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "tim-howell")
+        .every((athlete) => athlete.scrollVideo === undefined),
+    ).toBe(true);
   });
 
   it("does not contain placeholder origin story copy", () => {
