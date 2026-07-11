@@ -23,7 +23,7 @@ let createdPlayers: MockPlayer[] = [];
 let intersectionCallback:
   | ((entries: Array<{ isIntersecting: boolean; intersectionRatio: number }>) => void)
   | null = null;
-let iframeRequestFullscreen: ReturnType<typeof vi.fn>;
+let elementRequestFullscreen: ReturnType<typeof vi.fn>;
 
 type MockPlayerOptions = {
   videoId: string;
@@ -66,11 +66,11 @@ describe("InterviewFeature", () => {
   beforeEach(() => {
     createdPlayers = [];
     playerConstructor.mockClear();
-    iframeRequestFullscreen = vi.fn().mockResolvedValue(undefined);
+    elementRequestFullscreen = vi.fn().mockResolvedValue(undefined);
 
-    Object.defineProperty(HTMLIFrameElement.prototype, "requestFullscreen", {
+    Object.defineProperty(HTMLElement.prototype, "requestFullscreen", {
       configurable: true,
-      value: iframeRequestFullscreen,
+      value: elementRequestFullscreen,
     });
 
     window.YT = {
@@ -156,11 +156,11 @@ describe("InterviewFeature", () => {
       fs: 1,
       iv_load_policy: 3,
       showinfo: 0,
-      cc_lang_pref: "en",
+      cc_load_policy: 0,
+      hl: "en",
     });
-    expect(playerConstructor.mock.calls[0]?.[1].playerVars).not.toHaveProperty(
-      "cc_load_policy",
-    );
+    expect(playerConstructor.mock.calls[0]?.[1].playerVars)
+      .not.toHaveProperty("cc_lang_pref");
     expect(createdPlayers[0]?.playVideo).toHaveBeenCalled();
     expect(createdPlayers[0]?.setSize).toHaveBeenCalledWith("100%", "100%");
     expect(createdPlayers[0]?.setPlaybackQuality).toHaveBeenCalledWith("hd1080");
@@ -183,7 +183,7 @@ describe("InterviewFeature", () => {
     expect(fullscreenButton).toHaveClass("rounded-full", "bg-background/45");
   });
 
-  it("fullscreen button targets the YouTube iframe to preserve native aspect ratio", async () => {
+  it("fullscreen button targets the player shell for mobile-compatible fullscreen", async () => {
     render(
       <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
     );
@@ -193,7 +193,7 @@ describe("InterviewFeature", () => {
 
     fireEvent.click(screen.getByRole("button", { name: labels.fullscreen }));
 
-    expect(iframeRequestFullscreen).toHaveBeenCalledTimes(1);
+    expect(elementRequestFullscreen).toHaveBeenCalledTimes(1);
   });
 
   it("loads the German YouTube interview for the German locale", async () => {
@@ -206,8 +206,11 @@ describe("InterviewFeature", () => {
     await waitFor(() => expect(playerConstructor).toHaveBeenCalledTimes(1));
     expect(playerConstructor.mock.calls[0]?.[1].videoId).toBe("nZcqDTgsYGM");
     expect(playerConstructor.mock.calls[0]?.[1].playerVars).toMatchObject({
-      cc_lang_pref: "de",
+      cc_load_policy: 0,
+      hl: "de",
     });
+    expect(playerConstructor.mock.calls[0]?.[1].playerVars)
+      .not.toHaveProperty("cc_lang_pref");
   });
 
   it("loads the decision-making interview data for both locales", async () => {

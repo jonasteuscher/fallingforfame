@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import {
   AthleteArticlesSection,
   AthleteBaseStory,
+  AthleteFindingsLinkSection,
   AthleteGallerySection,
   AthleteHero,
   AthleteLinksSection,
@@ -59,6 +60,13 @@ const pageLabels = {
     articlesEmpty: "Links to articles, podcasts and interviews will be added here.",
     sponsorsTitle: "Sponsors & Partnerships",
     sponsorsEmpty: "Sponsor information will be added once confirmed.",
+    findingsLink: {
+      eyebrow: "Research Findings",
+      title: "From Profile To Findings",
+      body: (name: string) =>
+        `Explore how ${possessiveName(name)} perspective relates to the wider research findings.`,
+      cta: "Explore Findings",
+    },
     moreTitle: "More Athlete Stories",
     interviewFeature: {
       play: (title: string) => `Play ${title}`,
@@ -99,6 +107,13 @@ const pageLabels = {
     sponsorsTitle: "Sponsoren & Partnerschaften",
     sponsorsEmpty:
       "Sponsoring-Informationen werden ergänzt, sobald sie bestätigt sind.",
+    findingsLink: {
+      eyebrow: "Erkenntnisse",
+      title: "Vom Porträt zu den Erkenntnissen",
+      body: (name: string) =>
+        `Entdecke, wie die Perspektive von ${name} mit den weiteren Forschungserkenntnissen zusammenhängt.`,
+      cta: "Erkenntnisse öffnen",
+    },
     moreTitle: "Weitere Athletenporträts",
     interviewFeature: {
       play: (title: string) => `${title} abspielen`,
@@ -231,6 +246,14 @@ export default async function AthletePage({ params }: AthletePageProps) {
         summary={athlete.sponsorship[locale]}
       />
 
+      <AthleteFindingsLinkSection
+        locale={locale}
+        eyebrow={labels.findingsLink.eyebrow}
+        title={labels.findingsLink.title}
+        body={labels.findingsLink.body(firstName(athlete.name))}
+        cta={labels.findingsLink.cta}
+      />
+
       <MoreAthletes
         athletes={moreAthletes}
         locale={locale}
@@ -280,4 +303,12 @@ function formatInterviewLabels(
     fullscreen: labels.fullscreen(title),
     exitFullscreen: labels.exitFullscreen(title),
   };
+}
+
+function firstName(name: string) {
+  return name.split(" ")[0] ?? name;
+}
+
+function possessiveName(name: string) {
+  return name.endsWith("s") ? `${name}'` : `${name}'s`;
 }

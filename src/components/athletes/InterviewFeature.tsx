@@ -71,10 +71,11 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
   const headingId = useId();
   const [hasStarted, setHasStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isNativeFullscreen, setIsNativeFullscreen] = useState(false);
+  const [isFullscreenFallback, setIsFullscreenFallback] = useState(false);
   const video = feature.videos[locale];
   const poster = feature.poster ?? youtubePoster(video.videoId);
-  const captionLanguage = locale === "de" ? "de" : "en";
+  const isFullscreen = isNativeFullscreen || isFullscreenFallback;
 
   const playerVars = useMemo(
     () => ({
@@ -87,11 +88,11 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
       fs: 1,
       iv_load_policy: 3,
       showinfo: 0,
-      cc_lang_pref: captionLanguage,
-      hl: captionLanguage,
+      cc_load_policy: 0,
+      hl: locale,
       origin: typeof window !== "undefined" ? window.location.origin : "",
     }),
-    [captionLanguage],
+    [locale],
   );
 
   function getPlayerIframe() {
@@ -108,7 +109,7 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
     function handleFullscreenChange() {
       const iframe = getPlayerIframe();
 
-      setIsFullscreen(
+      setIsNativeFullscreen(
         document.fullscreenElement === iframe ||
           document.fullscreenElement === fullscreenRef.current,
       );
@@ -120,6 +121,28 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isFullscreenFallback) {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsFullscreenFallback(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isFullscreenFallback]);
 
   useEffect(() => {
     const node = containerRef.current;
@@ -225,18 +248,32 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
   }
 
   async function toggleFullscreen() {
-    const frame = getPlayerIframe() ?? fullscreenRef.current;
+    const frame = fullscreenRef.current;
 
     if (!frame) {
       return;
     }
 
-    if (document.fullscreenElement === frame) {
+    if (isFullscreenFallback) {
+      setIsFullscreenFallback(false);
+      return;
+    }
+
+    if (document.fullscreenElement) {
       await document.exitFullscreen();
       return;
     }
 
-    await frame.requestFullscreen();
+    try {
+      if (frame.requestFullscreen) {
+        await frame.requestFullscreen();
+        return;
+      }
+    } catch {
+      // Mobile browsers may reject iframe-adjacent fullscreen requests.
+    }
+
+    setIsFullscreenFallback(true);
   }
   return (
     <section
@@ -264,9 +301,21 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
         <figure className="mt-10 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-12">
           <div
             ref={fullscreenRef}
-            className="overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)] fullscreen:grid fullscreen:place-items-center fullscreen:bg-black"
+            className={[
+              "overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)] fullscreen:grid fullscreen:place-items-center fullscreen:bg-black",
+              isFullscreenFallback
+                ? "fixed inset-0 z-[100] grid place-items-center bg-black p-0"
+                : "",
+            ].join(" ")}
           >
-            <div className="relative aspect-video w-full overflow-hidden bg-background fullscreen:w-[min(100vw,177.7778vh)] fullscreen:max-w-screen fullscreen:max-h-screen">
+            <div
+              className={[
+                "relative aspect-video w-full overflow-hidden bg-background fullscreen:w-[min(100vw,177.7778vh)] fullscreen:max-w-screen fullscreen:max-h-screen",
+                isFullscreenFallback
+                  ? "h-auto max-h-[100svh] w-[min(100vw,177.7778svh)] max-w-screen"
+                  : "",
+              ].join(" ")}
+            >
               {!hasStarted ? (
                 <>
                   <Image
@@ -315,7 +364,7 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
                   type="button"
                   onClick={toggleFullscreen}
                   aria-label={isFullscreen ? labels.exitFullscreen : labels.fullscreen}
-                  className="absolute right-4 top-4 z-10 grid h-14 w-14 place-items-center rounded-full border border-foreground/12 bg-background/45 text-foreground shadow-[0_0_32px_color-mix(in_srgb,var(--background)_70%,black)] backdrop-blur-sm transition duration-300 hover:scale-105 hover:bg-background/62 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none sm:h-16 sm:w-16"
+                  className="absolute right-4 top-4 z-10 grid h-14 w-14 cursor-pointer place-items-center rounded-full border border-foreground/12 bg-background/45 text-foreground shadow-[0_0_32px_color-mix(in_srgb,var(--background)_70%,black)] backdrop-blur-sm transition duration-300 hover:scale-105 hover:bg-background/62 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none sm:h-16 sm:w-16"
                 >
                   <svg
                     aria-hidden="true"

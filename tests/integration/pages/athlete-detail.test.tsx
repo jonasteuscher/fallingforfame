@@ -50,6 +50,15 @@ describe("athlete detail page", () => {
       expect(screen.getByText("Skydives")).toBeVisible();
       expect(screen.getByText("Reach")).toBeVisible();
       expect(screen.getByText("Sponsorship")).toBeVisible();
+      expect(screen.getByRole("heading", { name: "From Profile To Findings" }))
+        .toBeVisible();
+      expect(
+        screen.getByText(
+          `Explore how ${possessiveName(firstName(athlete.name))} perspective relates to the wider research findings.`,
+        ),
+      ).toBeVisible();
+      expect(screen.getByRole("link", { name: "Explore Findings" }))
+        .toHaveAttribute("href", "/en/findings");
       unmount();
     }
   });
@@ -446,6 +455,11 @@ describe("athlete detail page", () => {
     expect(
       screen.queryByRole("heading", { name: "Sponsoren & Partnerschaften" }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Vom Porträt zu den Erkenntnissen" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Erkenntnisse öffnen" }))
+      .toHaveAttribute("href", "/de/findings");
     expect(screen.getAllByText("Unbekannt")).toHaveLength(1);
   });
 
@@ -521,3 +535,11 @@ describe("athlete detail page", () => {
       .toHaveAttribute("href", "https://flytheearth.com/");
   });
 });
+
+function firstName(name: string) {
+  return name.split(" ")[0] ?? name;
+}
+
+function possessiveName(name: string) {
+  return name.endsWith("s") ? `${name}'` : `${name}'s`;
+}

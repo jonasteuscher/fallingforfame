@@ -8,6 +8,7 @@ export { AthleteProfileOverview } from "@/components/athletes/AthleteProfileOver
 export {
   AthleteArticlesSection,
   AthleteBaseStory,
+  AthleteFindingsLinkSection,
   AthleteGallerySection,
   AthleteLinksSection,
   AthleteMediaSection,

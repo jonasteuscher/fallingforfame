@@ -6,6 +6,7 @@ import { AudioPlayer } from "@/components/media/AudioPlayer";
 import { VideoPlayer } from "@/components/media/VideoPlayer";
 import { PullQuote } from "@/components/scrollytelling";
 import type { Locale } from "@/i18n/config";
+import { localizedPath } from "@/i18n/navigation";
 import type {
   Athlete,
   AthleteArticle,
@@ -357,6 +358,46 @@ export function AthleteArticlesSection({
         ))}
       </ul>
     </SectionShell>
+  );
+}
+
+export function AthleteFindingsLinkSection({
+  locale,
+  eyebrow,
+  title,
+  body,
+  cta,
+}: {
+  locale: Locale;
+  eyebrow: string;
+  title: string;
+  body: string;
+  cta: string;
+}) {
+  return (
+    <section className="border-t border-border px-4 py-20 sm:px-6 sm:py-24 xl:px-10">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+          {eyebrow}
+        </p>
+        <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(0,0.72fr)_auto] lg:items-end">
+          <div>
+            <h2 className="max-w-4xl text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
+              {title}
+            </h2>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-foreground/76">
+              {body}
+            </p>
+          </div>
+          <Link
+            href={localizedPath(locale, "/findings")}
+            className="inline-flex min-h-12 w-fit items-center border border-primary bg-primary px-5 text-sm font-semibold uppercase tracking-[0.18em] text-background transition hover:bg-transparent hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            {cta}
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
