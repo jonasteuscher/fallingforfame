@@ -95,11 +95,16 @@ describe("athlete detail page", () => {
       .closest("section");
     const jumpsSection = screen.getByRole("heading", { name: "Jumps" })
       .closest("section");
+    const futureProject = container.querySelector("[data-future-project-feature]");
+    const linksSection = screen.getByRole("heading", {
+      name: "Personal Links & Socials",
+    }).closest("section");
 
     expect(originStory).toBeInTheDocument();
     expect(careerInterview).toBeInTheDocument();
     expect(decisionInterview).toBeInTheDocument();
     expect(audioStory).toBeInTheDocument();
+    expect(futureProject).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         name: /YOU'RE ONLY AS GOOD\s+AS YOUR LAST STUNT/,
@@ -135,6 +140,20 @@ describe("athlete detail page", () => {
     expect(
       screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }),
     ).toBeVisible();
+    expect(screen.getByText("FUTURE PROJECT")).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: /A LEAP FROM\s+THE TOP OF\s+THE WORLD/,
+      }),
+    ).toBeVisible();
+    expect(screen.getByText("An upcoming project by Tim Howell.")).toBeVisible();
+    expect(
+      screen
+        .getByLabelText(
+          "Tim Howell — Future Project: A Leap from the Top of the World",
+        )
+        .closest("div"),
+    ).toHaveClass("aspect-video");
     expect(originStory?.compareDocumentPosition(careerInterview as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(gallerySection?.compareDocumentPosition(decisionInterview as Node))
@@ -142,6 +161,8 @@ describe("athlete detail page", () => {
     expect(decisionInterview?.compareDocumentPosition(audioStory as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(audioStory?.compareDocumentPosition(jumpsSection as Node))
+      .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(futureProject?.compareDocumentPosition(linksSection as Node))
       .toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     unmount();
 

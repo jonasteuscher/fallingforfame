@@ -11,6 +11,7 @@ import {
   AthleteProfileOverview,
   AthleteSponsorsSection,
   AudioStory,
+  FutureProjectFeature,
   InterviewFeature,
   MoreAthletes,
 } from "@/components/athletes";
@@ -219,6 +220,8 @@ export default async function AthletePage({ params }: AthletePageProps) {
         emptyText={labels.videoEmpty}
         video={athlete.video}
       />
+
+      <FutureProjectFeature athlete={athlete} locale={locale} />
 
       <AthleteLinksSection
         links={athlete.links}

@@ -84,6 +84,17 @@ export type AthleteAudioStory = {
   waveform: number[];
 };
 
+export type AthleteFutureProject = {
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle: string;
+  description?: LocalizedText;
+  video: {
+    src: string;
+    poster?: string | null;
+  };
+};
+
 export type AthleteQuote = {
   text: LocalizedText;
 };
@@ -148,6 +159,7 @@ export type Athlete = {
   originStory: AthleteOriginStoryBeat[];
   interviewFeatures?: AthleteInterviewFeature[];
   audioStories?: AthleteAudioStory[];
+  futureProject?: AthleteFutureProject;
   audio: AthleteAudio[];
   video: AthleteVideo[];
   quotes: AthleteQuote[];

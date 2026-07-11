@@ -455,6 +455,25 @@ export const athletes: Athlete[] = [
         ],
       },
     ],
+    futureProject: {
+      chapter: {
+        en: "FUTURE PROJECT",
+        de: "FUTURE PROJECT",
+      },
+      title: {
+        en: "A Leap from the Top of the World",
+        de: "A Leap from the Top of the World",
+      },
+      displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
+      description: {
+        en: "An upcoming project by Tim Howell.",
+        de: "Ein kommendes Projekt von Tim Howell.",
+      },
+      video: {
+        src: "/video/tim-howell/a_leap_from_the_top_of_the_world_(teaser) (1080p).mp4",
+        poster: null,
+      },
+    },
     ...emptyMedia,
     links: [
       {

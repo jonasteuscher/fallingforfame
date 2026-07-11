@@ -147,6 +147,35 @@ describe("athletes data", () => {
     ).toBe(true);
   });
 
+  it("contains Tim Howell's future project data only on his profile", () => {
+    const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+
+    expect(tim?.futureProject).toMatchObject({
+      chapter: {
+        en: "FUTURE PROJECT",
+        de: "FUTURE PROJECT",
+      },
+      title: {
+        en: "A Leap from the Top of the World",
+        de: "A Leap from the Top of the World",
+      },
+      displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
+      description: {
+        en: "An upcoming project by Tim Howell.",
+        de: "Ein kommendes Projekt von Tim Howell.",
+      },
+      video: {
+        src: "/video/tim-howell/a_leap_from_the_top_of_the_world_(teaser) (1080p).mp4",
+        poster: null,
+      },
+    });
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "tim-howell")
+        .every((athlete) => athlete.futureProject === undefined),
+    ).toBe(true);
+  });
+
   it("does not contain placeholder origin story copy", () => {
     for (const athlete of athletes) {
       expect(athlete.content.en.baseStoryTitle).not.toBe("Story in development");
