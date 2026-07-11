@@ -476,7 +476,32 @@ export const athletes: Athlete[] = [
         en: "Tim Howell BASE jump in Iran",
         de: "Tim Howell BASE Jump im Iran",
       },
-      cues: [],
+      cues: [
+        {
+          start: 0.08,
+          end: 0.22,
+          text: {
+            en: "The line begins long before the exit.",
+            de: "Die Linie beginnt lange vor dem Exit.",
+          },
+        },
+        {
+          start: 0.38,
+          end: 0.52,
+          text: {
+            en: "Every movement is prepared.",
+            de: "Jede Bewegung ist vorbereitet.",
+          },
+        },
+        {
+          start: 0.72,
+          end: 0.88,
+          text: {
+            en: "In the end, the decision remains.",
+            de: "Am Ende bleibt die Entscheidung.",
+          },
+        },
+      ],
     },
     futureProject: {
       chapter: {

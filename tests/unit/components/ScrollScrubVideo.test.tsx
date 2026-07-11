@@ -93,6 +93,11 @@ describe("ScrollScrubVideo", () => {
     await waitForScrubMode();
     expect(screen.getByText("SCROLL THROUGH")).toBeVisible();
     expect(screen.getByRole("heading", { name: "THE JUMP" })).toBeVisible();
+    expect(screen.getByText("The line begins long before the exit."))
+      .toBeInTheDocument();
+    expect(screen.getByText("Every movement is prepared.")).toBeInTheDocument();
+    expect(screen.getByText("In the end, the decision remains."))
+      .toBeInTheDocument();
     await waitFor(() =>
       expect(container.querySelector("source")).toHaveAttribute(
         "src",
