@@ -1,7 +1,9 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import AthletePage from "@/app/[locale]/athletes/[slug]/page";
+import AthletePage, {
+  generateMetadata as generateAthleteMetadata,
+} from "@/app/[locale]/athletes/[slug]/page";
 import { athletes } from "@/data/athletes";
 import { renderAsyncPage } from "../../test-utils/render-pages";
 
@@ -31,10 +33,40 @@ const athletePortraitAlt: Record<string, string> = {
   "marcel-geser": "Marcel Geser wearing a helmet and blue wingsuit gear",
   "niclas-strohmeier":
     "Niclas Strohmeier in a white helmet flying close to green cliffs",
-  "josef-braun": "Josef Braun smiling with parachute gear in a wooded area",
+  "josef-braun": "Josef Braun smiling with a helmet and camera gear in a wooded area",
 };
 
 describe("athlete detail page", () => {
+  it("generates descriptive localized athlete profile titles", async () => {
+    await expect(
+      generateAthleteMetadata({
+        params: Promise.resolve({ locale: "en", slug: "tim-howell" }),
+      }),
+    ).resolves.toMatchObject({
+      title: {
+        absolute: "Tim Howell – Professional BASE Jumper | Falling for Fame?",
+      },
+    });
+    await expect(
+      generateAthleteMetadata({
+        params: Promise.resolve({ locale: "de", slug: "tim-howell" }),
+      }),
+    ).resolves.toMatchObject({
+      title: {
+        absolute: "Tim Howell – Professioneller BASE Jumper | Falling for Fame?",
+      },
+    });
+    await expect(
+      generateAthleteMetadata({
+        params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
+      }),
+    ).resolves.toMatchObject({
+      title: {
+        absolute: "Josef Braun – BASE Coach and Video Creator | Falling for Fame?",
+      },
+    });
+  });
+
   it("renders every athlete detail page", async () => {
     for (const athlete of athletes) {
       const { unmount } = await renderAsyncPage(
@@ -172,7 +204,21 @@ describe("athlete detail page", () => {
         name: /A LEAP FROM\s+THE TOP OF\s+THE WORLD/,
       }),
     ).toBeVisible();
-    expect(screen.getByText("An upcoming project by Tim Howell.")).toBeVisible();
+    expect(
+      screen.getByText(/Tim is preparing another attempt to fly from Lhotse/),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: /Read the project announcement/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
+    );
+    expect(
+      screen.getByRole("link", { name: /Read the Jöttnar project story/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
+    );
     expect(
       screen
         .getByLabelText(

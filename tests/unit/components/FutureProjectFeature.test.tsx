@@ -45,7 +45,24 @@ describe("FutureProjectFeature", () => {
         name: /A LEAP FROM\s+THE TOP OF\s+THE WORLD/,
       }),
     ).toBeVisible();
-    expect(screen.getByText("An upcoming project by Tim Howell.")).toBeVisible();
+    expect(
+      screen.getByText(/Tim is preparing another attempt to fly from Lhotse/),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: /Read the project announcement/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
+    );
+    expect(
+      screen.getByRole("link", { name: /Read the project announcement/ }),
+    ).toHaveAttribute("target", "_blank");
+    expect(
+      screen.getByRole("link", { name: /Read the Jöttnar project story/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
+    );
 
     const video = screen.getByLabelText(
       "Tim Howell — Future Project: A Leap from the Top of the World",

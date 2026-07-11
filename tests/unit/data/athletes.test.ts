@@ -161,13 +161,21 @@ describe("athletes data", () => {
       },
       displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
       description: {
-        en: "An upcoming project by Tim Howell.",
-        de: "Ein kommendes Projekt von Tim Howell.",
+        en: "Tim is preparing another attempt to fly from Lhotse in the Himalaya. The project follows the ambition, preparation and uncertainty behind a high-altitude wingsuit objective.",
+        de: "Tim bereitet einen weiteren Versuch vor, vom Lhotse im Himalaya zu fliegen. Das Projekt begleitet Ambition, Vorbereitung und Ungewissheit hinter einem Wingsuit-Ziel in grosser Höhe.",
       },
       video: {
         src: "/video/tim-howell/Future_project.mp4",
         poster: null,
       },
+      links: [
+        {
+          url: "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
+        },
+        {
+          url: "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
+        },
+      ],
     });
     expect(
       athletes
@@ -270,7 +278,7 @@ describe("athletes data", () => {
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.portrait)
       .toBe("/images/athletes/lukas-loibl/profile.jpg");
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.images.portrait)
-      .toBe("/images/athletes/josef-braun/profile.jpg");
+      .toBe("/images/athletes/josef-braun/profile-color.jpg");
     expect(
       athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.images.portrait,
     ).toBe("/images/athletes/niclas-strohmeier/profile.jpg");

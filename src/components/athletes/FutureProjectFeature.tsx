@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
 import type { Locale } from "@/i18n/config";
@@ -128,6 +129,24 @@ function FutureProjectSection({
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72 motion-safe:animate-[fade-in-up_700ms_ease-out_200ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0">
             {project.description[locale]}
           </p>
+        ) : null}
+        {project.links && project.links.length > 0 ? (
+          <div className="mt-8 flex flex-wrap gap-3 motion-safe:animate-[fade-in-up_700ms_ease-out_260ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0">
+            {project.links.map((link) => (
+              <Link
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center border border-primary bg-primary px-5 text-sm font-semibold uppercase tracking-[0.18em] text-background transition hover:bg-transparent hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+              >
+                {link.label[locale]}
+                <span className="ml-3" aria-hidden="true">
+                  ↗
+                </span>
+              </Link>
+            ))}
+          </div>
         ) : null}
 
         <figure className="mt-10 motion-safe:animate-[fade-in-up_700ms_ease-out_320ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-14">

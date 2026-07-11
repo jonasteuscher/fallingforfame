@@ -151,11 +151,16 @@ const pageLabels = {
 export async function generateMetadata({
   params,
 }: AthletePageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale: rawLocale, slug } = await params;
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
   const athlete = getAthleteBySlug(slug);
 
   return {
-    title: athlete ? `${athlete.name} | Falling for Fame` : "Athlete",
+    title: {
+      absolute: athlete
+        ? `${athlete.name} – ${getAthleteSeoRole(athlete, locale)} | Falling for Fame?`
+        : "Athlete | Falling for Fame?",
+    },
   };
 }
 
@@ -393,10 +398,37 @@ function getAthletePortraitAlt(athlete: Athlete, locale: Locale) {
       de: "Niclas Strohmeier mit weissem Helm fliegt nah an grünen Felsen",
     },
     "josef-braun": {
-      en: "Josef Braun smiling with parachute gear in a wooded area",
-      de: "Josef Braun lächelt mit Fallschirmausrüstung in einem Waldgebiet",
+      en: "Josef Braun smiling with a helmet and camera gear in a wooded area",
+      de: "Josef Braun lächelt mit Helm und Kameraausrüstung in einem Waldgebiet",
     },
   };
 
   return descriptions[athlete.slug]?.[locale] ?? athlete.name;
+}
+
+function getAthleteSeoRole(athlete: Athlete, locale: Locale) {
+  const roles: Record<string, { en: string; de: string }> = {
+    "tim-howell": {
+      en: "Professional BASE Jumper",
+      de: "Professioneller BASE Jumper",
+    },
+    "lukas-loibl": {
+      en: "Professional BASE Jumping Instructor",
+      de: "Professioneller BASE-Jumping-Instruktor",
+    },
+    "marcel-geser": {
+      en: "Hobby BASE Jumper",
+      de: "Hobby BASE Jumper",
+    },
+    "niclas-strohmeier": {
+      en: "Semi-Professional BASE Jumper",
+      de: "Semiprofessioneller BASE Jumper",
+    },
+    "josef-braun": {
+      en: "BASE Coach and Video Creator",
+      de: "BASE-Coach und Videograf",
+    },
+  };
+
+  return roles[athlete.slug]?.[locale] ?? athlete.content[locale].title;
 }

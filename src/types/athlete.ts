@@ -95,6 +95,10 @@ export type AthleteFutureProject = {
     src: string;
     poster?: string | null;
   };
+  links?: {
+    url: string;
+    label: LocalizedText;
+  }[];
 };
 
 export type AthleteScrollVideoCue = {

@@ -604,13 +604,29 @@ export const athletes: Athlete[] = [
       },
       displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
       description: {
-        en: "An upcoming project by Tim Howell.",
-        de: "Ein kommendes Projekt von Tim Howell.",
+        en: "Tim is preparing another attempt to fly from Lhotse in the Himalaya. The project follows the ambition, preparation and uncertainty behind a high-altitude wingsuit objective.",
+        de: "Tim bereitet einen weiteren Versuch vor, vom Lhotse im Himalaya zu fliegen. Das Projekt begleitet Ambition, Vorbereitung und Ungewissheit hinter einem Wingsuit-Ziel in grosser Höhe.",
       },
       video: {
         src: "/video/tim-howell/Future_project.mp4",
         poster: null,
       },
+      links: [
+        {
+          url: "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
+          label: {
+            en: "Read the project announcement",
+            de: "Projektankündigung lesen",
+          },
+        },
+        {
+          url: "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
+          label: {
+            en: "Read the Jöttnar project story",
+            de: "Jöttnar-Projektgeschichte lesen",
+          },
+        },
+      ],
     },
     ...emptyMedia,
     links: [
@@ -1191,7 +1207,7 @@ export const athletes: Athlete[] = [
     },
     images: images(
       "/images/athletes/josef-braun/hero.JPG",
-      "/images/athletes/josef-braun/profile.jpg",
+      "/images/athletes/josef-braun/profile-color.jpg",
       athleteGallery(
         "josef-braun",
         [
