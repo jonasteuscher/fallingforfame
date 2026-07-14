@@ -15,6 +15,7 @@ import {
   FutureProjectFeature,
   InterviewFeature,
   MoreAthletes,
+  ProjectStorySection,
   ScrollScrubVideo,
 } from "@/components/athletes";
 import { athletes, getAthleteBySlug } from "@/data/athletes";
@@ -80,6 +81,11 @@ const pageLabels = {
       publicImage: "Public Image",
       decision: "Decision",
       future: "Future",
+      biography: "Biography",
+      career: "Career",
+      gallery: "Gallery",
+      worldRecord: "World Record",
+      socialMedia: "Social Media",
     },
     interviewFeature: {
       play: (title: string) => `Play ${title}`,
@@ -139,6 +145,11 @@ const pageLabels = {
       publicImage: "Öffentlichkeit",
       decision: "Entscheidung",
       future: "Zukunft",
+      biography: "Biografie",
+      career: "Karriere",
+      gallery: "Galerie",
+      worldRecord: "Weltrekord",
+      socialMedia: "Social Media",
     },
     interviewFeature: {
       play: (title: string) => `${title} abspielen`,
@@ -200,24 +211,18 @@ export default async function AthletePage({ params }: AthletePageProps) {
         />
       ));
   const isTimHowell = athlete.slug === "tim-howell";
-  const narrativeNavItems = [
-    { id: "person", label: labels.narrativeActs.person },
-    { id: "attraction", label: labels.narrativeActs.attraction },
-    { id: "public-image", label: labels.narrativeActs.publicImage },
-    { id: "decision", label: labels.narrativeActs.decision },
-    { id: "future", label: labels.narrativeActs.future },
-  ];
+  const narrativeNav = getNarrativeNav(athlete, labels);
 
   return (
     <>
-      {isTimHowell ? (
+      {narrativeNav ? (
         <AthleteNarrativeNav
-          items={narrativeNavItems}
-          ariaLabel={labels.narrativeNavLabel}
+          items={narrativeNav.items}
+          ariaLabel={narrativeNav.ariaLabel}
         />
       ) : null}
 
-      <div id={isTimHowell ? "person" : undefined} className="scroll-mt-20">
+      <div id={narrativeNav?.anchors.person} className="scroll-mt-20">
         <AthleteHero
           athlete={athlete}
           title={athlete.content[locale].title}
@@ -249,7 +254,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
         />
       </div>
 
-      <div id={isTimHowell ? "attraction" : undefined} className="scroll-mt-20">
+      <div id={narrativeNav?.anchors.baseStory} className="scroll-mt-20">
         <AthleteBaseStory
           athlete={athlete}
           locale={locale}
@@ -273,36 +278,54 @@ export default async function AthletePage({ params }: AthletePageProps) {
         {renderInterviewFeatures("after-gallery")}
       </div>
 
-      <AthleteGallerySection
-        images={athlete.images.gallery}
-        locale={locale}
-        title={labels.galleryTitle}
-        emptyText={labels.galleryEmpty}
-        initialVisibleCount={isTimHowell ? 9 : undefined}
-        viewAllLabel={labels.galleryViewAll}
-        showLessLabel={labels.galleryShowLess}
-        variant={isTimHowell ? "editorial" : "grid"}
-      />
+      <div id={narrativeNav?.anchors.gallery} className="scroll-mt-20">
+        <AthleteGallerySection
+          images={athlete.images.gallery}
+          locale={locale}
+          title={labels.galleryTitle}
+          emptyText={labels.galleryEmpty}
+          initialVisibleCount={isTimHowell ? 9 : undefined}
+          viewAllLabel={labels.galleryViewAll}
+          showLessLabel={labels.galleryShowLess}
+          variant={isTimHowell ? "editorial" : "grid"}
+        />
+      </div>
 
       <div id={isTimHowell ? "future" : undefined} className="scroll-mt-20">
         <FutureProjectFeature athlete={athlete} locale={locale} />
       </div>
 
-      <AthleteLinksSection
-        links={athlete.links}
-        title={labels.linksTitle}
-        compact
-      />
+      {athlete.currentProject ? (
+        <div
+          id={narrativeNav?.anchors.currentProject ?? athlete.currentProject.id}
+          className="scroll-mt-20"
+        >
+          <ProjectStorySection
+            project={athlete.currentProject}
+            locale={locale}
+          />
+        </div>
+      ) : null}
 
-      <AthleteArticlesSection
-        articles={athlete.articles}
-        locale={locale}
-        title={labels.articlesTitle}
-        viewAllLabel={labels.articlesViewAll}
-        showLessLabel={labels.articlesShowLess}
-        compact
-        initialVisibleCount={3}
-      />
+      <div id={narrativeNav?.anchors.socialMedia} className="scroll-mt-20">
+        <AthleteLinksSection
+          links={athlete.links}
+          title={labels.linksTitle}
+          compact
+        />
+      </div>
+
+      <div id="media-coverage" className="scroll-mt-20">
+        <AthleteArticlesSection
+          articles={athlete.articles}
+          locale={locale}
+          title={labels.articlesTitle}
+          viewAllLabel={labels.articlesViewAll}
+          showLessLabel={labels.articlesShowLess}
+          compact
+          initialVisibleCount={3}
+        />
+      </div>
 
       <AthleteSponsorsSection
         sponsors={athlete.sponsors}
@@ -331,6 +354,67 @@ export default async function AthletePage({ params }: AthletePageProps) {
 
     </>
   );
+}
+
+type AthletePageLabels = (typeof pageLabels)[Locale];
+
+type AthleteNarrativeNavConfig = {
+  ariaLabel: string;
+  items: {
+    id: string;
+    label: string;
+  }[];
+  anchors: {
+    person?: string;
+    baseStory?: string;
+    gallery?: string;
+    currentProject?: string;
+    socialMedia?: string;
+  };
+};
+
+function getNarrativeNav(
+  athlete: Athlete,
+  labels: AthletePageLabels,
+): AthleteNarrativeNavConfig | null {
+  if (athlete.slug === "tim-howell") {
+    return {
+      ariaLabel: labels.narrativeNavLabel,
+      items: [
+        { id: "person", label: labels.narrativeActs.person },
+        { id: "attraction", label: labels.narrativeActs.attraction },
+        { id: "public-image", label: labels.narrativeActs.publicImage },
+        { id: "decision", label: labels.narrativeActs.decision },
+        { id: "future", label: labels.narrativeActs.future },
+      ],
+      anchors: {
+        person: "person",
+        baseStory: "attraction",
+      },
+    };
+  }
+
+  if (athlete.slug === "lukas-loibl") {
+    return {
+      ariaLabel: "Lukas Loibl profile sections",
+      items: [
+        { id: "biography", label: labels.narrativeActs.biography },
+        { id: "career", label: labels.narrativeActs.career },
+        { id: "gallery", label: labels.narrativeActs.gallery },
+        { id: "world-record", label: labels.narrativeActs.worldRecord },
+        { id: "social-media", label: labels.narrativeActs.socialMedia },
+      ],
+      anchors: {
+        person: "biography",
+        baseStory: "career",
+        gallery: "gallery",
+        currentProject: "world-record",
+        socialMedia: "social-media",
+      },
+    };
+  }
+
+  return null;
 }
 
 function formatAthleteMeta(

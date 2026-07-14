@@ -102,6 +102,34 @@ export type AthleteFutureProject = {
   }[];
 };
 
+export type AthleteCurrentProject = {
+  id: string;
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle: string;
+  intro: LocalizedText;
+  passages: {
+    title?: LocalizedText;
+    body: LocalizedText;
+  }[];
+  statement: LocalizedText;
+  closing: LocalizedText;
+  cta?: {
+    label: LocalizedText;
+    href: string;
+  };
+  images: {
+    src: string;
+    alt: LocalizedText;
+  }[];
+  video: {
+    src: string;
+    type: "video/mp4";
+    poster?: string | null;
+    label: LocalizedText;
+  };
+};
+
 export type AthleteScrollVideoCue = {
   start: number;
   end: number;
@@ -190,6 +218,7 @@ export type Athlete = {
   audioStories?: AthleteAudioStory[];
   scrollVideo?: AthleteScrollVideo;
   futureProject?: AthleteFutureProject;
+  currentProject?: AthleteCurrentProject;
   audio: AthleteAudio[];
   video: AthleteVideo[];
   quotes: AthleteQuote[];

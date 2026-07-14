@@ -403,6 +403,84 @@ describe("athlete detail page", () => {
     ).toBeVisible();
   });
 
+  it("renders Lukas Loibl's world record chapter before social links", async () => {
+    const { container } = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "lukas-loibl" }),
+      }),
+    );
+
+    const gallerySection = screen
+      .getByRole("heading", { name: "Photo Gallery" })
+      .closest("section");
+    const projectSection = container.querySelector(
+      '[data-current-project-section="lukas-loibl-world-record"]',
+    );
+    const linksSection = screen
+      .getByRole("heading", { name: "Personal Links & Socials" })
+      .closest("section");
+    const mediaCoverageAnchor = container.querySelector("#media-coverage");
+
+    expect(projectSection).toBeInTheDocument();
+    expect(mediaCoverageAnchor).toBeInTheDocument();
+    expect(
+      gallerySection?.compareDocumentPosition(projectSection as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      projectSection?.compareDocumentPosition(linksSection as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      screen.getByRole("navigation", { name: "Lukas Loibl profile sections" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "World Record" })).toHaveAttribute(
+      "href",
+      "#world-record",
+    );
+    expect(
+      screen.getByRole("heading", { name: /WORLD\s+RECORD/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/ten natural rock formations across ten flights/),
+    ).toBeVisible();
+    expect(
+      screen.getByAltText(
+        "Lukas Loibl flying in a wingsuit near a steep alpine rock gate",
+      ),
+    ).toHaveAttribute("src", "/images/athletes/lukas-loibl/Loch1.jpeg");
+    expect(
+      screen.getByAltText(
+        "Natural rock opening in the European Alps used for Lukas Loibl's wingsuit record",
+      ),
+    ).toHaveAttribute("src", "/images/athletes/lukas-loibl/Loch2.jpeg");
+    expect(
+      screen.getByLabelText("Lukas Loibl world record wingsuit flight"),
+    ).toHaveAttribute("controls");
+    expect(
+      screen.getByLabelText("Lukas Loibl world record wingsuit flight"),
+    ).toHaveAttribute(
+      "poster",
+      "/video/lukas-loibl/The_hole_thumbnail.png",
+    );
+    expect(
+      screen.getByRole("link", { name: "More about the project" }),
+    ).toHaveAttribute("href", "#media-coverage");
+  });
+
+  it("renders Lukas Loibl's German world record chapter", async () => {
+    await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "de", slug: "lukas-loibl" }),
+      }),
+    );
+
+    expect(screen.getByText("Aktuelles Projekt")).toBeVisible();
+    expect(screen.getByText(/zehn natürliche Felsformationen/)).toBeVisible();
+    expect(screen.getByRole("link", { name: "Weltrekord" })).toHaveAttribute(
+      "href",
+      "#world-record",
+    );
+  });
+
   it("updates the hero quote when navigating between athlete pages", async () => {
     const { rerender } = await renderAsyncPage(
       AthletePage({

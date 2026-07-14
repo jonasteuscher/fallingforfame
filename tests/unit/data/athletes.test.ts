@@ -468,6 +468,48 @@ describe("athletes data", () => {
       .toHaveLength(8);
   });
 
+  it("contains Lukas Loibl's current world record project data only on his profile", () => {
+    const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
+
+    expect(lukas?.currentProject).toMatchObject({
+      id: "lukas-loibl-world-record",
+      chapter: {
+        en: "Current Project",
+        de: "Aktuelles Projekt",
+      },
+      title: {
+        en: "World Record",
+        de: "Weltrekord",
+      },
+      displayTitle: "WORLD\nRECORD",
+      images: [
+        {
+          src: "/images/athletes/lukas-loibl/Loch1.jpeg",
+        },
+        {
+          src: "/images/athletes/lukas-loibl/Loch2.jpeg",
+        },
+      ],
+      video: {
+        src: "/video/lukas-loibl/The_hole.mp4",
+        type: "video/mp4",
+        poster: "/video/lukas-loibl/The_hole_thumbnail.png",
+      },
+      cta: {
+        label: {
+          en: "More about the project",
+          de: "Mehr zum Projekt",
+        },
+        href: "#media-coverage",
+      },
+    });
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "lukas-loibl")
+        .every((athlete) => athlete.currentProject === undefined),
+    ).toBe(true);
+  });
+
   it("uses Josef Braun's story image on the Today step", () => {
     const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
     const todayStep = josef?.originStory.find(

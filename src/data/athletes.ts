@@ -859,6 +859,84 @@ export const athletes: Athlete[] = [
       },
     },
     originStory: originStories["lukas-loibl"],
+    currentProject: {
+      id: "lukas-loibl-world-record",
+      chapter: {
+        en: "Current Project",
+        de: "Aktuelles Projekt",
+      },
+      title: {
+        en: "World Record",
+        de: "Weltrekord",
+      },
+      displayTitle: "WORLD\nRECORD",
+      intro: {
+        en: "Lukas Loibl became the first wingsuit pilot to fly through ten natural rock formations across ten flights in the European Alps, setting a world record built on technical precision, planning and commitment.",
+        de: "Lukas Loibl wurde zum ersten Wingsuit-Piloten, der in zehn Flügen zehn natürliche Felsformationen in den europäischen Alpen durchflog. Der Weltrekord entstand aus technischer Präzision, Planung und konsequenter Vorbereitung.",
+      },
+      passages: [
+        {
+          title: {
+            en: "A line years in the making",
+            de: "Eine Linie über Jahre vorbereitet",
+          },
+          body: {
+            en: "At roughly 200 km/h, the openings become less like landmarks and more like decisions. Each gate asks for the right weather, the right angle, the right body position and the discipline to step away when one element is missing.",
+            de: "Bei rund 200 km/h werden die Öffnungen weniger zu Orientierungspunkten als zu Entscheidungen. Jedes Felsentor verlangt Wetter, Winkel, Körperposition und die Disziplin, umzudrehen, wenn ein Element nicht passt.",
+          },
+        },
+        {
+          title: {
+            en: "Progression before spectacle",
+            de: "Entwicklung vor Spektakel",
+          },
+          body: {
+            en: "The record was not a single leap into the unknown. It was the visible result of thousands of jumps, repeated alpine preparation and a team that made the margin around the flight as deliberate as the flight itself.",
+            de: "Der Rekord war kein einzelner Sprung ins Unbekannte. Er war das sichtbare Ergebnis tausender Sprünge, wiederholter alpiner Vorbereitung und eines Teams, das den Rahmen des Flugs genauso präzise plante wie den Flug selbst.",
+          },
+        },
+      ],
+      statement: {
+        en: "Ten flights. Ten formations.",
+        de: "Zehn Flüge. Zehn Formationen.",
+      },
+      closing: {
+        en: "The achievement sits at the edge of ambition and restraint: a world record measured not only by speed, but by the patience required to make the line possible.",
+        de: "Die Leistung liegt an der Grenze zwischen Ambition und Zurückhaltung: ein Weltrekord, der nicht nur an Geschwindigkeit gemessen wird, sondern an der Geduld, die diese Linie möglich machte.",
+      },
+      cta: {
+        label: {
+          en: "More about the project",
+          de: "Mehr zum Projekt",
+        },
+        href: "#media-coverage",
+      },
+      images: [
+        {
+          src: "/images/athletes/lukas-loibl/Loch1.jpeg",
+          alt: {
+            en: "Lukas Loibl flying in a wingsuit near a steep alpine rock gate",
+            de: "Lukas Loibl fliegt im Wingsuit nahe an einem steilen alpinen Felsentor",
+          },
+        },
+        {
+          src: "/images/athletes/lukas-loibl/Loch2.jpeg",
+          alt: {
+            en: "Natural rock opening in the European Alps used for Lukas Loibl's wingsuit record",
+            de: "Natürliches Felsentor in den europäischen Alpen für Lukas Loibls Wingsuit-Rekord",
+          },
+        },
+      ],
+      video: {
+        src: "/video/lukas-loibl/The_hole.mp4",
+        type: "video/mp4",
+        poster: "/video/lukas-loibl/The_hole_thumbnail.png",
+        label: {
+          en: "Lukas Loibl world record wingsuit flight",
+          de: "Lukas Loibl Wingsuit-Weltrekordflug",
+        },
+      },
+    },
     ...emptyMedia,
     links: [
       {
