@@ -610,19 +610,37 @@ export const athletes: Athlete[] = [
       video: {
         src: "/video/tim-howell/Future_project.mp4",
         poster: null,
+        caption: {
+          en: "Teaser (2023)",
+          de: "Teaser (2023)",
+        },
       },
       links: [
         {
+          url: "https://explorersweb.com/lhotse-wingsuit-update/",
+          label: {
+            en: "First attempt (2024)",
+            de: "Erster Versuch (2024)",
+          },
+        },
+        {
+          url: "https://explorersweb.com/tim-howell-will-return-to-lhotse-to-attempt-the-worlds-highest-wingsuit-jump/",
+          label: {
+            en: "Second attempt (2025)",
+            de: "Zweiter Versuch (2025)",
+          },
+        },
+        {
           url: "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
           label: {
-            en: "Read the project announcement",
-            de: "Projektankündigung lesen",
+            en: "Third attempt (2026)",
+            de: "Dritter Versuch (2026)",
           },
         },
         {
           url: "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
           label: {
-            en: "Read the Jöttnar project story",
+            en: "Read the Jöttnar Project Story (2025)",
             de: "Jöttnar-Projektgeschichte lesen",
           },
         },
@@ -924,11 +942,6 @@ export const athletes: Athlete[] = [
         url: "https://ataircanopies.com/",
       },
       {
-        name: "Moreboards",
-        logo: "/images/sponsors/moreboards.avif",
-        url: "https://www.moreboards.com/",
-      },
-      {
         name: "Squirrel",
         logo: "/images/sponsors/squirrel_blue.png",
         url: "https://squirrel.ws/",
@@ -937,6 +950,11 @@ export const athletes: Athlete[] = [
         name: "DJI",
         logo: "/images/sponsors/dji_white.webp",
         url: "https://www.dji.com/",
+      },
+      {
+        name: "Moreboards",
+        logo: "/images/sponsors/moreboards.avif",
+        url: "https://www.moreboards.com/",
       },
     ],
   },

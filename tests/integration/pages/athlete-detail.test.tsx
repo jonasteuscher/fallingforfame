@@ -207,14 +207,29 @@ describe("athlete detail page", () => {
     expect(
       screen.getByText(/Tim is preparing another attempt to fly from Lhotse/),
     ).toBeVisible();
+    expect(screen.getByText("Teaser (2023)")).toBeVisible();
     expect(
-      screen.getByRole("link", { name: /Read the project announcement/ }),
+      screen.getByRole("link", { name: /First attempt \(2024\)/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/lhotse-wingsuit-update/",
+    );
+    expect(
+      screen.getByRole("link", { name: /Second attempt \(2025\)/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/tim-howell-will-return-to-lhotse-to-attempt-the-worlds-highest-wingsuit-jump/",
+    );
+    expect(
+      screen.getByRole("link", { name: /Third attempt \(2026\)/ }),
     ).toHaveAttribute(
       "href",
       "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
     );
     expect(
-      screen.getByRole("link", { name: /Read the Jöttnar project story/ }),
+      screen.getByRole("link", {
+        name: /Read the Jöttnar Project Story \(2025\)/,
+      }),
     ).toHaveAttribute(
       "href",
       "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
@@ -354,6 +369,38 @@ describe("athlete detail page", () => {
         'img[src="https://i.ytimg.com/vi/Bi4Ba7mDy9Y/maxresdefault.jpg"]',
       ),
     ).toBeInTheDocument();
+  });
+
+  it("uses the compact social and media coverage layout for non-Tim athletes", async () => {
+    await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "lukas-loibl" }),
+      }),
+    );
+
+    expect(
+      screen.getByRole("link", { name: /Lukas Loibl Website/ }),
+    ).toHaveClass("min-h-12");
+    expect(
+      screen.getByText("Austrian wingsuit pilot claims world record"),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Wingsuit world record at 200 km/h through the Messnerin hole",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByText("Austrian wingsuit record through a rock opening"),
+    ).toBeVisible();
+    expect(
+      screen.queryByText("Austrian sets world record flying through a rock hole"),
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "View all coverage" }));
+
+    expect(
+      screen.getByText("Austrian sets world record flying through a rock hole"),
+    ).toBeVisible();
   });
 
   it("updates the hero quote when navigating between athlete pages", async () => {
@@ -611,6 +658,9 @@ describe("athlete detail page", () => {
     expect(screen.getByAltText("Moreboards logo")).toBeVisible();
     expect(screen.getByAltText("Squirrel logo")).toBeVisible();
     expect(screen.getByAltText("DJI logo")).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Atair Canopies logo" }),
+    ).toHaveClass("min-h-12");
     expect(
       screen.getByRole("link", { name: "Atair Canopies logo" }),
     ).toHaveAttribute("target", "_blank");

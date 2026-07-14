@@ -169,6 +169,11 @@ function FutureProjectSection({
               ) : null}
             </video>
           </div>
+          {project.video.caption ? (
+            <figcaption className="mt-3 text-sm leading-6 text-foreground/65">
+              {project.video.caption[locale]}
+            </figcaption>
+          ) : null}
         </figure>
       </div>
     </section>

@@ -167,13 +167,35 @@ describe("athletes data", () => {
       video: {
         src: "/video/tim-howell/Future_project.mp4",
         poster: null,
+        caption: {
+          en: "Teaser (2023)",
+          de: "Teaser (2023)",
+        },
       },
       links: [
         {
+          url: "https://explorersweb.com/lhotse-wingsuit-update/",
+          label: {
+            en: "First attempt (2024)",
+          },
+        },
+        {
+          url: "https://explorersweb.com/tim-howell-will-return-to-lhotse-to-attempt-the-worlds-highest-wingsuit-jump/",
+          label: {
+            en: "Second attempt (2025)",
+          },
+        },
+        {
           url: "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
+          label: {
+            en: "Third attempt (2026)",
+          },
         },
         {
           url: "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
+          label: {
+            en: "Read the Jöttnar Project Story (2025)",
+          },
         },
       ],
     });
@@ -397,9 +419,9 @@ describe("athletes data", () => {
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.sponsors)
       .toMatchObject([
         { name: "Atair Canopies", logo: "/images/sponsors/atair_white.png" },
-        { name: "Moreboards", logo: "/images/sponsors/moreboards.avif" },
         { name: "Squirrel", logo: "/images/sponsors/squirrel_blue.png" },
         { name: "DJI", logo: "/images/sponsors/dji_white.webp" },
+        { name: "Moreboards", logo: "/images/sponsors/moreboards.avif" },
       ]);
     expect(
       athletes

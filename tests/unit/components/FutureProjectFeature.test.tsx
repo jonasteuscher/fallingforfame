@@ -48,17 +48,32 @@ describe("FutureProjectFeature", () => {
     expect(
       screen.getByText(/Tim is preparing another attempt to fly from Lhotse/),
     ).toBeVisible();
+    expect(screen.getByText("Teaser (2023)")).toBeVisible();
     expect(
-      screen.getByRole("link", { name: /Read the project announcement/ }),
+      screen.getByRole("link", { name: /First attempt \(2024\)/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/lhotse-wingsuit-update/",
+    );
+    expect(
+      screen.getByRole("link", { name: /First attempt \(2024\)/ }),
+    ).toHaveAttribute("target", "_blank");
+    expect(
+      screen.getByRole("link", { name: /Second attempt \(2025\)/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/tim-howell-will-return-to-lhotse-to-attempt-the-worlds-highest-wingsuit-jump/",
+    );
+    expect(
+      screen.getByRole("link", { name: /Third attempt \(2026\)/ }),
     ).toHaveAttribute(
       "href",
       "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
     );
     expect(
-      screen.getByRole("link", { name: /Read the project announcement/ }),
-    ).toHaveAttribute("target", "_blank");
-    expect(
-      screen.getByRole("link", { name: /Read the Jöttnar project story/ }),
+      screen.getByRole("link", {
+        name: /Read the Jöttnar Project Story \(2025\)/,
+      }),
     ).toHaveAttribute(
       "href",
       "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",

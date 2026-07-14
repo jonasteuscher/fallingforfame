@@ -291,7 +291,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
       <AthleteLinksSection
         links={athlete.links}
         title={labels.linksTitle}
-        compact={isTimHowell}
+        compact
       />
 
       <AthleteArticlesSection
@@ -300,15 +300,15 @@ export default async function AthletePage({ params }: AthletePageProps) {
         title={labels.articlesTitle}
         viewAllLabel={labels.articlesViewAll}
         showLessLabel={labels.articlesShowLess}
-        compact={isTimHowell}
-        initialVisibleCount={isTimHowell ? 3 : undefined}
+        compact
+        initialVisibleCount={3}
       />
 
       <AthleteSponsorsSection
         sponsors={athlete.sponsors}
         title={labels.sponsorsTitle}
         summary={athlete.sponsorship[locale]}
-        compact={isTimHowell}
+        compact
       />
 
       <AthleteFindingsLinkSection

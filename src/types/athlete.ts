@@ -94,6 +94,7 @@ export type AthleteFutureProject = {
   video: {
     src: string;
     poster?: string | null;
+    caption?: LocalizedText;
   };
   links?: {
     url: string;
