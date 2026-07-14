@@ -174,12 +174,6 @@ export type AthleteArticle = {
   url: string | null;
 };
 
-export type AthleteSponsor = {
-  name: string;
-  logo: string | null;
-  url: string | null;
-};
-
 export type AthletePlatform = "Instagram" | "YouTube" | "Facebook";
 
 export type AthleteExperience = {
@@ -224,5 +218,5 @@ export type Athlete = {
   quotes: AthleteQuote[];
   links: AthleteLink[];
   articles: AthleteArticle[];
-  sponsors: AthleteSponsor[];
+  sponsors: string[];
 };

@@ -10,7 +10,6 @@ import {
   AthleteLinksSection,
   AthleteNarrativeNav,
   AthleteProfileOverview,
-  AthleteSponsorsSection,
   AudioStory,
   FutureProjectFeature,
   InterviewFeature,
@@ -63,8 +62,6 @@ const pageLabels = {
     articlesViewAll: "View all coverage",
     articlesShowLess: "Show less",
     articlesEmpty: "Links to articles, podcasts and interviews will be added here.",
-    sponsorsTitle: "Sponsors & Partnerships",
-    sponsorsEmpty: "Sponsor information will be added once confirmed.",
     findingsLink: {
       eyebrow: "Research Findings",
       title: "From Profile To Findings",
@@ -126,9 +123,6 @@ const pageLabels = {
     articlesShowLess: "Weniger anzeigen",
     articlesEmpty:
       "Links zu Artikeln, Podcasts und Interviews werden hier ergänzt.",
-    sponsorsTitle: "Sponsoren & Partnerschaften",
-    sponsorsEmpty:
-      "Sponsoring-Informationen werden ergänzt, sobald sie bestätigt sind.",
     findingsLink: {
       eyebrow: "Erkenntnisse",
       title: "Vom Porträt zu den Erkenntnissen",
@@ -326,13 +320,6 @@ export default async function AthletePage({ params }: AthletePageProps) {
           initialVisibleCount={3}
         />
       </div>
-
-      <AthleteSponsorsSection
-        sponsors={athlete.sponsors}
-        title={labels.sponsorsTitle}
-        summary={athlete.sponsorship[locale]}
-        compact
-      />
 
       <AthleteFindingsLinkSection
         locale={locale}

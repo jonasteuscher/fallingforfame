@@ -132,6 +132,16 @@ export function AthleteProfileOverview({
                   ))}
                 </ul>
               </div>
+
+              {athlete.sponsors.length > 0 ? (
+                <p className="mt-8 max-w-reading text-lg leading-8 text-foreground/82">
+                  {formatSponsorContext(
+                    athlete.name,
+                    formatSponsorList(athlete.sponsors, locale),
+                    locale,
+                  )}
+                </p>
+              ) : null}
             </div>
           </div>
 
@@ -349,6 +359,26 @@ function formatSponsored(
   }
 
   return value ? labels.yes : labels.no;
+}
+
+function formatSponsorList(sponsors: string[], locale: Locale) {
+  if (sponsors.length <= 1) {
+    return sponsors[0] ?? "";
+  }
+
+  const separator = locale === "de" ? " und " : " and ";
+  const head = sponsors.slice(0, -1).join(", ");
+  const tail = sponsors.at(-1);
+
+  return `${head}${separator}${tail}`;
+}
+
+function formatSponsorContext(name: string, sponsors: string, locale: Locale) {
+  if (locale === "de") {
+    return `${name} nennt Sponsoring-Beziehungen mit ${sponsors}. Diese Partnerschaften werden hier als Teil des professionellen Kontexts im BASE Jumping dokumentiert.`;
+  }
+
+  return `${name} reports sponsorship relationships with ${sponsors}. These partnerships are documented here as part of the athlete's professional context within BASE jumping.`;
 }
 
 function formatNumber(value: number, localeOrDisplayValue: Locale | string) {

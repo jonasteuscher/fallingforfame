@@ -15,6 +15,5 @@ export {
   AthleteLinksSection,
   AthleteMediaSection,
   AthleteQuoteSection,
-  AthleteSponsorsSection,
   MoreAthletes,
 } from "@/components/athletes/AthleteSections";

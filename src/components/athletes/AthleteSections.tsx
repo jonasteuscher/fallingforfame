@@ -14,7 +14,6 @@ import type {
   AthleteAudio,
   AthleteImage,
   AthleteLink,
-  AthleteSponsor,
   AthleteVideo,
 } from "@/types/athlete";
 import { AthleteCard } from "@/components/athletes/AthleteCard";
@@ -438,64 +437,6 @@ function getSocialPlatformLabel(type: AthleteLink["type"]) {
   }
 
   return type.charAt(0).toUpperCase() + type.slice(1);
-}
-
-export function AthleteSponsorsSection({
-  sponsors,
-  title,
-  summary,
-  compact = false,
-}: {
-  sponsors: AthleteSponsor[];
-  title: string;
-  summary: string | null;
-  compact?: boolean;
-}) {
-  const confirmedSponsors = sponsors.filter(
-    (
-      sponsor,
-    ): sponsor is AthleteSponsor & { logo: string; url: string } =>
-      Boolean(sponsor.name && sponsor.logo && sponsor.url),
-  );
-
-  if (confirmedSponsors.length === 0) {
-    return null;
-  }
-
-  return (
-    <SectionShell title={title} compact={compact}>
-      <div className="space-y-5">
-        {summary ? (
-          <p className={compact ? "max-w-3xl text-base leading-7 text-foreground/72" : "max-w-reading text-xl leading-8 text-foreground/78"}>
-            {summary}
-          </p>
-        ) : null}
-        <ul className={compact ? "flex flex-wrap gap-3" : "grid gap-3 sm:grid-cols-2 xl:grid-cols-4"}>
-          {confirmedSponsors.map((sponsor) => (
-            <li
-              key={sponsor.name}
-              className={compact ? "border border-border bg-surface px-4 py-3 text-lg font-semibold text-foreground" : "border border-border bg-surface p-5 text-lg font-semibold text-foreground"}
-            >
-              <Link
-                href={sponsor.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={compact ? "flex min-h-12 items-center justify-center transition opacity-80 hover:opacity-100 focus-visible:rounded-sm" : "flex min-h-20 items-center justify-center transition opacity-80 hover:opacity-100 focus-visible:rounded-sm"}
-              >
-                <Image
-                  src={sponsor.logo}
-                  alt={`${sponsor.name} logo`}
-                  width={260}
-                  height={130}
-                  className={compact ? "max-h-12 w-auto object-contain" : "max-h-24 w-auto object-contain"}
-                />
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </SectionShell>
-  );
 }
 
 export function MoreAthletes({

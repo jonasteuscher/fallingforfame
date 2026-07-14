@@ -384,45 +384,17 @@ describe("athletes data", () => {
 
   it("contains athlete-specific sponsor data", () => {
     expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.sponsors)
-      .toMatchObject([
-        {
-          name: "Jöttnar",
-          logo: "/images/sponsors/jottnar_black.png",
-          url: "https://www.jottnar.com/pages/pro-tim-howell",
-        },
-        { name: "Scarpa", logo: "/images/sponsors/scarpa_originla.webp" },
-        { name: "Adrenalin BASE", logo: "/images/sponsors/adrenalin_base.png" },
-        {
-          name: "Inigo Insurance",
-          logo: "/images/sponsors/inigo.png",
-          url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
-        },
-        {
-          name: "Stirling Timepieces",
-          logo: "/images/sponsors/stirling.jpg",
-          url: "https://stirlingtimepieces.com/",
-        },
+      .toEqual([
+        "Jöttnar",
+        "Scarpa",
+        "Adrenalin BASE",
+        "Inigo Insurance",
+        "Stirling Timepieces",
       ]);
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.sponsors)
-      .toMatchObject([
-        {
-          name: "Group A",
-          logo: "/images/sponsors/group_a.avif",
-          url: "https://www.groupaworldwide.com/pages/josef-braun",
-        },
-        {
-          name: "Fly The Earth",
-          logo: "/images/sponsors/flytheearth.png",
-          url: "https://flytheearth.com/",
-        },
-      ]);
+      .toEqual(["Group A", "Fly The Earth"]);
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.sponsors)
-      .toMatchObject([
-        { name: "Atair Canopies", logo: "/images/sponsors/atair_white.png" },
-        { name: "Squirrel", logo: "/images/sponsors/squirrel_blue.png" },
-        { name: "DJI", logo: "/images/sponsors/dji_white.webp" },
-        { name: "Moreboards", logo: "/images/sponsors/moreboards.avif" },
-      ]);
+      .toEqual(["Atair Canopies", "Squirrel", "DJI", "Moreboards"]);
     expect(
       athletes
         .filter(

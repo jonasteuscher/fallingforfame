@@ -93,6 +93,28 @@ describe("AthleteProfileOverview", () => {
       expect(within(sponsorship as HTMLElement).getByText("Nein")).toBeVisible(),
     );
     expect(sponsorship).not.toHaveTextContent("0");
+    expect(screen.queryByText(/Sponsoring-Beziehungen/)).not.toBeInTheDocument();
+  });
+
+  it("renders sponsor names as neutral biography text without links or logos", () => {
+    render(
+      <AthleteProfileOverview
+        athlete={athleteFixture("tim-howell")}
+        locale="en"
+        labels={enLabels}
+        portraitAlt="Tim Howell wearing a cap and harness in front of mountains"
+        portraitPlaceholder="Portrait media pending"
+      />,
+    );
+
+    expect(
+      screen.getByText(
+        "Tim Howell reports sponsorship relationships with Jöttnar, Scarpa, Adrenalin BASE, Inigo Insurance and Stirling Timepieces. These partnerships are documented here as part of the athlete's professional context within BASE jumping.",
+      ),
+    ).toBeVisible();
+    expect(screen.queryByAltText(/Jöttnar logo/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Jöttnar/i }))
+      .not.toBeInTheDocument();
   });
 
   it("uses fallback text when optional values are missing", () => {

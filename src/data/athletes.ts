@@ -746,31 +746,11 @@ export const athletes: Athlete[] = [
       },
     ],
     sponsors: [
-      {
-        name: "Jöttnar",
-        logo: "/images/sponsors/jottnar_black.png",
-        url: "https://www.jottnar.com/pages/pro-tim-howell",
-      },
-      {
-        name: "Scarpa",
-        logo: "/images/sponsors/scarpa_originla.webp",
-        url: "https://scarpa.com/",
-      },
-      {
-        name: "Adrenalin BASE",
-        logo: "/images/sponsors/adrenalin_base.png",
-        url: "https://www.adrenalinbase.com/",
-      },
-      {
-        name: "Inigo Insurance",
-        logo: "/images/sponsors/inigo.png",
-        url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
-      },
-      {
-        name: "Stirling Timepieces",
-        logo: "/images/sponsors/stirling.jpg",
-        url: "https://stirlingtimepieces.com/",
-      },
+      "Jöttnar",
+      "Scarpa",
+      "Adrenalin BASE",
+      "Inigo Insurance",
+      "Stirling Timepieces",
     ],
   },
   {
@@ -1013,28 +993,7 @@ export const athletes: Athlete[] = [
         url: "https://www.meinbezirk.at/bruck-an-der-mur/c-lokales/rekord-flug-wingsuit-pilot-durchfliegt-messnerin-loch_a8642106?ref=curate",
       },
     ],
-    sponsors: [
-      {
-        name: "Atair Canopies",
-        logo: "/images/sponsors/atair_white.png",
-        url: "https://ataircanopies.com/",
-      },
-      {
-        name: "Squirrel",
-        logo: "/images/sponsors/squirrel_blue.png",
-        url: "https://squirrel.ws/",
-      },
-      {
-        name: "DJI",
-        logo: "/images/sponsors/dji_white.webp",
-        url: "https://www.dji.com/",
-      },
-      {
-        name: "Moreboards",
-        logo: "/images/sponsors/moreboards.avif",
-        url: "https://www.moreboards.com/",
-      },
-    ],
+    sponsors: ["Atair Canopies", "Squirrel", "DJI", "Moreboards"],
   },
   {
     id: "marcel-geser",
@@ -1393,18 +1352,7 @@ export const athletes: Athlete[] = [
         url: "https://open.spotify.com/episode/3X4xOWb8lMYXub1Fw96rM6?si=81846fae04874b6c",
       },
     ],
-    sponsors: [
-      {
-        name: "Group A",
-        logo: "/images/sponsors/group_a.avif",
-        url: "https://www.groupaworldwide.com/pages/josef-braun",
-      },
-      {
-        name: "Fly The Earth",
-        logo: "/images/sponsors/flytheearth.png",
-        url: "https://flytheearth.com/",
-      },
-    ],
+    sponsors: ["Group A", "Fly The Earth"],
   },
 
 ];

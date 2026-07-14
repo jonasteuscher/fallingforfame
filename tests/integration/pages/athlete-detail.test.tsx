@@ -713,7 +713,7 @@ describe("athlete detail page", () => {
     expect(screen.getByText("500’000+")).toBeInTheDocument();
   });
 
-  it("renders confirmed sponsor information", async () => {
+  it("renders sponsor information as neutral profile text", async () => {
     const { container } = await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "en", slug: "lukas-loibl" }),
@@ -729,25 +729,19 @@ describe("athlete detail page", () => {
     await waitFor(() => expect(screen.getByText("Yes")).toBeVisible());
     expect(
       screen.getByText(
-        "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
+        "Lukas Loibl reports sponsorship relationships with Atair Canopies, Squirrel, DJI and Moreboards. These partnerships are documented here as part of the athlete's professional context within BASE jumping.",
       ),
     ).toBeVisible();
-    expect(screen.getByAltText("Atair Canopies logo")).toBeVisible();
-    expect(screen.getByAltText("Moreboards logo")).toBeVisible();
-    expect(screen.getByAltText("Squirrel logo")).toBeVisible();
-    expect(screen.getByAltText("DJI logo")).toBeVisible();
     expect(
-      screen.getByRole("link", { name: "Atair Canopies logo" }),
-    ).toHaveClass("min-h-12");
+      screen.queryByRole("heading", { name: "Sponsors & Partnerships" }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByAltText(/Atair Canopies logo/i)).not.toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Atair Canopies logo" }),
-    ).toHaveAttribute("target", "_blank");
-    expect(
-      screen.getByRole("link", { name: "Atair Canopies logo" }),
-    ).toHaveAttribute("rel", "noopener noreferrer");
+      screen.queryByRole("link", { name: /Atair Canopies/i }),
+    ).not.toBeInTheDocument();
   });
 
-  it("renders Josef Braun ambassador partnerships", async () => {
+  it("renders Josef Braun sponsor names without sponsor links or logos", async () => {
     await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
@@ -755,16 +749,17 @@ describe("athlete detail page", () => {
     );
 
     expect(
-      screen.getByRole("heading", { name: "Sponsors & Partnerships" }),
+      screen.queryByRole("heading", { name: "Sponsors & Partnerships" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Josef Braun reports sponsorship relationships with Group A and Fly The Earth. These partnerships are documented here as part of the athlete's professional context within BASE jumping.",
+      ),
     ).toBeVisible();
-    expect(screen.getByAltText("Group A logo")).toBeVisible();
-    expect(screen.getByAltText("Fly The Earth logo")).toBeVisible();
-    expect(screen.getByRole("link", { name: "Group A logo" })).toHaveAttribute(
-      "href",
-      "https://www.groupaworldwide.com/pages/josef-braun",
-    );
-    expect(screen.getByRole("link", { name: "Fly The Earth logo" }))
-      .toHaveAttribute("href", "https://flytheearth.com/");
+    expect(screen.queryByAltText("Group A logo")).not.toBeInTheDocument();
+    expect(screen.queryByAltText("Fly The Earth logo")).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Group A/i }))
+      .not.toBeInTheDocument();
   });
 });
 
