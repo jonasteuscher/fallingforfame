@@ -92,6 +92,67 @@ export type AthleteAudioStory = {
 
 export type ProjectStatus = "current" | "future" | "completed";
 
+export type AthletePageProgressEntry = {
+  id: string;
+  label: LocalizedText;
+  includeInProgress?: boolean;
+};
+
+export type AthletePageSectionConfig =
+  | {
+      id: string;
+      type: "interview-video";
+      featureId: string;
+      layout?: "stacked" | "text-first" | "media-first";
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    }
+  | {
+      id: string;
+      type: "audio-story";
+      storyId?: string;
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    }
+  | {
+      id: string;
+      type: "scroll-video";
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    }
+  | {
+      id: string;
+      type: "project-feature";
+      project: "future" | "current";
+      status?: ProjectStatus;
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    }
+  | {
+      id: string;
+      type: "gallery";
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    }
+  | {
+      id: string;
+      type: "social-media";
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    }
+  | {
+      id: string;
+      type: "media-coverage";
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    };
+
+export type AthletePageComposition = {
+  navAriaLabel?: LocalizedText;
+  progress: AthletePageProgressEntry[];
+  sections: AthletePageSectionConfig[];
+};
+
 export type AthleteFutureProject = {
   chapter: LocalizedText;
   title: LocalizedText;
@@ -202,6 +263,7 @@ export type Athlete = {
     en: string | null;
     de: string | null;
   };
+  page?: AthletePageComposition;
   heroQuote: LocalizedText;
   images: {
     hero: string | null;

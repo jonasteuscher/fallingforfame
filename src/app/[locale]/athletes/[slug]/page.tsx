@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import {
-  AthleteDocumentaryPage,
-} from "@/components/athletes";
+import { AthletePage as AthletePageTemplate } from "@/components/athletes";
 import { athletes, getAthleteBySlug } from "@/data/athletes";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import type {
-  Athlete,
-  AthleteInterviewFeature,
-} from "@/types/athlete";
+import type { Athlete, AthletePageSectionConfig } from "@/types/athlete";
 import type {
   AthleteSection,
   ProgressSection,
@@ -115,8 +110,7 @@ const pageLabels = {
     articlesTitle: "Artikel & Medienberichte",
     articlesViewAll: "Alle Berichte anzeigen",
     articlesShowLess: "Weniger anzeigen",
-    articlesEmpty:
-      "Links zu Artikeln, Podcasts und Interviews werden hier ergänzt.",
+    articlesEmpty: "Links zu Artikeln, Podcasts und Interviews werden hier ergänzt.",
     findingsLink: {
       eyebrow: "Erkenntnisse",
       title: "Vom Porträt zu den Erkenntnissen",
@@ -185,11 +179,11 @@ export default async function AthletePage({ params }: AthletePageProps) {
   const labels = pageLabels[locale];
   const athleteMeta = formatAthleteMeta(athlete, dictionary.athleteMeta);
   const moreAthletes = athletes.filter((item) => item.slug !== athlete.slug);
-  const progressSections = buildProgressSections(athlete, labels, locale);
+  const progressSections = buildProgressSections(athlete, locale);
   const sections = buildAthleteSections(athlete);
 
   return (
-    <AthleteDocumentaryPage
+    <AthletePageTemplate
       athlete={athlete}
       locale={locale}
       title={athlete.content[locale].title}
@@ -217,7 +211,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
       originTitle={labels.baseStoryTitle}
       sections={sections}
       progressSections={progressSections}
-      navAriaLabel={getNarrativeNavLabel(athlete, labels)}
+      navAriaLabel={getNarrativeNavLabel(athlete, labels, locale)}
       sectionLabels={{
         galleryTitle: labels.galleryTitle,
         galleryEmpty: labels.galleryEmpty,
@@ -247,112 +241,18 @@ export default async function AthletePage({ params }: AthletePageProps) {
 
 type AthletePageLabels = (typeof pageLabels)[Locale];
 
-type AthletePageSectionConfig = {
-  navAriaLabel: (labels: AthletePageLabels) => string;
-  progress: Array<{
-    id: string;
-    label: (labels: AthletePageLabels, locale: Locale, athlete: Athlete) => string;
-  }>;
-  sections: Array<
-    | { type: "interview-video"; id: string; featureId: string }
-    | { type: "audio-story"; id: string; storyId?: string }
-    | { type: "scroll-video"; id: string }
-    | { type: "project-feature"; id: string; project: "future" | "current" }
-    | { type: "gallery"; id: string }
-    | { type: "social-media"; id: string }
-    | { type: "media-coverage"; id: string }
-  >;
-};
-
-const athletePageSectionConfigs: Record<string, AthletePageSectionConfig> = {
-  "tim-howell": {
-    navAriaLabel: (labels) => labels.narrativeNavLabel,
-    progress: [
-      { id: "person", label: (labels) => labels.narrativeActs.biography },
-      { id: "attraction", label: (labels) => labels.narrativeActs.career },
-      { id: "public-image", label: (labels) => labels.narrativeActs.publicImage },
-      { id: "decision", label: (labels) => labels.narrativeActs.decision },
-      { id: "gallery", label: (labels) => labels.narrativeActs.gallery },
-      { id: "future", label: (labels) => labels.narrativeActs.future },
-    ],
-    sections: [
-      { type: "interview-video", id: "public-image", featureId: "career" },
-      { type: "scroll-video", id: "decision" },
-      { type: "audio-story", id: "audio-story" },
-      {
-        type: "interview-video",
-        id: "decision-making",
-        featureId: "decision-making",
-      },
-      { type: "gallery", id: "gallery" },
-      { type: "project-feature", id: "future", project: "future" },
-      { type: "social-media", id: "social-media" },
-      { type: "media-coverage", id: "media-coverage" },
-    ],
-  },
-  "lukas-loibl": {
-    navAriaLabel: () => "Lukas Loibl profile sections",
-    progress: [
-      { id: "biography", label: (labels) => labels.narrativeActs.biography },
-      { id: "career", label: (labels) => labels.narrativeActs.career },
-      {
-        id: "planning-comes-first",
-        label: (_labels, locale) =>
-          locale === "de" ? "Planung zuerst" : "Planning first",
-      },
-      {
-        id: "audio-story",
-        label: (_labels, locale) =>
-          locale === "de"
-            ? "Social Media & Sponsoring"
-            : "Social media & sponsorship",
-      },
-      { id: "world-record", label: (labels) => labels.narrativeActs.worldRecord },
-      {
-        id: "the-mountain-will-still-be-here",
-        label: (_labels, locale) =>
-          locale === "de" ? "Nicht springen" : "Not jumping",
-      },
-      { id: "gallery", label: (labels) => labels.narrativeActs.gallery },
-    ],
-    sections: [
-      {
-        type: "interview-video",
-        id: "planning-comes-first",
-        featureId: "planning-comes-first",
-      },
-      { type: "audio-story", id: "audio-story" },
-      { type: "project-feature", id: "world-record", project: "current" },
-      {
-        type: "interview-video",
-        id: "the-mountain-will-still-be-here",
-        featureId: "the-mountain-will-still-be-here",
-      },
-      { type: "gallery", id: "gallery" },
-      { type: "social-media", id: "social-media" },
-      { type: "media-coverage", id: "media-coverage" },
-    ],
-  },
-};
-
-function buildProgressSections(
-  athlete: Athlete,
-  labels: AthletePageLabels,
-  locale: Locale,
-) {
-  const config = getAthletePageSectionConfig(athlete);
-
-  return config.progress.map<ProgressSection>((section) => ({
+function buildProgressSections(athlete: Athlete, locale: Locale) {
+  return (athlete.page?.progress ?? []).map<ProgressSection>((section) => ({
     id: section.id,
-    label: section.label(labels, locale, athlete),
-    includeInProgress: true,
+    label: section.label[locale],
+    includeInProgress: section.includeInProgress ?? true,
   }));
 }
 
 function buildAthleteSections(athlete: Athlete) {
-  const config = getAthletePageSectionConfig(athlete);
+  const sections = athlete.page?.sections ?? defaultAthletePageSections;
 
-  return config.sections.flatMap<AthleteSection>((section) => {
+  return sections.flatMap<AthleteSection>((section) => {
     switch (section.type) {
       case "interview-video": {
         const feature = findInterviewFeature(athlete, section.featureId);
@@ -363,9 +263,9 @@ function buildAthleteSections(athlete: Athlete) {
                 id: section.id,
                 type: "interview-video",
                 feature,
-                layout: getInterviewLayoutConfig(athlete, feature),
-                spacing: "immersive",
-                includeInProgress: true,
+                layout: section.layout ?? "stacked",
+                spacing: section.spacing ?? "immersive",
+                includeInProgress: section.includeInProgress ?? true,
               },
             ]
           : [];
@@ -380,7 +280,8 @@ function buildAthleteSections(athlete: Athlete) {
                 id: section.id,
                 type: "audio-story",
                 story,
-                spacing: "standard",
+                spacing: section.spacing ?? "standard",
+                includeInProgress: section.includeInProgress,
               },
             ]
           : [];
@@ -392,8 +293,8 @@ function buildAthleteSections(athlete: Athlete) {
             id: section.id,
             type: "scroll-video",
             video: athlete.scrollVideo,
-            spacing: "immersive",
-            includeInProgress: true,
+            spacing: section.spacing ?? "immersive",
+            includeInProgress: section.includeInProgress ?? true,
           },
         ];
 
@@ -406,9 +307,10 @@ function buildAthleteSections(athlete: Athlete) {
               section.project === "future"
                 ? athlete.futureProject
                 : athlete.currentProject,
-            status: section.project === "future" ? "future" : "current",
-            spacing: "immersive",
-            includeInProgress: true,
+            status:
+              section.status ?? (section.project === "future" ? "future" : "current"),
+            spacing: section.spacing ?? "immersive",
+            includeInProgress: section.includeInProgress ?? true,
           },
         ];
 
@@ -418,8 +320,8 @@ function buildAthleteSections(athlete: Athlete) {
             id: section.id,
             type: "gallery",
             images: athlete.images.gallery,
-            spacing: "standard",
-            includeInProgress: true,
+            spacing: section.spacing ?? "standard",
+            includeInProgress: section.includeInProgress ?? true,
           },
         ];
 
@@ -429,7 +331,8 @@ function buildAthleteSections(athlete: Athlete) {
             id: section.id,
             type: "social-media",
             links: athlete.links,
-            spacing: "compact",
+            spacing: section.spacing ?? "compact",
+            includeInProgress: section.includeInProgress,
           },
         ];
 
@@ -439,7 +342,8 @@ function buildAthleteSections(athlete: Athlete) {
             id: section.id,
             type: "media-coverage",
             articles: athlete.articles,
-            spacing: "compact",
+            spacing: section.spacing ?? "compact",
+            includeInProgress: section.includeInProgress,
           },
         ];
 
@@ -449,19 +353,11 @@ function buildAthleteSections(athlete: Athlete) {
   });
 }
 
-function getAthletePageSectionConfig(athlete: Athlete) {
-  return athletePageSectionConfigs[athlete.slug] ?? defaultAthletePageSectionConfig;
-}
-
-const defaultAthletePageSectionConfig: AthletePageSectionConfig = {
-  navAriaLabel: (labels) => labels.narrativeNavLabel,
-  progress: [],
-  sections: [
-    { type: "gallery", id: "gallery" },
-    { type: "social-media", id: "social-media" },
-    { type: "media-coverage", id: "media-coverage" },
-  ],
-};
+const defaultAthletePageSections: AthletePageSectionConfig[] = [
+  { type: "gallery", id: "gallery", spacing: "standard" },
+  { type: "social-media", id: "social-media", spacing: "compact" },
+  { type: "media-coverage", id: "media-coverage", spacing: "compact" },
+];
 
 function findInterviewFeature(athlete: Athlete, featureId: string) {
   return athlete.interviewFeatures?.find((feature) => feature.id === featureId);
@@ -475,22 +371,12 @@ function findAudioStory(athlete: Athlete, storyId?: string) {
     : stories.find((story) => story.placement === "after-gallery");
 }
 
-function getInterviewLayoutConfig(
+function getNarrativeNavLabel(
   athlete: Athlete,
-  feature: AthleteInterviewFeature,
+  labels: AthletePageLabels,
+  locale: Locale,
 ) {
-  const layoutByAthlete: Record<string, Record<string, "text-first" | "media-first">> = {
-    "lukas-loibl": {
-      "planning-comes-first": "text-first",
-      "the-mountain-will-still-be-here": "media-first",
-    },
-  };
-
-  return layoutByAthlete[athlete.slug]?.[feature.id] ?? "stacked";
-}
-
-function getNarrativeNavLabel(athlete: Athlete, labels: AthletePageLabels) {
-  return getAthletePageSectionConfig(athlete).navAriaLabel(labels);
+  return athlete.page?.navAriaLabel?.[locale] ?? labels.narrativeNavLabel;
 }
 
 function assertNever(value: never): never {
