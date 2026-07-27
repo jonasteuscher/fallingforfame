@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 
-import {
-  ChapterIntro,
-  FindingCard,
-  ScrollySection,
-} from "@/components/scrollytelling";
+import { FindingsPage as FindingsDocumentaryPage } from "@/components/findings";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, type Locale } from "@/i18n/config";
 
@@ -14,33 +10,23 @@ type FindingsPageProps = {
   }>;
 };
 
-export const metadata: Metadata = {
-  title: "Findings",
-};
+export async function generateMetadata({
+  params,
+}: FindingsPageProps): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
+  const dictionary = getDictionary(locale);
+
+  return {
+    title: dictionary.site.findings.metadata.title,
+    description: dictionary.site.findings.metadata.description,
+  };
+}
 
 export default async function FindingsPage({ params }: FindingsPageProps) {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
   const dictionary = getDictionary(locale);
 
-  return (
-    <>
-      <ScrollySection>
-        <ChapterIntro
-          kicker="Research findings"
-          title={dictionary.site.findings.title}
-          body={dictionary.site.findings.intro}
-        />
-      </ScrollySection>
-      {dictionary.findings.length > 0 ? (
-        <ScrollySection fullHeight={false}>
-          <div className="grid gap-4 md:grid-cols-3">
-            {dictionary.findings.map((finding) => (
-              <FindingCard key={finding.id} finding={finding} />
-            ))}
-          </div>
-        </ScrollySection>
-      ) : null}
-    </>
-  );
+  return <FindingsDocumentaryPage content={dictionary.site.findings} locale={locale} />;
 }
