@@ -19,6 +19,13 @@ export const site = {
     openMenuShort: "Open menu",
     closeMenuShort: "Close menu",
   },
+  notFound: {
+    eyebrow: "404 · Page not found",
+    title: "This page has taken a different path",
+    description:
+      "The page you are looking for does not exist, has been moved or is no longer available.",
+    button: "Back to home",
+  },
   home,
   athletes,
   project,

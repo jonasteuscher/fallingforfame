@@ -41,27 +41,27 @@ const playerConstructor = vi.fn(function MockYouTubePlayer(
   element: HTMLElement,
   options: MockPlayerOptions,
 ) {
-    const iframe = document.createElement("iframe");
-    iframe.src = `https://www.youtube.com/embed/${options.videoId}`;
-    element.appendChild(iframe);
+  const iframe = document.createElement("iframe");
+  iframe.src = `https://www.youtube.com/embed/${options.videoId}`;
+  element.appendChild(iframe);
 
-    const player: MockPlayer = {
-      playVideo: vi.fn(() => {
-        options.events.onStateChange?.({ data: 1 });
-      }),
-      pauseVideo: vi.fn(() => {
-        options.events.onStateChange?.({ data: 2 });
-      }),
-      destroy: vi.fn(),
-      unloadModule: vi.fn(),
-      setSize: vi.fn(),
-      setPlaybackQuality: vi.fn(),
-    };
+  const player: MockPlayer = {
+    playVideo: vi.fn(() => {
+      options.events.onStateChange?.({ data: 1 });
+    }),
+    pauseVideo: vi.fn(() => {
+      options.events.onStateChange?.({ data: 2 });
+    }),
+    destroy: vi.fn(),
+    unloadModule: vi.fn(),
+    setSize: vi.fn(),
+    setPlaybackQuality: vi.fn(),
+  };
 
-    createdPlayers.push(player);
-    queueMicrotask(options.events.onReady);
+  createdPlayers.push(player);
+  queueMicrotask(options.events.onReady);
 
-    return player;
+  return player;
 });
 
 describe("InterviewFeature", () => {
@@ -162,8 +162,9 @@ describe("InterviewFeature", () => {
       cc_load_policy: 0,
       hl: "en",
     });
-    expect(playerConstructor.mock.calls[0]?.[1].playerVars)
-      .not.toHaveProperty("cc_lang_pref");
+    expect(playerConstructor.mock.calls[0]?.[1].playerVars).not.toHaveProperty(
+      "cc_lang_pref",
+    );
     expect(createdPlayers[0]?.playVideo).toHaveBeenCalled();
     expect(createdPlayers[0]?.setSize).toHaveBeenCalledWith("100%", "100%");
     expect(createdPlayers[0]?.setPlaybackQuality).toHaveBeenCalledWith("hd1080");
@@ -217,8 +218,9 @@ describe("InterviewFeature", () => {
       cc_load_policy: 0,
       hl: "de",
     });
-    expect(playerConstructor.mock.calls[0]?.[1].playerVars)
-      .not.toHaveProperty("cc_lang_pref");
+    expect(playerConstructor.mock.calls[0]?.[1].playerVars).not.toHaveProperty(
+      "cc_lang_pref",
+    );
   });
 
   it("loads the decision-making interview data for both locales", async () => {
@@ -378,12 +380,15 @@ describe("InterviewFeature", () => {
       <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
     );
 
-    expect(screen.getByTestId("youtube-player-mount").parentElement)
-      .toHaveClass("aspect-video");
-    expect(screen.getByTestId("youtube-player-mount").parentElement)
-      .not.toHaveClass("fullscreen:w-[min(100vw,177.7778vh)]");
-    expect(screen.getByTestId("youtube-player-mount").closest("section"))
-      .toHaveClass("overflow-x-clip");
+    expect(screen.getByTestId("youtube-player-mount").parentElement).toHaveClass(
+      "aspect-video",
+    );
+    expect(screen.getByTestId("youtube-player-mount").parentElement).not.toHaveClass(
+      "fullscreen:w-[min(100vw,177.7778vh)]",
+    );
+    expect(screen.getByTestId("youtube-player-mount").closest("section")).toHaveClass(
+      "overflow-x-clip",
+    );
   });
 });
 

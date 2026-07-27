@@ -85,7 +85,8 @@ export function InterviewFeature({
   const video = feature.videos[locale];
   const poster = feature.poster ?? youtubePoster(video.videoId);
   const isFullscreen = isNativeFullscreen;
-  const heading = feature.navTitle?.[locale] ?? feature.title?.[locale] ?? feature.quote;
+  const heading =
+    feature.navTitle?.[locale] ?? feature.title?.[locale] ?? feature.quote;
 
   const playerVars = useMemo(
     () => ({
@@ -248,8 +249,7 @@ export function InterviewFeature({
 
     try {
       await iframe.requestFullscreen();
-    } catch {
-    }
+    } catch {}
   }
   return (
     <section
@@ -282,7 +282,7 @@ export function InterviewFeature({
           >
             {heading}
           </SectionTitle>
-          {feature.subtitle ?? feature.intro ? (
+          {(feature.subtitle ?? feature.intro) ? (
             <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
               {(feature.subtitle ?? feature.intro)?.[locale]}
             </p>
@@ -296,12 +296,8 @@ export function InterviewFeature({
               : "mt-0 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
           }
         >
-          <div
-            className="overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]"
-          >
-            <div
-              className="relative aspect-video w-full overflow-hidden bg-background"
-            >
+          <div className="overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]">
+            <div className="relative aspect-video w-full overflow-hidden bg-background">
               {!hasStarted ? (
                 <>
                   <Image
