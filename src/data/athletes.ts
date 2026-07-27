@@ -519,8 +519,8 @@ export const athletes: Athlete[] = [
           de: "AUDIO STORY",
         },
         title: {
-          en: "Knowledge Dispels Fear",
-          de: "Knowledge Dispels Fear",
+          en: "Understanding Fear",
+          de: "Angst verstehen",
         },
         displayTitle: "KNOWLEDGE\nDISPELS FEAR",
         audio: {
@@ -839,6 +839,80 @@ export const athletes: Athlete[] = [
       },
     },
     originStory: originStories["lukas-loibl"],
+    interviewFeatures: [
+      {
+        id: "the-mountain-will-still-be-here",
+        placement: "after-origin",
+        title: {
+          en: "Choosing Not To Jump",
+          de: "Der Berg steht in tausend Jahren noch",
+        },
+        navTitle: {
+          en: "The Mountain Will Still Be Here",
+          de: "Der Berg steht in tausend Jahren noch",
+        },
+        chapter: {
+          en: "Interview",
+          de: "Interview",
+        },
+        quote: "THE MOUNTAIN\nWILL STILL BE HERE\nIN A THOUSAND YEARS",
+        subtitle: {
+          en: "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
+          de: "Nicht jeder Gipfel endet mit einem Sprung. Manchmal ist die sicherste Entscheidung, wieder abzusteigen und auf einen anderen Tag zu warten.",
+        },
+        iframeTitle: {
+          en: "Lukas Loibl interview about choosing not to jump",
+          de: "Lukas Loibl Interview über die Entscheidung, nicht zu springen",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "B4Bsp_ewxik",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "mVfu3RBZGVQ",
+          },
+        },
+      },
+      {
+        id: "planning-comes-first",
+        placement: "after-gallery",
+        title: {
+          en: "Planning Comes Before Everything",
+          de: "Planung ist oberste Priorität",
+        },
+        navTitle: {
+          en: "Planning Comes First",
+          de: "Planung ist oberste Priorität",
+        },
+        chapter: {
+          en: "Interview",
+          de: "Interview",
+        },
+        quote: "PLANNING\nCOMES FIRST",
+        subtitle: {
+          en: "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
+          de: "Jeder Sprung beginnt lange vor dem Exit. Wetter, Bedingungen, Ausrüstung und persönliche Grenzen bestimmen, ob ein Sprung überhaupt stattfinden sollte.",
+        },
+        iframeTitle: {
+          en: "Lukas Loibl interview about planning before BASE jumping",
+          de: "Lukas Loibl Interview über Planung vor dem BASE Jumping",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "QNf-Gmdh1Ig",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "jfAIEg2GOGY",
+          },
+        },
+      },
+    ],
     audioStories: [
       {
         id: "social-media-and-sponsorship",
@@ -848,10 +922,13 @@ export const athletes: Athlete[] = [
           de: "AUDIO STORY",
         },
         title: {
-          en: "Social Media And Sponsorship",
-          de: "Social Media und Sponsoring",
+          en: "Jumping for the camera?",
+          de: "Für die Kamera springen?",
         },
-        displayTitle: "SOCIAL MEDIA\nAND SPONSORSHIP",
+        displayTitle: {
+          en: "SOCIAL MEDIA\nAND SPONSORSHIP",
+          de: "SOCAIL MEDIA\nUND SPONSORING",
+        },
         audio: {
           src: "/audio/lukas-loibl/Lukas_SocialMedia.wav",
         },
@@ -866,11 +943,11 @@ export const athletes: Athlete[] = [
         },
         duration: "02:13",
         waveform: [
-          0.17, 0.16, 0.22, 0.21, 0.17, 0.16, 0.16, 0.16, 0.16, 0.19,
-          0.16, 0.16, 0.19, 0.16, 0.25, 0.16, 0.16, 0.16, 0.16, 0.16,
-          0.2, 0.16, 0.16, 0.16, 0.24, 0.21, 0.19, 0.16, 0.23, 0.25,
-          0.22, 0.19, 0.18, 0.17, 0.16, 0.16, 0.16, 0.18, 0.17, 0.16,
-          0.21, 0.21, 0.16, 0.16, 0.16, 0.18, 0.16, 0.16,
+          0.69, 0.58, 0.92, 0.86, 0.67, 0.33, 0.63, 0.43, 0.18, 0.76,
+          0.51, 0.51, 0.7, 0.54, 0.91, 0.55, 0.77, 0.18, 0.82, 0.62,
+          0.71, 0.57, 0.54, 0.43, 0.51, 0.92, 0.74, 0.77, 0.72, 0.83,
+          0.92, 0.73, 0.76, 0.75, 0.48, 0.55, 0.61, 0.31, 0.73, 0.71,
+          0.18, 0.85, 0.83, 0.67, 0.66, 0.68, 0.75, 0.18,
         ],
       },
     ],

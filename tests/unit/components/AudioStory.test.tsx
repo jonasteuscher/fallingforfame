@@ -122,7 +122,7 @@ describe("AudioStory", () => {
     expect(audioInstances[0]?.src).toBe(story().audio.src);
     expect(globalThis.fetch).toHaveBeenCalledWith(story().transcript.en);
     expect(await screen.findByText("Knowledge dispels fear.")).toBeVisible();
-    expect(screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }))
+    expect(screen.getByRole("button", { name: "Play Understanding Fear" }))
       .toBeVisible();
   });
 
@@ -132,7 +132,7 @@ describe("AudioStory", () => {
     expect(globalThis.fetch).toHaveBeenCalledWith(story().transcript.de);
     expect(await screen.findByText("Wissen vertreibt Angst.")).toBeVisible();
     expect(
-      screen.getByRole("button", { name: "Knowledge Dispels Fear abspielen" }),
+      screen.getByRole("button", { name: "Angst verstehen abspielen" }),
     ).toBeVisible();
   });
 
@@ -152,7 +152,7 @@ describe("AudioStory", () => {
     renderStory("en");
     await screen.findByText("You become comfortable because you understand.");
 
-    fireEvent.click(screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }));
+    fireEvent.click(screen.getByRole("button", { name: "Play Understanding Fear" }));
     expect(audioInstances[0]?.play).toHaveBeenCalledTimes(1);
 
     audioInstances[0].currentTime = 18;
@@ -165,7 +165,7 @@ describe("AudioStory", () => {
     );
     expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
 
-    fireEvent.click(screen.getByRole("button", { name: "Pause Knowledge Dispels Fear" }));
+    fireEvent.click(screen.getByRole("button", { name: "Pause Understanding Fear" }));
     expect(audioInstances[0]?.pause).toHaveBeenCalled();
   });
 
@@ -173,7 +173,7 @@ describe("AudioStory", () => {
     renderStory("en");
     await screen.findByText("Knowledge dispels fear.");
 
-    fireEvent.click(screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }));
+    fireEvent.click(screen.getByRole("button", { name: "Play Understanding Fear" }));
     expect(audioInstances[0]?.play).toHaveBeenCalledTimes(1);
 
     intersectionObservers.at(-1)?.trigger({
@@ -184,7 +184,7 @@ describe("AudioStory", () => {
     expect(audioInstances[0]?.pause).toHaveBeenCalled();
     await waitFor(() =>
       expect(
-        screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }),
+        screen.getByRole("button", { name: "Play Understanding Fear" }),
       ).toBeVisible(),
     );
   });
@@ -207,7 +207,7 @@ describe("AudioStory", () => {
       expect(screen.getAllByText("Knowledge dispels fear.")).toHaveLength(2),
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }));
+    fireEvent.click(screen.getByRole("button", { name: "Play Understanding Fear" }));
     fireEvent.click(screen.getByRole("button", { name: "Play Second Reflection" }));
 
     expect(audioInstances[0]?.pause).toHaveBeenCalled();

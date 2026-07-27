@@ -196,7 +196,7 @@ describe("athlete detail page", () => {
       screen.getAllByRole("heading", { name: /KNOWLEDGE\s+DISPELS FEAR/ })[0],
     ).toBeVisible();
     expect(
-      screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }),
+      screen.getByRole("button", { name: "Play Understanding Fear" }),
     ).toBeVisible();
     expect(screen.getByText("FUTURE PROJECT")).toBeVisible();
     expect(
@@ -301,9 +301,21 @@ describe("athlete detail page", () => {
     ).toBeVisible();
     expect(screen.getByRole("navigation", { name: "Tim Howell profile sections" }))
       .toBeVisible();
+    expect(screen.getByRole("link", { name: "Biography" })).toHaveAttribute(
+      "href",
+      "#person",
+    );
+    expect(screen.getByRole("link", { name: "Career" })).toHaveAttribute(
+      "href",
+      "#attraction",
+    );
     expect(screen.getByRole("link", { name: "Decision" })).toHaveAttribute(
       "href",
       "#decision",
+    );
+    expect(screen.getByRole("link", { name: "Gallery" })).toHaveAttribute(
+      "href",
+      "#gallery",
     );
     expect(screen.getByRole("button", { name: "View full gallery" }))
       .toHaveAttribute("aria-expanded", "false");
@@ -341,6 +353,14 @@ describe("athlete detail page", () => {
     );
 
     expect(screen.getByText("Social Media")).toBeVisible();
+    expect(screen.getByRole("link", { name: "Biografie" })).toHaveAttribute(
+      "href",
+      "#person",
+    );
+    expect(screen.getByRole("link", { name: "Karriere" })).toHaveAttribute(
+      "href",
+      "#attraction",
+    );
     expect(screen.getByRole("button", { name: "Tim Howell Interview abspielen" }))
       .toBeVisible();
     expect(
@@ -403,7 +423,7 @@ describe("athlete detail page", () => {
     ).toBeVisible();
   });
 
-  it("renders Lukas Loibl's world record chapter before social links", async () => {
+  it("renders Lukas Loibl's project, interview, social and gallery chapters in navigation order", async () => {
     const { container } = await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "en", slug: "lukas-loibl" }),
@@ -416,6 +436,12 @@ describe("athlete detail page", () => {
     const projectSection = container.querySelector(
       '[data-current-project-section="lukas-loibl-world-record"]',
     );
+    const mountainInterview = container.querySelector(
+      '[data-interview-feature-id="the-mountain-will-still-be-here"]',
+    );
+    const planningInterview = container.querySelector(
+      '[data-interview-feature-id="planning-comes-first"]',
+    );
     const audioStory = container.querySelector(
       '[data-audio-story-id="social-media-and-sponsorship"]',
     );
@@ -425,10 +451,18 @@ describe("athlete detail page", () => {
     const mediaCoverageAnchor = container.querySelector("#media-coverage");
 
     expect(audioStory).toBeInTheDocument();
+    expect(mountainInterview).toBeInTheDocument();
+    expect(planningInterview).toBeInTheDocument();
     expect(projectSection).toBeInTheDocument();
     expect(mediaCoverageAnchor).toBeInTheDocument();
     expect(
-      audioStory?.compareDocumentPosition(gallerySection as Node) ?? 0,
+      planningInterview?.compareDocumentPosition(audioStory as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      audioStory?.compareDocumentPosition(mountainInterview as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      mountainInterview?.compareDocumentPosition(gallerySection as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
       gallerySection?.compareDocumentPosition(projectSection as Node) ?? 0,
@@ -437,25 +471,67 @@ describe("athlete detail page", () => {
       projectSection?.compareDocumentPosition(linksSection as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
+      linksSection?.compareDocumentPosition(mediaCoverageAnchor as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
       screen.getByRole("navigation", { name: "Lukas Loibl profile sections" }),
     ).toBeVisible();
-    expect(screen.getByRole("link", { name: "Audio Story" }))
+    expect(screen.getByRole("link", { name: "Planning first" }))
+      .toHaveAttribute("href", "#planning-comes-first");
+    expect(screen.getByRole("link", { name: "Social media & sponsorship" }))
       .toHaveAttribute("href", "#audio-story");
+    expect(
+      screen.getByRole("link", { name: "Not jumping" }),
+    ).toHaveAttribute("href", "#the-mountain-will-still-be-here");
+    expect(screen.getByRole("link", { name: "Gallery" }))
+      .toHaveAttribute("href", "#gallery");
     expect(screen.getByRole("link", { name: "World Record" })).toHaveAttribute(
       "href",
       "#world-record",
     );
+    expect(screen.queryByRole("link", { name: "Social Media" }))
+      .not.toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /WORLD\s+RECORD/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "The Mountain Will Still Be Here",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Planning Comes First" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Lukas Loibl interview about choosing not to jump",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Lukas Loibl interview about planning before BASE jumping",
+      }),
     ).toBeVisible();
     expect(
       screen.getByRole("heading", {
         name: /SOCIAL MEDIA\s+AND SPONSORSHIP/,
       }),
     ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Jumping for the camera?" }))
+      .toBeVisible();
     expect(
       screen.getByRole("button", {
-        name: "Play Social Media And Sponsorship",
+        name: "Play Jumping for the camera?",
       }),
     ).toBeVisible();
     expect(
@@ -502,6 +578,22 @@ describe("athlete detail page", () => {
 
     expect(screen.getByText("Aktuelles Projekt")).toBeVisible();
     expect(screen.getByText(/zehn natürliche Felsformationen/)).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: /SOCAIL MEDIA\s+UND SPONSORING/,
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Für die Kamera springen?" }))
+      .toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Für die Kamera springen? abspielen" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Planung zuerst" }))
+      .toHaveAttribute("href", "#planning-comes-first");
+    expect(screen.getByRole("link", { name: "Social Media & Sponsoring" }))
+      .toHaveAttribute("href", "#audio-story");
+    expect(screen.getByRole("link", { name: "Nicht springen" }))
+      .toHaveAttribute("href", "#the-mountain-will-still-be-here");
     expect(screen.getByRole("link", { name: "Weltrekord" })).toHaveAttribute(
       "href",
       "#world-record",

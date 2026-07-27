@@ -74,8 +74,9 @@ describe("athletes data", () => {
     }
   });
 
-  it("contains Tim Howell's localized interview feature data", () => {
+  it("contains localized interview feature data on profiles with interview chapters", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+    const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
 
     expect(tim?.interviewFeatures).toMatchObject([
       {
@@ -107,9 +108,64 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(lukas?.interviewFeatures).toMatchObject([
+      {
+        id: "the-mountain-will-still-be-here",
+        placement: "after-origin",
+        title: {
+          en: "Choosing Not To Jump",
+          de: "Der Berg steht in tausend Jahren noch",
+        },
+        navTitle: {
+          en: "The Mountain Will Still Be Here",
+          de: "Der Berg steht in tausend Jahren noch",
+        },
+        chapter: {
+          en: "Interview",
+          de: "Interview",
+        },
+        quote: "THE MOUNTAIN\nWILL STILL BE HERE\nIN A THOUSAND YEARS",
+        subtitle: {
+          en: "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
+        },
+        poster: null,
+        videos: {
+          en: { provider: "youtube", videoId: "B4Bsp_ewxik" },
+          de: { provider: "youtube", videoId: "mVfu3RBZGVQ" },
+        },
+      },
+      {
+        id: "planning-comes-first",
+        placement: "after-gallery",
+        title: {
+          en: "Planning Comes Before Everything",
+          de: "Planung ist oberste Priorität",
+        },
+        navTitle: {
+          en: "Planning Comes First",
+          de: "Planung ist oberste Priorität",
+        },
+        chapter: {
+          en: "Interview",
+          de: "Interview",
+        },
+        quote: "PLANNING\nCOMES FIRST",
+        subtitle: {
+          en: "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
+        },
+        poster: null,
+        videos: {
+          en: { provider: "youtube", videoId: "QNf-Gmdh1Ig" },
+          de: { provider: "youtube", videoId: "jfAIEg2GOGY" },
+        },
+      },
+    ]);
     expect(
       athletes
-        .filter((athlete) => athlete.slug !== "tim-howell")
+        .filter(
+          (athlete) =>
+            athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+        )
         .every((athlete) => athlete.interviewFeatures === undefined),
     ).toBe(true);
   });
@@ -127,8 +183,8 @@ describe("athletes data", () => {
           de: "AUDIO STORY",
         },
         title: {
-          en: "Knowledge Dispels Fear",
-          de: "Knowledge Dispels Fear",
+          en: "Understanding Fear",
+          de: "Angst verstehen",
         },
         audio: {
           src: "/audio/tim-howell/Tim_knowledge_dispels_fear - isolated.mp3",
@@ -150,8 +206,8 @@ describe("athletes data", () => {
           de: "AUDIO STORY",
         },
         title: {
-          en: "Social Media And Sponsorship",
-          de: "Social Media und Sponsoring",
+          en: "Jumping for the camera?",
+          de: "Für die Kamera springen?",
         },
         audio: {
           src: "/audio/lukas-loibl/Lukas_SocialMedia.wav",
@@ -164,6 +220,17 @@ describe("athletes data", () => {
       },
     ]);
     expect(lukas?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
+    for (const story of [
+      tim?.audioStories?.[0],
+      lukas?.audioStories?.[0],
+    ]) {
+      const waveform = story?.waveform ?? [];
+      const range = Math.max(...waveform) - Math.min(...waveform);
+      const uniqueHeights = new Set(waveform).size;
+
+      expect(range).toBeGreaterThan(0.5);
+      expect(uniqueHeights).toBeGreaterThan(20);
+    }
     expect(
       athletes
         .filter(

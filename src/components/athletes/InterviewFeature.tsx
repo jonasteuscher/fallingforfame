@@ -64,7 +64,6 @@ let youTubeApiPromise: Promise<YouTubeApi> | null = null;
 
 export function InterviewFeature({ feature, locale, labels }: InterviewFeatureProps) {
   const containerRef = useRef<HTMLElement | null>(null);
-  const fullscreenRef = useRef<HTMLDivElement | null>(null);
   const playerMountRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YouTubePlayer | null>(null);
   const playerId = useId();
@@ -72,10 +71,10 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
   const [hasStarted, setHasStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isNativeFullscreen, setIsNativeFullscreen] = useState(false);
-  const [isFullscreenFallback, setIsFullscreenFallback] = useState(false);
   const video = feature.videos[locale];
   const poster = feature.poster ?? youtubePoster(video.videoId);
-  const isFullscreen = isNativeFullscreen || isFullscreenFallback;
+  const isFullscreen = isNativeFullscreen;
+  const heading = feature.navTitle?.[locale] ?? feature.title?.[locale] ?? feature.quote;
 
   const playerVars = useMemo(
     () => ({
@@ -109,10 +108,7 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
     function handleFullscreenChange() {
       const iframe = getPlayerIframe();
 
-      setIsNativeFullscreen(
-        document.fullscreenElement === iframe ||
-          document.fullscreenElement === fullscreenRef.current,
-      );
+      setIsNativeFullscreen(document.fullscreenElement === iframe);
     }
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
@@ -121,28 +117,6 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, []);
-
-  useEffect(() => {
-    if (!isFullscreenFallback) {
-      return;
-    }
-
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setIsFullscreenFallback(false);
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isFullscreenFallback]);
 
   useEffect(() => {
     const node = containerRef.current;
@@ -248,14 +222,9 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
   }
 
   async function toggleFullscreen() {
-    const frame = fullscreenRef.current;
+    const iframe = getPlayerIframe();
 
-    if (!frame) {
-      return;
-    }
-
-    if (isFullscreenFallback) {
-      setIsFullscreenFallback(false);
+    if (!iframe) {
       return;
     }
 
@@ -265,18 +234,13 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
     }
 
     try {
-      if (frame.requestFullscreen) {
-        await frame.requestFullscreen();
-        return;
-      }
+      await iframe.requestFullscreen();
     } catch {
-      // Mobile browsers may reject iframe-adjacent fullscreen requests.
     }
-
-    setIsFullscreenFallback(true);
   }
   return (
     <section
+      id={feature.id}
       ref={containerRef}
       aria-labelledby={headingId}
       data-interview-feature-id={feature.id}
@@ -290,31 +254,20 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
           id={headingId}
           className="mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
         >
-          {feature.quote}
+          {heading}
         </h2>
-        {feature.intro ? (
+        {feature.subtitle ?? feature.intro ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
-            {feature.intro[locale]}
+            {(feature.subtitle ?? feature.intro)?.[locale]}
           </p>
         ) : null}
 
         <figure className="mt-10 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-12">
           <div
-            ref={fullscreenRef}
-            className={[
-              "overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)] fullscreen:grid fullscreen:place-items-center fullscreen:bg-black",
-              isFullscreenFallback
-                ? "fixed inset-0 z-[100] grid place-items-center bg-black p-0"
-                : "",
-            ].join(" ")}
+            className="overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]"
           >
             <div
-              className={[
-                "relative aspect-video w-full overflow-hidden bg-background fullscreen:w-[min(100vw,177.7778vh)] fullscreen:max-w-screen fullscreen:max-h-screen",
-                isFullscreenFallback
-                  ? "h-auto max-h-[100svh] w-[min(100vw,177.7778svh)] max-w-screen"
-                  : "",
-              ].join(" ")}
+              className="relative aspect-video w-full overflow-hidden bg-background"
             >
               {!hasStarted ? (
                 <>

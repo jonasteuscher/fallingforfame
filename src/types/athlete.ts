@@ -49,8 +49,11 @@ export type AthleteVideo = {
 export type AthleteInterviewFeature = {
   id: string;
   placement: "after-origin" | "after-gallery";
+  title?: LocalizedText;
+  navTitle?: LocalizedText;
   chapter: LocalizedText;
   quote: string;
+  subtitle?: LocalizedText;
   intro?: LocalizedText;
   iframeTitle: LocalizedText;
   poster: string | null;
@@ -71,7 +74,7 @@ export type AthleteAudioStory = {
   placement: "after-gallery";
   chapter: LocalizedText;
   title: LocalizedText;
-  displayTitle: string;
+  displayTitle: string | LocalizedText;
   description?: LocalizedText;
   audio: {
     src: string;

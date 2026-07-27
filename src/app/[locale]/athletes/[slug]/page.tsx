@@ -142,7 +142,7 @@ const pageLabels = {
       future: "Zukunft",
       biography: "Biografie",
       career: "Karriere",
-      audioStory: "Audio Story",
+      audioStory: "Social Media & Sponsoring",
       gallery: "Galerie",
       worldRecord: "Weltrekord",
       socialMedia: "Social Media",
@@ -206,8 +206,20 @@ export default async function AthletePage({ params }: AthletePageProps) {
           labels={formatInterviewLabels(feature, locale, labels.interviewFeature)}
         />
       ));
+  const renderInterviewFeature = (featureId: string) =>
+    (athlete.interviewFeatures ?? [])
+      .filter((feature) => feature.id === featureId)
+      .map((feature) => (
+        <InterviewFeature
+          key={feature.id}
+          feature={feature}
+          locale={locale}
+          labels={formatInterviewLabels(feature, locale, labels.interviewFeature)}
+        />
+      ));
   const isTimHowell = athlete.slug === "tim-howell";
-  const narrativeNav = getNarrativeNav(athlete, labels);
+  const isLukasLoibl = athlete.slug === "lukas-loibl";
+  const narrativeNav = getNarrativeNav(athlete, labels, locale);
 
   return (
     <>
@@ -258,43 +270,64 @@ export default async function AthletePage({ params }: AthletePageProps) {
         />
       </div>
 
-      <div id={isTimHowell ? "public-image" : undefined} className="scroll-mt-20">
-        {renderInterviewFeatures("after-origin")}
-      </div>
-
       <div
-        id={isTimHowell ? "decision" : narrativeNav?.anchors.audioStory}
+        id={isTimHowell ? "public-image" : undefined}
         className="scroll-mt-20"
       >
-        <ScrollScrubVideo video={athlete.scrollVideo} locale={locale} />
-
-        {(athlete.audioStories ?? [])
-          .filter((story) => story.placement === "after-gallery")
-          .map((story) => (
-            <AudioStory key={story.id} story={story} locale={locale} />
-          ))}
-
-        {renderInterviewFeatures("after-gallery")}
+        {!isLukasLoibl ? renderInterviewFeatures("after-origin") : null}
       </div>
 
-      <div id={narrativeNav?.anchors.gallery} className="scroll-mt-20">
-        <AthleteGallerySection
-          images={athlete.images.gallery}
-          locale={locale}
-          title={labels.galleryTitle}
-          emptyText={labels.galleryEmpty}
-          initialVisibleCount={isTimHowell ? 9 : undefined}
-          viewAllLabel={labels.galleryViewAll}
-          showLessLabel={labels.galleryShowLess}
-          variant={isTimHowell ? "editorial" : "grid"}
-        />
-      </div>
+      {isLukasLoibl ? (
+        <>
+          {renderInterviewFeature("planning-comes-first")}
+
+          <div id={narrativeNav?.anchors.audioStory} className="scroll-mt-20">
+            {(athlete.audioStories ?? [])
+              .filter((story) => story.placement === "after-gallery")
+              .map((story) => (
+                <AudioStory key={story.id} story={story} locale={locale} />
+              ))}
+          </div>
+
+          {renderInterviewFeature("the-mountain-will-still-be-here")}
+        </>
+      ) : (
+        <div
+          id={isTimHowell ? "decision" : narrativeNav?.anchors.audioStory}
+          className="scroll-mt-20"
+        >
+          <ScrollScrubVideo video={athlete.scrollVideo} locale={locale} />
+
+          {(athlete.audioStories ?? [])
+            .filter((story) => story.placement === "after-gallery")
+            .map((story) => (
+              <AudioStory key={story.id} story={story} locale={locale} />
+            ))}
+
+          {renderInterviewFeatures("after-gallery")}
+        </div>
+      )}
+
+      {!isLukasLoibl ? (
+        <div id={narrativeNav?.anchors.gallery} className="scroll-mt-20">
+          <AthleteGallerySection
+            images={athlete.images.gallery}
+            locale={locale}
+            title={labels.galleryTitle}
+            emptyText={labels.galleryEmpty}
+            initialVisibleCount={isTimHowell ? 9 : undefined}
+            viewAllLabel={labels.galleryViewAll}
+            showLessLabel={labels.galleryShowLess}
+            variant={isTimHowell ? "editorial" : "grid"}
+          />
+        </div>
+      ) : null}
 
       <div id={isTimHowell ? "future" : undefined} className="scroll-mt-20">
         <FutureProjectFeature athlete={athlete} locale={locale} />
       </div>
 
-      {athlete.currentProject ? (
+      {!isLukasLoibl && athlete.currentProject ? (
         <div
           id={narrativeNav?.anchors.currentProject ?? athlete.currentProject.id}
           className="scroll-mt-20"
@@ -306,13 +339,52 @@ export default async function AthletePage({ params }: AthletePageProps) {
         </div>
       ) : null}
 
-      <div id={narrativeNav?.anchors.socialMedia} className="scroll-mt-20">
-        <AthleteLinksSection
-          links={athlete.links}
-          title={labels.linksTitle}
-          compact
-        />
-      </div>
+      {!isLukasLoibl ? (
+        <div id={narrativeNav?.anchors.socialMedia} className="scroll-mt-20">
+          <AthleteLinksSection
+            links={athlete.links}
+            title={labels.linksTitle}
+            compact
+          />
+        </div>
+      ) : null}
+
+      {isLukasLoibl ? (
+        <div id={narrativeNav?.anchors.gallery} className="scroll-mt-20">
+          <AthleteGallerySection
+            images={athlete.images.gallery}
+            locale={locale}
+            title={labels.galleryTitle}
+            emptyText={labels.galleryEmpty}
+            initialVisibleCount={isTimHowell ? 9 : undefined}
+            viewAllLabel={labels.galleryViewAll}
+            showLessLabel={labels.galleryShowLess}
+            variant={isTimHowell ? "editorial" : "grid"}
+          />
+        </div>
+      ) : null}
+
+      {isLukasLoibl && athlete.currentProject ? (
+        <div
+          id={narrativeNav?.anchors.currentProject ?? athlete.currentProject.id}
+          className="scroll-mt-20"
+        >
+          <ProjectStorySection
+            project={athlete.currentProject}
+            locale={locale}
+          />
+        </div>
+      ) : null}
+
+      {isLukasLoibl ? (
+        <div id={narrativeNav?.anchors.socialMedia} className="scroll-mt-20">
+          <AthleteLinksSection
+            links={athlete.links}
+            title={labels.linksTitle}
+            compact
+          />
+        </div>
+      ) : null}
 
       <div id="media-coverage" className="scroll-mt-20">
         <AthleteArticlesSection
@@ -369,31 +441,51 @@ type AthleteNarrativeNavConfig = {
 function getNarrativeNav(
   athlete: Athlete,
   labels: AthletePageLabels,
+  locale: Locale,
 ): AthleteNarrativeNavConfig | null {
   if (athlete.slug === "tim-howell") {
     return {
       ariaLabel: labels.narrativeNavLabel,
       items: [
-        { id: "person", label: labels.narrativeActs.person },
-        { id: "attraction", label: labels.narrativeActs.attraction },
+        { id: "person", label: labels.narrativeActs.biography },
+        { id: "attraction", label: labels.narrativeActs.career },
         { id: "public-image", label: labels.narrativeActs.publicImage },
         { id: "decision", label: labels.narrativeActs.decision },
+        { id: "gallery", label: labels.narrativeActs.gallery },
         { id: "future", label: labels.narrativeActs.future },
       ],
       anchors: {
         person: "person",
         baseStory: "attraction",
+        gallery: "gallery",
       },
     };
   }
 
   if (athlete.slug === "lukas-loibl") {
+    const interviewNavItem = (featureId: string) => {
+      const feature = athlete.interviewFeatures?.find((item) => item.id === featureId);
+
+      if (!feature) {
+        return null;
+      }
+
+      return {
+        id: feature.id,
+        label: getLukasInterviewNavLabel(feature, locale),
+      };
+    };
+    const planningNavItem = interviewNavItem("planning-comes-first");
+    const mountainNavItem = interviewNavItem("the-mountain-will-still-be-here");
+
     return {
       ariaLabel: "Lukas Loibl profile sections",
       items: [
         { id: "biography", label: labels.narrativeActs.biography },
         { id: "career", label: labels.narrativeActs.career },
-        { id: "audio-story", label: labels.narrativeActs.audioStory },
+        ...(planningNavItem ? [planningNavItem] : []),
+        { id: "audio-story", label: getLukasAudioStoryNavLabel(locale) },
+        ...(mountainNavItem ? [mountainNavItem] : []),
         { id: "gallery", label: labels.narrativeActs.gallery },
         { id: "world-record", label: labels.narrativeActs.worldRecord },
       ],
@@ -408,6 +500,25 @@ function getNarrativeNav(
   }
 
   return null;
+}
+
+function getLukasInterviewNavLabel(
+  feature: AthleteInterviewFeature,
+  locale: Locale,
+) {
+  if (feature.id === "planning-comes-first") {
+    return locale === "de" ? "Planung zuerst" : "Planning first";
+  }
+
+  if (feature.id === "the-mountain-will-still-be-here") {
+    return locale === "de" ? "Nicht springen" : "Not jumping";
+  }
+
+  return feature.navTitle?.[locale] ?? feature.title?.[locale] ?? feature.chapter[locale];
+}
+
+function getLukasAudioStoryNavLabel(locale: Locale) {
+  return locale === "de" ? "Social Media & Sponsoring" : "Social media & sponsorship";
 }
 
 function formatAthleteMeta(
