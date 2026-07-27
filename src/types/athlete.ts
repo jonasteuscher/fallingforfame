@@ -49,8 +49,11 @@ export type AthleteVideo = {
 export type AthleteInterviewFeature = {
   id: string;
   placement: "after-origin" | "after-gallery";
+  title?: LocalizedText;
+  navTitle?: LocalizedText;
   chapter: LocalizedText;
   quote: string;
+  subtitle?: LocalizedText;
   intro?: LocalizedText;
   iframeTitle: LocalizedText;
   poster: string | null;
@@ -71,7 +74,7 @@ export type AthleteAudioStory = {
   placement: "after-gallery";
   chapter: LocalizedText;
   title: LocalizedText;
-  displayTitle: string;
+  displayTitle: string | LocalizedText;
   description?: LocalizedText;
   audio: {
     src: string;
@@ -94,6 +97,39 @@ export type AthleteFutureProject = {
   video: {
     src: string;
     poster?: string | null;
+    caption?: LocalizedText;
+  };
+  links?: {
+    url: string;
+    label: LocalizedText;
+  }[];
+};
+
+export type AthleteCurrentProject = {
+  id: string;
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle: string;
+  intro: LocalizedText;
+  passages: {
+    title?: LocalizedText;
+    body: LocalizedText;
+  }[];
+  statement: LocalizedText;
+  closing: LocalizedText;
+  cta?: {
+    label: LocalizedText;
+    href: string;
+  };
+  images: {
+    src: string;
+    alt: LocalizedText;
+  }[];
+  video: {
+    src: string;
+    type: "video/mp4";
+    poster?: string | null;
+    label: LocalizedText;
   };
 };
 
@@ -141,12 +177,6 @@ export type AthleteArticle = {
   url: string | null;
 };
 
-export type AthleteSponsor = {
-  name: string;
-  logo: string | null;
-  url: string | null;
-};
-
 export type AthletePlatform = "Instagram" | "YouTube" | "Facebook";
 
 export type AthleteExperience = {
@@ -185,10 +215,11 @@ export type Athlete = {
   audioStories?: AthleteAudioStory[];
   scrollVideo?: AthleteScrollVideo;
   futureProject?: AthleteFutureProject;
+  currentProject?: AthleteCurrentProject;
   audio: AthleteAudio[];
   video: AthleteVideo[];
   quotes: AthleteQuote[];
   links: AthleteLink[];
   articles: AthleteArticle[];
-  sponsors: AthleteSponsor[];
+  sponsors: string[];
 };

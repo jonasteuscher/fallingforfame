@@ -519,8 +519,8 @@ export const athletes: Athlete[] = [
           de: "AUDIO STORY",
         },
         title: {
-          en: "Knowledge Dispels Fear",
-          de: "Knowledge Dispels Fear",
+          en: "Understanding Fear",
+          de: "Angst verstehen",
         },
         displayTitle: "KNOWLEDGE\nDISPELS FEAR",
         audio: {
@@ -604,13 +604,47 @@ export const athletes: Athlete[] = [
       },
       displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
       description: {
-        en: "An upcoming project by Tim Howell.",
-        de: "Ein kommendes Projekt von Tim Howell.",
+        en: "Tim is preparing another attempt to fly from Lhotse in the Himalaya. The project follows the ambition, preparation and uncertainty behind a high-altitude wingsuit objective.",
+        de: "Tim bereitet einen weiteren Versuch vor, vom Lhotse im Himalaya zu fliegen. Das Projekt begleitet Ambition, Vorbereitung und Ungewissheit hinter einem Wingsuit-Ziel in grosser Höhe.",
       },
       video: {
         src: "/video/tim-howell/Future_project.mp4",
         poster: null,
+        caption: {
+          en: "Teaser (2023)",
+          de: "Teaser (2023)",
+        },
       },
+      links: [
+        {
+          url: "https://explorersweb.com/lhotse-wingsuit-update/",
+          label: {
+            en: "First attempt (2024)",
+            de: "Erster Versuch (2024)",
+          },
+        },
+        {
+          url: "https://explorersweb.com/tim-howell-will-return-to-lhotse-to-attempt-the-worlds-highest-wingsuit-jump/",
+          label: {
+            en: "Second attempt (2025)",
+            de: "Zweiter Versuch (2025)",
+          },
+        },
+        {
+          url: "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
+          label: {
+            en: "Third attempt (2026)",
+            de: "Dritter Versuch (2026)",
+          },
+        },
+        {
+          url: "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
+          label: {
+            en: "Read the Jöttnar Project Story (2025)",
+            de: "Jöttnar-Projektgeschichte lesen",
+          },
+        },
+      ],
     },
     ...emptyMedia,
     links: [
@@ -712,31 +746,11 @@ export const athletes: Athlete[] = [
       },
     ],
     sponsors: [
-      {
-        name: "Jöttnar",
-        logo: "/images/sponsors/jottnar_black.png",
-        url: "https://www.jottnar.com/pages/pro-tim-howell",
-      },
-      {
-        name: "Scarpa",
-        logo: "/images/sponsors/scarpa_originla.webp",
-        url: "https://scarpa.com/",
-      },
-      {
-        name: "Adrenalin BASE",
-        logo: "/images/sponsors/adrenalin_base.png",
-        url: "https://www.adrenalinbase.com/",
-      },
-      {
-        name: "Inigo Insurance",
-        logo: "/images/sponsors/inigo.png",
-        url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
-      },
-      {
-        name: "Stirling Timepieces",
-        logo: "/images/sponsors/stirling.jpg",
-        url: "https://stirlingtimepieces.com/",
-      },
+      "Jöttnar",
+      "Scarpa",
+      "Adrenalin BASE",
+      "Inigo Insurance",
+      "Stirling Timepieces",
     ],
   },
   {
@@ -764,7 +778,7 @@ export const athletes: Athlete[] = [
           "IMG_9389.jpeg",
           "IMG_9586.jpeg",
           "IMG_9990.jpeg",
-          "Luki-2.jpeg",
+          "Lukas.jpeg",
           "_DSC3618.jpeg",
         ],
         [
@@ -825,6 +839,196 @@ export const athletes: Athlete[] = [
       },
     },
     originStory: originStories["lukas-loibl"],
+    interviewFeatures: [
+      {
+        id: "the-mountain-will-still-be-here",
+        placement: "after-origin",
+        title: {
+          en: "Choosing Not To Jump",
+          de: "Der Berg steht in tausend Jahren noch",
+        },
+        navTitle: {
+          en: "The Mountain Will Still Be Here",
+          de: "Der Berg steht in tausend Jahren noch",
+        },
+        chapter: {
+          en: "Interview",
+          de: "Interview",
+        },
+        quote: "THE MOUNTAIN\nWILL STILL BE HERE\nIN A THOUSAND YEARS",
+        subtitle: {
+          en: "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
+          de: "Nicht jeder Gipfel endet mit einem Sprung. Manchmal ist die sicherste Entscheidung, wieder abzusteigen und auf einen anderen Tag zu warten.",
+        },
+        iframeTitle: {
+          en: "Lukas Loibl interview about choosing not to jump",
+          de: "Lukas Loibl Interview über die Entscheidung, nicht zu springen",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "B4Bsp_ewxik",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "mVfu3RBZGVQ",
+          },
+        },
+      },
+      {
+        id: "planning-comes-first",
+        placement: "after-gallery",
+        title: {
+          en: "Planning Comes Before Everything",
+          de: "Planung ist oberste Priorität",
+        },
+        navTitle: {
+          en: "Planning Comes First",
+          de: "Planung ist oberste Priorität",
+        },
+        chapter: {
+          en: "Interview",
+          de: "Interview",
+        },
+        quote: "PLANNING\nCOMES FIRST",
+        subtitle: {
+          en: "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
+          de: "Jeder Sprung beginnt lange vor dem Exit. Wetter, Bedingungen, Ausrüstung und persönliche Grenzen bestimmen, ob ein Sprung überhaupt stattfinden sollte.",
+        },
+        iframeTitle: {
+          en: "Lukas Loibl interview about planning before BASE jumping",
+          de: "Lukas Loibl Interview über Planung vor dem BASE Jumping",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "QNf-Gmdh1Ig",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "jfAIEg2GOGY",
+          },
+        },
+      },
+    ],
+    audioStories: [
+      {
+        id: "social-media-and-sponsorship",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Jumping for the camera?",
+          de: "Für die Kamera springen?",
+        },
+        displayTitle: {
+          en: "SOCIAL MEDIA\nAND SPONSORSHIP",
+          de: "SOCAIL MEDIA\nUND SPONSORING",
+        },
+        audio: {
+          src: "/audio/lukas-loibl/Lukas_SocialMedia.wav",
+        },
+        transcript: {
+          en: "/audio/lukas-loibl/Lukas_SocialMedia_EN.srt",
+          de: "/audio/lukas-loibl/Lukas_SocialMedia_DE.srt",
+        },
+        portrait: "/images/athletes/lukas-loibl/Lukas-audio.jpeg",
+        portraitAlt: {
+          en: "Lukas Loibl smiling in a white shirt in a sunlit forest",
+          de: "Lukas Loibl lächelt in einem weissen Shirt in einem sonnigen Wald",
+        },
+        duration: "02:13",
+        waveform: [
+          0.69, 0.58, 0.92, 0.86, 0.67, 0.33, 0.63, 0.43, 0.18, 0.76,
+          0.51, 0.51, 0.7, 0.54, 0.91, 0.55, 0.77, 0.18, 0.82, 0.62,
+          0.71, 0.57, 0.54, 0.43, 0.51, 0.92, 0.74, 0.77, 0.72, 0.83,
+          0.92, 0.73, 0.76, 0.75, 0.48, 0.55, 0.61, 0.31, 0.73, 0.71,
+          0.18, 0.85, 0.83, 0.67, 0.66, 0.68, 0.75, 0.18,
+        ],
+      },
+    ],
+    currentProject: {
+      id: "lukas-loibl-world-record",
+      chapter: {
+        en: "Current Project",
+        de: "Aktuelles Projekt",
+      },
+      title: {
+        en: "World Record",
+        de: "Weltrekord",
+      },
+      displayTitle: "WORLD\nRECORD",
+      intro: {
+        en: "Lukas Loibl became the first wingsuit pilot to fly through ten natural rock formations across ten flights in the European Alps, setting a world record built on technical precision, planning and commitment.",
+        de: "Lukas Loibl wurde zum ersten Wingsuit-Piloten, der in zehn Flügen zehn natürliche Felsformationen in den europäischen Alpen durchflog. Der Weltrekord entstand aus technischer Präzision, Planung und konsequenter Vorbereitung.",
+      },
+      passages: [
+        {
+          title: {
+            en: "A line years in the making",
+            de: "Eine Linie über Jahre vorbereitet",
+          },
+          body: {
+            en: "At roughly 200 km/h, the openings become less like landmarks and more like decisions. Each gate asks for the right weather, the right angle, the right body position and the discipline to step away when one element is missing.",
+            de: "Bei rund 200 km/h werden die Öffnungen weniger zu Orientierungspunkten als zu Entscheidungen. Jedes Felsentor verlangt Wetter, Winkel, Körperposition und die Disziplin, umzudrehen, wenn ein Element nicht passt.",
+          },
+        },
+        {
+          title: {
+            en: "Progression before spectacle",
+            de: "Entwicklung vor Spektakel",
+          },
+          body: {
+            en: "The record was not a single leap into the unknown. It was the visible result of thousands of jumps, repeated alpine preparation and a team that made the margin around the flight as deliberate as the flight itself.",
+            de: "Der Rekord war kein einzelner Sprung ins Unbekannte. Er war das sichtbare Ergebnis tausender Sprünge, wiederholter alpiner Vorbereitung und eines Teams, das den Rahmen des Flugs genauso präzise plante wie den Flug selbst.",
+          },
+        },
+      ],
+      statement: {
+        en: "Ten flights. Ten formations.",
+        de: "Zehn Flüge. Zehn Formationen.",
+      },
+      closing: {
+        en: "The achievement sits at the edge of ambition and restraint: a world record measured not only by speed, but by the patience required to make the line possible.",
+        de: "Die Leistung liegt an der Grenze zwischen Ambition und Zurückhaltung: ein Weltrekord, der nicht nur an Geschwindigkeit gemessen wird, sondern an der Geduld, die diese Linie möglich machte.",
+      },
+      cta: {
+        label: {
+          en: "More about the project",
+          de: "Mehr zum Projekt",
+        },
+        href: "#media-coverage",
+      },
+      images: [
+        {
+          src: "/images/athletes/lukas-loibl/Loch1.jpeg",
+          alt: {
+            en: "Lukas Loibl flying in a wingsuit near a steep alpine rock gate",
+            de: "Lukas Loibl fliegt im Wingsuit nahe an einem steilen alpinen Felsentor",
+          },
+        },
+        {
+          src: "/images/athletes/lukas-loibl/Loch2.jpeg",
+          alt: {
+            en: "Natural rock opening in the European Alps used for Lukas Loibl's wingsuit record",
+            de: "Natürliches Felsentor in den europäischen Alpen für Lukas Loibls Wingsuit-Rekord",
+          },
+        },
+      ],
+      video: {
+        src: "/video/lukas-loibl/The_hole.mp4",
+        type: "video/mp4",
+        poster: "/video/lukas-loibl/The_hole_thumbnail.png",
+        label: {
+          en: "Lukas Loibl world record wingsuit flight",
+          de: "Lukas Loibl Wingsuit-Weltrekordflug",
+        },
+      },
+    },
     ...emptyMedia,
     links: [
       {
@@ -901,28 +1105,7 @@ export const athletes: Athlete[] = [
         url: "https://www.meinbezirk.at/bruck-an-der-mur/c-lokales/rekord-flug-wingsuit-pilot-durchfliegt-messnerin-loch_a8642106?ref=curate",
       },
     ],
-    sponsors: [
-      {
-        name: "Atair Canopies",
-        logo: "/images/sponsors/atair_white.png",
-        url: "https://ataircanopies.com/",
-      },
-      {
-        name: "Moreboards",
-        logo: "/images/sponsors/moreboards.avif",
-        url: "https://www.moreboards.com/",
-      },
-      {
-        name: "Squirrel",
-        logo: "/images/sponsors/squirrel_blue.png",
-        url: "https://squirrel.ws/",
-      },
-      {
-        name: "DJI",
-        logo: "/images/sponsors/dji_white.webp",
-        url: "https://www.dji.com/",
-      },
-    ],
+    sponsors: ["Atair Canopies", "Squirrel", "DJI", "Moreboards"],
   },
   {
     id: "marcel-geser",
@@ -1191,7 +1374,7 @@ export const athletes: Athlete[] = [
     },
     images: images(
       "/images/athletes/josef-braun/hero.JPG",
-      "/images/athletes/josef-braun/profile.jpg",
+      "/images/athletes/josef-braun/profile-color.jpg",
       athleteGallery(
         "josef-braun",
         [
@@ -1281,18 +1464,7 @@ export const athletes: Athlete[] = [
         url: "https://open.spotify.com/episode/3X4xOWb8lMYXub1Fw96rM6?si=81846fae04874b6c",
       },
     ],
-    sponsors: [
-      {
-        name: "Group A",
-        logo: "/images/sponsors/group_a.avif",
-        url: "https://www.groupaworldwide.com/pages/josef-braun",
-      },
-      {
-        name: "Fly The Earth",
-        logo: "/images/sponsors/flytheearth.png",
-        url: "https://flytheearth.com/",
-      },
-    ],
+    sponsors: ["Group A", "Fly The Earth"],
   },
 
 ];

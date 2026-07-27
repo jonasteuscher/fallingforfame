@@ -74,8 +74,9 @@ describe("athletes data", () => {
     }
   });
 
-  it("contains Tim Howell's localized interview feature data", () => {
+  it("contains localized interview feature data on profiles with interview chapters", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+    const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
 
     expect(tim?.interviewFeatures).toMatchObject([
       {
@@ -107,15 +108,71 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(lukas?.interviewFeatures).toMatchObject([
+      {
+        id: "the-mountain-will-still-be-here",
+        placement: "after-origin",
+        title: {
+          en: "Choosing Not To Jump",
+          de: "Der Berg steht in tausend Jahren noch",
+        },
+        navTitle: {
+          en: "The Mountain Will Still Be Here",
+          de: "Der Berg steht in tausend Jahren noch",
+        },
+        chapter: {
+          en: "Interview",
+          de: "Interview",
+        },
+        quote: "THE MOUNTAIN\nWILL STILL BE HERE\nIN A THOUSAND YEARS",
+        subtitle: {
+          en: "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
+        },
+        poster: null,
+        videos: {
+          en: { provider: "youtube", videoId: "B4Bsp_ewxik" },
+          de: { provider: "youtube", videoId: "mVfu3RBZGVQ" },
+        },
+      },
+      {
+        id: "planning-comes-first",
+        placement: "after-gallery",
+        title: {
+          en: "Planning Comes Before Everything",
+          de: "Planung ist oberste Priorität",
+        },
+        navTitle: {
+          en: "Planning Comes First",
+          de: "Planung ist oberste Priorität",
+        },
+        chapter: {
+          en: "Interview",
+          de: "Interview",
+        },
+        quote: "PLANNING\nCOMES FIRST",
+        subtitle: {
+          en: "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
+        },
+        poster: null,
+        videos: {
+          en: { provider: "youtube", videoId: "QNf-Gmdh1Ig" },
+          de: { provider: "youtube", videoId: "jfAIEg2GOGY" },
+        },
+      },
+    ]);
     expect(
       athletes
-        .filter((athlete) => athlete.slug !== "tim-howell")
+        .filter(
+          (athlete) =>
+            athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+        )
         .every((athlete) => athlete.interviewFeatures === undefined),
     ).toBe(true);
   });
 
-  it("contains Tim Howell's reusable audio story data only on his profile", () => {
+  it("contains reusable audio story data on the profiles with audio chapters", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+    const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
 
     expect(tim?.audioStories).toMatchObject([
       {
@@ -126,8 +183,8 @@ describe("athletes data", () => {
           de: "AUDIO STORY",
         },
         title: {
-          en: "Knowledge Dispels Fear",
-          de: "Knowledge Dispels Fear",
+          en: "Understanding Fear",
+          de: "Angst verstehen",
         },
         audio: {
           src: "/audio/tim-howell/Tim_knowledge_dispels_fear - isolated.mp3",
@@ -140,9 +197,46 @@ describe("athletes data", () => {
       },
     ]);
     expect(tim?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
+    expect(lukas?.audioStories).toMatchObject([
+      {
+        id: "social-media-and-sponsorship",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Jumping for the camera?",
+          de: "Für die Kamera springen?",
+        },
+        audio: {
+          src: "/audio/lukas-loibl/Lukas_SocialMedia.wav",
+        },
+        transcript: {
+          en: "/audio/lukas-loibl/Lukas_SocialMedia_EN.srt",
+          de: "/audio/lukas-loibl/Lukas_SocialMedia_DE.srt",
+        },
+        portrait: "/images/athletes/lukas-loibl/Lukas-audio.jpeg",
+      },
+    ]);
+    expect(lukas?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
+    for (const story of [
+      tim?.audioStories?.[0],
+      lukas?.audioStories?.[0],
+    ]) {
+      const waveform = story?.waveform ?? [];
+      const range = Math.max(...waveform) - Math.min(...waveform);
+      const uniqueHeights = new Set(waveform).size;
+
+      expect(range).toBeGreaterThan(0.5);
+      expect(uniqueHeights).toBeGreaterThan(20);
+    }
     expect(
       athletes
-        .filter((athlete) => athlete.slug !== "tim-howell")
+        .filter(
+          (athlete) =>
+            athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+        )
         .every((athlete) => athlete.audioStories === undefined),
     ).toBe(true);
   });
@@ -161,13 +255,43 @@ describe("athletes data", () => {
       },
       displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
       description: {
-        en: "An upcoming project by Tim Howell.",
-        de: "Ein kommendes Projekt von Tim Howell.",
+        en: "Tim is preparing another attempt to fly from Lhotse in the Himalaya. The project follows the ambition, preparation and uncertainty behind a high-altitude wingsuit objective.",
+        de: "Tim bereitet einen weiteren Versuch vor, vom Lhotse im Himalaya zu fliegen. Das Projekt begleitet Ambition, Vorbereitung und Ungewissheit hinter einem Wingsuit-Ziel in grosser Höhe.",
       },
       video: {
         src: "/video/tim-howell/Future_project.mp4",
         poster: null,
+        caption: {
+          en: "Teaser (2023)",
+          de: "Teaser (2023)",
+        },
       },
+      links: [
+        {
+          url: "https://explorersweb.com/lhotse-wingsuit-update/",
+          label: {
+            en: "First attempt (2024)",
+          },
+        },
+        {
+          url: "https://explorersweb.com/tim-howell-will-return-to-lhotse-to-attempt-the-worlds-highest-wingsuit-jump/",
+          label: {
+            en: "Second attempt (2025)",
+          },
+        },
+        {
+          url: "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
+          label: {
+            en: "Third attempt (2026)",
+          },
+        },
+        {
+          url: "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
+          label: {
+            en: "Read the Jöttnar Project Story (2025)",
+          },
+        },
+      ],
     });
     expect(
       athletes
@@ -270,7 +394,7 @@ describe("athletes data", () => {
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.portrait)
       .toBe("/images/athletes/lukas-loibl/profile.jpg");
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.images.portrait)
-      .toBe("/images/athletes/josef-braun/profile.jpg");
+      .toBe("/images/athletes/josef-braun/profile-color.jpg");
     expect(
       athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.images.portrait,
     ).toBe("/images/athletes/niclas-strohmeier/profile.jpg");
@@ -354,45 +478,17 @@ describe("athletes data", () => {
 
   it("contains athlete-specific sponsor data", () => {
     expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.sponsors)
-      .toMatchObject([
-        {
-          name: "Jöttnar",
-          logo: "/images/sponsors/jottnar_black.png",
-          url: "https://www.jottnar.com/pages/pro-tim-howell",
-        },
-        { name: "Scarpa", logo: "/images/sponsors/scarpa_originla.webp" },
-        { name: "Adrenalin BASE", logo: "/images/sponsors/adrenalin_base.png" },
-        {
-          name: "Inigo Insurance",
-          logo: "/images/sponsors/inigo.png",
-          url: "https://inigoinsurance.com/risk-ambassadors/tim-howell/",
-        },
-        {
-          name: "Stirling Timepieces",
-          logo: "/images/sponsors/stirling.jpg",
-          url: "https://stirlingtimepieces.com/",
-        },
+      .toEqual([
+        "Jöttnar",
+        "Scarpa",
+        "Adrenalin BASE",
+        "Inigo Insurance",
+        "Stirling Timepieces",
       ]);
     expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.sponsors)
-      .toMatchObject([
-        {
-          name: "Group A",
-          logo: "/images/sponsors/group_a.avif",
-          url: "https://www.groupaworldwide.com/pages/josef-braun",
-        },
-        {
-          name: "Fly The Earth",
-          logo: "/images/sponsors/flytheearth.png",
-          url: "https://flytheearth.com/",
-        },
-      ]);
+      .toEqual(["Group A", "Fly The Earth"]);
     expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.sponsors)
-      .toMatchObject([
-        { name: "Atair Canopies", logo: "/images/sponsors/atair_white.png" },
-        { name: "Moreboards", logo: "/images/sponsors/moreboards.avif" },
-        { name: "Squirrel", logo: "/images/sponsors/squirrel_blue.png" },
-        { name: "DJI", logo: "/images/sponsors/dji_white.webp" },
-      ]);
+      .toEqual(["Atair Canopies", "Squirrel", "DJI", "Moreboards"]);
     expect(
       athletes
         .filter(
@@ -436,6 +532,48 @@ describe("athletes data", () => {
       .toHaveLength(4);
     expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.articles)
       .toHaveLength(8);
+  });
+
+  it("contains Lukas Loibl's current world record project data only on his profile", () => {
+    const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
+
+    expect(lukas?.currentProject).toMatchObject({
+      id: "lukas-loibl-world-record",
+      chapter: {
+        en: "Current Project",
+        de: "Aktuelles Projekt",
+      },
+      title: {
+        en: "World Record",
+        de: "Weltrekord",
+      },
+      displayTitle: "WORLD\nRECORD",
+      images: [
+        {
+          src: "/images/athletes/lukas-loibl/Loch1.jpeg",
+        },
+        {
+          src: "/images/athletes/lukas-loibl/Loch2.jpeg",
+        },
+      ],
+      video: {
+        src: "/video/lukas-loibl/The_hole.mp4",
+        type: "video/mp4",
+        poster: "/video/lukas-loibl/The_hole_thumbnail.png",
+      },
+      cta: {
+        label: {
+          en: "More about the project",
+          de: "Mehr zum Projekt",
+        },
+        href: "#media-coverage",
+      },
+    });
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "lukas-loibl")
+        .every((athlete) => athlete.currentProject === undefined),
+    ).toBe(true);
   });
 
   it("uses Josef Braun's story image on the Today step", () => {

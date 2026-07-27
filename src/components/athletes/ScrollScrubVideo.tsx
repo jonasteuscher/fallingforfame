@@ -38,6 +38,7 @@ function ScrollScrubSection({
 }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
+  const textOverlayRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const sectionTopRef = useRef(0);
@@ -61,24 +62,30 @@ function ScrollScrubSection({
     return () => window.clearTimeout(timeout);
   }, []);
 
-  const updateCues = useCallback((progress: number) => {
-    const node = stickyRef.current;
+  const updateTextOverlay = useCallback((progress: number) => {
+    const node = textOverlayRef.current;
 
     if (!node) {
       return;
     }
 
-    node.querySelectorAll<HTMLElement>("[data-scroll-cue-start]").forEach((cue) => {
-      const start = Number(cue.dataset.scrollCueStart);
-      const end = Number(cue.dataset.scrollCueEnd);
-      const isActive = progress >= start && progress <= end;
+    const opacity = clamp(1 - (progress - 0.06) / 0.1, 0, 1);
 
-      cue.style.opacity = isActive ? "1" : "0";
-      cue.style.transform = isActive ? "translateY(0)" : "translateY(0.75rem)";
-    });
+    node.style.opacity = String(opacity);
+    node.style.transform = `translateY(${(1 - opacity) * -0.75}rem)`;
+    node.style.visibility = opacity <= 0 ? "hidden" : "visible";
   }, []);
 
   const scrubToScrollPosition = useCallback(() => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const rawProgress =
+      (scrollY - sectionTopRef.current + headerOffset) /
+      Math.max(scrollableDistanceRef.current - headerOffset, 1);
+    const progress = clamp(rawProgress, 0, 1);
+
+    progressRef.current = progress;
+    updateTextOverlay(progress);
+
     const media = videoRef.current;
     const durationValue = durationRef.current;
 
@@ -86,16 +93,8 @@ function ScrollScrubSection({
       return;
     }
 
-    const scrollY = window.scrollY || window.pageYOffset;
-    const rawProgress =
-      (scrollY - sectionTopRef.current + headerOffset) /
-      Math.max(scrollableDistanceRef.current - headerOffset, 1);
-    const progress = clamp(rawProgress, 0, 1);
     const maxTime = Math.max(durationValue - finalFramePadding, 0);
     const targetTime = clamp(progress * maxTime, 0, maxTime);
-
-    progressRef.current = progress;
-    updateCues(progress);
 
     if (Math.abs(lastTimeRef.current - targetTime) < seekThreshold) {
       return;
@@ -113,7 +112,7 @@ function ScrollScrubSection({
     } catch {
       isSeekingRef.current = false;
     }
-  }, [updateCues]);
+  }, [updateTextOverlay]);
 
   const scheduleScrubUpdate = useCallback(() => {
     if (rafRef.current !== null) {
@@ -311,25 +310,31 @@ function ScrollScrubSection({
             className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_32%,transparent)_0%,transparent_35%,color-mix(in_srgb,var(--background)_44%,transparent)_100%)]"
             aria-hidden="true"
           />
-          <div className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-20 sm:px-6 xl:px-10">
-            <div className="mx-auto max-w-7xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0">
-                {video.chapter[locale]}
-              </p>
-              <h2
-                id={headingId}
-                className="mt-4 max-w-4xl whitespace-pre-line text-[clamp(3.25rem,9vw,8rem)] font-semibold uppercase leading-[0.88] text-foreground motion-safe:animate-[fade-in-up_700ms_ease-out_120ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
-              >
-                {video.displayTitle}
-              </h2>
-              {video.description ? (
-                <p className="mt-6 max-w-xl text-base leading-7 text-foreground/72 sm:text-lg">
-                  {video.description[locale]}
+          <div
+            ref={textOverlayRef}
+            data-scroll-video-copy
+            className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-20 transition duration-500 motion-reduce:transition-none sm:px-6 xl:px-10"
+          >
+            <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.68fr)_minmax(18rem,0.32fr)] lg:items-start">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0">
+                  {video.chapter[locale]}
                 </p>
-              ) : null}
+                <h2
+                  id={headingId}
+                  className="mt-4 max-w-4xl whitespace-pre-line text-[clamp(3.25rem,9vw,8rem)] font-semibold uppercase leading-[0.88] text-foreground motion-safe:animate-[fade-in-up_700ms_ease-out_120ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+                >
+                  {video.displayTitle}
+                </h2>
+                {video.description ? (
+                  <p className="mt-6 max-w-xl text-base leading-7 text-foreground/72 sm:text-lg">
+                    {video.description[locale]}
+                  </p>
+                ) : null}
+              </div>
+              <ScrollPoem cues={video.cues ?? []} locale={locale} />
             </div>
           </div>
-          <ScrollCue cues={video.cues ?? []} locale={locale} />
           {isBuffering && duration > 0 ? (
             <div className="absolute bottom-8 left-1/2 h-1 w-28 -translate-x-1/2 overflow-hidden bg-foreground/18">
               <span className="block h-full w-1/2 animate-pulse bg-primary" />
@@ -402,7 +407,7 @@ function VideoFallback({
   );
 }
 
-function ScrollCue({
+function ScrollPoem({
   cues,
   locale,
 }: {
@@ -414,22 +419,15 @@ function ScrollCue({
   }
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-12 px-4 sm:px-6 xl:px-10">
-      <div className="mx-auto flex max-w-7xl justify-end">
-        <div className="max-w-md space-y-4 text-right">
-          {cues.map((cue) => (
-            <p
-              key={`${cue.start}-${cue.end}-${cue.text.en}`}
-              className="text-2xl font-semibold leading-tight text-foreground opacity-0 transition duration-500 motion-reduce:transition-none sm:text-4xl"
-              style={{ opacity: 0 }}
-              data-scroll-cue-start={cue.start}
-              data-scroll-cue-end={cue.end}
-            >
-              {cue.text[locale]}
-            </p>
-          ))}
-        </div>
-      </div>
+    <div className="max-w-sm pt-2 text-left lg:justify-self-end lg:pt-10 lg:text-right">
+      {cues.map((cue) => (
+        <p
+          key={`${cue.start}-${cue.end}-${cue.text.en}`}
+          className="text-2xl font-semibold leading-tight text-foreground sm:text-3xl"
+        >
+          {cue.text[locale]}
+        </p>
+      ))}
     </div>
   );
 }

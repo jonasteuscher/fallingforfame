@@ -238,7 +238,7 @@ export const project = {
       {
         label: "Supervisors",
         value:
-          "Prof. Dr. Marie-Therese Mäder (main supervisor), Nils Solanski (co-supervisor)",
+          "Dr. Marie-Therese Mäder (main supervisor), Nils Solanski (co-supervisor)",
       },
       { label: "Contributors", value: "Interview participants and documentary contributors" },
       { label: "Special thanks", value: "The BASE jumping community members who shared time, access and perspective" },

@@ -1,7 +1,9 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import AthletePage from "@/app/[locale]/athletes/[slug]/page";
+import AthletePage, {
+  generateMetadata as generateAthleteMetadata,
+} from "@/app/[locale]/athletes/[slug]/page";
 import { athletes } from "@/data/athletes";
 import { renderAsyncPage } from "../../test-utils/render-pages";
 
@@ -31,10 +33,40 @@ const athletePortraitAlt: Record<string, string> = {
   "marcel-geser": "Marcel Geser wearing a helmet and blue wingsuit gear",
   "niclas-strohmeier":
     "Niclas Strohmeier in a white helmet flying close to green cliffs",
-  "josef-braun": "Josef Braun smiling with parachute gear in a wooded area",
+  "josef-braun": "Josef Braun smiling with a helmet and camera gear in a wooded area",
 };
 
 describe("athlete detail page", () => {
+  it("generates descriptive localized athlete profile titles", async () => {
+    await expect(
+      generateAthleteMetadata({
+        params: Promise.resolve({ locale: "en", slug: "tim-howell" }),
+      }),
+    ).resolves.toMatchObject({
+      title: {
+        absolute: "Tim Howell – Professional BASE Jumper | Falling for Fame?",
+      },
+    });
+    await expect(
+      generateAthleteMetadata({
+        params: Promise.resolve({ locale: "de", slug: "tim-howell" }),
+      }),
+    ).resolves.toMatchObject({
+      title: {
+        absolute: "Tim Howell – Professioneller BASE Jumper | Falling for Fame?",
+      },
+    });
+    await expect(
+      generateAthleteMetadata({
+        params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
+      }),
+    ).resolves.toMatchObject({
+      title: {
+        absolute: "Josef Braun – BASE Coach and Video Creator | Falling for Fame?",
+      },
+    });
+  });
+
   it("renders every athlete detail page", async () => {
     for (const athlete of athletes) {
       const { unmount } = await renderAsyncPage(
@@ -164,7 +196,7 @@ describe("athlete detail page", () => {
       screen.getAllByRole("heading", { name: /KNOWLEDGE\s+DISPELS FEAR/ })[0],
     ).toBeVisible();
     expect(
-      screen.getByRole("button", { name: "Play Knowledge Dispels Fear" }),
+      screen.getByRole("button", { name: "Play Understanding Fear" }),
     ).toBeVisible();
     expect(screen.getByText("FUTURE PROJECT")).toBeVisible();
     expect(
@@ -172,7 +204,36 @@ describe("athlete detail page", () => {
         name: /A LEAP FROM\s+THE TOP OF\s+THE WORLD/,
       }),
     ).toBeVisible();
-    expect(screen.getByText("An upcoming project by Tim Howell.")).toBeVisible();
+    expect(
+      screen.getByText(/Tim is preparing another attempt to fly from Lhotse/),
+    ).toBeVisible();
+    expect(screen.getByText("Teaser (2023)")).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: /First attempt \(2024\)/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/lhotse-wingsuit-update/",
+    );
+    expect(
+      screen.getByRole("link", { name: /Second attempt \(2025\)/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/tim-howell-will-return-to-lhotse-to-attempt-the-worlds-highest-wingsuit-jump/",
+    );
+    expect(
+      screen.getByRole("link", { name: /Third attempt \(2026\)/ }),
+    ).toHaveAttribute(
+      "href",
+      "https://explorersweb.com/tim-howell-will-again-try-to-wingsuit-from-lhotse/",
+    );
+    expect(
+      screen.getByRole("link", {
+        name: /Read the Jöttnar Project Story \(2025\)/,
+      }),
+    ).toHaveAttribute(
+      "href",
+      "https://www.jottnar.com/pages/tim-howell-lhotse-world-record-jump",
+    );
     expect(
       screen
         .getByLabelText(
@@ -240,9 +301,21 @@ describe("athlete detail page", () => {
     ).toBeVisible();
     expect(screen.getByRole("navigation", { name: "Tim Howell profile sections" }))
       .toBeVisible();
+    expect(screen.getByRole("link", { name: "Biography" })).toHaveAttribute(
+      "href",
+      "#person",
+    );
+    expect(screen.getByRole("link", { name: "Career" })).toHaveAttribute(
+      "href",
+      "#attraction",
+    );
     expect(screen.getByRole("link", { name: "Decision" })).toHaveAttribute(
       "href",
       "#decision",
+    );
+    expect(screen.getByRole("link", { name: "Gallery" })).toHaveAttribute(
+      "href",
+      "#gallery",
     );
     expect(screen.getByRole("button", { name: "View full gallery" }))
       .toHaveAttribute("aria-expanded", "false");
@@ -280,6 +353,14 @@ describe("athlete detail page", () => {
     );
 
     expect(screen.getByText("Social Media")).toBeVisible();
+    expect(screen.getByRole("link", { name: "Biografie" })).toHaveAttribute(
+      "href",
+      "#person",
+    );
+    expect(screen.getByRole("link", { name: "Karriere" })).toHaveAttribute(
+      "href",
+      "#attraction",
+    );
     expect(screen.getByRole("button", { name: "Tim Howell Interview abspielen" }))
       .toBeVisible();
     expect(
@@ -308,6 +389,215 @@ describe("athlete detail page", () => {
         'img[src="https://i.ytimg.com/vi/Bi4Ba7mDy9Y/maxresdefault.jpg"]',
       ),
     ).toBeInTheDocument();
+  });
+
+  it("uses the compact social and media coverage layout for non-Tim athletes", async () => {
+    await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "lukas-loibl" }),
+      }),
+    );
+
+    expect(
+      screen.getByRole("link", { name: /Lukas Loibl Website/ }),
+    ).toHaveClass("min-h-12");
+    expect(
+      screen.getByText("Austrian wingsuit pilot claims world record"),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Wingsuit world record at 200 km/h through the Messnerin hole",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByText("Austrian wingsuit record through a rock opening"),
+    ).toBeVisible();
+    expect(
+      screen.queryByText("Austrian sets world record flying through a rock hole"),
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "View all coverage" }));
+
+    expect(
+      screen.getByText("Austrian sets world record flying through a rock hole"),
+    ).toBeVisible();
+  });
+
+  it("renders Lukas Loibl's project, interview, social and gallery chapters in navigation order", async () => {
+    const { container } = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "lukas-loibl" }),
+      }),
+    );
+
+    const gallerySection = screen
+      .getByRole("heading", { name: "Photo Gallery" })
+      .closest("section");
+    const projectSection = container.querySelector(
+      '[data-current-project-section="lukas-loibl-world-record"]',
+    );
+    const mountainInterview = container.querySelector(
+      '[data-interview-feature-id="the-mountain-will-still-be-here"]',
+    );
+    const planningInterview = container.querySelector(
+      '[data-interview-feature-id="planning-comes-first"]',
+    );
+    const audioStory = container.querySelector(
+      '[data-audio-story-id="social-media-and-sponsorship"]',
+    );
+    const linksSection = screen
+      .getByRole("heading", { name: "Personal Links & Socials" })
+      .closest("section");
+    const mediaCoverageAnchor = container.querySelector("#media-coverage");
+
+    expect(audioStory).toBeInTheDocument();
+    expect(mountainInterview).toBeInTheDocument();
+    expect(planningInterview).toBeInTheDocument();
+    expect(projectSection).toBeInTheDocument();
+    expect(mediaCoverageAnchor).toBeInTheDocument();
+    expect(
+      planningInterview?.compareDocumentPosition(audioStory as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      audioStory?.compareDocumentPosition(mountainInterview as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      mountainInterview?.compareDocumentPosition(gallerySection as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      gallerySection?.compareDocumentPosition(projectSection as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      projectSection?.compareDocumentPosition(linksSection as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      linksSection?.compareDocumentPosition(mediaCoverageAnchor as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      screen.getByRole("navigation", { name: "Lukas Loibl profile sections" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Planning first" }))
+      .toHaveAttribute("href", "#planning-comes-first");
+    expect(screen.getByRole("link", { name: "Social media & sponsorship" }))
+      .toHaveAttribute("href", "#audio-story");
+    expect(
+      screen.getByRole("link", { name: "Not jumping" }),
+    ).toHaveAttribute("href", "#the-mountain-will-still-be-here");
+    expect(screen.getByRole("link", { name: "Gallery" }))
+      .toHaveAttribute("href", "#gallery");
+    expect(screen.getByRole("link", { name: "World Record" })).toHaveAttribute(
+      "href",
+      "#world-record",
+    );
+    expect(screen.queryByRole("link", { name: "Social Media" }))
+      .not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /WORLD\s+RECORD/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "The Mountain Will Still Be Here",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Planning Comes First" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Lukas Loibl interview about choosing not to jump",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Lukas Loibl interview about planning before BASE jumping",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: /SOCIAL MEDIA\s+AND SPONSORSHIP/,
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Jumping for the camera?" }))
+      .toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Jumping for the camera?",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByAltText(
+        "Lukas Loibl smiling in a white shirt in a sunlit forest",
+      ),
+    ).toHaveAttribute(
+      "src",
+      "/images/athletes/lukas-loibl/Lukas-audio.jpeg",
+    );
+    expect(
+      screen.getByText(/ten natural rock formations across ten flights/),
+    ).toBeVisible();
+    expect(
+      screen.getByAltText(
+        "Lukas Loibl flying in a wingsuit near a steep alpine rock gate",
+      ),
+    ).toHaveAttribute("src", "/images/athletes/lukas-loibl/Loch1.jpeg");
+    expect(
+      screen.getByAltText(
+        "Natural rock opening in the European Alps used for Lukas Loibl's wingsuit record",
+      ),
+    ).toHaveAttribute("src", "/images/athletes/lukas-loibl/Loch2.jpeg");
+    expect(
+      screen.getByLabelText("Lukas Loibl world record wingsuit flight"),
+    ).toHaveAttribute("controls");
+    expect(
+      screen.getByLabelText("Lukas Loibl world record wingsuit flight"),
+    ).toHaveAttribute(
+      "poster",
+      "/video/lukas-loibl/The_hole_thumbnail.png",
+    );
+    expect(
+      screen.getByRole("link", { name: "More about the project" }),
+    ).toHaveAttribute("href", "#media-coverage");
+  });
+
+  it("renders Lukas Loibl's German world record chapter", async () => {
+    await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "de", slug: "lukas-loibl" }),
+      }),
+    );
+
+    expect(screen.getByText("Aktuelles Projekt")).toBeVisible();
+    expect(screen.getByText(/zehn natürliche Felsformationen/)).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: /SOCAIL MEDIA\s+UND SPONSORING/,
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Für die Kamera springen?" }))
+      .toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Für die Kamera springen? abspielen" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Planung zuerst" }))
+      .toHaveAttribute("href", "#planning-comes-first");
+    expect(screen.getByRole("link", { name: "Social Media & Sponsoring" }))
+      .toHaveAttribute("href", "#audio-story");
+    expect(screen.getByRole("link", { name: "Nicht springen" }))
+      .toHaveAttribute("href", "#the-mountain-will-still-be-here");
+    expect(screen.getByRole("link", { name: "Weltrekord" })).toHaveAttribute(
+      "href",
+      "#world-record",
+    );
   });
 
   it("updates the hero quote when navigating between athlete pages", async () => {
@@ -542,7 +832,7 @@ describe("athlete detail page", () => {
     expect(screen.getByText("500’000+")).toBeInTheDocument();
   });
 
-  it("renders confirmed sponsor information", async () => {
+  it("renders sponsor information as neutral profile text", async () => {
     const { container } = await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "en", slug: "lukas-loibl" }),
@@ -558,22 +848,19 @@ describe("athlete detail page", () => {
     await waitFor(() => expect(screen.getByText("Yes")).toBeVisible());
     expect(
       screen.getByText(
-        "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
+        "Lukas Loibl reports sponsorship relationships with Atair Canopies, Squirrel, DJI and Moreboards. These partnerships are documented here as part of the athlete's professional context within BASE jumping.",
       ),
     ).toBeVisible();
-    expect(screen.getByAltText("Atair Canopies logo")).toBeVisible();
-    expect(screen.getByAltText("Moreboards logo")).toBeVisible();
-    expect(screen.getByAltText("Squirrel logo")).toBeVisible();
-    expect(screen.getByAltText("DJI logo")).toBeVisible();
     expect(
-      screen.getByRole("link", { name: "Atair Canopies logo" }),
-    ).toHaveAttribute("target", "_blank");
+      screen.queryByRole("heading", { name: "Sponsors & Partnerships" }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByAltText(/Atair Canopies logo/i)).not.toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Atair Canopies logo" }),
-    ).toHaveAttribute("rel", "noopener noreferrer");
+      screen.queryByRole("link", { name: /Atair Canopies/i }),
+    ).not.toBeInTheDocument();
   });
 
-  it("renders Josef Braun ambassador partnerships", async () => {
+  it("renders Josef Braun sponsor names without sponsor links or logos", async () => {
     await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
@@ -581,16 +868,17 @@ describe("athlete detail page", () => {
     );
 
     expect(
-      screen.getByRole("heading", { name: "Sponsors & Partnerships" }),
+      screen.queryByRole("heading", { name: "Sponsors & Partnerships" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Josef Braun reports sponsorship relationships with Group A and Fly The Earth. These partnerships are documented here as part of the athlete's professional context within BASE jumping.",
+      ),
     ).toBeVisible();
-    expect(screen.getByAltText("Group A logo")).toBeVisible();
-    expect(screen.getByAltText("Fly The Earth logo")).toBeVisible();
-    expect(screen.getByRole("link", { name: "Group A logo" })).toHaveAttribute(
-      "href",
-      "https://www.groupaworldwide.com/pages/josef-braun",
-    );
-    expect(screen.getByRole("link", { name: "Fly The Earth logo" }))
-      .toHaveAttribute("href", "https://flytheearth.com/");
+    expect(screen.queryByAltText("Group A logo")).not.toBeInTheDocument();
+    expect(screen.queryByAltText("Fly The Earth logo")).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Group A/i }))
+      .not.toBeInTheDocument();
   });
 });
 

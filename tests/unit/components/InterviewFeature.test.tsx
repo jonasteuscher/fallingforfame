@@ -183,7 +183,7 @@ describe("InterviewFeature", () => {
     expect(fullscreenButton).toHaveClass("rounded-full", "bg-background/45");
   });
 
-  it("fullscreen button targets the player shell for mobile-compatible fullscreen", async () => {
+  it("fullscreen button targets the YouTube iframe", async () => {
     render(
       <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
     );
@@ -194,6 +194,9 @@ describe("InterviewFeature", () => {
     fireEvent.click(screen.getByRole("button", { name: labels.fullscreen }));
 
     expect(elementRequestFullscreen).toHaveBeenCalledTimes(1);
+    expect(elementRequestFullscreen.mock.instances[0]).toBe(
+      document.querySelector("iframe"),
+    );
   });
 
   it("loads the German YouTube interview for the German locale", async () => {
@@ -251,6 +254,79 @@ describe("InterviewFeature", () => {
     expect(playerConstructor.mock.calls[0]?.[1].videoId).toBe("Bi4Ba7mDy9Y");
   });
 
+  it("loads Lukas Loibl's custom-poster interview data for both locales", async () => {
+    const { unmount } = render(
+      <InterviewFeature
+        feature={feature("the-mountain-will-still-be-here", "lukas-loibl")}
+        locale="en"
+        labels={{
+          play: "Play Lukas Loibl interview about choosing not to jump",
+          fullscreen: "Open Lukas Loibl interview fullscreen",
+          exitFullscreen: "Exit Lukas Loibl interview fullscreen",
+        }}
+      />,
+    );
+
+    expect(screen.getByText("Interview")).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "The Mountain Will Still Be Here",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(/Sometimes the safest decision is to hike back down/),
+    ).toBeVisible();
+    expect(screen.getByAltText("")).toHaveAttribute(
+      "src",
+      "https://i.ytimg.com/vi/B4Bsp_ewxik/maxresdefault.jpg",
+    );
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Play Lukas Loibl interview about choosing not to jump",
+      }),
+    );
+    await waitFor(() => expect(playerConstructor).toHaveBeenCalledTimes(1));
+    expect(playerConstructor.mock.calls[0]?.[1].videoId).toBe("B4Bsp_ewxik");
+    expect(document.querySelector("iframe")).toHaveAttribute(
+      "title",
+      "Lukas Loibl interview about choosing not to jump",
+    );
+    unmount();
+
+    playerConstructor.mockClear();
+    createdPlayers = [];
+
+    render(
+      <InterviewFeature
+        feature={feature("planning-comes-first", "lukas-loibl")}
+        locale="de"
+        labels={{
+          play: "Lukas Loibl Interview über Planung vor dem BASE Jumping abspielen",
+          fullscreen: "Open Lukas Loibl interview fullscreen",
+          exitFullscreen: "Exit Lukas Loibl interview fullscreen",
+        }}
+      />,
+    );
+
+    expect(
+      screen.getByRole("heading", { name: "Planung ist oberste Priorität" }),
+    ).toBeVisible();
+    expect(screen.getByAltText("")).toHaveAttribute(
+      "src",
+      "https://i.ytimg.com/vi/jfAIEg2GOGY/maxresdefault.jpg",
+    );
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Lukas Loibl Interview über Planung vor dem BASE Jumping abspielen",
+      }),
+    );
+    await waitFor(() => expect(playerConstructor).toHaveBeenCalledTimes(1));
+    expect(playerConstructor.mock.calls[0]?.[1].videoId).toBe("jfAIEg2GOGY");
+    expect(playerConstructor.mock.calls[0]?.[1].playerVars).toMatchObject({
+      hl: "de",
+    });
+  });
+
   it("pauses playback when less than 40 percent remains visible", async () => {
     render(
       <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
@@ -295,19 +371,22 @@ describe("InterviewFeature", () => {
     expect(screen.getByTestId("youtube-player-mount").parentElement)
       .toHaveClass("aspect-video");
     expect(screen.getByTestId("youtube-player-mount").parentElement)
-      .toHaveClass("fullscreen:w-[min(100vw,177.7778vh)]");
+      .not.toHaveClass("fullscreen:w-[min(100vw,177.7778vh)]");
     expect(screen.getByTestId("youtube-player-mount").closest("section"))
       .toHaveClass("overflow-x-clip");
   });
 });
 
-function feature(id: string): AthleteInterviewFeature {
-  const athlete = athletes.find((item) => item.slug === "tim-howell");
+function feature(
+  id: string,
+  athleteSlug: "tim-howell" | "lukas-loibl" = "tim-howell",
+): AthleteInterviewFeature {
+  const athlete = athletes.find((item) => item.slug === athleteSlug);
 
   const interviewFeature = athlete?.interviewFeatures?.find((item) => item.id === id);
 
   if (!interviewFeature) {
-    throw new Error(`Tim Howell ${id} interview fixture missing`);
+    throw new Error(`${athleteSlug} ${id} interview fixture missing`);
   }
 
   return interviewFeature;

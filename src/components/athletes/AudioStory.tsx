@@ -34,6 +34,10 @@ export function AudioStory({ story, locale }: AudioStoryProps) {
   const headingId = useId();
   const storyId = `audio-story-${story.id}`;
   const labels = audioStoryLabels[locale];
+  const displayTitle =
+    typeof story.displayTitle === "string"
+      ? story.displayTitle
+      : story.displayTitle[locale];
 
   return (
     <section
@@ -49,7 +53,7 @@ export function AudioStory({ story, locale }: AudioStoryProps) {
           id={headingId}
           className="mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
         >
-          {story.displayTitle}
+          {displayTitle}
         </h2>
         {story.description ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">

@@ -93,11 +93,14 @@ describe("ScrollScrubVideo", () => {
     await waitForScrubMode();
     expect(screen.getByText("SCROLL THROUGH")).toBeVisible();
     expect(screen.getByRole("heading", { name: "THE JUMP" })).toBeVisible();
+    expect(container.querySelector("[data-scroll-video-copy] > div"))
+      .toHaveClass("lg:grid-cols-[minmax(0,0.68fr)_minmax(18rem,0.32fr)]");
     expect(screen.getByText("The line begins long before the exit."))
       .toBeInTheDocument();
     expect(screen.getByText("Every movement is prepared.")).toBeInTheDocument();
     expect(screen.getByText("In the end, the decision remains."))
       .toBeInTheDocument();
+    expect(container.querySelector("[data-scroll-cue-start]")).not.toBeInTheDocument();
     await waitFor(() =>
       expect(container.querySelector("source")).toHaveAttribute(
         "src",
@@ -137,6 +140,9 @@ describe("ScrollScrubVideo", () => {
     window.scrollY = 10_000;
     window.dispatchEvent(new Event("scroll"));
     runRaf();
+    expect(container.querySelector("[data-scroll-video-copy]")).toHaveStyle({
+      visibility: "hidden",
+    });
     expect(video.currentTime).toBe(0);
 
     act(() => {
@@ -149,6 +155,9 @@ describe("ScrollScrubVideo", () => {
     window.scrollY = -10_000;
     window.dispatchEvent(new Event("scroll"));
     runRaf();
+    expect(container.querySelector("[data-scroll-video-copy]")).toHaveStyle({
+      visibility: "visible",
+    });
     expect(video.currentTime).toBe(0);
   });
 
