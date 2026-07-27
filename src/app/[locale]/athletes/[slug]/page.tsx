@@ -80,6 +80,7 @@ const pageLabels = {
       future: "Future",
       biography: "Biography",
       career: "Career",
+      audioStory: "Audio Story",
       gallery: "Gallery",
       worldRecord: "World Record",
       socialMedia: "Social Media",
@@ -141,6 +142,7 @@ const pageLabels = {
       future: "Zukunft",
       biography: "Biografie",
       career: "Karriere",
+      audioStory: "Audio Story",
       gallery: "Galerie",
       worldRecord: "Weltrekord",
       socialMedia: "Social Media",
@@ -260,7 +262,10 @@ export default async function AthletePage({ params }: AthletePageProps) {
         {renderInterviewFeatures("after-origin")}
       </div>
 
-      <div id={isTimHowell ? "decision" : undefined} className="scroll-mt-20">
+      <div
+        id={isTimHowell ? "decision" : narrativeNav?.anchors.audioStory}
+        className="scroll-mt-20"
+      >
         <ScrollScrubVideo video={athlete.scrollVideo} locale={locale} />
 
         {(athlete.audioStories ?? [])
@@ -354,6 +359,7 @@ type AthleteNarrativeNavConfig = {
   anchors: {
     person?: string;
     baseStory?: string;
+    audioStory?: string;
     gallery?: string;
     currentProject?: string;
     socialMedia?: string;
@@ -387,16 +393,16 @@ function getNarrativeNav(
       items: [
         { id: "biography", label: labels.narrativeActs.biography },
         { id: "career", label: labels.narrativeActs.career },
+        { id: "audio-story", label: labels.narrativeActs.audioStory },
         { id: "gallery", label: labels.narrativeActs.gallery },
         { id: "world-record", label: labels.narrativeActs.worldRecord },
-        { id: "social-media", label: labels.narrativeActs.socialMedia },
       ],
       anchors: {
         person: "biography",
         baseStory: "career",
+        audioStory: "audio-story",
         gallery: "gallery",
         currentProject: "world-record",
-        socialMedia: "social-media",
       },
     };
   }

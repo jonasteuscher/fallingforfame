@@ -416,13 +416,20 @@ describe("athlete detail page", () => {
     const projectSection = container.querySelector(
       '[data-current-project-section="lukas-loibl-world-record"]',
     );
+    const audioStory = container.querySelector(
+      '[data-audio-story-id="social-media-and-sponsorship"]',
+    );
     const linksSection = screen
       .getByRole("heading", { name: "Personal Links & Socials" })
       .closest("section");
     const mediaCoverageAnchor = container.querySelector("#media-coverage");
 
+    expect(audioStory).toBeInTheDocument();
     expect(projectSection).toBeInTheDocument();
     expect(mediaCoverageAnchor).toBeInTheDocument();
+    expect(
+      audioStory?.compareDocumentPosition(gallerySection as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
       gallerySection?.compareDocumentPosition(projectSection as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
@@ -432,6 +439,8 @@ describe("athlete detail page", () => {
     expect(
       screen.getByRole("navigation", { name: "Lukas Loibl profile sections" }),
     ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Audio Story" }))
+      .toHaveAttribute("href", "#audio-story");
     expect(screen.getByRole("link", { name: "World Record" })).toHaveAttribute(
       "href",
       "#world-record",
@@ -439,6 +448,24 @@ describe("athlete detail page", () => {
     expect(
       screen.getByRole("heading", { name: /WORLD\s+RECORD/ }),
     ).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: /SOCIAL MEDIA\s+AND SPONSORSHIP/,
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Social Media And Sponsorship",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByAltText(
+        "Lukas Loibl smiling in a white shirt in a sunlit forest",
+      ),
+    ).toHaveAttribute(
+      "src",
+      "/images/athletes/lukas-loibl/Lukas-audio.jpeg",
+    );
     expect(
       screen.getByText(/ten natural rock formations across ten flights/),
     ).toBeVisible();

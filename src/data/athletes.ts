@@ -778,7 +778,7 @@ export const athletes: Athlete[] = [
           "IMG_9389.jpeg",
           "IMG_9586.jpeg",
           "IMG_9990.jpeg",
-          "Luki-2.jpeg",
+          "Lukas.jpeg",
           "_DSC3618.jpeg",
         ],
         [
@@ -839,6 +839,41 @@ export const athletes: Athlete[] = [
       },
     },
     originStory: originStories["lukas-loibl"],
+    audioStories: [
+      {
+        id: "social-media-and-sponsorship",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Social Media And Sponsorship",
+          de: "Social Media und Sponsoring",
+        },
+        displayTitle: "SOCIAL MEDIA\nAND SPONSORSHIP",
+        audio: {
+          src: "/audio/lukas-loibl/Lukas_SocialMedia.wav",
+        },
+        transcript: {
+          en: "/audio/lukas-loibl/Lukas_SocialMedia_EN.srt",
+          de: "/audio/lukas-loibl/Lukas_SocialMedia_DE.srt",
+        },
+        portrait: "/images/athletes/lukas-loibl/Lukas-audio.jpeg",
+        portraitAlt: {
+          en: "Lukas Loibl smiling in a white shirt in a sunlit forest",
+          de: "Lukas Loibl lächelt in einem weissen Shirt in einem sonnigen Wald",
+        },
+        duration: "02:13",
+        waveform: [
+          0.17, 0.16, 0.22, 0.21, 0.17, 0.16, 0.16, 0.16, 0.16, 0.19,
+          0.16, 0.16, 0.19, 0.16, 0.25, 0.16, 0.16, 0.16, 0.16, 0.16,
+          0.2, 0.16, 0.16, 0.16, 0.24, 0.21, 0.19, 0.16, 0.23, 0.25,
+          0.22, 0.19, 0.18, 0.17, 0.16, 0.16, 0.16, 0.18, 0.17, 0.16,
+          0.21, 0.21, 0.16, 0.16, 0.16, 0.18, 0.16, 0.16,
+        ],
+      },
+    ],
     currentProject: {
       id: "lukas-loibl-world-record",
       chapter: {

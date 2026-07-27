@@ -114,8 +114,9 @@ describe("athletes data", () => {
     ).toBe(true);
   });
 
-  it("contains Tim Howell's reusable audio story data only on his profile", () => {
+  it("contains reusable audio story data on the profiles with audio chapters", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+    const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
 
     expect(tim?.audioStories).toMatchObject([
       {
@@ -140,9 +141,35 @@ describe("athletes data", () => {
       },
     ]);
     expect(tim?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
+    expect(lukas?.audioStories).toMatchObject([
+      {
+        id: "social-media-and-sponsorship",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Social Media And Sponsorship",
+          de: "Social Media und Sponsoring",
+        },
+        audio: {
+          src: "/audio/lukas-loibl/Lukas_SocialMedia.wav",
+        },
+        transcript: {
+          en: "/audio/lukas-loibl/Lukas_SocialMedia_EN.srt",
+          de: "/audio/lukas-loibl/Lukas_SocialMedia_DE.srt",
+        },
+        portrait: "/images/athletes/lukas-loibl/Lukas-audio.jpeg",
+      },
+    ]);
+    expect(lukas?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
     expect(
       athletes
-        .filter((athlete) => athlete.slug !== "tim-howell")
+        .filter(
+          (athlete) =>
+            athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+        )
         .every((athlete) => athlete.audioStories === undefined),
     ).toBe(true);
   });
