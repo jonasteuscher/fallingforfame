@@ -11,10 +11,9 @@ import {
   AthleteNarrativeNav,
   AthleteProfileOverview,
   AudioStory,
-  FutureProjectFeature,
   InterviewFeature,
   MoreAthletes,
-  ProjectStorySection,
+  ProjectFeature,
   ScrollScrubVideo,
 } from "@/components/athletes";
 import { athletes, getAthleteBySlug } from "@/data/athletes";
@@ -69,8 +68,7 @@ const pageLabels = {
         `Explore how ${possessiveName(name)} perspective relates to the wider research findings.`,
       cta: "Explore Findings",
     },
-    moreTitle: "More Athlete Stories",
-    continuationTitle: "Continue with another perspective",
+    moreTitle: "More Athlete Portraits",
     narrativeNavLabel: "Tim Howell profile sections",
     narrativeActs: {
       person: "Person",
@@ -132,7 +130,6 @@ const pageLabels = {
       cta: "Erkenntnisse öffnen",
     },
     moreTitle: "Weitere Athletenporträts",
-    continuationTitle: "Mit einer anderen Perspektive weitergehen",
     narrativeNavLabel: "Tim Howell Profilabschnitte",
     narrativeActs: {
       person: "Person",
@@ -289,6 +286,20 @@ export default async function AthletePage({ params }: AthletePageProps) {
               ))}
           </div>
 
+          {athlete.currentProject ? (
+            <div
+              id={narrativeNav?.anchors.currentProject ?? athlete.currentProject.id}
+              className="scroll-mt-20"
+            >
+              <ProjectFeature
+                athleteName={athlete.name}
+                project={athlete.currentProject}
+                status="current"
+                locale={locale}
+              />
+            </div>
+          ) : null}
+
           {renderInterviewFeature("the-mountain-will-still-be-here")}
         </>
       ) : (
@@ -315,16 +326,19 @@ export default async function AthletePage({ params }: AthletePageProps) {
             locale={locale}
             title={labels.galleryTitle}
             emptyText={labels.galleryEmpty}
-            initialVisibleCount={isTimHowell ? 9 : undefined}
             viewAllLabel={labels.galleryViewAll}
             showLessLabel={labels.galleryShowLess}
-            variant={isTimHowell ? "editorial" : "grid"}
           />
         </div>
       ) : null}
 
       <div id={isTimHowell ? "future" : undefined} className="scroll-mt-20">
-        <FutureProjectFeature athlete={athlete} locale={locale} />
+        <ProjectFeature
+          athleteName={athlete.name}
+          project={athlete.futureProject}
+          status="future"
+          locale={locale}
+        />
       </div>
 
       {!isLukasLoibl && athlete.currentProject ? (
@@ -332,8 +346,10 @@ export default async function AthletePage({ params }: AthletePageProps) {
           id={narrativeNav?.anchors.currentProject ?? athlete.currentProject.id}
           className="scroll-mt-20"
         >
-          <ProjectStorySection
+          <ProjectFeature
+            athleteName={athlete.name}
             project={athlete.currentProject}
+            status="current"
             locale={locale}
           />
         </div>
@@ -356,22 +372,8 @@ export default async function AthletePage({ params }: AthletePageProps) {
             locale={locale}
             title={labels.galleryTitle}
             emptyText={labels.galleryEmpty}
-            initialVisibleCount={isTimHowell ? 9 : undefined}
             viewAllLabel={labels.galleryViewAll}
             showLessLabel={labels.galleryShowLess}
-            variant={isTimHowell ? "editorial" : "grid"}
-          />
-        </div>
-      ) : null}
-
-      {isLukasLoibl && athlete.currentProject ? (
-        <div
-          id={narrativeNav?.anchors.currentProject ?? athlete.currentProject.id}
-          className="scroll-mt-20"
-        >
-          <ProjectStorySection
-            project={athlete.currentProject}
-            locale={locale}
           />
         </div>
       ) : null}
@@ -409,7 +411,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
       <MoreAthletes
         athletes={moreAthletes}
         locale={locale}
-        title={isTimHowell ? labels.continuationTitle : labels.moreTitle}
+        title={labels.moreTitle}
         cta={dictionary.site.athletes.gridCta}
         placeholder={dictionary.site.athletes.portraitPlaceholder}
         countryLabels={dictionary.athleteMeta.countryNames}
@@ -485,9 +487,9 @@ function getNarrativeNav(
         { id: "career", label: labels.narrativeActs.career },
         ...(planningNavItem ? [planningNavItem] : []),
         { id: "audio-story", label: getLukasAudioStoryNavLabel(locale) },
+        { id: "world-record", label: labels.narrativeActs.worldRecord },
         ...(mountainNavItem ? [mountainNavItem] : []),
         { id: "gallery", label: labels.narrativeActs.gallery },
-        { id: "world-record", label: labels.narrativeActs.worldRecord },
       ],
       anchors: {
         person: "biography",

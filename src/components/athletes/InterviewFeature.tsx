@@ -11,6 +11,8 @@ import {
 } from "@/lib/videoPlaybackManager";
 import type { AthleteInterviewFeature } from "@/types/athlete";
 
+import { SectionTitle } from "./SectionTitle";
+
 type InterviewFeatureLabels = {
   play: string;
   fullscreen: string;
@@ -250,12 +252,9 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
           {feature.chapter[locale]}
         </p>
-        <h2
-          id={headingId}
-          className="mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
-        >
+        <SectionTitle id={headingId}>
           {heading}
-        </h2>
+        </SectionTitle>
         {feature.subtitle ?? feature.intro ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
             {(feature.subtitle ?? feature.intro)?.[locale]}

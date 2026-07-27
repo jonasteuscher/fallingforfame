@@ -189,10 +189,9 @@ export function AthleteGallerySection({
   locale,
   title,
   emptyText,
-  initialVisibleCount,
+  initialVisibleCount = 9,
   viewAllLabel,
   showLessLabel,
-  variant,
 }: {
   images: AthleteImage[];
   locale: Locale;
@@ -201,7 +200,6 @@ export function AthleteGallerySection({
   initialVisibleCount?: number;
   viewAllLabel?: string;
   showLessLabel?: string;
-  variant?: "grid" | "editorial";
 }) {
   const confirmedImages = images.filter((image) => image.src);
 
@@ -214,7 +212,6 @@ export function AthleteGallerySection({
           initialVisibleCount={initialVisibleCount}
           viewAllLabel={viewAllLabel}
           showLessLabel={showLessLabel}
-          variant={variant}
         />
       ) : (
         <EmptyState>{emptyText}</EmptyState>

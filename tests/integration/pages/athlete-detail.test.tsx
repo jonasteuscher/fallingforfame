@@ -143,6 +143,9 @@ describe("athlete detail page", () => {
     );
     const gallerySection = screen.getByRole("heading", { name: "Photo Gallery" })
       .closest("section");
+    const galleryLayout = gallerySection?.querySelector(
+      '[data-gallery-layout="editorial-masonry"]',
+    );
     const scrollVideo = container.querySelector(
       '[data-scroll-scrub-video-id="iran-jump"]',
     );
@@ -154,7 +157,7 @@ describe("athlete detail page", () => {
       name: "From Profile To Findings",
     }).closest("section");
     const continuationSection = screen.getByRole("heading", {
-      name: "Continue with another perspective",
+      name: "More Athlete Portraits",
     }).closest("section");
 
     expect(originStory).toBeInTheDocument();
@@ -163,17 +166,22 @@ describe("athlete detail page", () => {
     expect(audioStory).toBeInTheDocument();
     expect(scrollVideo).toBeInTheDocument();
     expect(futureProject).toBeInTheDocument();
+    expect(galleryLayout).toHaveClass("columns-1", "sm:columns-2", "xl:columns-3");
+    expect(galleryLayout?.querySelector("img")).toHaveClass(
+      "h-auto",
+      "object-contain",
+    );
     expect(
       screen.getByRole("heading", {
-        name: /YOU'RE ONLY AS GOOD\s+AS YOUR LAST STUNT/,
+        name: /You're Only as Good\s+as Your Last Stunt/,
       }),
     ).toBeVisible();
     expect(screen.getByRole("button", { name: "Play Tim Howell interview" }))
       .toBeVisible();
-    expect(screen.getByText("DECISION MAKING")).toBeVisible();
+    expect(screen.getByText("Decision Making")).toBeVisible();
     expect(
       screen.getByRole("heading", {
-        name: /MAKE THE\s+RIGHT DECISION/,
+        name: /Make the\s+Right Decision/,
       }),
     ).toBeVisible();
     expect(
@@ -193,15 +201,15 @@ describe("athlete detail page", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("AUDIO STORY")).toBeVisible();
     expect(
-      screen.getAllByRole("heading", { name: /KNOWLEDGE\s+DISPELS FEAR/ })[0],
+      screen.getAllByRole("heading", { name: /Knowledge\s+Dispels Fear/ })[0],
     ).toBeVisible();
     expect(
       screen.getByRole("button", { name: "Play Understanding Fear" }),
     ).toBeVisible();
-    expect(screen.getByText("FUTURE PROJECT")).toBeVisible();
+    expect(screen.getByText("Future Project")).toBeVisible();
     expect(
       screen.getByRole("heading", {
-        name: /A LEAP FROM\s+THE TOP OF\s+THE WORLD/,
+        name: /A Leap from\s+the Top of\s+the World/,
       }),
     ).toBeVisible();
     expect(
@@ -241,7 +249,7 @@ describe("athlete detail page", () => {
         )
         .closest("div"),
     ).toHaveClass("aspect-video");
-    expect(screen.getByRole("heading", { name: "THE JUMP" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "The Jump" })).toBeVisible();
     expect(screen.getByText("SCROLL THROUGH")).toBeVisible();
     expect(screen.queryByText(/Replaceable editorial cue/)).not.toBeInTheDocument();
     expect(screen.queryByText(/Replaceable:/)).not.toBeInTheDocument();
@@ -297,7 +305,7 @@ describe("athlete detail page", () => {
       .not.toBeInTheDocument();
     expect(screen.queryByText("Pro record: Tim Howell")).not.toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Continue with another perspective" }),
+      screen.getByRole("heading", { name: "More Athlete Portraits" }),
     ).toBeVisible();
     expect(screen.getByRole("navigation", { name: "Tim Howell profile sections" }))
       .toBeVisible();
@@ -335,12 +343,12 @@ describe("athlete detail page", () => {
 
     expect(
       screen.queryByRole("heading", {
-        name: "YOU'RE ONLY AS GOOD AS YOUR LAST STUNT",
+        name: "You're Only as Good as Your Last Stunt",
       }),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("heading", {
-        name: "MAKE THE RIGHT DECISION",
+        name: "Make the Right Decision",
       }),
     ).not.toBeInTheDocument();
   });
@@ -368,7 +376,7 @@ describe("athlete detail page", () => {
         "Ein längerer Auszug aus dem Interview, als ruhiger Moment innerhalb des Porträts.",
       ),
     ).not.toBeInTheDocument();
-    expect(screen.getByText("DECISION MAKING")).toBeVisible();
+    expect(screen.getByText("Decision Making")).toBeVisible();
     expect(
       screen.getByRole("button", {
         name: "Tim Howell Interview über Decision Making abspielen",
@@ -459,16 +467,16 @@ describe("athlete detail page", () => {
       planningInterview?.compareDocumentPosition(audioStory as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
-      audioStory?.compareDocumentPosition(mountainInterview as Node) ?? 0,
+      audioStory?.compareDocumentPosition(projectSection as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      projectSection?.compareDocumentPosition(mountainInterview as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
       mountainInterview?.compareDocumentPosition(gallerySection as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
-      gallerySection?.compareDocumentPosition(projectSection as Node) ?? 0,
-    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(
-      projectSection?.compareDocumentPosition(linksSection as Node) ?? 0,
+      gallerySection?.compareDocumentPosition(linksSection as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
       linksSection?.compareDocumentPosition(mediaCoverageAnchor as Node) ?? 0,
@@ -480,25 +488,28 @@ describe("athlete detail page", () => {
       .toHaveAttribute("href", "#planning-comes-first");
     expect(screen.getByRole("link", { name: "Social media & sponsorship" }))
       .toHaveAttribute("href", "#audio-story");
+    expect(screen.getByRole("link", { name: "World Record" })).toHaveAttribute(
+      "href",
+      "#world-record",
+    );
     expect(
       screen.getByRole("link", { name: "Not jumping" }),
     ).toHaveAttribute("href", "#the-mountain-will-still-be-here");
     expect(screen.getByRole("link", { name: "Gallery" }))
       .toHaveAttribute("href", "#gallery");
-    expect(screen.getByRole("link", { name: "World Record" })).toHaveAttribute(
-      "href",
-      "#world-record",
-    );
     expect(screen.queryByRole("link", { name: "Social Media" }))
       .not.toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /WORLD\s+RECORD/ }),
+      screen.getByRole("heading", { name: /World\s+Record/ }),
     ).toBeVisible();
     expect(
       screen.getByRole("heading", {
         name: "The Mountain Will Still Be Here",
       }),
     ).toBeVisible();
+    expect(mountainInterview?.querySelector("p")?.textContent).toBe(
+      "Choosing Not to Jump",
+    );
     expect(
       screen.getByText(
         "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
@@ -507,6 +518,9 @@ describe("athlete detail page", () => {
     expect(
       screen.getByRole("heading", { name: "Planning Comes First" }),
     ).toBeVisible();
+    expect(planningInterview?.querySelector("p")?.textContent).toBe(
+      "Decision Making",
+    );
     expect(
       screen.getByText(
         "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
@@ -524,7 +538,7 @@ describe("athlete detail page", () => {
     ).toBeVisible();
     expect(
       screen.getByRole("heading", {
-        name: /SOCIAL MEDIA\s+AND SPONSORSHIP/,
+        name: /Social Media\s+and Sponsorship/,
       }),
     ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Jumping for the camera?" }))
@@ -580,7 +594,7 @@ describe("athlete detail page", () => {
     expect(screen.getByText(/zehn natürliche Felsformationen/)).toBeVisible();
     expect(
       screen.getByRole("heading", {
-        name: /SOCAIL MEDIA\s+UND SPONSORING/,
+        name: /Socail Media\s+und Sponsoring/,
       }),
     ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Für die Kamera springen?" }))
@@ -598,6 +612,8 @@ describe("athlete detail page", () => {
       "href",
       "#world-record",
     );
+    expect(screen.getByText("Entscheidungsfindung")).toBeVisible();
+    expect(screen.getAllByText("Nicht springen")).toHaveLength(2);
   });
 
   it("updates the hero quote when navigating between athlete pages", async () => {
@@ -711,10 +727,21 @@ describe("athlete detail page", () => {
     ).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Photo Gallery" })).toBeVisible();
     expect(
+      screen
+        .getByRole("heading", { name: "Photo Gallery" })
+        .closest("section")
+        ?.querySelector('[data-gallery-layout="editorial-masonry"]'),
+    ).toHaveClass("columns-1", "sm:columns-2", "xl:columns-3");
+    expect(
       container.querySelector(
         'img[src="/images/athletes/marcel-geser/gallery/DJI_20250607050910_0491_D.jpg"]',
       ),
     ).toBeInTheDocument();
+    expect(
+      container.querySelector(
+        'img[src="/images/athletes/marcel-geser/gallery/DJI_20250607050910_0491_D.jpg"]',
+      ),
+    ).toHaveClass("h-auto", "object-contain");
     fireEvent.click(
       screen.getByRole("button", {
         name: /Open image full size: Wingsuit pilot standing on a grassy launch slope/,
@@ -747,7 +774,7 @@ describe("athlete detail page", () => {
     expect(
       screen.queryByRole("heading", { name: "Sponsors & Partnerships" }),
     ).not.toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "More Athlete Stories" }))
+    expect(screen.getByRole("heading", { name: "More Athlete Portraits" }))
       .toBeVisible();
     expect(container.querySelector("audio")).toBeNull();
     expect(container.querySelector("video")).toBeNull();

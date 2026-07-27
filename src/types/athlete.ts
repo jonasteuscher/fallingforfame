@@ -30,6 +30,8 @@ export type AthleteOriginStoryBeat = {
 export type AthleteImage = {
   src: string;
   alt: LocalizedText;
+  width?: number;
+  height?: number;
 };
 
 export type AthleteAudio = {
@@ -86,8 +88,9 @@ export type AthleteAudioStory = {
   portrait: string | null;
   portraitAlt?: LocalizedText;
   duration?: string | null;
-  waveform: number[];
 };
+
+export type ProjectStatus = "current" | "future" | "completed";
 
 export type AthleteFutureProject = {
   chapter: LocalizedText;

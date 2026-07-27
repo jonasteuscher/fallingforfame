@@ -92,7 +92,9 @@ describe("ScrollScrubVideo", () => {
 
     await waitForScrubMode();
     expect(screen.getByText("SCROLL THROUGH")).toBeVisible();
-    expect(screen.getByRole("heading", { name: "THE JUMP" })).toBeVisible();
+    const heading = screen.getByRole("heading", { name: "The Jump" });
+    expect(heading).toBeVisible();
+    expect(heading).toHaveClass("uppercase");
     expect(container.querySelector("[data-scroll-video-copy] > div"))
       .toHaveClass("lg:grid-cols-[minmax(0,0.68fr)_minmax(18rem,0.32fr)]");
     expect(screen.getByText("The line begins long before the exit."))

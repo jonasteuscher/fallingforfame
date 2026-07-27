@@ -118,8 +118,9 @@ describe("InterviewFeature", () => {
     );
 
     expect(screen.getByText("Social Media")).toBeVisible();
-    expect(screen.getByRole("heading", { name: /YOU'RE ONLY AS GOOD/ }))
-      .toBeVisible();
+    const heading = screen.getByRole("heading", { name: /You're Only as Good/ });
+    expect(heading).toBeVisible();
+    expect(heading).toHaveClass("uppercase");
     expect(
       screen.queryByText(
         "A longer excerpt from the interview, shaped as a quiet moment inside the profile.",
@@ -225,9 +226,9 @@ describe("InterviewFeature", () => {
       />,
     );
 
-    expect(screen.getByText("DECISION MAKING")).toBeVisible();
+    expect(screen.getByText("Decision Making")).toBeVisible();
     expect(
-      screen.getByRole("heading", { name: /MAKE THE\s+RIGHT DECISION/ }),
+      screen.getByRole("heading", { name: /Make the\s+Right Decision/ }),
     ).toBeVisible();
     expect(screen.getByAltText("")).toHaveAttribute(
       "src",
@@ -267,7 +268,8 @@ describe("InterviewFeature", () => {
       />,
     );
 
-    expect(screen.getByText("Interview")).toBeVisible();
+    expect(screen.getByText("Choosing Not to Jump")).toBeVisible();
+    expect(screen.queryByText("Interview")).not.toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         name: "The Mountain Will Still Be Here",

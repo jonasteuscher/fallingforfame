@@ -12,7 +12,6 @@ type AthleteGalleryLightboxProps = {
   initialVisibleCount?: number;
   viewAllLabel?: string;
   showLessLabel?: string;
-  variant?: "grid" | "editorial";
 };
 
 const labels = {
@@ -43,7 +42,6 @@ export function AthleteGalleryLightbox({
   initialVisibleCount,
   viewAllLabel,
   showLessLabel,
-  variant = "grid",
 }: AthleteGalleryLightboxProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -156,27 +154,14 @@ export function AthleteGalleryLightbox({
   return (
     <>
       <ul
-        className={
-          variant === "editorial"
-            ? "grid gap-5 sm:grid-cols-2 xl:grid-cols-6"
-            : "grid gap-4 sm:grid-cols-2 xl:grid-cols-3"
-        }
+        className="columns-1 gap-5 sm:columns-2 xl:columns-3"
+        data-gallery-layout="editorial-masonry"
       >
         {visibleImages.map((image, index) => (
           <li
             key={image.src}
-            className={[
-              "self-start overflow-hidden border border-border bg-surface",
-              variant === "editorial" && index % 5 === 0
-                ? "sm:col-span-2 xl:col-span-4"
-                : "",
-              variant === "editorial" && index % 5 === 1
-                ? "xl:col-span-2 xl:row-span-2"
-                : "",
-              variant === "editorial" && index % 5 > 1
-                ? "xl:col-span-2"
-                : "",
-            ].join(" ")}
+            className="mb-5 break-inside-avoid overflow-hidden border border-border bg-surface motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+            style={{ animationDelay: `${(index % 6) * 80}ms` }}
           >
             <button
               type="button"
@@ -189,19 +174,11 @@ export function AthleteGalleryLightbox({
               <Image
                 src={image.src}
                 alt={image.alt[locale]}
-                width={1200}
-                height={900}
+                width={image.width ?? 1200}
+                height={image.height ?? 900}
                 sizes={thumbnailSizes}
                 quality={68}
-                className={[
-                  "w-full cursor-pointer object-cover transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none",
-                  variant === "editorial" && index % 5 === 0
-                    ? "aspect-[16/9]"
-                    : "aspect-[4/3]",
-                  variant === "editorial" && index % 5 === 1
-                    ? "xl:aspect-[3/4]"
-                    : "",
-                ].join(" ")}
+                className="h-auto w-full cursor-pointer object-contain transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
               />
             </button>
           </li>
