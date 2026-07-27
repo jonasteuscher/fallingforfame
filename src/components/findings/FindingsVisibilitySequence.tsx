@@ -422,40 +422,48 @@ function MobileVisibilitySequence({
       </p>
       <p
         aria-hidden="true"
-        className="mt-4 text-[clamp(3rem,14vw,5rem)] font-semibold uppercase leading-[0.9] text-foreground"
+        className="mt-4 max-w-full text-[clamp(2.6rem,11vw,4rem)] font-semibold uppercase leading-[0.9] text-foreground [overflow-wrap:anywhere] [text-wrap:balance]"
       >
         {chapter.title}
       </p>
       <p className="mt-6 text-lg leading-8 text-foreground/76">{chapter.summary}</p>
-      <div className="mt-10 grid gap-12">
+      <figure className="relative mt-10 aspect-[4/3] overflow-hidden border border-border bg-surface">
+        <Image
+          src={media.src}
+          alt={media.alt}
+          fill
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: media.objectPosition ?? "58% 34%" }}
+        />
+        <div
+          className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_22%,transparent)_0%,color-mix(in_srgb,var(--background)_18%,transparent)_44%,color-mix(in_srgb,var(--background)_58%,transparent)_100%)]"
+          aria-hidden="true"
+        />
+        <figcaption className="absolute inset-x-4 bottom-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+            {states[0]?.overlayLabel}
+          </p>
+          <p className="mt-2 max-w-[18rem] text-lg font-semibold leading-tight text-foreground [text-shadow:0_2px_18px_var(--background)]">
+            {states[0]?.visualStatement}
+          </p>
+        </figcaption>
+      </figure>
+      <ol className="mt-9 grid gap-6">
         {states.map((state, index) => (
-          <article key={state.id}>
-            <figure className="relative aspect-[4/3] overflow-hidden border border-border bg-surface">
-              <Image
-                src={media.src}
-                alt={media.alt}
-                fill
-                sizes="100vw"
-                className="object-cover"
-                style={{ objectPosition: media.objectPosition ?? "48% 36%" }}
-              />
-              <div
-                className="absolute inset-0 bg-[linear-gradient(180deg,transparent_42%,color-mix(in_srgb,var(--background)_60%,transparent)_100%)]"
-                aria-hidden="true"
-              />
-              <figcaption className="absolute inset-x-4 bottom-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                  {String(index + 1).padStart(2, "0")} · {state.overlayLabel}
-                </p>
-              </figcaption>
-            </figure>
-            <h3 className="mt-5 text-2xl font-semibold uppercase leading-tight text-foreground">
-              {state.title}
-            </h3>
-            <p className="mt-3 leading-7 text-foreground/76">{state.body}</p>
-          </article>
+          <li key={state.id} className="grid grid-cols-[2.5rem_1fr] gap-4 border-l border-border py-1">
+            <span className="pl-4 text-xs font-semibold text-primary">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h3 className="text-xl font-semibold uppercase leading-tight text-foreground">
+                {state.title}
+              </h3>
+              <p className="mt-3 leading-7 text-foreground/76">{state.body}</p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
       {chapter.quote ? (
         <FindingsQuote
           quote={chapter.quote}
