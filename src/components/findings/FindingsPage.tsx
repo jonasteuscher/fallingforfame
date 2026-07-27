@@ -4,6 +4,8 @@ import Link from "next/link";
 import { SectionTitle } from "@/components/athletes/SectionTitle";
 import { FindingsChapterNav } from "@/components/findings/FindingsChapterNav";
 import { FindingsHero } from "@/components/findings/FindingsHero";
+import { FindingsQuote } from "@/components/findings/FindingsQuote";
+import { FindingsVisibilitySequence } from "@/components/findings/FindingsVisibilitySequence";
 import type { Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
 import type { FindingChapter, FindingsPageContent } from "@/types/findings";
@@ -29,14 +31,26 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
       />
       <FindingsHero content={content} />
       {content.chapters.map((chapter) => (
-        <FindingChapterSection
-          key={chapter.id}
-          chapter={chapter}
-          locale={locale}
-          sourcePrefix={content.sourcePrefix}
-          empiricalLabel={content.empiricalLabel}
-          interpretationLabel={content.interpretationLabel}
-        />
+        chapter.kind === "media-visibility" ? (
+          <FindingsVisibilitySequence
+            key={chapter.id}
+            chapter={chapter}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+            quoteSourceLabel={content.quoteSourceLabel}
+          />
+        ) : (
+          <FindingChapterSection
+            key={chapter.id}
+            chapter={chapter}
+            locale={locale}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+            quoteSourceLabel={content.quoteSourceLabel}
+          />
+        )
       ))}
     </main>
   );
@@ -48,12 +62,14 @@ function FindingChapterSection({
   sourcePrefix,
   empiricalLabel,
   interpretationLabel,
+  quoteSourceLabel,
 }: {
   chapter: FindingChapter;
   locale: Locale;
   sourcePrefix: string;
   empiricalLabel: string;
   interpretationLabel: string;
+  quoteSourceLabel: string;
 }) {
   return (
     <section
@@ -73,11 +89,11 @@ function FindingChapterSection({
             {chapter.summary}
           </p>
           {chapter.quote ? (
-            <figure className="mt-10 border-l-2 border-primary pl-5">
-              <blockquote className="text-2xl font-semibold leading-tight text-foreground sm:text-4xl">
-                {chapter.quote}
-              </blockquote>
-            </figure>
+            <FindingsQuote
+              quote={chapter.quote}
+              source={chapter.quoteSource ?? quoteSourceLabel}
+              className="mt-10"
+            />
           ) : null}
         </header>
         <div className="space-y-8">
@@ -103,7 +119,7 @@ function ChapterVisual({
 }) {
   switch (chapter.kind) {
     case "media-visibility":
-      return <MediaVisibility chapter={chapter} />;
+      return null;
     case "recognition-comparison":
       return <SplitComparison chapter={chapter} mode="recognition" />;
     case "camera-equipment":
@@ -129,33 +145,6 @@ function ChapterVisual({
     default:
       return assertNever(chapter.kind);
   }
-}
-
-function MediaVisibility({ chapter }: { chapter: FindingChapter }) {
-  return (
-    <div className="grid gap-5 md:grid-cols-[0.62fr_0.38fr]">
-      <div className="relative min-h-[34rem] overflow-hidden border border-border bg-surface shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]">
-        <div className="absolute inset-0 bg-[linear-gradient(145deg,var(--surface-muted)_0%,var(--surface)_52%,var(--background)_100%)]" />
-        <div
-          className="absolute inset-x-6 top-6 border-b border-border pb-4"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-x-6 bottom-6 space-y-3">
-          {chapter.states?.map((state, index) => (
-            <article
-              key={state.title}
-              className="border border-border bg-background/72 p-4 backdrop-blur motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
-              style={{ animationDelay: `${index * 110}ms` }}
-            >
-              <h3 className="text-lg font-semibold text-foreground">{state.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-foreground/72">{state.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-      <ProcessList items={chapter.states?.map((state) => state.title) ?? []} />
-    </div>
-  );
 }
 
 function SplitComparison({

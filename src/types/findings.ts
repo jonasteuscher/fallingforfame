@@ -55,6 +55,39 @@ export type FindingCreditPath = {
   steps: string[];
 };
 
+export type MediaVisibilityStateId =
+  | "discovery"
+  | "inspiration"
+  | "learning"
+  | "reflection";
+
+export type MediaVisibilityAnnotation = {
+  id: string;
+  label: string;
+  x: number;
+  y: number;
+  align?: "left" | "right";
+};
+
+export type MediaVisibilityState = {
+  id: MediaVisibilityStateId;
+  title: string;
+  body: string;
+  overlayLabel: string;
+  visualStatement: string;
+  overlayItems?: string[];
+  annotations?: MediaVisibilityAnnotation[];
+};
+
+export type VisibilitySequenceContent = {
+  media: {
+    src: string;
+    alt: string;
+    objectPosition?: string;
+  };
+  states: MediaVisibilityState[];
+};
+
 export type FindingChapter = {
   id: string;
   kind: FindingChapterKind;
@@ -65,6 +98,8 @@ export type FindingChapter = {
   finding: string;
   accessibleSummary: string;
   quote?: string;
+  quoteSource?: string;
+  visibilitySequence?: VisibilitySequenceContent;
   image?: {
     src: string;
     alt: string;
@@ -109,6 +144,7 @@ export type FindingsPageContent = {
   sourcePrefix: string;
   empiricalLabel: string;
   interpretationLabel: string;
+  quoteSourceLabel: string;
   hero: FindingsHeroContent;
   chapters: FindingChapter[];
   nav: FindingNavItem[];

@@ -12,6 +12,7 @@ export const findingsPage: FindingsPageContent = {
   sourcePrefix: "Qualitative finding",
   empiricalLabel: "Empirical finding",
   interpretationLabel: "Interpretation",
+  quoteSourceLabel: "Interview participant",
   hero: {
     eyebrow: "Qualitative study",
     title: "Between Visibility\nand Safety",
@@ -71,6 +72,50 @@ export const findingsPage: FindingsPageContent = {
       accessibleSummary:
         "Social media appeared as an entry point, learning platform, international network and archive, but the visible clip rarely contains the full preparation behind it.",
       quote: "Knowledge dispels fear.",
+      visibilitySequence: {
+        media: {
+          src: "/images/findings/Visibility.jpg",
+          alt: "A BASE jumper flying away from a cliff above a snowy alpine landscape.",
+        },
+        states: [
+          {
+            id: "discovery",
+            title: "Discovery",
+            body: "A BASE jumping clip appears through recommendation and curiosity.",
+            overlayLabel: "Discovered for you",
+            visualStatement: "A shared clip becomes the first contact point.",
+            overlayItems: ["Recommended", "New clip"],
+          },
+          {
+            id: "inspiration",
+            title: "Inspiration",
+            body: "New projects, flight lines and techniques become visible.",
+            overlayLabel: "Saved as reference",
+            visualStatement: "The clip starts to reveal places, lines and possibilities.",
+            overlayItems: ["Flight line", "Project reference"],
+          },
+          {
+            id: "learning",
+            title: "Learning",
+            body: "Planning notes, route analysis and technical discussion can turn media into shared knowledge.",
+            overlayLabel: "Analysis",
+            visualStatement: "The image becomes a surface for reading conditions, route and terrain.",
+            annotations: [
+              { id: "exit-point", label: "exit point", x: 83, y: 23, align: "right" },
+              { id: "flight-corridor", label: "flight corridor", x: 58, y: 39 },
+              { id: "terrain-reference", label: "terrain reference", x: 36, y: 74 },
+            ],
+          },
+          {
+            id: "reflection",
+            title: "Reflection",
+            body: "Close calls and incidents can shift the same interface from entertainment to analysis.",
+            overlayLabel: "Shared experience",
+            visualStatement: "The same platform can become a place for learning from mistakes.",
+            overlayItems: ["Lessons", "What happened?"],
+          },
+        ],
+      },
       states: [
         {
           title: "Discovery",

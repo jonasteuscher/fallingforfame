@@ -12,6 +12,7 @@ export const findingsPage: FindingsPageContent = {
   sourcePrefix: "Qualitative Erkenntnis",
   empiricalLabel: "Empirische Erkenntnis",
   interpretationLabel: "Einordnung",
+  quoteSourceLabel: "Interviewteilnehmer",
   hero: {
     eyebrow: "Qualitative Studie",
     title: "Zwischen Sichtbarkeit\nund Sicherheit",
@@ -71,6 +72,50 @@ export const findingsPage: FindingsPageContent = {
       accessibleSummary:
         "Social Media erschien als Einstieg, Lernplattform, internationales Netzwerk und Archiv. Der sichtbare Clip enthält aber selten die ganze Vorbereitung dahinter.",
       quote: "Wissen vertreibt Angst.",
+      visibilitySequence: {
+        media: {
+          src: "/images/findings/Visibility.jpg",
+          alt: "Ein BASE Jumper fliegt von einer Felswand über eine verschneite alpine Landschaft.",
+        },
+        states: [
+          {
+            id: "discovery",
+            title: "Entdeckung",
+            body: "Ein BASE-Jumping-Clip erscheint über Empfehlung und Neugier.",
+            overlayLabel: "Für dich entdeckt",
+            visualStatement: "Ein geteilter Clip wird zum ersten Kontaktpunkt.",
+            overlayItems: ["Empfohlen", "Neuer Clip"],
+          },
+          {
+            id: "inspiration",
+            title: "Inspiration",
+            body: "Neue Projekte, Fluglinien und Techniken werden sichtbar.",
+            overlayLabel: "Als Referenz gespeichert",
+            visualStatement: "Der Clip zeigt Orte, Linien und Möglichkeiten.",
+            overlayItems: ["Fluglinie", "Projektreferenz"],
+          },
+          {
+            id: "learning",
+            title: "Lernen",
+            body: "Planungsnotizen, Routenanalyse und technische Diskussionen können Medien in geteiltes Wissen verwandeln.",
+            overlayLabel: "Analyse",
+            visualStatement: "Das Bild wird zur Oberfläche, auf der Bedingungen, Route und Gelände gelesen werden.",
+            annotations: [
+              { id: "exit-point", label: "Exitpunkt", x: 83, y: 23, align: "right" },
+              { id: "flight-corridor", label: "Flugkorridor", x: 58, y: 39 },
+              { id: "terrain-reference", label: "Geländereferenz", x: 36, y: 74 },
+            ],
+          },
+          {
+            id: "reflection",
+            title: "Reflexion",
+            body: "Beinaheunfälle und Vorfälle können dieselbe Oberfläche von Unterhaltung zu Analyse verschieben.",
+            overlayLabel: "Geteilte Erfahrung",
+            visualStatement: "Dieselbe Plattform kann zum Ort werden, an dem aus Fehlern gelernt wird.",
+            overlayItems: ["Erkenntnisse", "Was ist passiert?"],
+          },
+        ],
+      },
       states: [
         {
           title: "Entdeckung",

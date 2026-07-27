@@ -43,6 +43,19 @@ describe("findings page", () => {
     expect(screen.getByRole("heading", { name: "Safety is not built alone" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "The influence is indirect" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "What this study can and cannot claim" })).toBeVisible();
+
+    expect(screen.getByRole("button", { name: /Discovery/i })).toHaveAttribute(
+      "aria-current",
+      "step",
+    );
+    expect(screen.getByRole("button", { name: /Inspiration/i })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    expect(screen.getByRole("button", { name: /Learning/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Reflection/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/Knowledge dispels fear/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Interview participant").length).toBeGreaterThan(0);
   });
 
   it("renders the German findings narrative and localized controls", async () => {
@@ -73,6 +86,12 @@ describe("findings page", () => {
     );
     expect(screen.getByText("Sicherheit vor Erwartung")).toBeVisible();
     expect(screen.getByText(/Die Ergebnisse beziehen sich auf dieses Sample/i)).toBeVisible();
+    expect(screen.getByRole("button", { name: /Entdeckung/i })).toHaveAttribute(
+      "aria-current",
+      "step",
+    );
+    expect(screen.getAllByText(/Wissen vertreibt Angst/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Interviewteilnehmer").length).toBeGreaterThan(0);
   });
 
   it("keeps complex visualisations accessible through text equivalents", async () => {
@@ -81,7 +100,7 @@ describe("findings page", () => {
     );
 
     for (const chapter of englishFindings.chapters) {
-      expect(screen.getByText(chapter.accessibleSummary)).toBeVisible();
+      expect(screen.getAllByText(chapter.accessibleSummary).length).toBeGreaterThan(0);
     }
 
     const synthesis = screen.getByRole("heading", { name: "The influence is indirect" })
