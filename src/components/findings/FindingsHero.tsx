@@ -133,7 +133,12 @@ export function FindingsHero({ content }: FindingsHeroProps) {
           }}
           aria-hidden="true"
         >
-          <span>{content.hero.socialPost.sourceLabel}</span>
+          <span className="inline-flex items-center gap-2">
+            {content.hero.socialPost.sourceLabel}
+            <span className="text-2xl leading-none text-primary" aria-hidden="true">
+              ↓
+            </span>
+          </span>
           <span className="text-lg leading-none" aria-label={content.hero.socialPost.menuLabel}>
             •••
           </span>

@@ -27,7 +27,7 @@ export const findingsPage: FindingsPageContent = {
       alt: "A BASE jumper flying beside a mountain wall.",
     },
     socialPost: {
-      sourceLabel: "Explore",
+      sourceLabel: "Scroll to explore",
       menuLabel: "More",
       username: "@timhowell",
       role: "Professional BASE Athlete",
