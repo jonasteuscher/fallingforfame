@@ -8,7 +8,17 @@ export const home = {
     primaryCta: "Story starten",
     secondaryCta: "Athleten kennenlernen",
     scrollIndicator: "Scrollen zum Start",
-    visualLabel: "Wingsuit-Flieger fliegt an einer steilen Felswand über Berggelände vorbei",
+    visualLabel:
+      "Wingsuit-Flieger fliegt an einer steilen Felswand über Berggelände vorbei",
+  },
+  mobileExperienceNotice: {
+    eyebrow: "Desktop empfohlen",
+    title: "Erlebe die ganze Geschichte",
+    body: "Falling for Fame wurde als immersive Desktop Experience entwickelt. Einige Scrollytelling Elemente, scrollgesteuerte Videos und interaktive Animationen sind auf mobilen Geräten nur eingeschränkt verfügbar.",
+    supportingText:
+      "Du kannst die Webdoku mobil nutzen. Für das vollständige Erlebnis empfehlen wir jedoch einen Desktop oder Laptop.",
+    button: "Mobil fortfahren",
+    closeLabel: "Mobilen Hinweis schliessen",
   },
   openingQuestion: {
     title: "Was passiert, wenn Risiko sichtbar wird?",

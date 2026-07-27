@@ -65,10 +65,14 @@ describe("AudioWaveform", () => {
       gridTemplateColumns: `repeat(${AUDIO_WAVEFORM_CONFIG.bars}, minmax(0, 1fr))`,
       columnGap: `${AUDIO_WAVEFORM_CONFIG.barGap}px`,
     });
-    expect(screen.getByRole("progressbar", { hidden: true }))
-      .toHaveAttribute("aria-valuenow", "50");
+    expect(screen.getByRole("progressbar", { hidden: true })).toHaveAttribute(
+      "aria-valuenow",
+      "50",
+    );
 
-    await waitFor(() => expect(waveform).toHaveAttribute("data-waveform-status", "ready"));
+    await waitFor(() =>
+      expect(waveform).toHaveAttribute("data-waveform-status", "ready"),
+    );
     expect(globalThis.fetch).toHaveBeenCalledWith(
       "/audio/tim-howell/Tim_knowledge_dispels_fear - isolated.mp3",
     );
@@ -94,5 +98,5 @@ function audioBuffer(): AudioBuffer {
     sampleRate: 44100,
     numberOfChannels: 1,
     getChannelData: () => audioData,
-  } as AudioBuffer;
+  } as unknown as AudioBuffer;
 }
