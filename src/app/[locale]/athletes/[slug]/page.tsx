@@ -2,24 +2,19 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
-  AthleteArticlesSection,
-  AthleteBaseStory,
-  AthleteFindingsLinkSection,
-  AthleteGallerySection,
-  AthleteHero,
-  AthleteLinksSection,
-  AthleteNarrativeNav,
-  AthleteProfileOverview,
-  AudioStory,
-  InterviewFeature,
-  MoreAthletes,
-  ProjectFeature,
-  ScrollScrubVideo,
+  AthleteDocumentaryPage,
 } from "@/components/athletes";
 import { athletes, getAthleteBySlug } from "@/data/athletes";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import type { Athlete, AthleteInterviewFeature } from "@/types/athlete";
+import type {
+  Athlete,
+  AthleteInterviewFeature,
+} from "@/types/athlete";
+import type {
+  AthleteSection,
+  ProgressSection,
+} from "@/components/athletes/AthleteDocumentaryPage";
 
 type AthletePageProps = {
   params: Promise<{
@@ -190,337 +185,316 @@ export default async function AthletePage({ params }: AthletePageProps) {
   const labels = pageLabels[locale];
   const athleteMeta = formatAthleteMeta(athlete, dictionary.athleteMeta);
   const moreAthletes = athletes.filter((item) => item.slug !== athlete.slug);
-  const renderInterviewFeatures = (
-    placement: AthleteInterviewFeature["placement"],
-  ) =>
-    (athlete.interviewFeatures ?? [])
-      .filter((feature) => feature.placement === placement)
-      .map((feature) => (
-        <InterviewFeature
-          key={feature.id}
-          feature={feature}
-          locale={locale}
-          labels={formatInterviewLabels(feature, locale, labels.interviewFeature)}
-        />
-      ));
-  const renderInterviewFeature = (featureId: string) =>
-    (athlete.interviewFeatures ?? [])
-      .filter((feature) => feature.id === featureId)
-      .map((feature) => (
-        <InterviewFeature
-          key={feature.id}
-          feature={feature}
-          locale={locale}
-          labels={formatInterviewLabels(feature, locale, labels.interviewFeature)}
-        />
-      ));
-  const isTimHowell = athlete.slug === "tim-howell";
-  const isLukasLoibl = athlete.slug === "lukas-loibl";
-  const narrativeNav = getNarrativeNav(athlete, labels, locale);
+  const progressSections = buildProgressSections(athlete, labels, locale);
+  const sections = buildAthleteSections(athlete);
 
   return (
-    <>
-      {narrativeNav ? (
-        <AthleteNarrativeNav
-          items={narrativeNav.items}
-          ariaLabel={narrativeNav.ariaLabel}
-        />
-      ) : null}
-
-      <div id={narrativeNav?.anchors.person} className="scroll-mt-20">
-        <AthleteHero
-          athlete={athlete}
-          title={athlete.content[locale].title}
-          meta={athleteMeta}
-          quote={athlete.heroQuote[locale]}
-          scrollHint={labels.scrollHint}
-        />
-
-        <AthleteProfileOverview
-          athlete={athlete}
-          locale={locale}
-          portraitAlt={getAthletePortraitAlt(athlete, locale)}
-          portraitPlaceholder={dictionary.site.athletes.portraitPlaceholder}
-          labels={{
-            eyebrow: labels.profileOverview.eyebrow,
-            title: labels.profileOverview.title,
-            baseSince: labels.profileOverview.baseSince,
-            baseJumps: labels.profileOverview.baseJumps,
-            skydives: labels.profileOverview.skydives,
-            reach: labels.profileOverview.reach,
-            sponsorship: labels.profileOverview.sponsorship,
-            profession: labels.profileMeta.profession,
-            role: labels.profileMeta.role,
-            disciplines: labels.profileMeta.disciplines,
-            unknown: dictionary.athleteExperience.unknown,
-            yes: dictionary.athleteExperience.yes,
-            no: dictionary.athleteExperience.no,
-          }}
-        />
-      </div>
-
-      <div id={narrativeNav?.anchors.baseStory} className="scroll-mt-20">
-        <AthleteBaseStory
-          athlete={athlete}
-          locale={locale}
-          title={labels.baseStoryTitle}
-        />
-      </div>
-
-      <div
-        id={isTimHowell ? "public-image" : undefined}
-        className="scroll-mt-20"
-      >
-        {!isLukasLoibl ? renderInterviewFeatures("after-origin") : null}
-      </div>
-
-      {isLukasLoibl ? (
-        <>
-          {renderInterviewFeature("planning-comes-first")}
-
-          <div id={narrativeNav?.anchors.audioStory} className="scroll-mt-20">
-            {(athlete.audioStories ?? [])
-              .filter((story) => story.placement === "after-gallery")
-              .map((story) => (
-                <AudioStory key={story.id} story={story} locale={locale} />
-              ))}
-          </div>
-
-          {athlete.currentProject ? (
-            <div
-              id={narrativeNav?.anchors.currentProject ?? athlete.currentProject.id}
-              className="scroll-mt-20"
-            >
-              <ProjectFeature
-                athleteName={athlete.name}
-                project={athlete.currentProject}
-                status="current"
-                locale={locale}
-              />
-            </div>
-          ) : null}
-
-          {renderInterviewFeature("the-mountain-will-still-be-here")}
-        </>
-      ) : (
-        <div
-          id={isTimHowell ? "decision" : narrativeNav?.anchors.audioStory}
-          className="scroll-mt-20"
-        >
-          <ScrollScrubVideo video={athlete.scrollVideo} locale={locale} />
-
-          {(athlete.audioStories ?? [])
-            .filter((story) => story.placement === "after-gallery")
-            .map((story) => (
-              <AudioStory key={story.id} story={story} locale={locale} />
-            ))}
-
-          {renderInterviewFeatures("after-gallery")}
-        </div>
-      )}
-
-      {!isLukasLoibl ? (
-        <div id={narrativeNav?.anchors.gallery} className="scroll-mt-20">
-          <AthleteGallerySection
-            images={athlete.images.gallery}
-            locale={locale}
-            title={labels.galleryTitle}
-            emptyText={labels.galleryEmpty}
-            viewAllLabel={labels.galleryViewAll}
-            showLessLabel={labels.galleryShowLess}
-          />
-        </div>
-      ) : null}
-
-      <div id={isTimHowell ? "future" : undefined} className="scroll-mt-20">
-        <ProjectFeature
-          athleteName={athlete.name}
-          project={athlete.futureProject}
-          status="future"
-          locale={locale}
-        />
-      </div>
-
-      {!isLukasLoibl && athlete.currentProject ? (
-        <div
-          id={narrativeNav?.anchors.currentProject ?? athlete.currentProject.id}
-          className="scroll-mt-20"
-        >
-          <ProjectFeature
-            athleteName={athlete.name}
-            project={athlete.currentProject}
-            status="current"
-            locale={locale}
-          />
-        </div>
-      ) : null}
-
-      {!isLukasLoibl ? (
-        <div id={narrativeNav?.anchors.socialMedia} className="scroll-mt-20">
-          <AthleteLinksSection
-            links={athlete.links}
-            title={labels.linksTitle}
-            compact
-          />
-        </div>
-      ) : null}
-
-      {isLukasLoibl ? (
-        <div id={narrativeNav?.anchors.gallery} className="scroll-mt-20">
-          <AthleteGallerySection
-            images={athlete.images.gallery}
-            locale={locale}
-            title={labels.galleryTitle}
-            emptyText={labels.galleryEmpty}
-            viewAllLabel={labels.galleryViewAll}
-            showLessLabel={labels.galleryShowLess}
-          />
-        </div>
-      ) : null}
-
-      {isLukasLoibl ? (
-        <div id={narrativeNav?.anchors.socialMedia} className="scroll-mt-20">
-          <AthleteLinksSection
-            links={athlete.links}
-            title={labels.linksTitle}
-            compact
-          />
-        </div>
-      ) : null}
-
-      <div id="media-coverage" className="scroll-mt-20">
-        <AthleteArticlesSection
-          articles={athlete.articles}
-          locale={locale}
-          title={labels.articlesTitle}
-          viewAllLabel={labels.articlesViewAll}
-          showLessLabel={labels.articlesShowLess}
-          compact
-          initialVisibleCount={3}
-        />
-      </div>
-
-      <AthleteFindingsLinkSection
-        locale={locale}
-        eyebrow={labels.findingsLink.eyebrow}
-        title={labels.findingsLink.title}
-        body={labels.findingsLink.body(firstName(athlete.name))}
-        cta={labels.findingsLink.cta}
-      />
-
-      <MoreAthletes
-        athletes={moreAthletes}
-        locale={locale}
-        title={labels.moreTitle}
-        cta={dictionary.site.athletes.gridCta}
-        placeholder={dictionary.site.athletes.portraitPlaceholder}
-        countryLabels={dictionary.athleteMeta.countryNames}
-        cardLabels={labels.cardMeta}
-      />
-
-    </>
+    <AthleteDocumentaryPage
+      athlete={athlete}
+      locale={locale}
+      title={athlete.content[locale].title}
+      meta={athleteMeta}
+      scrollHint={labels.scrollHint}
+      profile={{
+        portraitAlt: getAthletePortraitAlt(athlete, locale),
+        portraitPlaceholder: dictionary.site.athletes.portraitPlaceholder,
+        labels: {
+          eyebrow: labels.profileOverview.eyebrow,
+          title: labels.profileOverview.title,
+          baseSince: labels.profileOverview.baseSince,
+          baseJumps: labels.profileOverview.baseJumps,
+          skydives: labels.profileOverview.skydives,
+          reach: labels.profileOverview.reach,
+          sponsorship: labels.profileOverview.sponsorship,
+          profession: labels.profileMeta.profession,
+          role: labels.profileMeta.role,
+          disciplines: labels.profileMeta.disciplines,
+          unknown: dictionary.athleteExperience.unknown,
+          yes: dictionary.athleteExperience.yes,
+          no: dictionary.athleteExperience.no,
+        },
+      }}
+      originTitle={labels.baseStoryTitle}
+      sections={sections}
+      progressSections={progressSections}
+      navAriaLabel={getNarrativeNavLabel(athlete, labels)}
+      sectionLabels={{
+        galleryTitle: labels.galleryTitle,
+        galleryEmpty: labels.galleryEmpty,
+        galleryViewAll: labels.galleryViewAll,
+        galleryShowLess: labels.galleryShowLess,
+        linksTitle: labels.linksTitle,
+        articlesTitle: labels.articlesTitle,
+        articlesViewAll: labels.articlesViewAll,
+        articlesShowLess: labels.articlesShowLess,
+        interviewFeature: labels.interviewFeature,
+        findingsLink: {
+          eyebrow: labels.findingsLink.eyebrow,
+          title: labels.findingsLink.title,
+          body: labels.findingsLink.body(firstName(athlete.name)),
+          cta: labels.findingsLink.cta,
+        },
+        moreTitle: labels.moreTitle,
+        moreCta: dictionary.site.athletes.gridCta,
+        portraitPlaceholder: dictionary.site.athletes.portraitPlaceholder,
+        countryLabels: dictionary.athleteMeta.countryNames,
+        cardLabels: labels.cardMeta,
+      }}
+      moreAthletes={moreAthletes}
+    />
   );
 }
 
 type AthletePageLabels = (typeof pageLabels)[Locale];
 
-type AthleteNarrativeNavConfig = {
-  ariaLabel: string;
-  items: {
+type AthletePageSectionConfig = {
+  navAriaLabel: (labels: AthletePageLabels) => string;
+  progress: Array<{
     id: string;
-    label: string;
-  }[];
-  anchors: {
-    person?: string;
-    baseStory?: string;
-    audioStory?: string;
-    gallery?: string;
-    currentProject?: string;
-    socialMedia?: string;
-  };
+    label: (labels: AthletePageLabels, locale: Locale, athlete: Athlete) => string;
+  }>;
+  sections: Array<
+    | { type: "interview-video"; id: string; featureId: string }
+    | { type: "audio-story"; id: string; storyId?: string }
+    | { type: "scroll-video"; id: string }
+    | { type: "project-feature"; id: string; project: "future" | "current" }
+    | { type: "gallery"; id: string }
+    | { type: "social-media"; id: string }
+    | { type: "media-coverage"; id: string }
+  >;
 };
 
-function getNarrativeNav(
+const athletePageSectionConfigs: Record<string, AthletePageSectionConfig> = {
+  "tim-howell": {
+    navAriaLabel: (labels) => labels.narrativeNavLabel,
+    progress: [
+      { id: "person", label: (labels) => labels.narrativeActs.biography },
+      { id: "attraction", label: (labels) => labels.narrativeActs.career },
+      { id: "public-image", label: (labels) => labels.narrativeActs.publicImage },
+      { id: "decision", label: (labels) => labels.narrativeActs.decision },
+      { id: "gallery", label: (labels) => labels.narrativeActs.gallery },
+      { id: "future", label: (labels) => labels.narrativeActs.future },
+    ],
+    sections: [
+      { type: "interview-video", id: "public-image", featureId: "career" },
+      { type: "scroll-video", id: "decision" },
+      { type: "audio-story", id: "audio-story" },
+      {
+        type: "interview-video",
+        id: "decision-making",
+        featureId: "decision-making",
+      },
+      { type: "gallery", id: "gallery" },
+      { type: "project-feature", id: "future", project: "future" },
+      { type: "social-media", id: "social-media" },
+      { type: "media-coverage", id: "media-coverage" },
+    ],
+  },
+  "lukas-loibl": {
+    navAriaLabel: () => "Lukas Loibl profile sections",
+    progress: [
+      { id: "biography", label: (labels) => labels.narrativeActs.biography },
+      { id: "career", label: (labels) => labels.narrativeActs.career },
+      {
+        id: "planning-comes-first",
+        label: (_labels, locale) =>
+          locale === "de" ? "Planung zuerst" : "Planning first",
+      },
+      {
+        id: "audio-story",
+        label: (_labels, locale) =>
+          locale === "de"
+            ? "Social Media & Sponsoring"
+            : "Social media & sponsorship",
+      },
+      { id: "world-record", label: (labels) => labels.narrativeActs.worldRecord },
+      {
+        id: "the-mountain-will-still-be-here",
+        label: (_labels, locale) =>
+          locale === "de" ? "Nicht springen" : "Not jumping",
+      },
+      { id: "gallery", label: (labels) => labels.narrativeActs.gallery },
+    ],
+    sections: [
+      {
+        type: "interview-video",
+        id: "planning-comes-first",
+        featureId: "planning-comes-first",
+      },
+      { type: "audio-story", id: "audio-story" },
+      { type: "project-feature", id: "world-record", project: "current" },
+      {
+        type: "interview-video",
+        id: "the-mountain-will-still-be-here",
+        featureId: "the-mountain-will-still-be-here",
+      },
+      { type: "gallery", id: "gallery" },
+      { type: "social-media", id: "social-media" },
+      { type: "media-coverage", id: "media-coverage" },
+    ],
+  },
+};
+
+function buildProgressSections(
   athlete: Athlete,
   labels: AthletePageLabels,
   locale: Locale,
-): AthleteNarrativeNavConfig | null {
-  if (athlete.slug === "tim-howell") {
-    return {
-      ariaLabel: labels.narrativeNavLabel,
-      items: [
-        { id: "person", label: labels.narrativeActs.biography },
-        { id: "attraction", label: labels.narrativeActs.career },
-        { id: "public-image", label: labels.narrativeActs.publicImage },
-        { id: "decision", label: labels.narrativeActs.decision },
-        { id: "gallery", label: labels.narrativeActs.gallery },
-        { id: "future", label: labels.narrativeActs.future },
-      ],
-      anchors: {
-        person: "person",
-        baseStory: "attraction",
-        gallery: "gallery",
-      },
-    };
-  }
+) {
+  const config = getAthletePageSectionConfig(athlete);
 
-  if (athlete.slug === "lukas-loibl") {
-    const interviewNavItem = (featureId: string) => {
-      const feature = athlete.interviewFeatures?.find((item) => item.id === featureId);
+  return config.progress.map<ProgressSection>((section) => ({
+    id: section.id,
+    label: section.label(labels, locale, athlete),
+    includeInProgress: true,
+  }));
+}
 
-      if (!feature) {
-        return null;
+function buildAthleteSections(athlete: Athlete) {
+  const config = getAthletePageSectionConfig(athlete);
+
+  return config.sections.flatMap<AthleteSection>((section) => {
+    switch (section.type) {
+      case "interview-video": {
+        const feature = findInterviewFeature(athlete, section.featureId);
+
+        return feature
+          ? [
+              {
+                id: section.id,
+                type: "interview-video",
+                feature,
+                layout: getInterviewLayoutConfig(athlete, feature),
+                spacing: "immersive",
+                includeInProgress: true,
+              },
+            ]
+          : [];
       }
 
-      return {
-        id: feature.id,
-        label: getLukasInterviewNavLabel(feature, locale),
-      };
-    };
-    const planningNavItem = interviewNavItem("planning-comes-first");
-    const mountainNavItem = interviewNavItem("the-mountain-will-still-be-here");
+      case "audio-story": {
+        const story = findAudioStory(athlete, section.storyId);
 
-    return {
-      ariaLabel: "Lukas Loibl profile sections",
-      items: [
-        { id: "biography", label: labels.narrativeActs.biography },
-        { id: "career", label: labels.narrativeActs.career },
-        ...(planningNavItem ? [planningNavItem] : []),
-        { id: "audio-story", label: getLukasAudioStoryNavLabel(locale) },
-        { id: "world-record", label: labels.narrativeActs.worldRecord },
-        ...(mountainNavItem ? [mountainNavItem] : []),
-        { id: "gallery", label: labels.narrativeActs.gallery },
-      ],
-      anchors: {
-        person: "biography",
-        baseStory: "career",
-        audioStory: "audio-story",
-        gallery: "gallery",
-        currentProject: "world-record",
-      },
-    };
-  }
+        return story
+          ? [
+              {
+                id: section.id,
+                type: "audio-story",
+                story,
+                spacing: "standard",
+              },
+            ]
+          : [];
+      }
 
-  return null;
+      case "scroll-video":
+        return [
+          {
+            id: section.id,
+            type: "scroll-video",
+            video: athlete.scrollVideo,
+            spacing: "immersive",
+            includeInProgress: true,
+          },
+        ];
+
+      case "project-feature":
+        return [
+          {
+            id: section.id,
+            type: "project-feature",
+            project:
+              section.project === "future"
+                ? athlete.futureProject
+                : athlete.currentProject,
+            status: section.project === "future" ? "future" : "current",
+            spacing: "immersive",
+            includeInProgress: true,
+          },
+        ];
+
+      case "gallery":
+        return [
+          {
+            id: section.id,
+            type: "gallery",
+            images: athlete.images.gallery,
+            spacing: "standard",
+            includeInProgress: true,
+          },
+        ];
+
+      case "social-media":
+        return [
+          {
+            id: section.id,
+            type: "social-media",
+            links: athlete.links,
+            spacing: "compact",
+          },
+        ];
+
+      case "media-coverage":
+        return [
+          {
+            id: section.id,
+            type: "media-coverage",
+            articles: athlete.articles,
+            spacing: "compact",
+          },
+        ];
+
+      default:
+        return assertNever(section);
+    }
+  });
 }
 
-function getLukasInterviewNavLabel(
+function getAthletePageSectionConfig(athlete: Athlete) {
+  return athletePageSectionConfigs[athlete.slug] ?? defaultAthletePageSectionConfig;
+}
+
+const defaultAthletePageSectionConfig: AthletePageSectionConfig = {
+  navAriaLabel: (labels) => labels.narrativeNavLabel,
+  progress: [],
+  sections: [
+    { type: "gallery", id: "gallery" },
+    { type: "social-media", id: "social-media" },
+    { type: "media-coverage", id: "media-coverage" },
+  ],
+};
+
+function findInterviewFeature(athlete: Athlete, featureId: string) {
+  return athlete.interviewFeatures?.find((feature) => feature.id === featureId);
+}
+
+function findAudioStory(athlete: Athlete, storyId?: string) {
+  const stories = athlete.audioStories ?? [];
+
+  return storyId
+    ? stories.find((story) => story.id === storyId)
+    : stories.find((story) => story.placement === "after-gallery");
+}
+
+function getInterviewLayoutConfig(
+  athlete: Athlete,
   feature: AthleteInterviewFeature,
-  locale: Locale,
 ) {
-  if (feature.id === "planning-comes-first") {
-    return locale === "de" ? "Planung zuerst" : "Planning first";
-  }
+  const layoutByAthlete: Record<string, Record<string, "text-first" | "media-first">> = {
+    "lukas-loibl": {
+      "planning-comes-first": "text-first",
+      "the-mountain-will-still-be-here": "media-first",
+    },
+  };
 
-  if (feature.id === "the-mountain-will-still-be-here") {
-    return locale === "de" ? "Nicht springen" : "Not jumping";
-  }
-
-  return feature.navTitle?.[locale] ?? feature.title?.[locale] ?? feature.chapter[locale];
+  return layoutByAthlete[athlete.slug]?.[feature.id] ?? "stacked";
 }
 
-function getLukasAudioStoryNavLabel(locale: Locale) {
-  return locale === "de" ? "Social Media & Sponsoring" : "Social media & sponsorship";
+function getNarrativeNavLabel(athlete: Athlete, labels: AthletePageLabels) {
+  return getAthletePageSectionConfig(athlete).navAriaLabel(labels);
+}
+
+function assertNever(value: never): never {
+  throw new Error(`Unsupported athlete page section config: ${JSON.stringify(value)}`);
 }
 
 function formatAthleteMeta(
@@ -541,24 +515,6 @@ function formatAthleteMeta(
     athlete.age === null ? labels.ageUnknown : `${athlete.age} ${labels.years}`;
 
   return `${countryText} | ${ageText}`;
-}
-
-function formatInterviewLabels(
-  feature: AthleteInterviewFeature,
-  locale: Locale,
-  labels: {
-    play: (title: string) => string;
-    fullscreen: (title: string) => string;
-    exitFullscreen: (title: string) => string;
-  },
-) {
-  const title = feature.iframeTitle[locale];
-
-  return {
-    play: labels.play(title),
-    fullscreen: labels.fullscreen(title),
-    exitFullscreen: labels.exitFullscreen(title),
-  };
 }
 
 function firstName(name: string) {

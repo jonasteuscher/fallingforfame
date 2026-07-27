@@ -55,6 +55,10 @@ export function ProjectFeature({
 
   const isCurrentProject = "intro" in project;
   const description = isCurrentProject ? project.intro : project.description;
+  const displayTitle =
+    typeof project.displayTitle === "string"
+      ? project.displayTitle
+      : project.displayTitle[locale];
   const links = isCurrentProject
     ? project.cta
       ? [{ href: project.cta.href, label: project.cta.label, external: false }]
@@ -73,7 +77,7 @@ export function ProjectFeature({
       data-current-project-section={
         isCurrentProject && status === "current" ? project.id : undefined
       }
-      className="overflow-x-clip border-t border-border bg-background px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+      className="overflow-x-clip border-t border-border bg-background px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
       <div className="mx-auto max-w-7xl">
         <header className="max-w-6xl">
@@ -81,7 +85,7 @@ export function ProjectFeature({
             {projectStatusLabels[status][locale]}
           </p>
           <SectionTitle id={headingId} size="project">
-            {project.displayTitle}
+            {displayTitle}
           </SectionTitle>
           {description ? (
             <p className="mt-8 max-w-3xl text-lg leading-8 text-foreground/74 motion-safe:animate-[fade-in-up_700ms_ease-out_200ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:text-xl sm:leading-9">

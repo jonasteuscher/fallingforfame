@@ -23,7 +23,10 @@ type InterviewFeatureProps = {
   feature: AthleteInterviewFeature;
   locale: Locale;
   labels: InterviewFeatureLabels;
+  layout?: InterviewLayout;
 };
+
+export type InterviewLayout = "stacked" | "text-first" | "media-first";
 
 type YouTubePlayer = {
   playVideo: () => void;
@@ -64,7 +67,12 @@ declare global {
 
 let youTubeApiPromise: Promise<YouTubeApi> | null = null;
 
-export function InterviewFeature({ feature, locale, labels }: InterviewFeatureProps) {
+export function InterviewFeature({
+  feature,
+  locale,
+  labels,
+  layout = "stacked",
+}: InterviewFeatureProps) {
   const containerRef = useRef<HTMLElement | null>(null);
   const playerMountRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YouTubePlayer | null>(null);
@@ -246,22 +254,45 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
       ref={containerRef}
       aria-labelledby={headingId}
       data-interview-feature-id={feature.id}
-      className="overflow-x-clip border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+      className="overflow-x-clip border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
-      <div className="mx-auto max-w-7xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
-          {feature.chapter[locale]}
-        </p>
-        <SectionTitle id={headingId}>
-          {heading}
-        </SectionTitle>
-        {feature.subtitle ?? feature.intro ? (
-          <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
-            {(feature.subtitle ?? feature.intro)?.[locale]}
+      <div
+        className={
+          layout === "stacked"
+            ? "mx-auto max-w-7xl"
+            : [
+                "mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-center xl:gap-16",
+                layout === "media-first"
+                  ? "lg:[&>figure]:col-start-1 lg:[&>figure]:row-start-1 lg:[&>header]:col-start-2 lg:[&>header]:row-start-1"
+                  : "",
+              ].join(" ")
+        }
+        data-interview-layout={layout}
+      >
+        <header>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+            {feature.chapter[locale]}
           </p>
-        ) : null}
+          <SectionTitle
+            id={headingId}
+            size={layout === "stacked" ? "standard" : "interviewSplit"}
+          >
+            {heading}
+          </SectionTitle>
+          {feature.subtitle ?? feature.intro ? (
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
+              {(feature.subtitle ?? feature.intro)?.[locale]}
+            </p>
+          ) : null}
+        </header>
 
-        <figure className="mt-10 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-12">
+        <figure
+          className={
+            layout === "stacked"
+              ? "mt-10 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-12"
+              : "mt-0 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+          }
+        >
           <div
             className="overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]"
           >

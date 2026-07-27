@@ -368,7 +368,7 @@ function VideoFallback({
       aria-labelledby={headingId}
       data-scroll-scrub-video-id={video.id}
       data-scroll-scrub-fallback="true"
-      className="overflow-x-clip border-t border-border bg-background px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+      className="overflow-x-clip border-t border-border bg-background px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">

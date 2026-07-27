@@ -39,6 +39,9 @@
   --border: color-mix(in srgb, var(--white) 18%, transparent);
   --font-geist-sans: Arial, Helvetica, sans-serif;
   --font-geist-mono: "Courier New", Courier, monospace;
+  --section-gap-standard: clamp(6rem, 10vw, 11rem);
+  --section-gap-immersive: clamp(8rem, 14vw, 15rem);
+  --section-gap-compact: clamp(4rem, 7vw, 7rem);
 }
 
 * {

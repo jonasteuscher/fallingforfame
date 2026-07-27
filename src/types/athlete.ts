@@ -95,7 +95,7 @@ export type ProjectStatus = "current" | "future" | "completed";
 export type AthleteFutureProject = {
   chapter: LocalizedText;
   title: LocalizedText;
-  displayTitle: string;
+  displayTitle: string | LocalizedText;
   description?: LocalizedText;
   video: {
     src: string;
@@ -112,7 +112,7 @@ export type AthleteCurrentProject = {
   id: string;
   chapter: LocalizedText;
   title: LocalizedText;
-  displayTitle: string;
+  displayTitle: string | LocalizedText;
   intro: LocalizedText;
   passages: {
     title?: LocalizedText;
@@ -163,7 +163,7 @@ export type AthleteQuote = {
 };
 
 export type AthleteLink = {
-  label: string;
+  label: string | LocalizedText;
   url: string | null;
   type: "instagram" | "youtube" | "website" | "tiktok" | "facebook" | "other";
   icon?: string | null;

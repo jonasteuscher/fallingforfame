@@ -1001,7 +1001,10 @@ export const athletes: Athlete[] = [
         en: "World Record",
         de: "Weltrekord",
       },
-      displayTitle: "World\nRecord",
+      displayTitle: {
+        en: "World\nRecord",
+        de: "Weltrekord",
+      },
       intro: {
         en: "Lukas Loibl became the first wingsuit pilot to fly through ten natural rock formations across ten flights in the European Alps, setting a world record built on technical precision, planning and commitment.",
         de: "Lukas Loibl wurde zum ersten Wingsuit-Piloten, der in zehn Flügen zehn natürliche Felsformationen in den europäischen Alpen durchflog. Der Weltrekord entstand aus technischer Präzision, Planung und konsequenter Vorbereitung.",
@@ -1072,12 +1075,18 @@ export const athletes: Athlete[] = [
     ...emptyMedia,
     links: [
       {
-        label: "Lukas Loibl Website",
+        label: {
+          en: "Official Website",
+          de: "Offizielle Website",
+        },
         url: "https://www.lukasloiblws.com/",
         type: "website",
       },
       {
-        label: "Lukas Loibl Wingsuit School",
+        label: {
+          en: "Wingsuit School",
+          de: "Wingsuit-Schule",
+        },
         url: "https://www.lukasloiblws.com/wingsuitschool",
         type: "website",
         icon: "/socials/lukas_logo.png",

@@ -154,18 +154,25 @@ export function AthleteGalleryLightbox({
   return (
     <>
       <ul
-        className="columns-1 gap-5 sm:columns-2 xl:columns-3"
-        data-gallery-layout="editorial-masonry"
+        className="grid grid-cols-1 items-start gap-5 md:grid-cols-12"
+        data-gallery-layout="editorial-grid"
+        data-gallery-count={visibleImages.length}
       >
         {visibleImages.map((image, index) => (
           <li
             key={image.src}
-            className="mb-5 break-inside-avoid overflow-hidden border border-border bg-surface motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+            className={[
+              "self-start overflow-hidden border border-border bg-surface motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0",
+              getGalleryItemClassName(visibleImages.length, index),
+            ].join(" ")}
             style={{ animationDelay: `${(index % 6) * 80}ms` }}
           >
             <button
               type="button"
-              className="group block w-full cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className={[
+                "group block w-full cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+                visibleImages.length === 6 ? "aspect-[2/3] overflow-hidden" : "h-auto",
+              ].join(" ")}
               aria-label={`${text.open}: ${image.alt[locale]}`}
               onFocus={() => warmImage(index)}
               onClick={() => setActiveIndex(index)}
@@ -178,7 +185,11 @@ export function AthleteGalleryLightbox({
                 height={image.height ?? 900}
                 sizes={thumbnailSizes}
                 quality={68}
-                className="h-auto w-full cursor-pointer object-contain transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
+                className={
+                  visibleImages.length === 6
+                    ? "h-full w-full cursor-pointer object-cover transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
+                    : "h-auto w-full cursor-pointer object-contain transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
+                }
               />
             </button>
           </li>
@@ -265,4 +276,40 @@ export function AthleteGalleryLightbox({
       ) : null}
     </>
   );
+}
+
+function getGalleryItemClassName(count: number, index: number) {
+  const patterns: Record<number, string[]> = {
+    6: [
+      "md:col-span-6 xl:col-span-4",
+      "md:col-span-6 xl:col-span-4",
+      "md:col-span-6 xl:col-span-4",
+      "md:col-span-6 xl:col-span-4",
+      "md:col-span-6 xl:col-span-4",
+      "md:col-span-6 xl:col-span-4",
+    ],
+    8: [
+      "md:col-span-7",
+      "md:col-span-5",
+      "md:col-span-4",
+      "md:col-span-4",
+      "md:col-span-4",
+      "md:col-span-6",
+      "md:col-span-6",
+      "md:col-span-12",
+    ],
+    9: [
+      "md:col-span-7",
+      "md:col-span-5",
+      "md:col-span-4",
+      "md:col-span-4",
+      "md:col-span-4",
+      "md:col-span-6",
+      "md:col-span-6",
+      "md:col-span-5",
+      "md:col-span-7",
+    ],
+  };
+
+  return patterns[count]?.[index] ?? "md:col-span-4";
 }

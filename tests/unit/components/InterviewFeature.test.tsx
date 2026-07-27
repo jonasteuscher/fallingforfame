@@ -307,12 +307,16 @@ describe("InterviewFeature", () => {
           fullscreen: "Open Lukas Loibl interview fullscreen",
           exitFullscreen: "Exit Lukas Loibl interview fullscreen",
         }}
+        layout="text-first"
       />,
     );
 
     expect(
       screen.getByRole("heading", { name: "Planung ist oberste Priorität" }),
     ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Planung ist oberste Priorität" }),
+    ).toHaveClass("[overflow-wrap:normal]", "[text-wrap:balance]");
     expect(screen.getByAltText("")).toHaveAttribute(
       "src",
       "https://i.ytimg.com/vi/jfAIEg2GOGY/maxresdefault.jpg",

@@ -1,4 +1,10 @@
 export { AthleteCard } from "@/components/athletes/AthleteCard";
+export { AthleteDocumentaryPage } from "@/components/athletes/AthleteDocumentaryPage";
+export type {
+  AthleteSection,
+  ProgressSection,
+  SectionSpacing,
+} from "@/components/athletes/AthleteDocumentaryPage";
 export { AthleteNarrativeNav } from "@/components/athletes/AthleteNarrativeNav";
 export { AudioStory } from "@/components/athletes/AudioStory";
 export { FutureProjectFeature } from "@/components/athletes/FutureProjectFeature";

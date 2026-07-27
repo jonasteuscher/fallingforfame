@@ -538,7 +538,10 @@ describe("athletes data", () => {
         en: "World Record",
         de: "Weltrekord",
       },
-      displayTitle: "World\nRecord",
+      displayTitle: {
+        en: "World\nRecord",
+        de: "Weltrekord",
+      },
       images: [
         {
           src: "/images/athletes/lukas-loibl/Loch1.jpeg",

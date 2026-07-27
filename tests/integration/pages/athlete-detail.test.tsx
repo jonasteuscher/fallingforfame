@@ -144,7 +144,7 @@ describe("athlete detail page", () => {
     const gallerySection = screen.getByRole("heading", { name: "Photo Gallery" })
       .closest("section");
     const galleryLayout = gallerySection?.querySelector(
-      '[data-gallery-layout="editorial-masonry"]',
+      '[data-gallery-layout="editorial-grid"]',
     );
     const scrollVideo = container.querySelector(
       '[data-scroll-scrub-video-id="iran-jump"]',
@@ -166,7 +166,12 @@ describe("athlete detail page", () => {
     expect(audioStory).toBeInTheDocument();
     expect(scrollVideo).toBeInTheDocument();
     expect(futureProject).toBeInTheDocument();
-    expect(galleryLayout).toHaveClass("columns-1", "sm:columns-2", "xl:columns-3");
+    expect(galleryLayout).toHaveClass(
+      "grid",
+      "grid-cols-1",
+      "items-start",
+      "md:grid-cols-12",
+    );
     expect(galleryLayout?.querySelector("img")).toHaveClass(
       "h-auto",
       "object-contain",
@@ -407,7 +412,10 @@ describe("athlete detail page", () => {
     );
 
     expect(
-      screen.getByRole("link", { name: /Lukas Loibl Website/ }),
+      screen.getByRole("link", { name: /Official Website/ }),
+    ).toHaveClass("min-h-12");
+    expect(
+      screen.getByRole("link", { name: /Wingsuit School/ }),
     ).toHaveClass("min-h-12");
     expect(
       screen.getByText("Austrian wingsuit pilot claims world record"),
@@ -441,6 +449,9 @@ describe("athlete detail page", () => {
     const gallerySection = screen
       .getByRole("heading", { name: "Photo Gallery" })
       .closest("section");
+    const galleryLayout = gallerySection?.querySelector(
+      '[data-gallery-layout="editorial-grid"]',
+    );
     const projectSection = container.querySelector(
       '[data-current-project-section="lukas-loibl-world-record"]',
     );
@@ -463,6 +474,15 @@ describe("athlete detail page", () => {
     expect(planningInterview).toBeInTheDocument();
     expect(projectSection).toBeInTheDocument();
     expect(mediaCoverageAnchor).toBeInTheDocument();
+    expect(galleryLayout).toHaveAttribute("data-gallery-count", "6");
+    expect(galleryLayout?.querySelectorAll("li").item(5)).toHaveClass(
+      "md:col-span-6",
+      "xl:col-span-4",
+    );
+    expect(
+      galleryLayout?.querySelectorAll("button").item(0),
+    ).toHaveClass("aspect-[2/3]", "overflow-hidden");
+    expect(galleryLayout?.querySelector("img")).toHaveClass("object-cover");
     expect(
       planningInterview?.compareDocumentPosition(audioStory as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
@@ -521,6 +541,10 @@ describe("athlete detail page", () => {
     expect(planningInterview?.querySelector("p")?.textContent).toBe(
       "Decision Making",
     );
+    expect(planningInterview?.querySelector("[data-interview-layout]"))
+      .toHaveAttribute("data-interview-layout", "text-first");
+    expect(mountainInterview?.querySelector("[data-interview-layout]"))
+      .toHaveAttribute("data-interview-layout", "media-first");
     expect(
       screen.getByText(
         "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
@@ -591,6 +615,7 @@ describe("athlete detail page", () => {
     );
 
     expect(screen.getByText("Aktuelles Projekt")).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Weltrekord" })).toBeVisible();
     expect(screen.getByText(/zehn natürliche Felsformationen/)).toBeVisible();
     expect(
       screen.getByRole("heading", {
@@ -730,8 +755,8 @@ describe("athlete detail page", () => {
       screen
         .getByRole("heading", { name: "Photo Gallery" })
         .closest("section")
-        ?.querySelector('[data-gallery-layout="editorial-masonry"]'),
-    ).toHaveClass("columns-1", "sm:columns-2", "xl:columns-3");
+        ?.querySelector('[data-gallery-layout="editorial-grid"]'),
+    ).toHaveClass("grid", "grid-cols-1", "items-start", "md:grid-cols-12");
     expect(
       container.querySelector(
         'img[src="/images/athletes/marcel-geser/gallery/DJI_20250607050910_0491_D.jpg"]',
