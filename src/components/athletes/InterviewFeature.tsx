@@ -32,6 +32,7 @@ type YouTubePlayer = {
   playVideo: () => void;
   pauseVideo: () => void;
   destroy: () => void;
+  unloadModule?: (module: "captions" | "cc") => void;
   setSize?: (width: string | number, height: string | number) => void;
   setPlaybackQuality?: (suggestedQuality: "hd1080") => void;
 };
@@ -211,6 +212,8 @@ export function InterviewFeature({
 
           playerRef.current?.setSize?.("100%", "100%");
           playerRef.current?.setPlaybackQuality?.("hd1080");
+          playerRef.current?.unloadModule?.("captions");
+          playerRef.current?.unloadModule?.("cc");
           requestVideoPlayback(playerId);
           playerRef.current?.playVideo();
           setIsLoading(false);

@@ -9,6 +9,7 @@ type MockPlayer = {
   playVideo: ReturnType<typeof vi.fn>;
   pauseVideo: ReturnType<typeof vi.fn>;
   destroy: ReturnType<typeof vi.fn>;
+  unloadModule: ReturnType<typeof vi.fn>;
   setSize: ReturnType<typeof vi.fn>;
   setPlaybackQuality: ReturnType<typeof vi.fn>;
 };
@@ -52,6 +53,7 @@ const playerConstructor = vi.fn(function MockYouTubePlayer(
         options.events.onStateChange?.({ data: 2 });
       }),
       destroy: vi.fn(),
+      unloadModule: vi.fn(),
       setSize: vi.fn(),
       setPlaybackQuality: vi.fn(),
     };
@@ -165,6 +167,8 @@ describe("InterviewFeature", () => {
     expect(createdPlayers[0]?.playVideo).toHaveBeenCalled();
     expect(createdPlayers[0]?.setSize).toHaveBeenCalledWith("100%", "100%");
     expect(createdPlayers[0]?.setPlaybackQuality).toHaveBeenCalledWith("hd1080");
+    expect(createdPlayers[0]?.unloadModule).toHaveBeenCalledWith("captions");
+    expect(createdPlayers[0]?.unloadModule).toHaveBeenCalledWith("cc");
     expect(document.querySelector("iframe")).toHaveAttribute(
       "title",
       "Tim Howell interview",
