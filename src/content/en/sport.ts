@@ -166,11 +166,11 @@ export const sport = {
     title: "Historical timeline",
     items: [
       {
-        date: "1783",
+        date: "1797",
         title: "Early parachute experiments",
         body: "Parachute ideas appear long before the modern sport. For centuries, people experimented with jumps from towers, cliffs and balloons before BASE jumping became a defined practice.",
         image: {
-          src: "/images/sport/history/1783.jpg",
+          src: "/images/sport/history/1797.jpg",
           alt: "Historical illustration of an early parachute experiment.",
         },
       },

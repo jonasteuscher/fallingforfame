@@ -166,11 +166,11 @@ export const sport = {
     title: "Historische Entwicklung",
     items: [
       {
-        date: "1783",
+        date: "1797",
         title: "Frühe Fallschirmexperimente",
         body: "Fallschirmideen existieren lange vor dem modernen Sport. Bereits seit Jahrhunderten experimentierten Menschen mit Sprüngen von Türmen, Felswänden oder Ballons.",
         image: {
-          src: "/images/sport/history/1783.jpg",
+          src: "/images/sport/history/1797.jpg",
           alt: "Historische Illustration eines frühen Fallschirmexperiments.",
         },
       },

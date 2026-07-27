@@ -51,6 +51,7 @@ The site uses locale-prefixed routes:
 /en/findings
 /en/sport
 /en/project
+/en/imprint
 
 /de
 /de/athletes
@@ -58,6 +59,7 @@ The site uses locale-prefixed routes:
 /de/findings
 /de/sport
 /de/project
+/de/impressum
 
 /sitemap.xml
 ```
