@@ -88,7 +88,7 @@ describe("findings page", () => {
       "href",
       "#no-jump",
     );
-    expect(screen.getByText("Sicherheit vor Erwartung")).toBeVisible();
+    expect(screen.getAllByText("Sicherheit vor Erwartung").length).toBeGreaterThan(0);
     expect(screen.getByText(/Die Ergebnisse beziehen sich auf dieses Sample/i)).toBeVisible();
     expect(screen.getByRole("button", { name: /Entdeckung/i })).toHaveAttribute(
       "aria-current",

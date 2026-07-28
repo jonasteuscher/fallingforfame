@@ -150,7 +150,7 @@ export function SponsorshipSpectrumSection({
 
       <div className="hidden md:block md:h-[390svh] md:min-h-[2500px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
-          <div className="mx-auto flex h-full max-w-7xl flex-col px-6 py-10 xl:px-10">
+          <div className="mx-auto flex h-full max-w-[90rem] flex-col px-6 py-10 xl:px-10">
             <header className="relative z-10 grid gap-8 lg:grid-cols-[minmax(32rem,0.62fr)_minmax(22rem,0.38fr)] lg:items-end">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
@@ -238,7 +238,7 @@ function SpectrumStage({
           style={{ transform: `scaleX(${pathProgress})` }}
           aria-hidden="true"
         />
-        <ol className="relative grid grid-cols-6 gap-5">
+        <ol className="relative grid grid-cols-6 gap-8 xl:gap-12">
         {spectrum.map((stage, index) => {
           const reveal = interpolate(progress, 0.08 + index * 0.09, 0.2 + index * 0.09, 0, 1);
           const isHigherScope = index >= Math.max(3, Math.floor(spectrum.length / 2));
@@ -246,7 +246,7 @@ function SpectrumStage({
           return (
             <li
               key={stage.title}
-              className="min-w-0"
+                className="min-w-0"
               style={{
                 opacity: reveal,
                 transform: `translate3d(0, ${interpolate(reveal, 0, 1, 24, 0)}px, 0)`,
@@ -255,7 +255,7 @@ function SpectrumStage({
               <button
                 type="button"
                 onClick={() => onStageSelect(index)}
-                className="group grid w-full grid-rows-[1.75rem_2.25rem_minmax(4.75rem,auto)_minmax(5rem,auto)] text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                className="group grid w-full grid-rows-[1.75rem_2.25rem_minmax(5.75rem,auto)_minmax(5rem,auto)] text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
               >
                 <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                   {String(index + 1).padStart(2, "0")}
@@ -269,10 +269,10 @@ function SpectrumStage({
                     aria-hidden="true"
                   />
                 </span>
-                <span className="block max-w-[13rem] text-[clamp(1rem,1.18vw,1.35rem)] font-semibold uppercase leading-tight text-foreground [text-wrap:balance]">
+                <span className="block max-w-[12.25rem] break-words text-[clamp(0.98rem,1.04vw,1.2rem)] font-semibold uppercase leading-tight text-foreground [hyphens:auto] [text-wrap:balance]">
                   {stage.title}
                 </span>
-                <span className="block max-w-[13rem] text-sm leading-6 text-foreground/68">
+                <span className="block max-w-[12.25rem] text-sm leading-6 text-foreground/68">
                   {stage.body}
                 </span>
               </button>

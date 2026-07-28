@@ -7,6 +7,7 @@ import { FindingsHero } from "@/components/findings/FindingsHero";
 import { FindingsQuote } from "@/components/findings/FindingsQuote";
 import { FindingsVisibilitySequence } from "@/components/findings/FindingsVisibilitySequence";
 import { CameraEquipmentSection } from "@/components/findings/CameraEquipmentSection";
+import { PressureModelSection } from "@/components/findings/PressureModelSection";
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
 import { SponsorshipSpectrumSection } from "@/components/findings/SponsorshipSpectrumSection";
 import { VisibleInvisibleProcessSection } from "@/components/findings/VisibleInvisibleProcessSection";
@@ -76,6 +77,14 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             empiricalLabel={content.empiricalLabel}
             interpretationLabel={content.interpretationLabel}
             quoteSourceLabel={content.quoteSourceLabel}
+          />
+        ) : chapter.kind === "pressure-model" ? (
+          <PressureModelSection
+            key={chapter.id}
+            chapter={chapter}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
           />
         ) : (
           <FindingChapterSection
