@@ -110,12 +110,15 @@ export type FindingChapter = {
   }[];
   left?: {
     title: string;
+    descriptor?: string;
     items: string[];
   };
   right?: {
     title: string;
+    descriptor?: string;
     items: string[];
   };
+  disclaimer?: string;
   spectrum?: {
     title: string;
     body: string;

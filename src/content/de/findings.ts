@@ -139,8 +139,8 @@ export const findingsPage: FindingsPageContent = {
       id: "recognition",
       kind: "recognition-comparison",
       navLabel: "Anerkennung",
-      eyebrow: "Aufmerksamkeit ist nicht Anerkennung",
-      title: "Reichweite ist nicht Anerkennung",
+      eyebrow: "Anerkennung",
+      title: "Reichweite ist\nnicht gleich\nAnerkennung",
       summary:
         "Mehrere Athleten unterschieden digitale Reichweite von langfristiger Anerkennung innerhalb der BASE Community.",
       finding: "Sichtbarkeit kann Türen öffnen. Respekt entsteht über Jahre.",
@@ -148,6 +148,7 @@ export const findingsPage: FindingsPageContent = {
         "Kurzfristige Sichtbarkeit kann Aufmerksamkeit erzeugen. Anerkennung wurde aber mit Erfahrung, Kompetenz, Urteilskraft und kontinuierlicher sicherer Praxis verbunden.",
       left: {
         title: "Kurzfristige Sichtbarkeit",
+        descriptor: "Schnell sichtbar. Schnell vergänglich.",
         items: [
           "Follower",
           "Views",
@@ -158,6 +159,7 @@ export const findingsPage: FindingsPageContent = {
       },
       right: {
         title: "Langfristige Anerkennung",
+        descriptor: "Vertrauen entsteht langsam.",
         items: [
           "Erfahrung",
           "Kompetenz",
@@ -166,6 +168,8 @@ export const findingsPage: FindingsPageContent = {
           "Jahre sicherer Praxis",
         ],
       },
+      disclaimer:
+        "Konzeptionelle Darstellung der qualitativen Ergebnisse, keine quantitative Messung.",
     },
     {
       id: "camera",

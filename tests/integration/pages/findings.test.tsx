@@ -34,7 +34,9 @@ describe("findings page", () => {
     );
 
     expect(screen.getByRole("heading", { name: "More than self-presentation" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Attention is not recognition" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: /Attention is not\s+recognition/i }),
+    ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Support takes many forms" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Pressure does not have to be spoken" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "The jump begins long before the exit" })).toBeVisible();

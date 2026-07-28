@@ -139,8 +139,8 @@ export const findingsPage: FindingsPageContent = {
       id: "recognition",
       kind: "recognition-comparison",
       navLabel: "Recognition",
-      eyebrow: "Attention is not recognition",
-      title: "Attention is not recognition",
+      eyebrow: "Recognition",
+      title: "Attention is not\nrecognition",
       summary:
         "Several athletes distinguished digital reach from long-term recognition inside the BASE community.",
       finding: "Visibility can open doors. Respect is built over years.",
@@ -148,6 +148,7 @@ export const findingsPage: FindingsPageContent = {
         "Short-term visibility can create attention, but recognition was described as being tied to experience, competence, judgement and consistent safe practice.",
       left: {
         title: "Short-term visibility",
+        descriptor: "Fast to appear. Fast to fade.",
         items: [
           "followers",
           "views",
@@ -158,6 +159,7 @@ export const findingsPage: FindingsPageContent = {
       },
       right: {
         title: "Long-term recognition",
+        descriptor: "Trust builds slowly.",
         items: [
           "experience",
           "competence",
@@ -166,6 +168,8 @@ export const findingsPage: FindingsPageContent = {
           "years of safe practice",
         ],
       },
+      disclaimer:
+        "Conceptual representation of the qualitative findings, not a quantitative measurement.",
     },
     {
       id: "camera",

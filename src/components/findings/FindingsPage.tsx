@@ -6,6 +6,7 @@ import { FindingsChapterNav } from "@/components/findings/FindingsChapterNav";
 import { FindingsHero } from "@/components/findings/FindingsHero";
 import { FindingsQuote } from "@/components/findings/FindingsQuote";
 import { FindingsVisibilitySequence } from "@/components/findings/FindingsVisibilitySequence";
+import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
 import type { Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
 import type { FindingChapter, FindingsPageContent } from "@/types/findings";
@@ -39,6 +40,14 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             empiricalLabel={content.empiricalLabel}
             interpretationLabel={content.interpretationLabel}
             quoteSourceLabel={content.quoteSourceLabel}
+          />
+        ) : chapter.kind === "recognition-comparison" ? (
+          <RecognitionComparison
+            key={chapter.id}
+            chapter={chapter}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
           />
         ) : (
           <FindingChapterSection
@@ -121,7 +130,7 @@ function ChapterVisual({
     case "media-visibility":
       return null;
     case "recognition-comparison":
-      return <SplitComparison chapter={chapter} mode="recognition" />;
+      return null;
     case "camera-equipment":
       return <EquipmentFocus chapter={chapter} />;
     case "sponsorship-spectrum":
