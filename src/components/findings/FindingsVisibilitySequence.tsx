@@ -415,6 +415,13 @@ function MobileVisibilitySequence({
   interpretationLabel: string;
   quoteSourceLabel: string;
 }) {
+  const mobileTitle = chapter.title.replace(
+    "Selbstdarstellung",
+    "Selbstdarstel\u00adlung",
+  );
+  const learningState =
+    states.find((state) => state.id === "learning") ?? states[0];
+
   return (
     <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
@@ -422,9 +429,9 @@ function MobileVisibilitySequence({
       </p>
       <p
         aria-hidden="true"
-        className="mt-4 max-w-full text-[clamp(2.6rem,11vw,4rem)] font-semibold uppercase leading-[0.9] text-foreground [overflow-wrap:anywhere] [text-wrap:balance]"
+        className="mt-4 max-w-full text-[clamp(2.45rem,10.2vw,3.8rem)] font-semibold uppercase leading-[0.92] text-foreground [hyphens:auto] [overflow-wrap:normal] [text-wrap:balance]"
       >
-        {chapter.title}
+        {mobileTitle}
       </p>
       <p className="mt-6 text-lg leading-8 text-foreground/76">{chapter.summary}</p>
       <figure className="relative mt-10 aspect-[4/3] overflow-hidden border border-border bg-surface">
@@ -440,13 +447,25 @@ function MobileVisibilitySequence({
           className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_22%,transparent)_0%,color-mix(in_srgb,var(--background)_18%,transparent)_44%,color-mix(in_srgb,var(--background)_58%,transparent)_100%)]"
           aria-hidden="true"
         />
+        {learningState ? (
+          <div className="absolute inset-0 opacity-90" aria-hidden="true">
+            <StateOverlay state={learningState} />
+          </div>
+        ) : null}
         <figcaption className="absolute inset-x-4 bottom-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            {states[0]?.overlayLabel}
-          </p>
-          <p className="mt-2 max-w-[18rem] text-lg font-semibold leading-tight text-foreground [text-shadow:0_2px_18px_var(--background)]">
-            {states[0]?.visualStatement}
-          </p>
+          <ol className="grid grid-cols-2 gap-x-4 gap-y-2">
+            {states.map((state, index) => (
+              <li
+                key={state.id}
+                className="text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-foreground/82 [text-shadow:0_2px_18px_var(--background)]"
+              >
+                <span className="text-primary">
+                  {String(index + 1).padStart(2, "0")}
+                </span>{" "}
+                {state.title}
+              </li>
+            ))}
+          </ol>
         </figcaption>
       </figure>
       <ol className="mt-9 grid gap-6">
