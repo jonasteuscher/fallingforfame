@@ -330,9 +330,6 @@ function MobileVisibleInvisible({
       <p className="mt-6 text-lg leading-8 text-foreground/76">{chapter.summary}</p>
       <VisibleResultStatic chapter={chapter} className="mt-10" />
       <InvisibleProcessStatic chapter={chapter} processItems={processItems} className="mt-10" />
-      <p className="mt-10 border-l-2 border-primary pl-5 text-2xl font-semibold leading-tight text-foreground">
-        {chapter.finding}
-      </p>
       <ProcessFindingSummaryStatic
         chapter={chapter}
         sourcePrefix={sourcePrefix}

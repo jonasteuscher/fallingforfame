@@ -8,6 +8,7 @@ import { FindingsQuote } from "@/components/findings/FindingsQuote";
 import { FindingsVisibilitySequence } from "@/components/findings/FindingsVisibilitySequence";
 import { CameraEquipmentSection } from "@/components/findings/CameraEquipmentSection";
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
+import { SponsorshipSpectrumSection } from "@/components/findings/SponsorshipSpectrumSection";
 import { VisibleInvisibleProcessSection } from "@/components/findings/VisibleInvisibleProcessSection";
 import type { Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
@@ -66,6 +67,15 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             sourcePrefix={content.sourcePrefix}
             empiricalLabel={content.empiricalLabel}
             interpretationLabel={content.interpretationLabel}
+          />
+        ) : chapter.kind === "sponsorship-spectrum" ? (
+          <SponsorshipSpectrumSection
+            key={chapter.id}
+            chapter={chapter}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+            quoteSourceLabel={content.quoteSourceLabel}
           />
         ) : (
           <FindingChapterSection
