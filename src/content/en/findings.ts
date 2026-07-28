@@ -9,7 +9,7 @@ export const findingsPage: FindingsPageContent = {
   },
   navigationLabel: "Findings chapters",
   skipLabel: "Skip to research context",
-  sourcePrefix: "Qualitative finding",
+  sourcePrefix: "Key insight",
   empiricalLabel: "Empirical finding",
   interpretationLabel: "Interpretation",
   quoteSourceLabel: "Interview participant",
@@ -136,16 +136,77 @@ export const findingsPage: FindingsPageContent = {
       ],
     },
     {
+      id: "camera",
+      kind: "camera-equipment",
+      eyebrow: "Camera presence",
+      title: "The camera is part of the jump",
+      summary:
+        "Cameras are normalised in modern BASE jumping, but the interviews do not support a simple camera-causes-risk claim.",
+      finding:
+        "The camera does not make the decision. What matters is how it is used.",
+      accessibleSummary:
+        "Camera use may influence planning, positioning and image composition, while safety-relevant judgement still depends on preparation, self-regulation and context.",
+      image: {
+        src: "/images/sport/equipment/helmet-1.jpg",
+        alt: "BASE jumping helmet with equipment details.",
+      },
+      states: [
+        { title: "Helmet", body: "Protection and mounting point." },
+        { title: "Action camera", body: "A media object that becomes ordinary equipment." },
+        { title: "Parachute", body: "The safety system remains central." },
+        { title: "Weather", body: "External conditions redirect attention away from image making." },
+        { title: "Concentration", body: "Execution depends on focus, not the camera alone." },
+      ],
+    },
+    {
+      id: "visible-process",
+      kind: "visible-invisible",
+      eyebrow: "What the video does not show",
+      title: "The visible result is not the whole process",
+      summary:
+        "Social media can inspire progression, but imitation becomes problematic when the visible result is separated from preparation.",
+      finding:
+        "Visible: the flight. Invisible: the decisions.",
+      accessibleSummary:
+        "A polished clip may hide years of progression, failed attempts, route study, weather checks, gear checks, mentoring, cancelled jumps, reflection and uncertainty.",
+      visibleLabel: "Visible: the flight",
+      invisibleLabel: "Invisible: the decisions",
+      left: {
+        title: "Polished clip",
+        items: ["short", "spectacular", "shareable"],
+      },
+      right: {
+        title: "Hidden process",
+        items: [
+          "years of progression",
+          "failed attempts",
+          "route study",
+          "weather checks",
+          "gear checks",
+          "mentoring",
+          "cancelled jumps",
+          "reflection",
+          "uncertainty",
+        ],
+      },
+    },
+    {
       id: "recognition",
       kind: "recognition-comparison",
       navLabel: "Recognition",
-      eyebrow: "Recognition",
+      eyebrow: "The difference",
       title: "Attention is not\nrecognition",
       summary:
         "Several athletes distinguished digital reach from long-term recognition inside the BASE community.",
-      finding: "Visibility can open doors. Respect is built over years.",
+      finding: "Visibility can open doors. Recognition is built over years.",
       accessibleSummary:
         "Short-term visibility can create attention, but recognition was described as being tied to experience, competence, judgement and consistent safe practice.",
+      insight: {
+        empirical:
+          "Attention is visible.\nRecognition must be earned over time.",
+        interpretation:
+          "While digital platforms can accelerate visibility, recognition within the community develops through long-term experience, competence and responsible practice.",
+      },
       left: {
         title: "Short-term visibility",
         descriptor: "Fast to appear. Fast to fade.",
@@ -170,29 +231,6 @@ export const findingsPage: FindingsPageContent = {
       },
       disclaimer:
         "Conceptual representation of the qualitative findings, not a quantitative measurement.",
-    },
-    {
-      id: "camera",
-      kind: "camera-equipment",
-      eyebrow: "The camera",
-      title: "The camera is part of the jump",
-      summary:
-        "Cameras are normalised in modern BASE jumping, but the interviews do not support a simple camera-causes-risk claim.",
-      finding:
-        "The camera does not make the decision. What matters is how it is used.",
-      accessibleSummary:
-        "Camera use may influence planning, positioning and image composition, while safety-relevant judgement still depends on preparation, self-regulation and context.",
-      image: {
-        src: "/images/sport/equipment/helmet-1.jpg",
-        alt: "BASE jumping helmet with equipment details.",
-      },
-      states: [
-        { title: "Helmet", body: "Protection and mounting point." },
-        { title: "Action camera", body: "A media object that becomes ordinary equipment." },
-        { title: "Parachute", body: "The safety system remains central." },
-        { title: "Weather", body: "External conditions redirect attention away from image making." },
-        { title: "Concentration", body: "Execution depends on focus, not the camera alone." },
-      ],
     },
     {
       id: "sponsorship",
@@ -326,38 +364,6 @@ export const findingsPage: FindingsPageContent = {
         "group dynamics",
         "responsibility for others",
       ],
-    },
-    {
-      id: "visible-process",
-      kind: "visible-invisible",
-      eyebrow: "What the video does not show",
-      title: "The visible result is not the whole process",
-      summary:
-        "Social media can inspire progression, but imitation becomes problematic when the visible result is separated from preparation.",
-      finding:
-        "Visible: the flight. Invisible: the decisions.",
-      accessibleSummary:
-        "A polished clip may hide years of progression, failed attempts, route study, weather checks, gear checks, mentoring, cancelled jumps, reflection and uncertainty.",
-      visibleLabel: "Visible: the flight",
-      invisibleLabel: "Invisible: the decisions",
-      left: {
-        title: "Polished clip",
-        items: ["short", "spectacular", "shareable"],
-      },
-      right: {
-        title: "Hidden process",
-        items: [
-          "years of progression",
-          "failed attempts",
-          "route study",
-          "weather checks",
-          "gear checks",
-          "mentoring",
-          "cancelled jumps",
-          "reflection",
-          "uncertainty",
-        ],
-      },
     },
     {
       id: "community",

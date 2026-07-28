@@ -9,7 +9,7 @@ export const findingsPage: FindingsPageContent = {
   },
   navigationLabel: "Kapitel der Erkenntnisse",
   skipLabel: "Zum Forschungskontext springen",
-  sourcePrefix: "Qualitative Erkenntnis",
+  sourcePrefix: "Interpretation der Ergebnisse",
   empiricalLabel: "Empirische Erkenntnis",
   interpretationLabel: "Einordnung",
   quoteSourceLabel: "Interviewteilnehmer",
@@ -136,16 +136,76 @@ export const findingsPage: FindingsPageContent = {
       ],
     },
     {
+      id: "camera",
+      kind: "camera-equipment",
+      eyebrow: "Kamerapräsenz",
+      title: "Die Kamera ist Teil des Sprungs",
+      summary:
+        "Kameras sind im modernen BASE Jumping normalisiert. Die Interviews stützen aber keine einfache Aussage, dass eine Kamera automatisch Risiko erzeugt.",
+      finding:
+        "Nicht die Kamera entscheidet. Entscheidend ist der Umgang mit ihr.",
+      accessibleSummary:
+        "Kameras können Planung, Positionierung und Bildkomposition beeinflussen. Sicherheitsrelevante Entscheidungen hängen weiterhin von Vorbereitung, Selbstregulation und Kontext ab.",
+      image: {
+        src: "/images/sport/equipment/helmet-1.jpg",
+        alt: "BASE-Jumping-Helm mit Ausrüstungsdetails.",
+      },
+      states: [
+        { title: "Helm", body: "Schutz und Montagepunkt." },
+        { title: "Actionkamera", body: "Ein Medienobjekt wird zu normaler Ausrüstung." },
+        { title: "Fallschirm", body: "Das Sicherheitssystem bleibt zentral." },
+        { title: "Wetter", body: "Äussere Bedingungen verschieben die Aufmerksamkeit weg vom Bild." },
+        { title: "Konzentration", body: "Die Ausführung hängt von Fokus ab, nicht von der Kamera allein." },
+      ],
+    },
+    {
+      id: "visible-process",
+      kind: "visible-invisible",
+      eyebrow: "Was das Video nicht zeigt",
+      title: "Das sichtbare Ergebnis ist nicht der ganze Prozess",
+      summary:
+        "Social Media kann Progression inspirieren. Imitation wird problematisch, wenn das sichtbare Ergebnis von Vorbereitung und Erfahrung getrennt wird.",
+      finding:
+        "Sichtbar: der Flug. Unsichtbar: die Entscheidungen.",
+      accessibleSummary:
+        "Ein polierter Clip kann Jahre der Progression, gescheiterte Versuche, Routenstudium, Wetterchecks, Gear-Checks, Mentoring, abgesagte Sprünge, Reflexion und Unsicherheit verbergen.",
+      visibleLabel: "Sichtbar: der Flug",
+      invisibleLabel: "Unsichtbar: die Entscheidungen",
+      left: {
+        title: "Polierter Clip",
+        items: ["kurz", "spektakulär", "teilbar"],
+      },
+      right: {
+        title: "Verborgener Prozess",
+        items: [
+          "Jahre der Progression",
+          "gescheiterte Versuche",
+          "Routenstudium",
+          "Wetterchecks",
+          "Gear-Checks",
+          "Mentoring",
+          "abgesagte Sprünge",
+          "Reflexion",
+          "Unsicherheit",
+        ],
+      },
+    },
+    {
       id: "recognition",
       kind: "recognition-comparison",
       navLabel: "Anerkennung",
-      eyebrow: "Anerkennung",
+      eyebrow: "Der Unterschied",
       title: "Reichweite ist\nnicht gleich\nAnerkennung",
       summary:
         "Mehrere Athleten unterschieden digitale Reichweite von langfristiger Anerkennung innerhalb der BASE Community.",
-      finding: "Sichtbarkeit kann Türen öffnen. Respekt entsteht über Jahre.",
+      finding: "Sichtbarkeit kann Türen öffnen. Anerkennung entsteht über Jahre.",
       accessibleSummary:
         "Kurzfristige Sichtbarkeit kann Aufmerksamkeit erzeugen. Anerkennung wurde aber mit Erfahrung, Kompetenz, Urteilskraft und kontinuierlicher sicherer Praxis verbunden.",
+      insight: {
+        empirical: "Aufmerksamkeit ist sichtbar.\nAnerkennung muss wachsen.",
+        interpretation:
+          "Während digitale Plattformen Reichweite beschleunigen können, entwickelt sich Anerkennung innerhalb der Community durch langfristig gelebte Kompetenz und verantwortungsbewusstes Handeln.",
+      },
       left: {
         title: "Kurzfristige Sichtbarkeit",
         descriptor: "Schnell sichtbar. Schnell vergänglich.",
@@ -170,29 +230,6 @@ export const findingsPage: FindingsPageContent = {
       },
       disclaimer:
         "Konzeptionelle Darstellung der qualitativen Ergebnisse, keine quantitative Messung.",
-    },
-    {
-      id: "camera",
-      kind: "camera-equipment",
-      eyebrow: "Die Kamera",
-      title: "Die Kamera ist Teil des Sprungs",
-      summary:
-        "Kameras sind im modernen BASE Jumping normalisiert. Die Interviews stützen aber keine einfache Aussage, dass eine Kamera automatisch Risiko erzeugt.",
-      finding:
-        "Nicht die Kamera entscheidet. Entscheidend ist der Umgang mit ihr.",
-      accessibleSummary:
-        "Kameras können Planung, Positionierung und Bildkomposition beeinflussen. Sicherheitsrelevante Entscheidungen hängen weiterhin von Vorbereitung, Selbstregulation und Kontext ab.",
-      image: {
-        src: "/images/sport/equipment/helmet-1.jpg",
-        alt: "BASE-Jumping-Helm mit Ausrüstungsdetails.",
-      },
-      states: [
-        { title: "Helm", body: "Schutz und Montagepunkt." },
-        { title: "Actionkamera", body: "Ein Medienobjekt wird zu normaler Ausrüstung." },
-        { title: "Fallschirm", body: "Das Sicherheitssystem bleibt zentral." },
-        { title: "Wetter", body: "Äussere Bedingungen verschieben die Aufmerksamkeit weg vom Bild." },
-        { title: "Konzentration", body: "Die Ausführung hängt von Fokus ab, nicht von der Kamera allein." },
-      ],
     },
     {
       id: "sponsorship",
@@ -326,38 +363,6 @@ export const findingsPage: FindingsPageContent = {
         "Gruppendynamik",
         "Verantwortung für andere",
       ],
-    },
-    {
-      id: "visible-process",
-      kind: "visible-invisible",
-      eyebrow: "Was das Video nicht zeigt",
-      title: "Das sichtbare Ergebnis ist nicht der ganze Prozess",
-      summary:
-        "Social Media kann Progression inspirieren. Imitation wird problematisch, wenn das sichtbare Ergebnis von Vorbereitung und Erfahrung getrennt wird.",
-      finding:
-        "Sichtbar: der Flug. Unsichtbar: die Entscheidungen.",
-      accessibleSummary:
-        "Ein polierter Clip kann Jahre der Progression, gescheiterte Versuche, Routenstudium, Wetterchecks, Gear-Checks, Mentoring, abgesagte Sprünge, Reflexion und Unsicherheit verbergen.",
-      visibleLabel: "Sichtbar: der Flug",
-      invisibleLabel: "Unsichtbar: die Entscheidungen",
-      left: {
-        title: "Polierter Clip",
-        items: ["kurz", "spektakulär", "teilbar"],
-      },
-      right: {
-        title: "Verborgener Prozess",
-        items: [
-          "Jahre der Progression",
-          "gescheiterte Versuche",
-          "Routenstudium",
-          "Wetterchecks",
-          "Gear-Checks",
-          "Mentoring",
-          "abgesagte Sprünge",
-          "Reflexion",
-          "Unsicherheit",
-        ],
-      },
     },
     {
       id: "community",

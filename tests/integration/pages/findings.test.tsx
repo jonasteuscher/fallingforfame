@@ -120,6 +120,18 @@ describe("findings page", () => {
     expect(serialized).toMatch(/kein Anspruch auf statistische Repräsentativität/i);
   });
 
+  it("places the visible process chapter directly after camera presence", () => {
+    const englishIds = englishFindings.chapters.map((chapter) => chapter.id);
+    const germanIds = germanFindings.chapters.map((chapter) => chapter.id);
+
+    expect(englishIds.indexOf("visible-process")).toBe(
+      englishIds.indexOf("camera") + 1,
+    );
+    expect(germanIds.indexOf("visible-process")).toBe(
+      germanIds.indexOf("camera") + 1,
+    );
+  });
+
   it("generates localized metadata", async () => {
     await expect(
       generateEnglishFindingsMetadata({

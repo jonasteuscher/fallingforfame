@@ -51,11 +51,15 @@ describe("RecognitionComparison", () => {
     ).toBeInTheDocument();
     expect(screen.getAllByText("Short-term visibility").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Long-term recognition").length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Visibility can open doors\.\s+Respect is built over years/i).length)
+    expect(screen.getAllByText(/Visibility can open doors\.\s+Recognition is built over years/i).length)
+      .toBeGreaterThan(0);
+    expect(screen.getAllByText(/Attention is visible\.\s+Recognition must be earned over time/i).length)
+      .toBeGreaterThan(0);
+    expect(screen.getAllByText(/recognition within the community develops/i).length)
       .toBeGreaterThan(0);
     expect(screen.getAllByText(/not a quantitative measurement/i).length)
       .toBeGreaterThan(0);
-    expect(screen.getAllByText("Qualitative finding").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Key insight").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Empirical finding").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Interpretation").length).toBeGreaterThan(0);
     expect(JSON.stringify(chapter)).not.toMatch(/%|percent|percentage|score|ranking/i);
@@ -76,11 +80,16 @@ describe("RecognitionComparison", () => {
     ).toBeInTheDocument();
     expect(screen.getAllByText("Kurzfristige Sichtbarkeit").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Langfristige Anerkennung").length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Sichtbarkeit kann Türen öffnen\.\s+Respekt entsteht über Jahre/i).length)
+    expect(screen.getAllByText(/Sichtbarkeit kann Türen öffnen\.\s+Anerkennung entsteht über Jahre/i).length)
+      .toBeGreaterThan(0);
+    expect(screen.getAllByText(/Aufmerksamkeit ist sichtbar\.\s+Anerkennung muss wachsen/i).length)
+      .toBeGreaterThan(0);
+    expect(screen.getAllByText(/entwickelt sich Anerkennung innerhalb der Community/i).length)
       .toBeGreaterThan(0);
     expect(screen.getAllByText(/keine quantitative Messung/i).length)
       .toBeGreaterThan(0);
-    expect(screen.getAllByText("Qualitative Erkenntnis").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Interpretation der Ergebnisse").length)
+      .toBeGreaterThan(0);
   });
 
   it("exposes the complete static comparison for reduced-motion users", async () => {

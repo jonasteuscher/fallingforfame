@@ -97,6 +97,10 @@ export type FindingChapter = {
   summary: string;
   finding: string;
   accessibleSummary: string;
+  insight?: {
+    empirical: string;
+    interpretation: string;
+  };
   quote?: string;
   quoteSource?: string;
   visibilitySequence?: VisibilitySequenceContent;

@@ -476,14 +476,16 @@ function FindingSummary({
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground/58">
             {empiricalLabel}
           </h3>
-          <p className="mt-3 leading-7 text-foreground/78">{chapter.finding}</p>
+          <p className="mt-3 whitespace-pre-line leading-7 text-foreground/78">
+            {chapter.insight?.empirical ?? chapter.finding}
+          </p>
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground/58">
             {interpretationLabel}
           </h3>
           <p className="mt-3 leading-7 text-foreground/78">
-            {chapter.accessibleSummary}
+            {chapter.insight?.interpretation ?? chapter.accessibleSummary}
           </p>
         </div>
       </div>

@@ -130,7 +130,7 @@ export function RecognitionComparison({
       id={chapter.id}
       ref={sectionRef}
       aria-labelledby={`${chapter.id}-title`}
-      className="relative scroll-mt-24 border-t border-border md:min-h-[330svh]"
+      className="relative scroll-mt-24 border-t border-border"
     >
       <h2 id={`${chapter.id}-title`} className="sr-only">
         {chapter.title}
@@ -144,87 +144,77 @@ export function RecognitionComparison({
         interpretationLabel={interpretationLabel}
       />
 
-      <div className="sticky top-14 hidden h-[calc(100svh-3.5rem)] overflow-hidden bg-background md:block motion-reduce:hidden">
-        <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr_auto] px-6 py-8 xl:px-10">
-          <header className="relative z-10 max-w-[64rem]">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
-              {chapter.eyebrow}
-            </p>
-            <p
-              aria-hidden="true"
-              className="mt-3 whitespace-pre-line text-[clamp(2.9rem,5.2vw,6.5rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance]"
-            >
-              {chapter.title}
-            </p>
-            <p className="mt-5 max-w-[38rem] text-base leading-7 text-foreground/72 lg:text-lg lg:leading-8">
-              {chapter.summary}
-            </p>
-          </header>
-
-          <figure className="relative grid min-h-0 content-center" aria-labelledby={`${chapter.id}-caption`}>
-            <figcaption id={`${chapter.id}-caption`} className="sr-only">
-              {chapter.accessibleSummary} {chapter.disclaimer}
-            </figcaption>
-            <div
-              className="relative grid min-h-[25rem] overflow-hidden border border-border bg-[linear-gradient(135deg,color-mix(in_srgb,var(--surface)_62%,transparent),color-mix(in_srgb,var(--background)_84%,black))] shadow-[0_30px_100px_color-mix(in_srgb,var(--background)_74%,black)] lg:min-h-[30rem]"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 opacity-70 [background:radial-gradient(circle_at_22%_32%,color-mix(in_srgb,var(--primary)_18%,transparent),transparent_28%),linear-gradient(90deg,color-mix(in_srgb,var(--foreground)_7%,transparent),transparent_42%,color-mix(in_srgb,var(--accent)_14%,transparent))]" />
-              <div
-                className="absolute bottom-0 top-0 w-px bg-foreground/22"
-                style={{ left: `${50 + state.dividerBias * 3}%` }}
-              />
-              <div
-                className="grid h-full grid-cols-2 gap-[clamp(2.5rem,7vw,7rem)] p-6 pb-[11rem] lg:p-9 lg:pb-[12rem]"
-                style={{
-                  opacity: interpolate(progress, 0.82, 0.98, 1, 0.36),
-                  transform: `translate3d(0, ${interpolate(progress, 0.82, 0.98, 0, -10)}px, 0)`,
-                }}
+      <div className="hidden min-h-[255svh] md:block motion-reduce:hidden">
+        <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
+          <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] px-6 py-8 xl:px-10">
+            <header className="relative z-10 max-w-[64rem]">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+                {chapter.eyebrow}
+              </p>
+              <p
+                aria-hidden="true"
+                className="mt-3 whitespace-pre-line text-[clamp(2.9rem,5.2vw,6.5rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance]"
               >
-                <RecognitionSide
-                  side="visibility"
-                  title={chapter.left.title}
-                  descriptor={chapter.left.descriptor}
-                  items={chapter.left.items}
-                  progress={progress}
-                />
-                <RecognitionSide
-                  side="recognition"
-                  title={chapter.right.title}
-                  descriptor={chapter.right.descriptor}
-                  items={chapter.right.items}
-                  progress={progress}
-                />
-              </div>
-              <div
-                className="pointer-events-none absolute inset-x-0 bottom-0 border-t border-foreground/14 bg-background/86 px-6 py-5 backdrop-blur-sm lg:px-9 lg:py-6"
-                style={{
-                  opacity: conclusionOpacity,
-                  transform: `translate3d(0, ${interpolate(conclusionOpacity, 0, 1, 22, 0)}px, 0)`,
-                }}
-              >
-                <p className="max-w-[46rem] whitespace-pre-line text-[clamp(1.85rem,3vw,3.7rem)] font-semibold leading-[1.02] text-foreground">
-                  {splitConclusion(chapter.finding)}
-                </p>
-              </div>
-            </div>
-          </figure>
+                {chapter.title}
+              </p>
+              <p className="mt-5 max-w-[38rem] text-base leading-7 text-foreground/72 lg:text-lg lg:leading-8">
+                {chapter.summary}
+              </p>
+            </header>
 
-          <div className="flex items-end justify-between gap-8">
-            <p className="max-w-[44rem] text-sm leading-6 text-foreground/58">
-              {chapter.disclaimer}
-            </p>
-            <p
-              className="hidden text-right text-xs font-semibold uppercase tracking-[0.18em] text-primary/82 lg:block"
-              aria-hidden="true"
-            >
-              {state.showConclusion ? chapter.right.title : chapter.left.title}
-            </p>
+            <figure className="relative grid min-h-0 content-center" aria-labelledby={`${chapter.id}-caption`}>
+              <figcaption id={`${chapter.id}-caption`} className="sr-only">
+                {chapter.accessibleSummary} {chapter.disclaimer}
+              </figcaption>
+              <div
+                className="relative grid min-h-[25rem] overflow-hidden border border-border bg-[linear-gradient(135deg,color-mix(in_srgb,var(--surface)_62%,transparent),color-mix(in_srgb,var(--background)_84%,black))] shadow-[0_30px_100px_color-mix(in_srgb,var(--background)_74%,black)] lg:min-h-[30rem]"
+                aria-hidden="true"
+              >
+                <div className="absolute inset-0 opacity-70 [background:radial-gradient(circle_at_22%_32%,color-mix(in_srgb,var(--primary)_18%,transparent),transparent_28%),linear-gradient(90deg,color-mix(in_srgb,var(--foreground)_7%,transparent),transparent_42%,color-mix(in_srgb,var(--accent)_14%,transparent))]" />
+                <div
+                  className="absolute bottom-0 top-0 w-px bg-foreground/22"
+                  style={{ left: `${50 + state.dividerBias * 3}%` }}
+                />
+                <div
+                  className="grid h-full grid-cols-2 gap-[clamp(2.5rem,7vw,7rem)] p-6 pb-[11rem] lg:p-9 lg:pb-[12rem]"
+                  style={{
+                    opacity: interpolate(progress, 0.82, 0.98, 1, 0.36),
+                    transform: `translate3d(0, ${interpolate(progress, 0.82, 0.98, 0, -10)}px, 0)`,
+                  }}
+                >
+                  <RecognitionSide
+                    side="visibility"
+                    title={chapter.left.title}
+                    descriptor={chapter.left.descriptor}
+                    items={chapter.left.items}
+                    progress={progress}
+                  />
+                  <RecognitionSide
+                    side="recognition"
+                    title={chapter.right.title}
+                    descriptor={chapter.right.descriptor}
+                    items={chapter.right.items}
+                    progress={progress}
+                  />
+                </div>
+                <div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 border-t border-foreground/14 bg-background/86 px-6 py-5 backdrop-blur-sm lg:px-9 lg:py-6"
+                  style={{
+                    opacity: conclusionOpacity,
+                    transform: `translate3d(0, ${interpolate(conclusionOpacity, 0, 1, 22, 0)}px, 0)`,
+                  }}
+                >
+                  <p className="max-w-[46rem] whitespace-pre-line text-[clamp(1.85rem,3vw,3.7rem)] font-semibold leading-[1.02] text-foreground">
+                    {splitConclusion(chapter.finding)}
+                  </p>
+                </div>
+              </div>
+            </figure>
           </div>
         </div>
       </div>
-      <div className="hidden px-4 pb-[var(--section-gap-standard)] sm:px-6 md:block xl:px-10">
-        <div className="mx-auto max-w-7xl">
+      <div className="relative z-10 hidden pb-[var(--section-gap-standard)] md:block">
+        <div className="mx-auto max-w-7xl px-6 xl:px-10">
           <RecognitionFindingSummary
             chapter={chapter}
             sourcePrefix={sourcePrefix}
@@ -461,7 +451,7 @@ function RecognitionFindingSummary({
   return (
     <aside
       className={[
-        "border border-border bg-background/72 p-5 sm:p-7",
+        "ml-auto max-w-[64rem] border border-border bg-background/72 p-5 shadow-[0_24px_80px_color-mix(in_srgb,var(--background)_72%,black)] sm:p-7",
         className,
       ].join(" ")}
     >
@@ -473,14 +463,16 @@ function RecognitionFindingSummary({
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground/58">
             {empiricalLabel}
           </h3>
-          <p className="mt-3 leading-7 text-foreground/78">{chapter.finding}</p>
+          <p className="mt-3 whitespace-pre-line leading-7 text-foreground/78">
+            {chapter.insight?.empirical ?? chapter.finding}
+          </p>
         </div>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground/58">
             {interpretationLabel}
           </h3>
           <p className="mt-3 leading-7 text-foreground/78">
-            {chapter.accessibleSummary}
+            {chapter.insight?.interpretation ?? chapter.accessibleSummary}
           </p>
         </div>
       </div>
