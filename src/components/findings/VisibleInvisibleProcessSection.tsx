@@ -13,7 +13,7 @@ type VisibleInvisibleProcessSectionProps = {
   interpretationLabel: string;
 };
 
-const PROCESS_IMAGE_SRC = "/images/findings/Result.jpg";
+const PROCESS_IMAGE_SRC = "/images/findings/Results-2.jpg";
 
 export function VisibleInvisibleProcessSection({
   chapter,
@@ -225,8 +225,8 @@ function DocumentaryVisibleFrame({
       <ul
         className="absolute bottom-5 left-5 flex max-w-[32rem] flex-wrap gap-2"
         style={{
-          opacity: interpolate(progress, 0, 0.28, 1, 0.35),
-          transform: `translate3d(0, ${interpolate(progress, 0, 0.28, 0, 10)}px, 0)`,
+          opacity: interpolate(progress, 0.24, 0.46, 1, 0.35),
+          transform: `translate3d(0, ${interpolate(progress, 0.24, 0.46, 0, 10)}px, 0)`,
         }}
       >
         {chapter.left?.items.map((item) => (
