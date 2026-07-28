@@ -8,6 +8,7 @@ import { FindingsQuote } from "@/components/findings/FindingsQuote";
 import { FindingsVisibilitySequence } from "@/components/findings/FindingsVisibilitySequence";
 import { CameraEquipmentSection } from "@/components/findings/CameraEquipmentSection";
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
+import { VisibleInvisibleProcessSection } from "@/components/findings/VisibleInvisibleProcessSection";
 import type { Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
 import type { FindingChapter, FindingsPageContent } from "@/types/findings";
@@ -52,6 +53,14 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
           />
         ) : chapter.kind === "camera-equipment" ? (
           <CameraEquipmentSection
+            key={chapter.id}
+            chapter={chapter}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+          />
+        ) : chapter.kind === "visible-invisible" ? (
+          <VisibleInvisibleProcessSection
             key={chapter.id}
             chapter={chapter}
             sourcePrefix={content.sourcePrefix}

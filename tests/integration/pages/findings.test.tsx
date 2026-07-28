@@ -55,7 +55,9 @@ describe("findings page", () => {
       "false",
     );
     expect(screen.getByRole("button", { name: /Learning/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Reflection/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /^04\s*Reflection$/i }),
+    ).toBeInTheDocument();
     expect(screen.getAllByText(/Knowledge dispels fear/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText("Interview participant").length).toBeGreaterThan(0);
   });
