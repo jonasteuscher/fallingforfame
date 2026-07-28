@@ -6,6 +6,7 @@ import { FindingsChapterNav } from "@/components/findings/FindingsChapterNav";
 import { FindingsHero } from "@/components/findings/FindingsHero";
 import { FindingsQuote } from "@/components/findings/FindingsQuote";
 import { FindingsVisibilitySequence } from "@/components/findings/FindingsVisibilitySequence";
+import { CameraEquipmentSection } from "@/components/findings/CameraEquipmentSection";
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
 import type { Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
@@ -43,6 +44,14 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
           />
         ) : chapter.kind === "recognition-comparison" ? (
           <RecognitionComparison
+            key={chapter.id}
+            chapter={chapter}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+          />
+        ) : chapter.kind === "camera-equipment" ? (
+          <CameraEquipmentSection
             key={chapter.id}
             chapter={chapter}
             sourcePrefix={content.sourcePrefix}
@@ -132,7 +141,7 @@ function ChapterVisual({
     case "recognition-comparison":
       return null;
     case "camera-equipment":
-      return <EquipmentFocus chapter={chapter} />;
+      return null;
     case "sponsorship-spectrum":
       return <SponsorshipSpectrum chapter={chapter} />;
     case "pressure-model":
@@ -190,35 +199,6 @@ function SplitComparison({
         ) : null,
       )}
     </div>
-  );
-}
-
-function EquipmentFocus({ chapter }: { chapter: FindingChapter }) {
-  return (
-    <figure className="overflow-hidden border border-border bg-surface">
-      {chapter.image ? (
-        <div className="relative aspect-[4/3]">
-          <Image
-            src={chapter.image.src}
-            alt={chapter.image.alt}
-            fill
-            sizes="(max-width: 1024px) 100vw, 58vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_30%,color-mix(in_srgb,var(--background)_74%,transparent)_100%)]" />
-          <div className="absolute inset-x-4 bottom-4 grid gap-2 sm:grid-cols-2">
-            {chapter.states?.map((state) => (
-              <figcaption key={state.title} className="border border-border bg-background/72 p-3 backdrop-blur">
-                <span className="text-sm font-semibold uppercase tracking-[0.14em] text-primary">
-                  {state.title}
-                </span>
-                <p className="mt-1 text-sm leading-6 text-foreground/72">{state.body}</p>
-              </figcaption>
-            ))}
-          </div>
-        </div>
-      ) : null}
-    </figure>
   );
 }
 

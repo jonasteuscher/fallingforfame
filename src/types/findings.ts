@@ -88,6 +88,41 @@ export type VisibilitySequenceContent = {
   states: MediaVisibilityState[];
 };
 
+export type CameraEquipmentStateId =
+  | "camera"
+  | "helmet"
+  | "equipment"
+  | "preparation"
+  | "decision";
+
+export type CameraEquipmentHotspot = {
+  id: string;
+  state: CameraEquipmentStateId;
+  label: string;
+  description: string;
+  x: number;
+  y: number;
+  preferredSide?: "top" | "right" | "bottom" | "left";
+  calloutX?: number;
+  calloutY?: number;
+  calloutLineStartX?: number;
+  calloutLineStartY?: number;
+};
+
+export type CameraEquipmentState = {
+  id: CameraEquipmentStateId;
+  title: string;
+  body: string;
+  hotspots?: CameraEquipmentHotspot[];
+};
+
+export type FindingNarrativeState = {
+  id?: CameraEquipmentStateId;
+  title: string;
+  body: string;
+  hotspots?: CameraEquipmentHotspot[];
+};
+
 export type FindingChapter = {
   id: string;
   kind: FindingChapterKind;
@@ -108,10 +143,7 @@ export type FindingChapter = {
     src: string;
     alt: string;
   };
-  states?: {
-    title: string;
-    body: string;
-  }[];
+  states?: FindingNarrativeState[];
   left?: {
     title: string;
     descriptor?: string;
