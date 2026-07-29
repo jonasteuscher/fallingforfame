@@ -523,27 +523,27 @@ export const findingsPage: FindingsPageContent = {
       finding:
         "Social media and sponsorship shape the surrounding conditions. Safety-relevant decisions, however, are more strongly shaped by experience, risk competence and lived safety culture.",
       accessibleSummary:
-        "The model shows external conditions moving through social mechanisms and mediating safeguards before they reach individual decisions and outcomes.",
+        "The model shows why influence is indirect: external conditions matter, but experience, risk competence and safety culture mediate how they become decisions.",
       states: [
         {
           title: "External conditions",
-          body: "Social media and sponsorship.",
+          body: "Social media and sponsorship change the context around a jump, not the decision itself.",
         },
         {
           title: "Social mechanisms",
-          body: "Visibility, recognition, comparison, expectations and economic opportunities.",
+          body: "Visibility creates expectations, comparison, recognition and social orientation.",
         },
         {
           title: "Mediating factors",
-          body: "Experience, risk competence, safety culture, informal norms, reflection and self-regulation.",
+          body: "Experience, risk competence and safety culture determine how external influences are interpreted.",
         },
         {
           title: "Individual decision",
-          body: "Risk perception, preparation and go / no-go judgement.",
+          body: "Every jump remains an individual decision. Platforms and sponsors do not decide; the athlete does.",
         },
         {
           title: "Outcome",
-          body: "Safety-oriented practice, or potentially increased exposure when safeguards fail.",
+          body: "The same environment can support informed safety-oriented decisions or create problematic exposure when protective factors fail.",
         },
       ],
       paths: [
@@ -557,11 +557,11 @@ export const findingsPage: FindingsPageContent = {
         },
         {
           title: "Sponsorship as resource",
-          steps: ["resources", "training and projects", "improved preparation"],
+          steps: ["sponsorship", "resources", "training", "projects", "better preparation"],
         },
         {
           title: "Sponsorship as expectation",
-          steps: ["indirect expectation", "self-created pressure", "potentially altered decision"],
+          steps: ["sponsorship", "expectations", "self-generated pressure", "reduced decision freedom", "potentially altered decisions"],
         },
       ],
     },
@@ -569,7 +569,7 @@ export const findingsPage: FindingsPageContent = {
       id: "research-context",
       kind: "methodology",
       eyebrow: "Research context",
-      title: "What this study can and cannot claim",
+      title: "What this study contributes",
       summary:
         "The findings come from a qualitative exploratory design and should be read within that scope.",
       finding:

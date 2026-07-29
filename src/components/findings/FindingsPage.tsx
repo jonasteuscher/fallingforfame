@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import { SectionTitle } from "@/components/athletes/SectionTitle";
 import { FindingsChapterNav } from "@/components/findings/FindingsChapterNav";
@@ -12,12 +11,12 @@ import { ExperienceJourneySection } from "@/components/findings/ExperienceJourne
 import { NoJumpDecisionSection } from "@/components/findings/NoJumpDecisionSection";
 import { PressureModelSection } from "@/components/findings/PressureModelSection";
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
+import { ResearchContextSection } from "@/components/findings/ResearchContextSection";
 import { SafetyNetworkSection } from "@/components/findings/SafetyNetworkSection";
 import { SponsorshipSpectrumSection } from "@/components/findings/SponsorshipSpectrumSection";
 import { SynthesisSection } from "@/components/findings/SynthesisSection";
 import { VisibleInvisibleProcessSection } from "@/components/findings/VisibleInvisibleProcessSection";
 import type { Locale } from "@/i18n/config";
-import { localizedPath } from "@/i18n/navigation";
 import type { FindingChapter, FindingsPageContent } from "@/types/findings";
 
 type FindingsPageProps = {
@@ -136,6 +135,12 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             chapter={chapter}
             locale={locale}
           />
+        ) : chapter.kind === "methodology" ? (
+          <ResearchContextSection
+            key={chapter.id}
+            chapter={chapter}
+            locale={locale}
+          />
         ) : (
           <FindingChapterSection
             key={chapter.id}
@@ -214,7 +219,7 @@ function FindingChapterSection({
           ) : null}
         </header>
         <div className="min-w-0 space-y-8">
-          <ChapterVisual chapter={chapter} locale={locale} />
+          <ChapterVisual chapter={chapter} />
           <FindingSummary
             chapter={chapter}
             locale={locale}
@@ -230,10 +235,8 @@ function FindingChapterSection({
 
 function ChapterVisual({
   chapter,
-  locale,
 }: {
   chapter: FindingChapter;
-  locale: Locale;
 }) {
   switch (chapter.kind) {
     case "media-visibility":
@@ -259,7 +262,7 @@ function ChapterVisual({
     case "synthesis-model":
       return <SynthesisModel chapter={chapter} />;
     case "methodology":
-      return <ResearchContext chapter={chapter} locale={locale} />;
+      return null;
     default:
       return assertNever(chapter.kind);
   }
@@ -434,37 +437,6 @@ function SynthesisModel({ chapter }: { chapter: FindingChapter }) {
               {path.steps.join(" → ")}
             </p>
           </article>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ResearchContext({
-  chapter,
-  locale,
-}: {
-  chapter: FindingChapter;
-  locale: Locale;
-}) {
-  return (
-    <div className="space-y-7">
-      <ul className="grid gap-3 sm:grid-cols-2">
-        {chapter.methodologyItems?.map((item) => (
-          <li key={item} className="border border-border bg-surface/52 p-4 text-foreground/76">
-            {item}
-          </li>
-        ))}
-      </ul>
-      <div className="flex flex-wrap gap-3">
-        {chapter.links?.map((link) => (
-          <Link
-            key={link.href}
-            href={localizedPath(locale, link.href)}
-            className="inline-flex min-h-11 items-center bg-primary px-5 text-sm font-semibold uppercase tracking-[0.16em] text-primary-foreground transition hover:bg-primary/86 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none"
-          >
-            {link.label}
-          </Link>
         ))}
       </div>
     </div>

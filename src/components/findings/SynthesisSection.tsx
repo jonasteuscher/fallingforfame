@@ -15,6 +15,25 @@ const MODEL_REVEAL_DELAY = 700;
 const MODEL_STAGGER = 420;
 const EXAMPLES_REVEAL_DELAY = MODEL_REVEAL_DELAY + MODEL_STAGGER * 5 + 650;
 
+const synthesisCopy = {
+  en: {
+    counterpoint: "But",
+    examplesLabel: "What this means",
+    transition:
+      "The model explains why influence is indirect. The examples show how the same forces can become protective or problematic in practice.",
+  },
+  de: {
+    counterpoint: "Aber",
+    examplesLabel: "Was das bedeutet",
+    transition:
+      "Das Modell erklärt, warum der Einfluss indirekt ist. Die Beispiele zeigen, wie dieselben Kräfte in der Praxis schützend oder problematisch wirken können.",
+  },
+} as const satisfies Record<Locale, {
+  counterpoint: string;
+  examplesLabel: string;
+  transition: string;
+}>;
+
 export function SynthesisSection({ chapter, locale }: SynthesisSectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [hasEntered, setHasEntered] = useState(false);
@@ -91,6 +110,7 @@ export function SynthesisSection({ chapter, locale }: SynthesisSectionProps) {
       aria-labelledby={`${chapter.id}-title`}
       className="scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
+      <p className="sr-only">{chapter.accessibleSummary}</p>
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
         <header className="min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
           <p
@@ -121,7 +141,7 @@ export function SynthesisSection({ chapter, locale }: SynthesisSectionProps) {
         </header>
 
         <div className="min-w-0">
-          <SynthesisModel chapter={chapter} hasEntered={hasEntered} />
+          <SynthesisModel chapter={chapter} hasEntered={hasEntered} locale={locale} />
           <SynthesisExamples chapter={chapter} hasEntered={hasEntered} locale={locale} />
         </div>
       </div>
@@ -132,10 +152,14 @@ export function SynthesisSection({ chapter, locale }: SynthesisSectionProps) {
 function SynthesisModel({
   chapter,
   hasEntered,
+  locale,
 }: {
   chapter: FindingChapter;
   hasEntered: boolean;
+  locale: Locale;
 }) {
+  const copy = synthesisCopy[locale];
+
   return (
     <div className="relative">
       <ol className="relative grid gap-5" aria-label={chapter.navLabel}>
@@ -152,7 +176,7 @@ function SynthesisModel({
               className={[
                 "relative grid gap-4 border bg-surface/50 p-5 sm:grid-cols-[4rem_1fr] sm:p-6",
                 isCore
-                  ? "border-primary/60 bg-background/72"
+                  ? "border-primary/76 bg-background/72"
                   : "border-border/78",
                 revealClass(hasEntered),
               ].join(" ")}
@@ -162,10 +186,15 @@ function SynthesisModel({
                 {String(index + 1).padStart(2, "0")}
               </div>
               <div className={isCore ? "py-1" : ""}>
+                {isCore ? (
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                    {copy.counterpoint}
+                  </p>
+                ) : null}
                 <h3
                   className={[
-                    "text-2xl font-semibold uppercase leading-tight",
-                    isCore ? "text-foreground" : "text-foreground/88",
+                    "font-semibold uppercase leading-tight",
+                    isCore ? "text-[1.7rem] text-foreground" : "text-2xl text-foreground/88",
                   ].join(" ")}
                 >
                   {state.title}
@@ -185,7 +214,7 @@ function SynthesisModel({
         ].join(" ")}
         style={{ animationDelay: `${EXAMPLES_REVEAL_DELAY - 250}ms` }}
       >
-        {chapter.accessibleSummary}
+        {copy.transition}
       </p>
     </div>
   );
@@ -200,7 +229,7 @@ function SynthesisExamples({
   hasEntered: boolean;
   locale: Locale;
 }) {
-  const label = locale === "de" ? "In der Praxis" : "In practice";
+  const label = synthesisCopy[locale].examplesLabel;
 
   return (
     <div

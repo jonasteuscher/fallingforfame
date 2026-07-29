@@ -523,27 +523,27 @@ export const findingsPage: FindingsPageContent = {
       finding:
         "Soziale Medien und Sponsoring beeinflussen die Rahmenbedingungen. Sicherheitsrelevante Entscheidungen werden jedoch stärker durch Erfahrung, Risikokompetenz und die gelebte Sicherheitskultur geprägt.",
       accessibleSummary:
-        "Das Modell zeigt äussere Bedingungen, die über soziale Mechanismen und vermittelnde Schutzfaktoren zu individuellen Entscheidungen und Ergebnissen führen.",
+        "Das Modell zeigt, warum der Einfluss indirekt ist: Äussere Bedingungen spielen eine Rolle, aber Erfahrung, Risikokompetenz und Sicherheitskultur vermitteln, wie daraus Entscheidungen entstehen.",
       states: [
         {
           title: "Äussere Bedingungen",
-          body: "Social Media und Sponsoring.",
+          body: "Social Media und Sponsoring verändern den Kontext eines Sprungs, nicht die Entscheidung selbst.",
         },
         {
           title: "Soziale Mechanismen",
-          body: "Sichtbarkeit, Anerkennung, Vergleich, Erwartungen und ökonomische Möglichkeiten.",
+          body: "Sichtbarkeit erzeugt Erwartungen, Vergleich, Anerkennung und soziale Orientierung.",
         },
         {
           title: "Vermittelnde Faktoren",
-          body: "Erfahrung, Risikokompetenz, Sicherheitskultur, informelle Normen, Reflexion und Selbstregulation.",
+          body: "Erfahrung, Risikokompetenz und Sicherheitskultur bestimmen, wie äussere Einflüsse interpretiert werden.",
         },
         {
           title: "Individuelle Entscheidung",
-          body: "Risikowahrnehmung, Vorbereitung und Go- / No-Go-Entscheid.",
+          body: "Jeder Sprung bleibt eine individuelle Entscheidung. Plattformen und Sponsoren entscheiden nicht; die Athlet:in entscheidet.",
         },
         {
           title: "Ergebnis",
-          body: "Sicherheitsorientierte Praxis oder potenziell erhöhte Exposition, wenn Schutzfaktoren versagen.",
+          body: "Dasselbe Umfeld kann informierte, sicherheitsorientierte Entscheidungen unterstützen oder problematische Exposition begünstigen, wenn Schutzfaktoren fehlen.",
         },
       ],
       paths: [
@@ -557,11 +557,11 @@ export const findingsPage: FindingsPageContent = {
         },
         {
           title: "Sponsoring als Ressource",
-          steps: ["Ressourcen", "Training und Projekte", "bessere Vorbereitung"],
+          steps: ["Sponsoring", "Ressourcen", "Training", "Projekte", "bessere Vorbereitung"],
         },
         {
           title: "Sponsoring als Erwartung",
-          steps: ["indirekte Erwartung", "selbst erzeugter Druck", "potenziell veränderte Entscheidung"],
+          steps: ["Sponsoring", "Erwartungen", "selbst erzeugter Druck", "reduzierte Entscheidungsfreiheit", "potenziell veränderte Entscheidungen"],
         },
       ],
     },
@@ -569,7 +569,7 @@ export const findingsPage: FindingsPageContent = {
       id: "research-context",
       kind: "methodology",
       eyebrow: "Forschungskontext",
-      title: "Was diese Studie zeigen kann und was nicht",
+      title: "Was diese Studie beiträgt",
       summary:
         "Die Erkenntnisse stammen aus einem qualitativen explorativen Design und müssen in diesem Rahmen gelesen werden.",
       finding:

@@ -48,7 +48,7 @@ describe("findings page", () => {
     expect(screen.getByRole("heading", { name: /Risk\s+looks\s+different\s+with\s+experience/i })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Safety is not built alone" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "The influence is indirect" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "What this study can and cannot claim" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "What this study contributes" })).toBeVisible();
     expect(screen.getByRole("link", { name: "Decision" })).toHaveAttribute("href", "#decision");
     expect(screen.queryByRole("link", { name: "No Jump" })).not.toBeInTheDocument();
     expect(screen.getAllByRole("img", { name: /walks down along a rocky mountain ridge/i })[0])
@@ -101,7 +101,8 @@ describe("findings page", () => {
       .toHaveAttribute("src", expect.stringContaining("Walk_down.jpg"));
     expect(screen.getAllByText(/Der Berg steht auch morgen noch dort/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText("Sicherheit vor Erwartung").length).toBeGreaterThan(0);
-    expect(screen.getByText(/Die Ergebnisse beziehen sich auf dieses Sample/i)).toBeVisible();
+    expect(screen.getByText(/Die Studie liefert qualitative Tiefe/i)).toBeVisible();
+    expect(screen.getByText(/keine statistische Repräsentativität/i)).toBeVisible();
     expect(screen.getByRole("button", { name: /Entdeckung/i })).toHaveAttribute(
       "aria-current",
       "step",
@@ -122,7 +123,8 @@ describe("findings page", () => {
     const synthesis = screen.getByRole("heading", { name: "The influence is indirect" })
       .closest("section");
     expect(synthesis).not.toBeNull();
-    expect(within(synthesis as HTMLElement).getByText(/mediating safeguards/i)).toBeVisible();
+    expect(within(synthesis as HTMLElement).getByText(/same forces can become protective or problematic/i)).toBeVisible();
+    expect(within(synthesis as HTMLElement).getAllByText(/experience, risk competence and safety culture/i).length).toBeGreaterThan(0);
   });
 
   it("does not introduce quantitative claims beyond the declared qualitative sample", () => {
