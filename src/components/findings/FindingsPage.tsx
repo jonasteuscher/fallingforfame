@@ -14,6 +14,7 @@ import { PressureModelSection } from "@/components/findings/PressureModelSection
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
 import { SafetyNetworkSection } from "@/components/findings/SafetyNetworkSection";
 import { SponsorshipSpectrumSection } from "@/components/findings/SponsorshipSpectrumSection";
+import { SynthesisSection } from "@/components/findings/SynthesisSection";
 import { VisibleInvisibleProcessSection } from "@/components/findings/VisibleInvisibleProcessSection";
 import type { Locale } from "@/i18n/config";
 import { localizedPath } from "@/i18n/navigation";
@@ -128,6 +129,12 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             sourcePrefix={content.sourcePrefix}
             empiricalLabel={content.empiricalLabel}
             interpretationLabel={content.interpretationLabel}
+          />
+        ) : chapter.kind === "synthesis-model" ? (
+          <SynthesisSection
+            key={chapter.id}
+            chapter={chapter}
+            locale={locale}
           />
         ) : (
           <FindingChapterSection
