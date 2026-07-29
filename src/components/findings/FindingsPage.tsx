@@ -12,6 +12,7 @@ import { ExperienceJourneySection } from "@/components/findings/ExperienceJourne
 import { NoJumpDecisionSection } from "@/components/findings/NoJumpDecisionSection";
 import { PressureModelSection } from "@/components/findings/PressureModelSection";
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
+import { SafetyNetworkSection } from "@/components/findings/SafetyNetworkSection";
 import { SponsorshipSpectrumSection } from "@/components/findings/SponsorshipSpectrumSection";
 import { VisibleInvisibleProcessSection } from "@/components/findings/VisibleInvisibleProcessSection";
 import type { Locale } from "@/i18n/config";
@@ -119,6 +120,15 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             interpretationLabel={content.interpretationLabel}
             quoteSourceLabel={content.quoteSourceLabel}
           />
+        ) : chapter.kind === "safety-network" ? (
+          <SafetyNetworkSection
+            key={chapter.id}
+            chapter={chapter}
+            locale={locale}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+          />
         ) : (
           <FindingChapterSection
             key={chapter.id}
@@ -177,8 +187,8 @@ function FindingChapterSection({
       aria-labelledby={`${chapter.id}-title`}
       className="scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.42fr_0.58fr]">
-        <header className="lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
+        <header className="min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
             {chapter.eyebrow}
           </p>
@@ -196,10 +206,11 @@ function FindingChapterSection({
             />
           ) : null}
         </header>
-        <div className="space-y-8">
+        <div className="min-w-0 space-y-8">
           <ChapterVisual chapter={chapter} locale={locale} />
           <FindingSummary
             chapter={chapter}
+            locale={locale}
             sourcePrefix={sourcePrefix}
             empiricalLabel={empiricalLabel}
             interpretationLabel={interpretationLabel}
@@ -237,7 +248,7 @@ function ChapterVisual({
     case "visible-invisible":
       return <VisibleInvisible chapter={chapter} />;
     case "safety-network":
-      return <SafetyNetwork chapter={chapter} />;
+      return null;
     case "synthesis-model":
       return <SynthesisModel chapter={chapter} />;
     case "methodology":
@@ -245,43 +256,6 @@ function ChapterVisual({
     default:
       return assertNever(chapter.kind);
   }
-}
-
-function SplitComparison({
-  chapter,
-  mode,
-}: {
-  chapter: FindingChapter;
-  mode: "recognition" | "network";
-}) {
-  return (
-    <div className="grid gap-5 md:grid-cols-2">
-      {[chapter.left, chapter.right].map((side, index) =>
-        side ? (
-          <article
-            key={side.title}
-            className={[
-              "border border-border bg-surface/60 p-5 sm:p-7",
-              mode === "recognition" && index === 0 ? "md:translate-y-8 md:opacity-78" : "",
-              index === 1 ? "shadow-[0_20px_70px_color-mix(in_srgb,var(--background)_70%,black)]" : "",
-            ].join(" ")}
-          >
-            <h3 className="text-2xl font-semibold uppercase leading-tight text-foreground">
-              {side.title}
-            </h3>
-            <ul className="mt-6 space-y-3">
-              {side.items.map((item) => (
-                <li key={item} className="flex gap-3 text-foreground/76">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-primary" aria-hidden="true" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-        ) : null,
-      )}
-    </div>
-  );
 }
 
 function SponsorshipSpectrum({ chapter }: { chapter: FindingChapter }) {
@@ -431,21 +405,6 @@ function VisibleInvisible({ chapter }: { chapter: FindingChapter }) {
   );
 }
 
-function SafetyNetwork({ chapter }: { chapter: FindingChapter }) {
-  return (
-    <div className="space-y-6">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-        {chapter.layers?.map((node) => (
-          <span key={node} className="grid min-h-20 place-items-center border border-border bg-surface/58 p-3 text-center text-xs font-semibold uppercase tracking-[0.12em] text-foreground/74">
-            {node}
-          </span>
-        ))}
-      </div>
-      <SplitComparison chapter={chapter} mode="network" />
-    </div>
-  );
-}
-
 function SynthesisModel({ chapter }: { chapter: FindingChapter }) {
   return (
     <div className="space-y-8">
@@ -519,21 +478,25 @@ function ProcessList({ items }: { items: string[] }) {
 
 function FindingSummary({
   chapter,
+  locale,
   sourcePrefix,
   empiricalLabel,
   interpretationLabel,
 }: {
   chapter: FindingChapter;
+  locale: Locale;
   sourcePrefix: string;
   empiricalLabel: string;
   interpretationLabel: string;
 }) {
+  const isGermanCommunity = chapter.kind === "safety-network" && locale === "de";
+
   return (
     <aside className="border border-border bg-background/72 p-5 sm:p-7">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
         {sourcePrefix}
       </p>
-      <div className="mt-5 grid gap-5 md:grid-cols-2">
+      <div className={isGermanCommunity ? "mt-5 grid gap-6 md:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)]" : "mt-5 grid gap-5 md:grid-cols-2"}>
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground/58">
             {empiricalLabel}

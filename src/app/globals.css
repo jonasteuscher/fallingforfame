@@ -115,3 +115,39 @@ audio {
     transform: translateY(0);
   }
 }
+
+@keyframes network-reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes network-node-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .network-reveal-up {
+    opacity: 0;
+    animation: network-reveal-up 560ms ease-out forwards;
+  }
+
+  .network-node-reveal {
+    opacity: 0;
+    animation: network-node-in 320ms ease-out forwards;
+  }
+}
