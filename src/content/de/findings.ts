@@ -401,9 +401,9 @@ export const findingsPage: FindingsPageContent = {
       kind: "decision-layers",
       navLabel: "Entscheidung",
       eyebrow: "Was vor dem Sprung passiert",
-      title: "Der Sprung beginnt lange vor dem Exit",
+      title: "Der Exit ist\nnicht der\nAnfang",
       summary:
-        "Unmittelbar vor einem konkreten BASE Jump arbeitet sich die Athlet:in durch konkrete Checks bis zum finalen Go- oder No-Go-Entscheid.",
+        "Vor dem Exit treffen Athlet:innen eine Kette operativer Entscheidungen. Erst wenn alle Ebenen zusammenpassen, wird aus einer Planung ein Sprung.",
       finding:
         "Die Sprungentscheidung ist ein operativer Ablauf, kein einzelner Impuls.",
       accessibleSummary:

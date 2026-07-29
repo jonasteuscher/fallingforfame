@@ -39,7 +39,9 @@ describe("findings page", () => {
     ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Support takes many forms" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Pressure does not have to be spoken" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "The jump begins long before the exit" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: /The exit is\s+not the beginning/i }),
+    ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Experience does not automatically make you safe" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Sometimes the safest jump is no jump" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Safety is not built alone" })).toBeVisible();

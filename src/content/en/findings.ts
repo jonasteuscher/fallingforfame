@@ -401,9 +401,9 @@ export const findingsPage: FindingsPageContent = {
       kind: "decision-layers",
       navLabel: "Decision",
       eyebrow: "What happens before the jump",
-      title: "The jump begins long before the exit",
+      title: "The exit is\nnot the beginning",
       summary:
-        "Immediately before one specific BASE jump, the athlete moves through concrete checks that lead to a final Go or No-Go decision.",
+        "Before the exit, athletes make a chain of operational decisions. Only when the layers fit together does a plan become a jump.",
       finding:
         "A jump decision is an operational pipeline, not a single moment of impulse.",
       accessibleSummary:

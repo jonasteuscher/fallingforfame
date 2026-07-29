@@ -7,6 +7,7 @@ import { FindingsHero } from "@/components/findings/FindingsHero";
 import { FindingsQuote } from "@/components/findings/FindingsQuote";
 import { FindingsVisibilitySequence } from "@/components/findings/FindingsVisibilitySequence";
 import { CameraEquipmentSection } from "@/components/findings/CameraEquipmentSection";
+import { DecisionLayersSection } from "@/components/findings/DecisionLayersSection";
 import { PressureModelSection } from "@/components/findings/PressureModelSection";
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
 import { SponsorshipSpectrumSection } from "@/components/findings/SponsorshipSpectrumSection";
@@ -82,6 +83,15 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
           <PressureModelSection
             key={chapter.id}
             chapter={chapter}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+          />
+        ) : chapter.kind === "decision-layers" ? (
+          <DecisionLayersSection
+            key={chapter.id}
+            chapter={chapter}
+            locale={locale}
             sourcePrefix={content.sourcePrefix}
             empiricalLabel={content.empiricalLabel}
             interpretationLabel={content.interpretationLabel}
