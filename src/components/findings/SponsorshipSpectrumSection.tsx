@@ -170,8 +170,8 @@ export function SponsorshipSpectrumSection({
                 <div
                   className="max-w-[32rem] lg:justify-self-end"
                   style={{
-                    opacity: getQuoteOpacity(progress),
-                    transform: `translate3d(0, ${interpolate(getQuoteOpacity(progress), 0, 1, 14, 0)}px, 0)`,
+                    opacity: getSponsorshipConclusionOpacity(progress),
+                    transform: `translate3d(0, ${interpolate(getSponsorshipConclusionOpacity(progress), 0, 1, 18, 0)}px, 0)`,
                   }}
                 >
                   <FindingsQuote
@@ -196,7 +196,13 @@ export function SponsorshipSpectrumSection({
         </div>
       </div>
 
-      <div className="relative z-10 -mt-36 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10">
+      <div
+        className="relative z-10 -mt-36 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10"
+        style={{
+          opacity: getSponsorshipInterpretationOpacity(progress),
+          transform: `translate3d(0, ${interpolate(getSponsorshipInterpretationOpacity(progress), 0, 1, 18, 0)}px, 0)`,
+        }}
+      >
         <SponsorshipFindingSummary
           chapter={chapter}
           sourcePrefix={sourcePrefix}
@@ -224,7 +230,7 @@ function SpectrumStage({
   onStageSelect: (index: number) => void;
 }) {
   const pathProgress = interpolate(progress, 0.08, 0.78, 0.12, 1);
-  const responsibilityOpacity = interpolate(progress, 0.42, 0.72, 0, 1);
+  const responsibilityOpacity = getSponsorshipConclusionOpacity(progress);
 
   return (
     <div className="flex h-full min-h-0 flex-col justify-start">
@@ -270,7 +276,7 @@ function SpectrumStage({
                   />
                 </span>
                 <span className="block max-w-[12.25rem] break-words text-[clamp(0.98rem,1.04vw,1.2rem)] font-semibold uppercase leading-tight text-foreground [hyphens:auto] [text-wrap:balance]">
-                  {stage.title}
+                  <FormattedSponsorshipText text={stage.title} />
                 </span>
                 <span className="block max-w-[12.25rem] text-sm leading-6 text-foreground/68">
                   {stage.body}
@@ -293,7 +299,7 @@ function SpectrumStage({
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             {getSponsorshipLayersTitle(chapter)}
           </p>
-          <ol className="mt-3 grid grid-cols-5 gap-0">
+          <ol className="mt-3 grid grid-cols-[repeat(5,minmax(0,1fr))] gap-0">
             {layers.map((layer, index) => {
               const reveal = interpolate(progress, 0.48 + index * 0.055, 0.62 + index * 0.055, 0, 1);
 
@@ -301,7 +307,7 @@ function SpectrumStage({
                 <li
                   key={layer}
                   className={[
-                    "border-border/72 pr-5",
+                    "min-w-0 border-border/72 pr-5",
                     index > 0 ? "border-l pl-5" : "",
                   ].join(" ")}
                   style={{
@@ -312,8 +318,8 @@ function SpectrumStage({
                   <span className="block text-xs font-semibold text-primary/82">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="mt-2 block text-xs font-semibold uppercase tracking-[0.16em] text-foreground/72">
-                    {layer}
+                  <span className="mt-2 block break-words text-xs font-semibold uppercase tracking-[0.16em] text-foreground/72 [hyphens:auto]">
+                    <FormattedSponsorshipText text={layer} />
                   </span>
                 </li>
               );
@@ -457,7 +463,7 @@ function SponsorshipSpectrumStatic({
           </span>
           <div>
             <h3 className="text-xl font-semibold uppercase leading-tight text-foreground">
-              {stage.title}
+              <FormattedSponsorshipText text={stage.title} />
             </h3>
             <p className="mt-3 leading-7 text-foreground/72">{stage.body}</p>
           </div>
@@ -488,7 +494,7 @@ function SponsorshipLayersStatic({
               {String(index + 1).padStart(2, "0")}
             </span>
             <span className="text-sm font-semibold uppercase tracking-[0.14em] text-foreground/72">
-              {layer}
+              <FormattedSponsorshipText text={layer} />
             </span>
           </li>
         ))}
@@ -544,15 +550,25 @@ function SponsorshipFindingSummary({
   );
 }
 
-function getQuoteOpacity(progress: number) {
-  const fadeIn = interpolate(progress, 0.34, 0.48, 0, 1);
-  const fadeOut = interpolate(progress, 0.7, 0.84, 1, 0);
+function getSponsorshipConclusionOpacity(progress: number) {
+  return interpolate(progress, 0.8, 0.88, 0, 1);
+}
 
-  return Math.min(fadeIn, fadeOut);
+function getSponsorshipInterpretationOpacity(progress: number) {
+  return interpolate(progress, 0.94, 0.99, 0, 1);
 }
 
 function getSponsorshipLayersTitle(chapter: FindingChapter) {
   return chapter.navLabel === "Sponsoring"
     ? "Damit verbundene Arbeitsbereiche"
     : "Related areas of work";
+}
+
+function FormattedSponsorshipText({ text }: { text: string }) {
+  return text.split("\n").map((line, index, lines) => (
+    <span key={`${line}-${index}`}>
+      {line}
+      {index < lines.length - 1 ? <br /> : null}
+    </span>
+  ));
 }

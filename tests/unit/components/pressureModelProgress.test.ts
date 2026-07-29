@@ -29,35 +29,35 @@ describe("pressure model progress", () => {
     expect(pressureFactorPositions).toEqual([
       expect.objectContaining({
         id: "public-visibility",
-        x: -250,
-        y: -46,
+        x: -218,
+        y: -92,
         align: "right",
       }),
-      expect.objectContaining({ id: "project-costs", x: 0, y: -152, align: "center" }),
-      expect.objectContaining({ id: "deadlines", x: 250, y: -46, align: "left" }),
-      expect.objectContaining({ id: "new-equipment", x: 250, y: 88, align: "left" }),
+      expect.objectContaining({ id: "project-costs", x: 0, y: -180, align: "center" }),
+      expect.objectContaining({ id: "deadlines", x: 218, y: -92, align: "left" }),
+      expect.objectContaining({ id: "new-equipment", x: 230, y: 18, align: "left" }),
       expect.objectContaining({
         id: "financial-incentives",
-        x: 214,
-        y: 170,
+        x: 202,
+        y: 132,
         align: "left",
       }),
       expect.objectContaining({
         id: "audience-expectations",
         x: 0,
-        y: 206,
+        y: 188,
         align: "center",
       }),
       expect.objectContaining({
         id: "sponsor-relationships",
-        x: -214,
-        y: 170,
+        x: -202,
+        y: 132,
         align: "right",
       }),
       expect.objectContaining({
         id: "personal-ambition",
-        x: -250,
-        y: 92,
+        x: -230,
+        y: 18,
         align: "right",
       }),
     ]);
@@ -75,7 +75,7 @@ describe("pressure model progress", () => {
   it("keeps entrance offsets restrained so factors do not drift after appearing", () => {
     for (const position of pressureFactorPositions) {
       expect(Math.abs(position.enterX - position.x)).toBeLessThanOrEqual(20);
-      expect(Math.abs(position.enterY - position.y)).toBeLessThanOrEqual(22);
+      expect(Math.abs(position.enterY - position.y)).toBeLessThanOrEqual(16);
     }
   });
 });

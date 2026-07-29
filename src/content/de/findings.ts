@@ -355,7 +355,7 @@ export const findingsPage: FindingsPageContent = {
       spectrum: [
         { title: "Materialrabatt", body: "Geringere Kosten für Ausrüstung." },
         { title: "Kostenlose Ausrüstung", body: "Materielle Unterstützung ohne vollständige Existenzgrundlage." },
-        { title: "Projektunterstützung", body: "Ressourcen für konkrete Expeditionen oder Produktionen." },
+        { title: "Projekt\nUnterstützung", body: "Ressourcen für konkrete Expeditionen oder Produktionen." },
         { title: "Bezahlte Medienproduktion", body: "Fotografie und Video werden Teil der Arbeit." },
         { title: "Coaching und verwandte Arbeit", body: "Wissen wird zu einer professionellen Dienstleistung." },
         { title: "Professionelle Existenz", body: "Sport, Medien und Kommunikation überschneiden sich." },
@@ -363,7 +363,7 @@ export const findingsPage: FindingsPageContent = {
       layers: [
         "Sport",
         "Content-Produktion",
-        "Projektentwicklung",
+        "Projekt-\nEntwicklung",
         "Marketing",
         "Kommunikation",
       ],

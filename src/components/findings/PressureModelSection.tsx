@@ -149,7 +149,13 @@ export function PressureModelSection({
         </div>
       </div>
 
-      <div className="relative z-10 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10">
+      <div
+        className="relative z-10 hidden px-6 pt-28 pb-[var(--section-gap-standard)] md:block xl:px-10"
+        style={{
+          opacity: getPressureInterpretationOpacity(progress),
+          transform: `translate3d(0, ${interpolate(getPressureInterpretationOpacity(progress), 0, 1, 16, 0)}px, 0)`,
+        }}
+      >
         <PressureFindingSummary
           chapter={chapter}
           sourcePrefix={sourcePrefix}
@@ -171,13 +177,13 @@ function PressureScene({
   pressureFactors: string[];
   progress: number;
 }) {
-  const safety = interpolate(progress, 0.94, 0.98, 0, 1);
+  const safety = getPressureSafetyOpacity(progress);
 
   return (
-    <div className="mx-auto flex h-full max-w-[76rem] flex-col">
+    <div className="relative mx-auto flex h-full max-w-[76rem] flex-col">
       <div className="relative min-h-0 flex-1">
         <div
-          className="absolute left-1/2 top-[46%] h-[min(52vw,36rem)] w-[min(70vw,55rem)] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-border/42"
+          className="absolute left-1/2 top-[38%] h-[min(52vw,36rem)] w-[min(70vw,55rem)] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-border/42"
           style={{
             opacity: interpolate(progress, 0, 0.2, 0.28, 0.12 + safety * 0.08),
             transform: `translate3d(-50%, -50%, 0) scale(${interpolate(progress, 0.36, 0.87, 1, 0.92 + safety * 0.08)})`,
@@ -185,7 +191,7 @@ function PressureScene({
           aria-hidden="true"
         />
         <div
-          className="absolute left-1/2 top-[46%] grid h-44 w-60 -translate-x-1/2 -translate-y-1/2 place-items-center border border-primary/70 bg-background/88 text-center shadow-[0_26px_90px_color-mix(in_srgb,var(--background)_76%,black)] lg:h-48 lg:w-64"
+          className="absolute left-1/2 top-[38%] grid h-40 w-56 -translate-x-1/2 -translate-y-1/2 place-items-center border border-primary/70 bg-background/88 text-center shadow-[0_26px_90px_color-mix(in_srgb,var(--background)_76%,black)] lg:h-44 lg:w-60"
           data-pressure-athlete
         >
           <span className="px-4 text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
@@ -212,7 +218,7 @@ function PressureScene({
                 className="absolute w-[clamp(10.5rem,14vw,13rem)]"
                 style={{
                   left: "50%",
-                  top: "46%",
+                  top: "38%",
                   opacity: interpolate(safety, 0, 1, reveal, reveal * 0.82),
                   transform: anchorTransform,
                 }}
@@ -236,21 +242,36 @@ function PressureScene({
           })}
         </ol>
       </div>
-
-      <div
-        className="mx-auto mb-3 w-[min(48rem,72vw)] border-l-2 border-primary bg-background/76 p-5 backdrop-blur-sm"
-        style={{
-          opacity: safety,
-          transform: `translate3d(0, ${interpolate(safety, 0, 1, 18, 0)}px, 0)`,
-        }}
-      >
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-          {chapter.controlLabel}
-        </p>
-        <p className="mt-3 max-w-[42rem] text-lg leading-8 text-foreground/78">
-          {chapter.controlResult}
-        </p>
+      <div className="absolute bottom-0 left-1/2 w-[min(70vw,55rem)] -translate-x-1/2">
+        <PressureSafetySummary chapter={chapter} progress={progress} />
       </div>
+    </div>
+  );
+}
+
+function PressureSafetySummary({
+  chapter,
+  progress,
+}: {
+  chapter: FindingChapter;
+  progress: number;
+}) {
+  const safety = getPressureSafetyOpacity(progress);
+
+  return (
+    <div
+      className="mx-auto w-[min(48rem,72vw)] border-l-2 border-primary bg-background/76 p-5 backdrop-blur-sm"
+      style={{
+        opacity: safety,
+        transform: `translate3d(0, ${interpolate(safety, 0, 1, 20, 0)}px, 0)`,
+      }}
+    >
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+        {chapter.controlLabel}
+      </p>
+      <p className="mt-3 max-w-[42rem] text-lg leading-8 text-foreground/78">
+        {chapter.controlResult}
+      </p>
     </div>
   );
 }
@@ -400,6 +421,14 @@ function getPressureFactorReveal(index: number, progress: number) {
   const range = ranges[index] ?? ranges[ranges.length - 1];
 
   return interpolate(progress, range[0], range[1], 0, 1);
+}
+
+function getPressureSafetyOpacity(progress: number) {
+  return interpolate(progress, 0.875, 0.915, 0, 1);
+}
+
+function getPressureInterpretationOpacity(progress: number) {
+  return interpolate(progress, 0.97, 1, 0, 1);
 }
 
 function PressureFindingSummary({
