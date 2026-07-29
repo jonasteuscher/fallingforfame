@@ -253,6 +253,7 @@ function InvisibleProcessLayer({
 }) {
   const layerOpacity = interpolate(progress, 0.24, 0.58, 0, 1);
   const clip = interpolate(progress, 0.24, 0.68, 100, 0);
+  const isCompact = chapter.processDensity === "compact";
 
   return (
     <div
@@ -266,10 +267,20 @@ function InvisibleProcessLayer({
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
           {chapter.invisibleLabel}
         </p>
-        <p className="mt-3 max-w-[26rem] text-3xl font-semibold uppercase leading-tight text-foreground">
+        <p
+          className={[
+            "mt-3 max-w-[26rem] font-semibold uppercase leading-tight text-foreground",
+            isCompact ? "text-[1.7rem]" : "text-3xl",
+          ].join(" ")}
+        >
           {chapter.right?.title}
         </p>
-        <ol className="mt-5 grid max-w-[34rem] gap-2">
+        <ol
+          className={[
+            "grid max-w-[34rem]",
+            isCompact ? "mt-4 gap-1.5" : "mt-5 gap-2",
+          ].join(" ")}
+        >
           {processItems.map((item, index) => {
             const itemProgress = interpolate(
               progress,
@@ -282,7 +293,10 @@ function InvisibleProcessLayer({
             return (
               <li
                 key={item}
-                className="grid grid-cols-[2.5rem_1fr] gap-4 border-l border-primary/40 py-1"
+                className={[
+                  "grid grid-cols-[2.5rem_1fr] border-l border-primary/40",
+                  isCompact ? "gap-3 py-0.5" : "gap-4 py-1",
+                ].join(" ")}
                 style={{
                   opacity: itemProgress,
                   transform: `translate3d(${interpolate(itemProgress, 0, 1, 18, 0)}px, 0, 0)`,
@@ -291,7 +305,12 @@ function InvisibleProcessLayer({
                 <span className="pl-4 text-xs font-semibold text-primary/88">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-base font-semibold uppercase tracking-[0.08em] text-foreground/78">
+                <span
+                  className={[
+                    "font-semibold uppercase tracking-[0.08em] text-foreground/78",
+                    isCompact ? "text-[0.95rem] leading-tight" : "text-base",
+                  ].join(" ")}
+                >
                   {item}
                 </span>
               </li>
@@ -436,21 +455,39 @@ function InvisibleProcessStatic({
   processItems: string[];
   className?: string;
 }) {
+  const isCompact = chapter.processDensity === "compact";
+
   return (
     <div className={className}>
       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.invisibleLabel}
       </p>
-      <p className="mt-3 text-3xl font-semibold uppercase leading-tight text-foreground">
+      <p
+        className={[
+          "mt-3 font-semibold uppercase leading-tight text-foreground",
+          isCompact ? "text-[1.7rem]" : "text-3xl",
+        ].join(" ")}
+      >
         {chapter.right?.title}
       </p>
-      <ol className="mt-6 grid gap-3">
+      <ol className={["grid", isCompact ? "mt-5 gap-2" : "mt-6 gap-3"].join(" ")}>
         {processItems.map((item, index) => (
-          <li key={item} className="grid grid-cols-[2.5rem_1fr] gap-4 border-l border-border py-1.5">
+          <li
+            key={item}
+            className={[
+              "grid grid-cols-[2.5rem_1fr] border-l border-border",
+              isCompact ? "gap-3 py-1" : "gap-4 py-1.5",
+            ].join(" ")}
+          >
             <span className="pl-4 text-xs font-semibold text-primary">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <span className="font-semibold uppercase tracking-[0.08em] text-foreground/76">
+            <span
+              className={[
+                "font-semibold uppercase tracking-[0.08em] text-foreground/76",
+                isCompact ? "text-[0.95rem] leading-tight" : "",
+              ].join(" ")}
+            >
               {item}
             </span>
           </li>

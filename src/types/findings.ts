@@ -166,6 +166,7 @@ export type FindingChapter = {
   centerLabel?: string;
   visibleLabel?: string;
   invisibleLabel?: string;
+  processDensity?: "compact" | "default";
   methodologyItems?: string[];
   links?: {
     href: string;
