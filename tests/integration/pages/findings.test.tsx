@@ -42,11 +42,20 @@ describe("findings page", () => {
     expect(
       screen.getByRole("heading", { name: /The exit is\s+not the beginning/i }),
     ).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Experience does not automatically make you safe" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Sometimes the safest jump is no jump" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: /Sometimes, not jumping\s+is the best decision/i }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: /Risk\s+looks\s+different\s+with\s+experience/i })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Safety is not built alone" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "The influence is indirect" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "What this study can and cannot claim" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "Decision" })).toHaveAttribute("href", "#decision");
+    expect(screen.queryByRole("link", { name: "No Jump" })).not.toBeInTheDocument();
+    expect(screen.getAllByRole("img", { name: /walks down along a rocky mountain ridge/i })[0])
+      .toHaveAttribute("src", expect.stringContaining("Walk_down.jpg"));
+    expect(screen.getAllByText(/Sometimes, not jumping\s+is the best decision/i).length)
+      .toBeGreaterThan(0);
+    expect(screen.getAllByText(/The mountain will still be there tomorrow/i).length).toBeGreaterThan(0);
 
     expect(screen.getByRole("button", { name: /Discovery/i })).toHaveAttribute(
       "aria-current",
@@ -86,10 +95,11 @@ describe("findings page", () => {
       screen.getByText(/Sichtbarkeit führt nicht automatisch zu mehr Risiko/i),
     ).toBeVisible();
     expect(screen.getByRole("navigation", { name: "Kapitel der Erkenntnisse" })).toBeVisible();
-    expect(screen.getByRole("link", { name: "Nicht Springen" })).toHaveAttribute(
-      "href",
-      "#no-jump",
-    );
+    expect(screen.getByRole("link", { name: "Entscheidung" })).toHaveAttribute("href", "#decision");
+    expect(screen.queryByRole("link", { name: "Nicht Springen" })).not.toBeInTheDocument();
+    expect(screen.getAllByRole("img", { name: /felsigen Berggrat ab/i })[0])
+      .toHaveAttribute("src", expect.stringContaining("Walk_down.jpg"));
+    expect(screen.getAllByText(/Der Berg steht auch morgen noch dort/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText("Sicherheit vor Erwartung").length).toBeGreaterThan(0);
     expect(screen.getByText(/Die Ergebnisse beziehen sich auf dieses Sample/i)).toBeVisible();
     expect(screen.getByRole("button", { name: /Entdeckung/i })).toHaveAttribute(
@@ -134,6 +144,23 @@ describe("findings page", () => {
     expect(germanIds.indexOf("visible-process")).toBe(
       germanIds.indexOf("camera") + 1,
     );
+  });
+
+  it("renders no-jump as the decision conclusion before experience", async () => {
+    await renderAsyncPage(
+      EnglishFindingsPage({ params: Promise.resolve({ locale: "en" }) }),
+    );
+
+    const renderedIds = Array.from(document.querySelectorAll("section[id]"))
+      .map((section) => section.id);
+    const decisionIndex = renderedIds.indexOf("decision");
+    const noJumpIndex = renderedIds.indexOf("no-jump");
+    const experienceIndex = renderedIds.indexOf("experience");
+
+    expect(decisionIndex).toBeGreaterThan(-1);
+    expect(noJumpIndex).toBe(decisionIndex + 1);
+    expect(experienceIndex).toBe(noJumpIndex + 1);
+    expect(renderedIds.filter((id) => id === "no-jump")).toHaveLength(1);
   });
 
   it("generates localized metadata", async () => {

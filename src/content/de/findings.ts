@@ -54,7 +54,6 @@ export const findingsPage: FindingsPageContent = {
     { id: "sponsorship", label: "Sponsoring" },
     { id: "decision", label: "Entscheidung" },
     { id: "experience", label: "Erfahrung" },
-    { id: "no-jump", label: "Nicht Springen" },
     { id: "community", label: "Community" },
     { id: "synthesis", label: "Synthese" },
   ],
@@ -431,9 +430,9 @@ export const findingsPage: FindingsPageContent = {
       kind: "experience-curve",
       navLabel: "Erfahrung",
       eyebrow: "Erfahrung und Selbsteinschätzung",
-      title: "Erfahrung macht nicht automatisch sicher",
+      title: "Risiko\nsieht mit\nErfahrung\nanders aus",
       summary:
-        "Die Interviews legen ein qualitatives Muster von Lernen, wachsendem Vertrauen, möglicher Selbstüberschätzung und später differenzierterem Risikobewusstsein nahe.",
+        "Die Interviews legen nahe, dass wachsende Erfahrung verändert, wie Unsicherheit interpretiert wird. Vertrauen kann schnell wachsen, während reife Urteilskraft oft erst später entsteht.",
       finding:
         "Risikobewusstsein entsteht nicht trotz Fehlern und Erfahrungen, sondern häufig durch ihre Reflexion.",
       accessibleSummary:
@@ -451,7 +450,7 @@ export const findingsPage: FindingsPageContent = {
       kind: "no-jump",
       navLabel: "Nicht Springen",
       eyebrow: "Die wichtigste Entscheidung",
-      title: "Manchmal ist der sicherste Sprung keiner",
+      title: "Nicht zu springen\nist manchmal\ndie beste Entscheidung.",
       summary:
         "Ein Abbruch kann auch nach langem Zustieg, Expedition, Vorbereitung oder finanzieller Investition die kompetente Entscheidung bleiben.",
       finding:
@@ -460,8 +459,8 @@ export const findingsPage: FindingsPageContent = {
         "Unsicherer Wind, Wolken, Sicht, körperlicher Zustand, mentale Verfassung, Intuition, Gruppendynamik und Verantwortung können erfahrene Athleten dazu bringen, wieder abzusteigen.",
       quote: "Der Berg steht auch morgen noch dort.",
       image: {
-        src: "/images/athletes/lukas-loibl/story.jpeg",
-        alt: "Alpines Gelände als Sinnbild für einen möglichen Exit und den Weg zurück.",
+        src: "/images/findings/Walk_down.jpg",
+        alt: "Ein BASE-Athlet steigt über einen felsigen Berggrat ab. Wolken ziehen über die umliegenden Gipfel und verdeutlichen die wechselnden Bedingungen.",
       },
       layers: [
         "Wind",

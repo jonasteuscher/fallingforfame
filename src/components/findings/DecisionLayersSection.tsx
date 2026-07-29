@@ -18,11 +18,11 @@ type DecisionLayersSectionProps = {
 const annotationLabels = {
   en: {
     exitThreshold: "Exit threshold",
-    go: "Go",
+    noGo: "Go / No-Go?",
   },
   de: {
     exitThreshold: "Exit-Schwelle",
-    go: "Go",
+    noGo: "Go / No-Go?",
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 
@@ -357,10 +357,10 @@ function DecisionDocumentaryScene({
         }}
         aria-hidden="true"
       >
-        {labels.go}
+        {labels.noGo}
       </div>
       <figcaption className="sr-only">
-        {layers.join(", ")}, {labels.exitThreshold}, {labels.go}
+        {layers.join(", ")}, {labels.exitThreshold}, {labels.noGo}
       </figcaption>
     </figure>
   );
@@ -639,7 +639,7 @@ function DecisionFindingSummary({
   sourcePrefix,
   empiricalLabel,
   interpretationLabel,
-  className = "relative z-10 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10",
+  className = "relative z-10 hidden -mt-24 px-6 pb-40 md:block xl:px-10",
 }: Omit<DecisionLayersSectionProps, "locale"> & {
   className?: string;
 }) {

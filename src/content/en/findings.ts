@@ -54,7 +54,6 @@ export const findingsPage: FindingsPageContent = {
     { id: "sponsorship", label: "Sponsorship" },
     { id: "decision", label: "Decision" },
     { id: "experience", label: "Experience" },
-    { id: "no-jump", label: "No Jump" },
     { id: "community", label: "Community" },
     { id: "synthesis", label: "Synthesis" },
   ],
@@ -431,9 +430,9 @@ export const findingsPage: FindingsPageContent = {
       kind: "experience-curve",
       navLabel: "Experience",
       eyebrow: "Experience and self-assessment",
-      title: "Experience does not automatically make you safe",
+      title: "Risk\nlooks\ndifferent\nwith\nexperience",
       summary:
-        "The interviews suggest a qualitative pattern of learning, confidence, possible overconfidence and later differentiated risk awareness.",
+        "The interviews suggest that growing experience changes how uncertainty is interpreted. Confidence may increase quickly, while mature judgement often develops much later.",
       finding:
         "Risk awareness often develops through reflecting on errors and experience.",
       accessibleSummary:
@@ -451,7 +450,7 @@ export const findingsPage: FindingsPageContent = {
       kind: "no-jump",
       navLabel: "No Jump",
       eyebrow: "The most important decision",
-      title: "Sometimes the safest jump is no jump",
+      title: "Sometimes, not jumping\nis the best decision.",
       summary:
         "Cancelling can remain the competent decision even after a long hike, an expedition, preparation or financial investment.",
       finding:
@@ -460,8 +459,8 @@ export const findingsPage: FindingsPageContent = {
         "Uncertain wind, clouds, visibility, physical condition, mental state, intuition, group dynamics and responsibility can all lead an experienced athlete to walk down.",
       quote: "The mountain will still be there tomorrow.",
       image: {
-        src: "/images/athletes/lukas-loibl/story.jpeg",
-        alt: "Mountain terrain representing a possible exit and the decision to walk back.",
+        src: "/images/findings/Walk_down.jpg",
+        alt: "A BASE athlete walks down along a rocky mountain ridge as clouds move across the surrounding peaks, illustrating changing conditions.",
       },
       layers: [
         "wind",

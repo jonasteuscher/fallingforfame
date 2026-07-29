@@ -8,6 +8,8 @@ import { FindingsQuote } from "@/components/findings/FindingsQuote";
 import { FindingsVisibilitySequence } from "@/components/findings/FindingsVisibilitySequence";
 import { CameraEquipmentSection } from "@/components/findings/CameraEquipmentSection";
 import { DecisionLayersSection } from "@/components/findings/DecisionLayersSection";
+import { ExperienceJourneySection } from "@/components/findings/ExperienceJourneySection";
+import { NoJumpDecisionSection } from "@/components/findings/NoJumpDecisionSection";
 import { PressureModelSection } from "@/components/findings/PressureModelSection";
 import { RecognitionComparison } from "@/components/findings/RecognitionComparison";
 import { SponsorshipSpectrumSection } from "@/components/findings/SponsorshipSpectrumSection";
@@ -22,6 +24,8 @@ type FindingsPageProps = {
 };
 
 export function FindingsPage({ content, locale }: FindingsPageProps) {
+  const chapters = orderFindingsChapters(content.chapters);
+
   return (
     <main className="bg-background text-foreground">
       <a
@@ -36,7 +40,7 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
         hiddenUntilId="findings-hero"
       />
       <FindingsHero content={content} />
-      {content.chapters.map((chapter) => (
+      {chapters.map((chapter) => (
         chapter.kind === "media-visibility" ? (
           <FindingsVisibilitySequence
             key={chapter.id}
@@ -96,6 +100,25 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             empiricalLabel={content.empiricalLabel}
             interpretationLabel={content.interpretationLabel}
           />
+        ) : chapter.kind === "experience-curve" ? (
+          <ExperienceJourneySection
+            key={chapter.id}
+            chapter={chapter}
+            locale={locale}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+          />
+        ) : chapter.kind === "no-jump" ? (
+          <NoJumpDecisionSection
+            key={chapter.id}
+            chapter={chapter}
+            locale={locale}
+            sourcePrefix={content.sourcePrefix}
+            empiricalLabel={content.empiricalLabel}
+            interpretationLabel={content.interpretationLabel}
+            quoteSourceLabel={content.quoteSourceLabel}
+          />
         ) : (
           <FindingChapterSection
             key={chapter.id}
@@ -110,6 +133,27 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
       ))}
     </main>
   );
+}
+
+function orderFindingsChapters(chapters: FindingChapter[]) {
+  const noJump = chapters.find((chapter) => chapter.kind === "no-jump");
+
+  if (!noJump) {
+    return chapters;
+  }
+
+  const withoutNoJump = chapters.filter((chapter) => chapter !== noJump);
+  const decisionIndex = withoutNoJump.findIndex((chapter) => chapter.kind === "decision-layers");
+
+  if (decisionIndex === -1) {
+    return chapters;
+  }
+
+  return [
+    ...withoutNoJump.slice(0, decisionIndex + 1),
+    noJump,
+    ...withoutNoJump.slice(decisionIndex + 1),
+  ];
 }
 
 function FindingChapterSection({
