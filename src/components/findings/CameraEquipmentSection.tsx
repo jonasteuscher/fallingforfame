@@ -40,6 +40,7 @@ type CalloutPlacement = {
   startX: number;
   startY: number;
   path: string;
+  anchored?: boolean;
 };
 
 export function CameraEquipmentSection({
@@ -52,6 +53,7 @@ export function CameraEquipmentSection({
   const scrubRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [useLaptopCallouts, setUseLaptopCallouts] = useState(false);
   const states = useCameraStates(chapter.states);
 
   useEffect(() => {
@@ -73,6 +75,27 @@ export function CameraEquipmentSection({
     motionQuery.addEventListener("change", updateReducedMotion);
 
     return () => motionQuery.removeEventListener("change", updateReducedMotion);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const laptopQuery = window.matchMedia?.("(min-width: 768px) and (max-width: 1599px)");
+
+    if (!laptopQuery) {
+      return;
+    }
+
+    function updateLaptopCallouts() {
+      setUseLaptopCallouts(laptopQuery.matches);
+    }
+
+    updateLaptopCallouts();
+    laptopQuery.addEventListener("change", updateLaptopCallouts);
+
+    return () => laptopQuery.removeEventListener("change", updateLaptopCallouts);
   }, []);
 
   useEffect(() => {
@@ -170,6 +193,7 @@ export function CameraEquipmentSection({
                 chapter={chapter}
                 activeState={activeState}
                 focus={focus}
+                useLaptopCallouts={useLaptopCallouts}
               />
               <CameraNarrative
                 chapter={chapter}
@@ -185,7 +209,7 @@ export function CameraEquipmentSection({
         </div>
       </div>
       <div className="relative z-10 hidden pb-[var(--section-gap-standard)] md:block">
-        <div className="mx-auto max-w-7xl px-6 xl:px-10">
+        <div className="camera-summary-wrap mx-auto max-w-7xl px-6 xl:px-10">
           <CameraFindingSummary
             chapter={chapter}
             sourcePrefix={sourcePrefix}
@@ -246,14 +270,15 @@ function CameraNarrative({
             ? getCameraEquipmentStateOpacity(progress, range)
             : state.id === activeState.id ? 1 : 0;
           const isActive = state.id === activeState.id;
+          const displayOpacity = isActive ? Math.max(opacity, 0.96) : opacity * 0.28;
 
           return (
             <article
               key={state.id}
               className="absolute inset-0 border-l border-primary/70 pl-5"
               style={{
-                opacity: isActive ? Math.max(opacity, 0.96) : opacity * 0.28,
-                transform: `translate3d(0, ${interpolate(opacity, 0, 1, 12, 0)}px, 0)`,
+                opacity: displayOpacity,
+                transform: `translate3d(0, ${interpolate(displayOpacity, 0, 1, 12, 0)}px, 0)`,
               }}
               aria-hidden={state.id !== activeState.id}
             >
@@ -267,10 +292,10 @@ function CameraNarrative({
       </div>
 
       <div
-        className="mt-6 max-w-[39rem]"
+        className="camera-conclusion mt-6 max-w-[39rem]"
         style={{
-          opacity: progress > 0.94 ? 0 : conclusionOpacity,
-          transform: `translate3d(0, ${interpolate(conclusionOpacity, 0, 1, 22, 0)}px, 0)`,
+          opacity: conclusionOpacity,
+          transform: `translate3d(0, calc(${interpolate(conclusionOpacity, 0, 1, 22, 0)}px + var(--camera-conclusion-offset-y, 0px)), 0)`,
         }}
       >
         <p className="whitespace-pre-line border-l-2 border-primary pl-5 text-[clamp(2rem,3.4vw,4.3rem)] font-semibold leading-[1.02] text-foreground">
@@ -293,10 +318,12 @@ function CameraImageStage({
   chapter,
   activeState,
   focus,
+  useLaptopCallouts,
 }: {
   chapter: FindingChapter;
   activeState: CameraEquipmentState;
   focus: ReturnType<typeof getCameraFocus>;
+  useLaptopCallouts: boolean;
 }) {
   const [selectedHotspotId, setSelectedHotspotId] = useState<string | null>(null);
   const figureRef = useRef<HTMLElement | null>(null);
@@ -359,7 +386,7 @@ function CameraImageStage({
     [activeHotspots.length],
   );
 
-  const selectedPlacement = selectedHotspot ? getCalloutPlacement(selectedHotspot) : null;
+  const selectedPlacement = selectedHotspot ? getCalloutPlacement(selectedHotspot, useLaptopCallouts) : null;
 
   return (
     <figure
@@ -411,7 +438,7 @@ function CameraImageStage({
         />
       </div>
       <div className="absolute inset-0 hidden md:block" data-camera-annotation-layer>
-        {selectedHotspot && selectedPlacement ? (
+        {selectedHotspot && selectedPlacement && !useLaptopCallouts ? (
           <svg
             className="pointer-events-none absolute inset-0 overflow-visible"
             viewBox="0 0 100 100"
@@ -542,12 +569,26 @@ function CameraCallout({
   onClose: () => void;
 }) {
   const tooltipId = `camera-hotspot-${activeStateId}-${hotspot.id}`;
+  const calloutStyle = placement.anchored
+    ? {
+        left: "1rem",
+        bottom: "1rem",
+        "--camera-callout-transform": "translate(0, 0)",
+        animation: "camera-callout-popup-in 180ms ease-out 130ms both",
+      }
+    : {
+        left: `${placement.x}%`,
+        top: `${placement.y}%`,
+        "--camera-callout-transform": getCalloutTransform(placement),
+        animation: "camera-callout-popup-in 180ms ease-out 130ms both",
+      };
 
   return (
     <div
       id={tooltipId}
       role="dialog"
       data-camera-callout
+      data-hotspot-id={hotspot.id}
       aria-label={hotspot.label}
       onKeyDown={(event) => {
         if (event.key === "Tab") {
@@ -555,13 +596,8 @@ function CameraCallout({
           closeRef.current?.focus();
         }
       }}
-      className="pointer-events-auto absolute z-10 w-[17rem] border border-border bg-[#07111f]/96 px-4 py-3 text-left text-sm leading-6 text-white opacity-100 transition-opacity duration-200 motion-reduce:transition-none"
-      style={{
-        left: `${placement.x}%`,
-        top: `${placement.y}%`,
-        "--camera-callout-transform": getCalloutTransform(placement),
-        animation: "camera-callout-popup-in 180ms ease-out 130ms both",
-      } as CSSProperties}
+      className="camera-callout pointer-events-auto absolute z-30 w-[17rem] border border-border bg-[#07111f]/96 px-4 py-3 text-left text-sm leading-6 text-white opacity-100 transition-opacity duration-200 motion-reduce:transition-none"
+      style={calloutStyle as CSSProperties}
     >
       <div className="flex items-start justify-between gap-3">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
@@ -755,7 +791,23 @@ function getPreferredEdge(hotspot: CameraEquipmentHotspot) {
   return "right";
 }
 
-function getCalloutPlacement(hotspot: CameraEquipmentHotspot): CalloutPlacement {
+function getCalloutPlacement(hotspot: CameraEquipmentHotspot, useLaptopCallouts = false): CalloutPlacement {
+  if (useLaptopCallouts) {
+    const x = clamp(hotspot.x, 28, 72);
+    const y = clamp(hotspot.y - 10, 20, 70);
+    const path = `M ${x} ${y} L ${hotspot.x} ${hotspot.y}`;
+
+    return {
+      side: "top",
+      x,
+      y,
+      startX: x,
+      startY: y,
+      path,
+      anchored: true,
+    };
+  }
+
   const side = getPreferredEdge(hotspot);
   const x =
     hotspot.calloutX ??
@@ -778,6 +830,10 @@ function getCalloutPlacement(hotspot: CameraEquipmentHotspot): CalloutPlacement 
 }
 
 function getCalloutTransform(placement: CalloutPlacement) {
+  if (placement.anchored) {
+    return "translate(-50%, calc(-100% - 1rem))";
+  }
+
   if (placement.x >= 0 && placement.x <= 100 && placement.y >= 0 && placement.y <= 100) {
     return "translate(0, 0)";
   }
