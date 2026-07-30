@@ -149,8 +149,12 @@ export function PressureModelSection({
         </div>
       </div>
 
+      <div className="pressure-safety-section relative z-10 hidden px-6 pt-16 md:block xl:px-10">
+        <PressureSafetySummary chapter={chapter} progress={progress} />
+      </div>
+
       <div
-        className="relative z-10 hidden px-6 pt-28 pb-[var(--section-gap-standard)] md:block xl:px-10"
+        className="relative z-10 hidden px-6 pt-20 pb-[var(--section-gap-standard)] md:block xl:px-10"
         style={{
           opacity: getPressureInterpretationOpacity(progress),
           transform: `translate3d(0, ${interpolate(getPressureInterpretationOpacity(progress), 0, 1, 16, 0)}px, 0)`,
@@ -181,9 +185,9 @@ function PressureScene({
 
   return (
     <div className="relative mx-auto flex h-full max-w-[76rem] flex-col">
-      <div className="relative min-h-0 flex-1">
+      <div className="pressure-scene-canvas relative min-h-0 flex-1">
         <div
-          className="absolute left-1/2 top-[38%] h-[min(52vw,36rem)] w-[min(70vw,55rem)] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-border/42"
+          className="absolute left-1/2 top-[var(--pressure-center-y,38%)] h-[min(52vw,36rem)] w-[min(70vw,55rem)] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-border/42"
           style={{
             opacity: interpolate(progress, 0, 0.2, 0.28, 0.12 + safety * 0.08),
             transform: `translate3d(-50%, -50%, 0) scale(${interpolate(progress, 0.36, 0.87, 1, 0.92 + safety * 0.08)})`,
@@ -191,7 +195,7 @@ function PressureScene({
           aria-hidden="true"
         />
         <div
-          className="absolute left-1/2 top-[38%] grid h-40 w-56 -translate-x-1/2 -translate-y-1/2 place-items-center border border-primary/70 bg-background/88 text-center shadow-[0_26px_90px_color-mix(in_srgb,var(--background)_76%,black)] lg:h-44 lg:w-60"
+          className="absolute left-1/2 top-[var(--pressure-center-y,38%)] grid h-40 w-56 -translate-x-1/2 -translate-y-1/2 place-items-center border border-primary/70 bg-background/88 text-center shadow-[0_26px_90px_color-mix(in_srgb,var(--background)_76%,black)] lg:h-44 lg:w-60"
           data-pressure-athlete
         >
           <span className="px-4 text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
@@ -204,13 +208,15 @@ function PressureScene({
             const position = pressureFactorPositions[index % pressureFactorPositions.length];
             const reveal = getPressureFactorReveal(index, progress);
             const point = getPressureFactorPoint(position, reveal);
+            const scaledX = `calc(${point.x}px * var(--pressure-label-scale, 1))`;
+            const scaledY = `calc(${point.y}px * var(--pressure-label-scale, 1))`;
             const active = reveal > 0.88 && safety < 0.3;
             const anchorTransform =
               position.align === "right"
-                ? `translate3d(calc(-100% + ${point.x}px), ${point.y}px, 0)`
+                ? `translate3d(calc(-100% + ${scaledX}), ${scaledY}, 0)`
                 : position.align === "center"
-                  ? `translate3d(calc(-50% + ${point.x}px), ${point.y}px, 0)`
-                  : `translate3d(${point.x}px, ${point.y}px, 0)`;
+                  ? `translate3d(calc(-50% + ${scaledX}), ${scaledY}, 0)`
+                  : `translate3d(${scaledX}, ${scaledY}, 0)`;
 
             return (
               <li
@@ -218,7 +224,7 @@ function PressureScene({
                 className="absolute w-[clamp(10.5rem,14vw,13rem)]"
                 style={{
                   left: "50%",
-                  top: "38%",
+                  top: "var(--pressure-center-y, 38%)",
                   opacity: interpolate(safety, 0, 1, reveal, reveal * 0.82),
                   transform: anchorTransform,
                 }}
@@ -241,9 +247,6 @@ function PressureScene({
             );
           })}
         </ol>
-      </div>
-      <div className="absolute bottom-0 left-1/2 w-[min(70vw,55rem)] -translate-x-1/2">
-        <PressureSafetySummary chapter={chapter} progress={progress} />
       </div>
     </div>
   );

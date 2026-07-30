@@ -445,9 +445,28 @@ audio {
     width: min(58vw, 43rem) !important;
   }
 
+  .findings-page #pressure .pressure-scene-canvas {
+    --pressure-label-scale: 0.78;
+    --pressure-center-y: 53%;
+  }
+
+  .findings-page #pressure .pressure-safety-section {
+    padding-top: 3.25rem !important;
+  }
+
+  .findings-page #pressure .pressure-safety-section > div {
+    width: min(44vw, 34rem) !important;
+    padding: 1rem 1.15rem !important;
+  }
+
+  .findings-page #pressure .pressure-safety-section p:last-child {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+
   .findings-page #pressure [class*="h-40"][class*="w-56"] {
-    height: 8rem !important;
-    width: 11rem !important;
+    height: 7.5rem !important;
+    width: 10.5rem !important;
   }
 
   .findings-page #no-jump h2:not(.sr-only) {
@@ -566,6 +585,25 @@ audio {
   .findings-page #pressure [class*="h-\\[min\\(52vw"] {
     height: min(36vw, 22rem) !important;
     width: min(52vw, 36rem) !important;
+  }
+
+  .findings-page #pressure .pressure-scene-canvas {
+    --pressure-label-scale: 0.74;
+    --pressure-center-y: 55%;
+  }
+
+  .findings-page #pressure .pressure-safety-section {
+    padding-top: 2.75rem !important;
+  }
+
+  .findings-page #pressure .pressure-safety-section > div {
+    width: min(46vw, 32rem) !important;
+    padding: 0.9rem 1rem !important;
+  }
+
+  .findings-page #pressure .pressure-safety-section p:last-child {
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
   }
 
   .findings-page #no-jump h2:not(.sr-only) {
