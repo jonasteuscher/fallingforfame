@@ -394,7 +394,7 @@ export const sport = {
           "Formt informelle Regeln zu Lernen, Zurückhaltung, Respekt und gegenseitiger Verantwortung.",
       },
       {
-        name: "Grundeigentümer\n:innen",
+        name: "Grundeigentümer-\n:innen",
         description:
           "Beeinflussen Zugang durch Vertrauen, lokale Beziehungen und Erwartungen an respektvolles Verhalten.",
       },

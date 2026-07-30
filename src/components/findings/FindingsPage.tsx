@@ -28,7 +28,7 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
   const chapters = orderFindingsChapters(content.chapters);
 
   return (
-    <main className="bg-background text-foreground">
+    <main className="findings-page bg-background text-foreground">
       <a
         href="#research-context"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-primary focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:uppercase focus:tracking-[0.16em] focus:text-primary-foreground"

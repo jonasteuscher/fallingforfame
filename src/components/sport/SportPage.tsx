@@ -1363,7 +1363,7 @@ function CommunityNetwork({
               <span className="text-sm font-semibold uppercase tracking-wide text-primary">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-5 whitespace-pre-line break-words text-xl font-semibold leading-tight text-foreground [overflow-wrap:anywhere] xl:text-2xl">
+              <h3 className="mt-5 whitespace-pre-line break-normal text-xl font-semibold leading-tight text-foreground [hyphens:manual] [overflow-wrap:normal] [text-wrap:balance] [word-break:normal] xl:text-2xl">
                 {node.name}
               </h3>
               <p className="mt-4 text-sm leading-6 text-foreground/72">

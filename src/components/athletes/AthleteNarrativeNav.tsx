@@ -83,9 +83,9 @@ export function AthleteNarrativeNav({
   return (
     <nav
       aria-label={ariaLabel}
-      className="fixed bottom-3 left-1/2 z-30 max-w-[calc(100vw-1rem)] -translate-x-1/2 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur md:bottom-auto md:left-auto md:right-3 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:px-1.5 md:shadow-[0_12px_34px_color-mix(in_srgb,var(--background)_70%,black)]"
+      className="site-section-nav fixed bottom-3 left-1/2 z-30 max-w-[calc(100vw-1rem)] -translate-x-1/2 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur md:bottom-auto md:left-auto md:right-3 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:px-1.5 md:shadow-[0_12px_34px_color-mix(in_srgb,var(--background)_70%,black)] min-[1600px]:right-4 min-[1600px]:px-2 min-[1600px]:shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)]"
     >
-      <ol className="flex gap-1 md:flex-col md:gap-0.5">
+      <ol className="flex gap-1 md:flex-col md:gap-0.5 min-[1600px]:gap-1">
         {items.map((item) => {
           const isActive = item.id === activeId;
 
@@ -97,7 +97,7 @@ export function AthleteNarrativeNav({
                 aria-current={isActive ? "location" : undefined}
                 className={[
                   "group flex min-h-11 min-w-11 items-center justify-center gap-2 px-2 text-xs font-semibold uppercase tracking-[0.16em] text-foreground/62 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none md:justify-start",
-                  "md:min-h-8 md:min-w-8 md:gap-1.5 md:px-1 md:text-[0.62rem] md:tracking-[0.14em]",
+                  "md:min-h-8 md:min-w-8 md:gap-1.5 md:px-1 md:text-[0.62rem] md:tracking-[0.14em] min-[1600px]:min-h-11 min-[1600px]:min-w-11 min-[1600px]:gap-2 min-[1600px]:px-2 min-[1600px]:text-xs min-[1600px]:tracking-[0.16em]",
                   isActive ? "text-primary" : "",
                 ].join(" ")}
               >
@@ -108,7 +108,7 @@ export function AthleteNarrativeNav({
                   ].join(" ")}
                   aria-hidden="true"
                 />
-                <span className="hidden max-w-40 truncate md:inline" aria-hidden="true">
+                <span className="hidden max-w-40 truncate md:inline min-[1600px]:max-w-none" aria-hidden="true">
                   {item.label}
                 </span>
               </a>
