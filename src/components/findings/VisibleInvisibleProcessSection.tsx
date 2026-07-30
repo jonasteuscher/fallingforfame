@@ -263,13 +263,13 @@ function InvisibleProcessLayer({
         clipPath: `inset(0 0 0 ${clip}%)`,
       }}
     >
-      <div className="flex h-full flex-col justify-center">
+      <div className="visible-process-content flex h-full flex-col justify-center">
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
           {chapter.invisibleLabel}
         </p>
         <p
           className={[
-            "mt-3 max-w-[26rem] font-semibold uppercase leading-tight text-foreground",
+            "visible-process-title mt-3 max-w-[26rem] font-semibold uppercase leading-tight text-foreground",
             isCompact ? "text-[1.7rem]" : "text-3xl",
           ].join(" ")}
         >
@@ -277,7 +277,7 @@ function InvisibleProcessLayer({
         </p>
         <ol
           className={[
-            "grid max-w-[34rem]",
+            "visible-process-list grid max-w-[34rem]",
             isCompact ? "mt-4 gap-1.5" : "mt-5 gap-2",
           ].join(" ")}
         >
@@ -294,7 +294,7 @@ function InvisibleProcessLayer({
               <li
                 key={item}
                 className={[
-                  "grid grid-cols-[2.5rem_1fr] border-l border-primary/40",
+                  "visible-process-item grid grid-cols-[2.5rem_1fr] border-l border-primary/40",
                   isCompact ? "gap-3 py-0.5" : "gap-4 py-1",
                 ].join(" ")}
                 style={{

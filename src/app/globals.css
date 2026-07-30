@@ -348,13 +348,32 @@ audio {
     line-height: 0.95 !important;
   }
 
+  .findings-page #visible-process .visible-process-content {
+    transform: translate3d(0, -0.45rem, 0);
+  }
+
+  .findings-page #visible-process .visible-process-title {
+    margin-top: 0.55rem !important;
+    font-size: clamp(1.35rem, 2.25vw, 1.95rem) !important;
+    line-height: 0.95 !important;
+  }
+
+  .findings-page #visible-process .visible-process-list {
+    margin-top: 0.75rem !important;
+    gap: 0.26rem !important;
+  }
+
+  .findings-page #visible-process .visible-process-item {
+    padding-block: 0.12rem !important;
+  }
+
   .findings-page #visible-process div[class*="w-\\[48\\%\\]"] ol {
-    margin-top: clamp(0.8rem, 1.8svh, 1.4rem) !important;
-    gap: clamp(0.3rem, 0.8svh, 0.55rem) !important;
+    margin-top: 0.75rem !important;
+    gap: 0.26rem !important;
   }
 
   .findings-page #visible-process div[class*="w-\\[48\\%\\]"] li {
-    padding-block: clamp(0.2rem, 0.65svh, 0.45rem) !important;
+    padding-block: 0.12rem !important;
   }
 
   .findings-page #visible-process div[class*="w-\\[48\\%\\]"] li span:last-child {
