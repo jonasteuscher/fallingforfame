@@ -1,6 +1,17 @@
 export const sport = {
   kicker: "Sportkontext",
   title: "Über den Sport",
+  navigationLabel: "Kapitel über den Sport",
+  nav: [
+    { id: "was-ist-base-jumping", label: "BASE" },
+    { id: "geschichte", label: "Geschichte" },
+    { id: "skydiving-vs-base", label: "Vergleich" },
+    { id: "ausruestung", label: "Ausrüstung" },
+    { id: "disziplinen", label: "Disziplinen" },
+    { id: "risiko-und-sicherheitskultur", label: "Sicherheit" },
+    { id: "gemeinschaft-und-ethik", label: "Community" },
+    { id: "moderne-entwicklungen", label: "Heute" },
+  ],
   body: "Ein paar Sekunden freier Fall. Jahre der Vorbereitung.\n\nBASE Jumping ist ein Sport, der von Hingabe, Präzision und Konsequenz geprägt ist. Um die Geschichten dieser Dokumentation zu verstehen, hilft es, zuerst die Kultur, Geschichte und Realität des Sports selbst zu verstehen.",
   scrollCta: "Scrollen zum Start",
   disclaimer:

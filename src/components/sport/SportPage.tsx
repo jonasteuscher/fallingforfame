@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import type { sport as sportContent } from "@/content/en/sport";
+import { FindingsChapterNav } from "@/components/findings/FindingsChapterNav";
 import { SportSafetyDisclaimerModal } from "@/components/sport/SportSafetyDisclaimerModal";
 
 type SportContent = typeof sportContent;
@@ -27,6 +28,8 @@ const disciplineImages = [
 
 export function SportPage({ content }: SportPageProps) {
   const sectionById = new Map(content.sections.map((section) => [section.id, section]));
+  const introSection =
+    sectionById.get("what-is-base-jumping") ?? sectionById.get("was-ist-base-jumping");
   const history = sectionById.get("history") ?? sectionById.get("geschichte");
   const comparison =
     sectionById.get("skydiving-vs-base") ?? sectionById.get("skydiving-vs-base");
@@ -40,28 +43,67 @@ export function SportPage({ content }: SportPageProps) {
   const disciplines = sectionById.get("disciplines") ?? sectionById.get("disziplinen");
   const modern =
     sectionById.get("modern-developments") ?? sectionById.get("moderne-entwicklungen");
-
   return (
     <article className="bg-background text-foreground">
       <SportSafetyDisclaimerModal content={content.safetyDisclaimer} />
+      <FindingsChapterNav
+        items={content.nav}
+        ariaLabel={content.navigationLabel}
+        hiddenUntilId="sport-hero"
+        compact
+      />
       <SportHero content={content} />
-      <SportIntro content={content.intro} />
+      <SportIntro content={content.intro} sectionId={introSection?.id} />
       <BaseAcronymStory content={content.acronym} />
-      <HistoryTimeline content={content.historyTimeline} title={history?.title} />
-      <SkydivingVsBase content={content.comparison} title={comparison?.title} />
-      <EquipmentExplainer content={content.equipmentVisual} title={equipment?.title} />
-      <DisciplinesGallery content={content.disciplines} title={disciplines?.title} />
-      <SafetyHierarchy content={content.safetyHierarchy} title={safety?.title} />
-      <CommunityNetwork content={content.ethicsNetwork} title={community?.title} />
-      <ThenVsNow content={content.thenVsNow} title={modern?.title} />
+      <HistoryTimeline
+        content={content.historyTimeline}
+        title={history?.title}
+        sectionId={history?.id}
+      />
+      <SkydivingVsBase
+        content={content.comparison}
+        title={comparison?.title}
+        sectionId={comparison?.id}
+      />
+      <EquipmentExplainer
+        content={content.equipmentVisual}
+        title={equipment?.title}
+        sectionId={equipment?.id}
+      />
+      <DisciplinesGallery
+        content={content.disciplines}
+        title={disciplines?.title}
+        sectionId={disciplines?.id}
+      />
+      <SafetyHierarchy
+        content={content.safetyHierarchy}
+        title={safety?.title}
+        sectionId={safety?.id}
+      />
+      <CommunityNetwork
+        content={content.ethicsNetwork}
+        title={community?.title}
+        sectionId={community?.id}
+      />
+      <ThenVsNow
+        content={content.thenVsNow}
+        title={modern?.title}
+        sectionId={modern?.id}
+      />
       <SourcesSection content={content.sources} disclaimer={content.disclaimer} />
     </article>
   );
 }
 
-function SportIntro({ content }: { content: SportContent["intro"] }) {
+function SportIntro({
+  content,
+  sectionId,
+}: {
+  content: SportContent["intro"];
+  sectionId?: string;
+}) {
   return (
-    <section className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+    <section id={sectionId} className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.55fr_1fr]">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
@@ -83,7 +125,10 @@ function SportIntro({ content }: { content: SportContent["intro"] }) {
 
 function SportHero({ content }: { content: SportContent }) {
   return (
-    <section className="relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden px-4 py-20 sm:px-6 lg:px-10">
+    <section
+      id="sport-hero"
+      className="relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden px-4 py-20 sm:px-6 lg:px-10"
+    >
       <Image
         src="/images/sport/hero1.jpg"
         alt=""
@@ -339,9 +384,11 @@ function AcronymFlightDeck({
 function HistoryTimeline({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["historyTimeline"];
   title?: string;
+  sectionId?: string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const railSlotRef = useRef<HTMLDivElement>(null);
@@ -436,6 +483,7 @@ function HistoryTimeline({
 
   return (
     <section
+      id={sectionId}
       ref={sectionRef}
       aria-label={title ?? content.title}
       className="px-4 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-24 lg:pb-0"
@@ -592,19 +640,25 @@ function HistoryRail({
 function SkydivingVsBase({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["comparison"];
   title?: string;
+  sectionId?: string;
 }) {
-  return <HeightComparisonScrolly content={content} title={title} />;
+  return (
+    <HeightComparisonScrolly content={content} title={title} sectionId={sectionId} />
+  );
 }
 
 function HeightComparisonScrolly({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["comparison"];
   title?: string;
+  sectionId?: string;
 }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const stepRefs = useRef<Array<HTMLElement | null>>([]);
@@ -686,6 +740,7 @@ function HeightComparisonScrolly({
 
   return (
     <section
+      id={sectionId}
       ref={sectionRef}
       aria-labelledby="comparison-title"
       className="overflow-x-clip px-4 py-16 sm:px-6 lg:px-10"
@@ -1062,9 +1117,11 @@ function ComparisonTable({
 function EquipmentExplainer({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["equipmentVisual"];
   title?: string;
+  sectionId?: string;
 }) {
   const defaultEquipmentImage = "/images/sport/equipment/default.jpg";
   const equipmentImages = [
@@ -1080,6 +1137,7 @@ function EquipmentExplainer({
 
   return (
     <section
+      id={sectionId}
       aria-labelledby="equipment-title"
       className="px-4 pt-16 pb-28 sm:px-6 lg:px-10"
     >
@@ -1154,9 +1212,11 @@ function EquipmentExplainer({
 function SafetyHierarchy({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["safetyHierarchy"];
   title?: string;
+  sectionId?: string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionEntered, setSectionEntered] = useState(false);
@@ -1191,6 +1251,7 @@ function SafetyHierarchy({
 
   return (
     <section
+      id={sectionId}
       ref={sectionRef}
       aria-labelledby="safety-title"
       className="bg-[#06172b] px-4 py-24 sm:px-6 lg:px-10 lg:py-36"
@@ -1268,12 +1329,15 @@ function SafetyHierarchy({
 function CommunityNetwork({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["ethicsNetwork"];
   title?: string;
+  sectionId?: string;
 }) {
   return (
     <section
+      id={sectionId}
       aria-labelledby="community-title"
       className="px-4 pt-32 pb-36 sm:px-6 lg:px-10"
     >
@@ -1316,12 +1380,15 @@ function CommunityNetwork({
 function DisciplinesGallery({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["disciplines"];
   title?: string;
+  sectionId?: string;
 }) {
   return (
     <section
+      id={sectionId}
       aria-labelledby="disciplines-title"
       className="px-4 pt-24 pb-28 sm:px-6 lg:px-10"
     >
@@ -1378,12 +1445,15 @@ function DisciplinesGallery({
 function ThenVsNow({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["thenVsNow"];
   title?: string;
+  sectionId?: string;
 }) {
   return (
     <section
+      id={sectionId}
       aria-labelledby="then-now-title"
       className="px-4 pt-36 pb-36 sm:px-6 lg:px-10"
     >
