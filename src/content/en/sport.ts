@@ -1,6 +1,17 @@
 export const sport = {
   kicker: "Sport context",
   title: "About the Sport",
+  navigationLabel: "About the sport sections",
+  nav: [
+    { id: "what-is-base-jumping", label: "BASE" },
+    { id: "history", label: "History" },
+    { id: "skydiving-vs-base", label: "Comparison" },
+    { id: "equipment", label: "Equipment" },
+    { id: "disciplines", label: "Disciplines" },
+    { id: "risk-and-safety-culture", label: "Safety" },
+    { id: "community-and-ethics", label: "Community" },
+    { id: "modern-developments", label: "Today" },
+  ],
   body: "A few seconds of freefall. Years of preparation.\n\nBASE jumping is a sport defined by commitment, precision and consequence. To understand the stories featured in this documentary, it helps to first understand the culture, history and realities of the sport itself.",
   scrollCta: "Scroll to begin",
   disclaimer:
