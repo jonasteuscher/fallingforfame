@@ -423,6 +423,14 @@ audio {
     min-width: 0;
   }
 
+  .findings-page #sponsorship .sponsorship-summary-wrap {
+    margin-top: 1.75rem !important;
+  }
+
+  .findings-page #sponsorship .sponsorship-layers {
+    margin-bottom: 1.25rem !important;
+  }
+
   .findings-page #pressure .sticky > div {
     padding-top: clamp(1.25rem, 2svh, 2rem);
   }

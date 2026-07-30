@@ -197,7 +197,7 @@ export function SponsorshipSpectrumSection({
       </div>
 
       <div
-        className="relative z-10 -mt-36 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10"
+        className="sponsorship-summary-wrap relative z-10 -mt-36 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10"
         style={{
           opacity: getSponsorshipInterpretationOpacity(progress),
           transform: `translate3d(0, ${interpolate(getSponsorshipInterpretationOpacity(progress), 0, 1, 18, 0)}px, 0)`,
@@ -289,7 +289,7 @@ function SpectrumStage({
       </div>
 
       <div
-        className="mx-auto mt-8 w-full max-w-[58rem]"
+        className="sponsorship-layers mx-auto mt-8 w-full max-w-[58rem]"
         style={{
           opacity: responsibilityOpacity,
           transform: `translate3d(0, ${interpolate(responsibilityOpacity, 0, 1, 18, 0)}px, 0)`,
