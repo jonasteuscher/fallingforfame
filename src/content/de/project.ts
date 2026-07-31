@@ -6,7 +6,7 @@ export const project = {
   chapterIndicator: [
     { id: "the-documentary", label: "Dokumentation" },
     { id: "why-this-project", label: "Motivation" },
-    { id: "behind-the-scenes", label: "Behind the Scenes" },
+    { id: "behind-the-scenes", label: "Making of" },
     { id: "the-research", label: "Forschung" },
     { id: "research-journey", label: "Rechercheweg" },
     { id: "project-goals", label: "Ziele" },

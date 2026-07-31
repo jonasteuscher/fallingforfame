@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import type { sport as sportContent } from "@/content/en/sport";
@@ -49,7 +48,7 @@ export function SportPage({ content }: SportPageProps) {
       <FindingsChapterNav
         items={content.nav}
         ariaLabel={content.navigationLabel}
-        hiddenUntilId="sport-hero"
+        hiddenUntilId={introSection?.id ?? "sport-hero"}
         compact
       />
       <SportHero content={content} />
@@ -799,21 +798,19 @@ function HeightComparisonScrolly({
                 step={step}
                 index={index}
                 active={index === activeStep}
-                table={
-                  step.visual === "summary" ? (
-                    <ComparisonTable
-                      rows={content.rows}
-                      skydivingLabel={content.skydivingLabel}
-                      baseLabel={content.baseLabel}
-                      title={content.scrolly.summaryTitle}
-                      metricLabel={content.scrolly.metricLabel}
-                    />
-                  ) : undefined
-                }
               />
             ))}
           </ol>
         </div>
+      </div>
+      <div className="mx-auto mt-14 w-full max-w-5xl lg:mt-20">
+        <ComparisonTable
+          rows={content.rows}
+          skydivingLabel={content.skydivingLabel}
+          baseLabel={content.baseLabel}
+          title={content.scrolly.summaryTitle}
+          metricLabel={content.scrolly.metricLabel}
+        />
       </div>
     </section>
   );
@@ -825,13 +822,11 @@ const HeightStep = function HeightStep({
   step,
   index,
   active,
-  table,
   stepRef,
 }: {
   step: HeightStepContent;
   index: number;
   active: boolean;
-  table?: ReactNode;
   stepRef: (element: HTMLElement | null) => void;
 }) {
   return (
@@ -872,7 +867,6 @@ const HeightStep = function HeightStep({
             {step.microcopy}
           </p>
         ) : null}
-        {table ? <div className="mt-6 min-w-0">{table}</div> : null}
       </article>
     </li>
   );
@@ -1046,13 +1040,18 @@ function ComparisonTable({
   metricLabel: string;
 }) {
   return (
-    <section aria-label={title}>
-      <h3 className="text-xl font-semibold text-foreground">{title}</h3>
-      <div className="mt-4 grid gap-3 sm:hidden">
+    <section aria-labelledby="skydiving-base-comparison-table-title">
+      <h3
+        id="skydiving-base-comparison-table-title"
+        className="text-2xl font-semibold text-foreground"
+      >
+        {title}
+      </h3>
+      <div className="mt-5 grid gap-3 sm:hidden">
         {rows.map((row) => (
           <article
             key={row.label}
-            className="border border-border bg-background/28 p-3"
+            className="border border-border bg-surface/72 p-4"
           >
             <h4 className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
               {row.label}
@@ -1076,20 +1075,26 @@ function ComparisonTable({
           </article>
         ))}
       </div>
-      <div className="mt-4 hidden overflow-x-auto border border-border sm:block">
-        <table className="min-w-[640px] border-collapse bg-surface text-left">
+      <div className="mt-5 hidden border border-border bg-surface/82 sm:block">
+        <table className="w-full table-fixed border-collapse text-left">
+          <caption className="sr-only">{title}</caption>
+          <colgroup>
+            <col className="w-[24%]" />
+            <col className="w-[34%]" />
+            <col className="w-[42%]" />
+          </colgroup>
           <thead>
             <tr className="border-b border-border">
               <th
                 scope="col"
-                className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62"
+                className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-foreground/62"
               >
                 {metricLabel}
               </th>
-              <th scope="col" className="p-3 text-sm font-semibold text-foreground">
+              <th scope="col" className="px-4 py-3 text-sm font-semibold text-foreground">
                 {skydivingLabel}
               </th>
-              <th scope="col" className="p-3 text-sm font-semibold text-primary">
+              <th scope="col" className="px-4 py-3 text-sm font-semibold text-primary">
                 {baseLabel}
               </th>
             </tr>
@@ -1099,12 +1104,16 @@ function ComparisonTable({
               <tr key={row.label} className="border-b border-border last:border-b-0">
                 <th
                   scope="row"
-                  className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62"
+                  className="px-4 py-3 align-middle text-xs font-semibold uppercase tracking-wide text-foreground/62"
                 >
                   {row.label}
                 </th>
-                <td className="p-3 text-foreground/76">{row.skydiving}</td>
-                <td className="p-3 font-semibold text-primary">{row.base}</td>
+                <td className="px-4 py-3 align-middle leading-6 text-foreground/76">
+                  {row.skydiving}
+                </td>
+                <td className="px-4 py-3 align-middle font-semibold leading-6 text-primary">
+                  {row.base}
+                </td>
               </tr>
             ))}
           </tbody>

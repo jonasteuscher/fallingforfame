@@ -5,8 +5,8 @@ export const project = {
   scrollCta: "Scroll to enter the story",
   chapterIndicator: [
     { id: "the-documentary", label: "Documentary" },
-    { id: "why-this-project", label: "Why this project?" },
-    { id: "behind-the-scenes", label: "Behind the scenes" },
+    { id: "why-this-project", label: "Motivation" },
+    { id: "behind-the-scenes", label: "Making of" },
     { id: "the-research", label: "Research" },
     { id: "research-journey", label: "Journey" },
     { id: "project-goals", label: "Goals" },

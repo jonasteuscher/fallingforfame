@@ -7,10 +7,15 @@ type ProjectChapterIndicatorProps = {
     id: string;
     label: string;
   }>;
+  hiddenUntilId?: string;
 };
 
-export function ProjectChapterIndicator({ chapters }: ProjectChapterIndicatorProps) {
+export function ProjectChapterIndicator({
+  chapters,
+  hiddenUntilId,
+}: ProjectChapterIndicatorProps) {
   const [activeId, setActiveId] = useState(chapters[0]?.id);
+  const [isPastIntro, setIsPastIntro] = useState(!hiddenUntilId);
 
   useEffect(() => {
     let frame = 0;
@@ -27,7 +32,15 @@ export function ProjectChapterIndicator({ chapters }: ProjectChapterIndicatorPro
 
         if (lastChapter && distanceToBottom <= 8) {
           setActiveId(lastChapter.id);
+          setIsPastIntro(true);
           return;
+        }
+
+        if (hiddenUntilId) {
+          const intro = document.getElementById(hiddenUntilId);
+          const introTop = intro ? intro.getBoundingClientRect().top + window.scrollY : 0;
+
+          setIsPastIntro(window.scrollY + window.innerHeight * 0.35 >= introTop);
         }
 
         const scrollAnchor = window.scrollY + window.innerHeight * 0.34;
@@ -64,12 +77,17 @@ export function ProjectChapterIndicator({ chapters }: ProjectChapterIndicatorPro
       window.removeEventListener("scroll", updateActiveChapter);
       window.removeEventListener("resize", updateActiveChapter);
     };
-  }, [chapters]);
+  }, [chapters, hiddenUntilId]);
 
   return (
     <nav
       aria-label="Project chapters"
-      className="site-section-nav fixed bottom-3 left-1/2 z-40 max-w-[calc(100vw-1rem)] -translate-x-1/2 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur md:bottom-auto md:left-auto md:right-3 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:px-1.5 md:shadow-[0_12px_34px_color-mix(in_srgb,var(--background)_70%,black)] min-[1600px]:right-4 min-[1600px]:px-2 min-[1600px]:shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)]"
+      className={[
+        "site-section-nav fixed bottom-3 left-1/2 z-40 max-w-[calc(100vw-1rem)] -translate-x-1/2 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur transition duration-300 motion-reduce:transition-none md:bottom-auto md:left-auto md:right-3 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:px-1.5 md:shadow-[0_12px_34px_color-mix(in_srgb,var(--background)_70%,black)] min-[1600px]:right-4 min-[1600px]:px-2 min-[1600px]:shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)]",
+        isPastIntro
+          ? "pointer-events-auto opacity-100"
+          : "pointer-events-none opacity-0",
+      ].join(" ")}
     >
       <ol className="flex gap-1 md:flex-col md:gap-0.5 min-[1600px]:gap-1">
         {chapters.map((chapter) => {
