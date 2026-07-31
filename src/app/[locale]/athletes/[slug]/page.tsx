@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { AthletePage as AthletePageTemplate } from "@/components/athletes";
 import { athletes, getAthleteBySlug } from "@/data/athletes";
-import { isLocale, locales, type Locale } from "@/i18n/config";
+import { defaultLocale, isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import type { Athlete, AthletePageSectionConfig } from "@/types/athlete";
 import type {
@@ -147,7 +147,7 @@ export async function generateMetadata({
   params,
 }: AthletePageProps): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const athlete = getAthleteBySlug(slug);
 
   return {
@@ -170,7 +170,7 @@ export function generateStaticParams() {
 
 export default async function AthletePage({ params }: AthletePageProps) {
   const { locale: rawLocale, slug } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const athlete = getAthleteBySlug(slug);
 
   if (!athlete) {

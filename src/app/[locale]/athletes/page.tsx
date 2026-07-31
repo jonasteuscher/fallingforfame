@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { AthleteCard } from "@/components/athletes";
 import { athletes } from "@/data/athletes";
-import { isLocale, type Locale } from "@/i18n/config";
+import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
 type AthletesPageProps = {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default async function AthletesPage({ params }: AthletesPageProps) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dictionary = getDictionary(locale);
   const content = dictionary.site.athletes;
   const countryLabels = dictionary.athleteMeta.countryNames;

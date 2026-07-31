@@ -184,4 +184,15 @@ describe("findings page", () => {
       description: expect.stringContaining("Qualitative Erkenntnisse"),
     });
   });
+
+  it("uses German metadata as the invalid locale fallback", async () => {
+    await expect(
+      generateGermanFindingsMetadata({
+        params: Promise.resolve({ locale: "invalid" }),
+      }),
+    ).resolves.toMatchObject({
+      title: "Erkenntnisse | Falling for Fame?",
+      description: expect.stringContaining("Qualitative Erkenntnisse"),
+    });
+  });
 });

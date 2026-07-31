@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { MobileExperienceNotice } from "@/components/MobileExperienceNotice";
 import { athletes } from "@/data/athletes";
-import { isLocale, type Locale } from "@/i18n/config";
+import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { localizedPath } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dictionary = getDictionary(locale);
   const home = dictionary.site.home;
   const countryLabels = dictionary.athleteMeta.countryNames;
