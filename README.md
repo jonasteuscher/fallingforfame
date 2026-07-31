@@ -2,6 +2,9 @@
 
 **Myth or Reality in Modern BASE Jumping?**
 
+GitHub: https://github.com/jonasteuscher/fallingforfame  
+Website: https://fallingforfame.com
+
 Falling for Fame is a bilingual Next.js App Router web documentary about social
 media, visibility, sponsorship, risk-taking, safety culture, community norms and
 athlete identity in modern BASE jumping.
@@ -9,6 +12,88 @@ athlete identity in modern BASE jumping.
 The project is built as a scrollytelling platform for a Bachelor thesis. German
 and English versions share the same implementation while preserving localized
 copy, metadata and routing.
+
+## Overview
+
+Falling for Fame is an interactive bilingual web documentary exploring how
+social media, sponsorship, visibility, safety culture and risk-taking influence
+modern BASE jumping.
+
+The project combines:
+
+- multimedia storytelling
+- documentary filmmaking
+- interactive web technologies
+- qualitative research communication
+
+It serves as the practical implementation accompanying the Bachelor thesis.
+
+### Screenshots
+
+<table>
+  <tr>
+    <td>
+      <img src="public/images/readme/Home.jpeg" alt="Homepage screenshot" />
+    </td>
+    <td>
+      <img src="public/images/readme/Project.jpeg" alt="Project page screenshot" />
+    </td>
+    <td>
+      <img src="public/images/readme/Sport.jpeg" alt="About the Sport page screenshot" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center">Home</td>
+    <td align="center">Project</td>
+    <td align="center">About the Sport</td>
+  </tr>
+</table>
+
+## Relation to the Bachelor Thesis
+
+This repository contains the practical implementation of the project. The
+written Bachelor thesis contains the scientific background, methodology,
+analysis, discussion and academic context.
+
+The web documentary communicates the research findings to a broader audience
+through interactive storytelling. Both projects were developed together, but
+they fulfil different purposes: the thesis provides the scientific argument,
+while the website translates the topic into a public-facing documentary
+experience.
+
+## Architecture
+
+The application is built with the Next.js App Router and uses static generation
+where possible. The architecture is content-driven: structured content,
+localized copy and media references are separated from presentation components.
+
+Core architectural principles:
+
+- Next.js App Router
+- static generation where possible
+- reusable documentary components
+- typed content models
+- locale-based routing
+- content-driven rendering
+- separation between content and presentation
+
+Athlete pages are generated from structured data in `src/data/athletes.ts`
+instead of individual page implementations. This keeps the athlete stories
+consistent while still allowing each profile to define its own media, order,
+sections and narrative rhythm.
+
+## Features
+
+- bilingual experience
+- localized routing
+- scrollytelling
+- athlete documentary pages
+- synchronized audio experiences
+- interactive findings visualization
+- responsive layouts
+- accessibility-focused implementation
+- SEO-optimized metadata
+- reusable component architecture
 
 ## Tech Stack
 
@@ -18,6 +103,38 @@ copy, metadata and routing.
 - Tailwind CSS 4
 - Vitest and Testing Library
 - Next Image Optimization
+- ESLint
+- Prettier
+- Vercel
+
+## Content Pipeline
+
+Presentation is separated from content. The main content sources are:
+
+- structured athlete data
+- localized text content
+- reusable documentary modules
+- media assets
+
+This architecture allows content updates without changing presentation logic.
+Localized page copy lives in `src/content`, athlete-specific page structures
+live in `src/data/athletes.ts`, and reusable modules in `src/components` render
+the documentary experience.
+
+## Design System
+
+Consistency is achieved through shared components rather than page-specific
+implementations. The design system is defined through global styles, reusable
+layouts and shared documentary modules.
+
+It includes:
+
+- typography tokens
+- spacing system
+- reusable layouts
+- animation behaviour
+- responsive rules
+- shared athlete template
 
 ## Development
 
@@ -38,6 +155,14 @@ npm run format:check
 
 `npm run build` runs linting and the full test suite before the production
 Next.js build.
+
+## Deployment
+
+Deployment is handled through Vercel. Production deployments are generated from
+the main branch, while preview deployments are used during development and
+review.
+
+Production URL: https://fallingforfame.com
 
 ## Routes
 
@@ -179,6 +304,22 @@ Read the full reference before adding or changing athlete pages:
 docs/athlete-page-reference.md
 ```
 
+## Media
+
+Large media assets are stored inside the `public` directory so they can be
+served as static assets.
+
+The project includes:
+
+- interviews
+- documentary photography
+- ambient audio
+- background videos
+- scrollytelling videos
+
+Media assets are part of the documentary experience and are not automatically
+covered by any source-code license.
+
 ## SEO And Routing
 
 - Public localized pages are listed in `src/app/sitemap.ts`.
@@ -186,6 +327,18 @@ docs/athlete-page-reference.md
 - The 404 page is not part of navigation or the sitemap.
 - Route metadata is implemented with the Next.js Metadata API where page-level
   metadata is needed.
+
+## Browser Support
+
+The documentary is optimized for modern evergreen browsers:
+
+- Chrome
+- Edge
+- Firefox
+- Safari
+
+Desktop provides the intended scrollytelling experience. Mobile devices receive
+an adapted experience for smaller screens and touch interaction.
 
 ## Accessibility And Performance Baseline
 
@@ -210,6 +363,19 @@ For athlete pages, validate at least:
 1920 x 1080
 ```
 
+## Performance
+
+The implementation aims to keep the documentary performant despite large media
+assets and scroll-based interactions.
+
+Performance measures include:
+
+- static generation where appropriate
+- optimized images
+- lazy loading
+- responsive media
+- minimized client-side JavaScript where possible
+
 ## Testing
 
 The current test suite covers page rendering, navigation, shared athlete modules,
@@ -225,6 +391,12 @@ npm run test
 npm run build
 ```
 
+## Known Limitations
+
+- The intended experience is desktop-first.
+- Large media files benefit from fast internet connections.
+- Some interactions are simplified on smaller devices.
+
 ## Notes For Future Work
 
 - Keep shared design and interaction behaviour in reusable components.
@@ -232,3 +404,16 @@ npm run build
 - Do not add placeholder sections for missing athlete content.
 - Avoid slug checks in shared components.
 - Preserve static/SSG output where possible.
+
+## License
+
+The source code in this repository is licensed under the MIT License. See the
+[LICENSE](LICENSE) file for the full license text.
+
+This license applies **only** to the software source code.
+
+All photographs, videos, audio recordings, interview material, graphics,
+logos and other media assets are **excluded** from the MIT License unless
+explicitly stated otherwise. These materials remain the intellectual property
+of their respective creators and may not be copied, redistributed or reused
+without prior written permission.

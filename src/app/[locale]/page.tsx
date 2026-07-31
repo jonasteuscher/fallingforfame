@@ -16,7 +16,9 @@ type HomePageProps = {
 };
 
 export const metadata: Metadata = {
-  title: "Falling for Fame",
+  title: {
+    absolute: "Home | Falling For Fame?",
+  },
 };
 
 export default async function HomePage({ params }: HomePageProps) {
