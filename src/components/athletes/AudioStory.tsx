@@ -2,9 +2,7 @@
 
 import Image from "next/image";
 import {
-  type CSSProperties,
   type PointerEvent as ReactPointerEvent,
-  forwardRef,
   useEffect,
   useId,
   useMemo,
@@ -13,6 +11,8 @@ import {
 } from "react";
 
 import { useAudioController } from "@/components/audio";
+import { AudioWaveform } from "@/components/athletes/AudioWaveform";
+import { SectionTitle } from "@/components/athletes/SectionTitle";
 import type { Locale } from "@/i18n/config";
 import type { AthleteAudioStory } from "@/types/athlete";
 
@@ -43,18 +43,15 @@ export function AudioStory({ story, locale }: AudioStoryProps) {
     <section
       aria-labelledby={headingId}
       data-audio-story-id={story.id}
-      className="overflow-x-clip border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+      className="overflow-x-clip border-t border-border px-4 py-[var(--section-gap-standard)] sm:px-6 xl:px-10"
     >
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
           {story.chapter[locale]}
         </p>
-        <h2
-          id={headingId}
-          className="mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
-        >
+        <SectionTitle id={headingId}>
           {displayTitle}
-        </h2>
+        </SectionTitle>
         {story.description ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
             {story.description[locale]}
@@ -88,8 +85,6 @@ function AudioStoryCard({
   const rafRef = useRef<number | null>(null);
   const progressFillRef = useRef<HTMLSpanElement | null>(null);
   const progressThumbRef = useRef<HTMLSpanElement | null>(null);
-  const waveformRef = useRef<HTMLDivElement | null>(null);
-  const lastSecondRef = useRef(-1);
   const { activeId, play, stop } = useAudioController();
   const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
   const [transcript, setTranscript] = useState<SubtitleEntry[]>([]);
@@ -284,14 +279,7 @@ function AudioStoryCard({
       "left",
       `${nextProgress * 100}%`,
     );
-    waveformRef.current?.style.setProperty("--audio-progress", String(nextProgress));
-
-    const nextSecond = Math.floor(nextTime);
-
-    if (nextSecond !== lastSecondRef.current) {
-      lastSecondRef.current = nextSecond;
-      setCurrentTime(nextTime);
-    }
+    setCurrentTime(nextTime);
   }
 
   async function togglePlayback() {
@@ -442,12 +430,13 @@ function AudioStoryCard({
             </div>
 
             <AudioWaveform
-              ref={waveformRef}
-              waveform={story.waveform}
-              progress={progress}
+              audioSrc={story.audio.src}
+              currentTime={currentTime}
+              duration={resolvedDuration}
             />
 
             <AudioTranscript
+              storyId={storyId}
               entries={transcript}
               activeIndex={activeSubtitleIndex}
               isOpen={isTranscriptOpen}
@@ -528,47 +517,8 @@ function AudioProgressBar({
   );
 }
 
-const AudioWaveform = forwardRef<
-  HTMLDivElement,
-  {
-    waveform: number[];
-    progress: number;
-  }
->(function AudioWaveform({ waveform, progress }, ref) {
-  return (
-    <div
-      ref={ref}
-      className="mt-7 flex h-16 items-end gap-1.5 motion-safe:animate-[fade-in-up_700ms_ease-out_340ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
-      style={{ "--audio-progress": progress } as CSSProperties}
-      aria-hidden="true"
-      data-testid="audio-waveform"
-    >
-      {waveform.map((value, index) => {
-        const height = `${Math.max(value * 100, 8)}%`;
-        const threshold = waveform.length <= 1 ? 1 : index / (waveform.length - 1);
-        const isActive = progress >= threshold;
-
-        return (
-          <span
-            key={`${index}-${value}`}
-            className="relative w-full overflow-hidden rounded-full bg-foreground/20 transition-colors duration-300 motion-reduce:transition-none"
-            style={{ height }}
-          >
-            <span
-              className="absolute inset-0 origin-bottom bg-primary transition duration-500 motion-reduce:transition-none"
-              style={{
-                opacity: isActive ? 1 : 0,
-                transform: isActive ? "scaleY(1)" : "scaleY(0.35)",
-              }}
-            />
-          </span>
-        );
-      })}
-    </div>
-  );
-});
-
 function AudioTranscript({
+  storyId,
   entries,
   activeIndex,
   isOpen,
@@ -577,6 +527,7 @@ function AudioTranscript({
   onToggle,
   onSelect,
 }: {
+  storyId: string;
   entries: SubtitleEntry[];
   activeIndex: number;
   isOpen: boolean;
@@ -586,6 +537,7 @@ function AudioTranscript({
   onSelect: (entry: SubtitleEntry) => void;
 }) {
   const activeRef = useRef<HTMLButtonElement | null>(null);
+  const transcriptId = `transcript-${storyId}`;
 
   useEffect(() => {
     activeRef.current?.scrollIntoView({
@@ -612,15 +564,29 @@ function AudioTranscript({
       <button
         type="button"
         aria-expanded={isOpen}
+        aria-controls={transcriptId}
         onClick={onToggle}
         className="flex w-full items-center justify-between gap-4 text-left text-xs font-semibold uppercase tracking-[0.22em] text-foreground/62 transition hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none"
       >
         <span>{labels.transcript}</span>
-        <span aria-hidden="true" className="text-primary">
-          {isOpen ? "-" : "+"}
-        </span>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 20 20"
+          className={
+            isOpen
+              ? "h-4 w-4 rotate-180 text-primary transition motion-reduce:transition-none"
+              : "h-4 w-4 text-primary transition motion-reduce:transition-none"
+          }
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="square"
+        >
+          <path d="m5 8 5 5 5-5" />
+        </svg>
       </button>
       <div
+        id={transcriptId}
         className={
           isOpen
             ? "grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 motion-reduce:transition-none"
@@ -634,7 +600,18 @@ function AudioTranscript({
             data-testid="audio-transcript"
           >
             {status ? (
-              <p className="text-base leading-7 text-foreground/62">{status}</p>
+              hasError ? (
+                <p className="text-base leading-7 text-foreground/62">{status}</p>
+              ) : (
+                <div aria-live="polite">
+                  <span className="sr-only">{status}</span>
+                  <div className="space-y-3" aria-hidden="true">
+                    <span className="block h-5 w-11/12 animate-pulse bg-foreground/14 motion-reduce:animate-none" />
+                    <span className="block h-5 w-8/12 animate-pulse bg-foreground/14 motion-reduce:animate-none" />
+                    <span className="block h-5 w-10/12 animate-pulse bg-foreground/14 motion-reduce:animate-none" />
+                  </div>
+                </div>
+              )
             ) : (
               entries.map((entry, index) => {
                 const isCurrent = index === activeIndex;

@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { athletes } from "@/data/athletes";
 
 const expectedMediaCounts = new Map([
-  ["tim-howell", { images: 12 }],
+  ["tim-howell", { images: 11 }],
   ["lukas-loibl", { images: 6 }],
   ["marcel-geser", { images: 9 }],
   ["niclas-strohmeier", { images: 5 }],
@@ -86,7 +86,7 @@ describe("athletes data", () => {
           en: "Social Media",
           de: "Social Media",
         },
-        quote: "YOU'RE ONLY AS GOOD\nAS YOUR LAST STUNT",
+        quote: "You're Only as Good\nas Your Last Stunt",
         poster: null,
         videos: {
           en: { provider: "youtube", videoId: "MJ-CSQxONJs" },
@@ -97,10 +97,10 @@ describe("athletes data", () => {
         id: "decision-making",
         placement: "after-gallery",
         chapter: {
-          en: "DECISION MAKING",
-          de: "DECISION MAKING",
+          en: "Decision Making",
+          de: "Decision Making",
         },
-        quote: "MAKE THE\nRIGHT DECISION",
+        quote: "Make the\nRight Decision",
         poster: null,
         videos: {
           en: { provider: "youtube", videoId: "N9JUEpIOwkA" },
@@ -121,10 +121,10 @@ describe("athletes data", () => {
           de: "Der Berg steht in tausend Jahren noch",
         },
         chapter: {
-          en: "Interview",
-          de: "Interview",
+          en: "Choosing Not to Jump",
+          de: "Nicht springen",
         },
-        quote: "THE MOUNTAIN\nWILL STILL BE HERE\nIN A THOUSAND YEARS",
+        quote: "The Mountain\nWill Still Be Here\nin a Thousand Years",
         subtitle: {
           en: "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
         },
@@ -146,10 +146,10 @@ describe("athletes data", () => {
           de: "Planung ist oberste Priorität",
         },
         chapter: {
-          en: "Interview",
-          de: "Interview",
+          en: "Decision Making",
+          de: "Entscheidungsfindung",
         },
-        quote: "PLANNING\nCOMES FIRST",
+        quote: "Planning\nComes First",
         subtitle: {
           en: "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
         },
@@ -196,7 +196,7 @@ describe("athletes data", () => {
         portrait: "/images/athletes/tim-howell/audio.jpg",
       },
     ]);
-    expect(tim?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
+    expect(tim?.audioStories?.[0]).not.toHaveProperty("waveform");
     expect(lukas?.audioStories).toMatchObject([
       {
         id: "social-media-and-sponsorship",
@@ -219,18 +219,7 @@ describe("athletes data", () => {
         portrait: "/images/athletes/lukas-loibl/Lukas-audio.jpeg",
       },
     ]);
-    expect(lukas?.audioStories?.[0]?.waveform.length).toBeGreaterThan(20);
-    for (const story of [
-      tim?.audioStories?.[0],
-      lukas?.audioStories?.[0],
-    ]) {
-      const waveform = story?.waveform ?? [];
-      const range = Math.max(...waveform) - Math.min(...waveform);
-      const uniqueHeights = new Set(waveform).size;
-
-      expect(range).toBeGreaterThan(0.5);
-      expect(uniqueHeights).toBeGreaterThan(20);
-    }
+    expect(lukas?.audioStories?.[0]).not.toHaveProperty("waveform");
     expect(
       athletes
         .filter(
@@ -253,7 +242,7 @@ describe("athletes data", () => {
         en: "A Leap from the Top of the World",
         de: "A Leap from the Top of the World",
       },
-      displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
+      displayTitle: "A Leap from\nthe Top of\nthe World",
       description: {
         en: "Tim is preparing another attempt to fly from Lhotse in the Himalaya. The project follows the ambition, preparation and uncertainty behind a high-altitude wingsuit objective.",
         de: "Tim bereitet einen weiteren Versuch vor, vom Lhotse im Himalaya zu fliegen. Das Projekt begleitet Ambition, Vorbereitung und Ungewissheit hinter einem Wingsuit-Ziel in grosser Höhe.",
@@ -313,7 +302,7 @@ describe("athletes data", () => {
         en: "The Jump",
         de: "Der Sprung",
       },
-      displayTitle: "THE JUMP",
+      displayTitle: "The Jump",
       video: {
         src: "/video/tim-howell/The_jump.mp4",
         type: "video/mp4",
@@ -381,6 +370,8 @@ describe("athletes data", () => {
         expect(image.alt.de).not.toMatch(/Galerie-Bild|Bild \d/i);
         expect(image.alt.en).not.toContain(image.src);
         expect(image.alt.de).not.toContain(image.src);
+        expect(image.width).toBeGreaterThan(0);
+        expect(image.height).toBeGreaterThan(0);
       }
     }
   });
@@ -547,7 +538,10 @@ describe("athletes data", () => {
         en: "World Record",
         de: "Weltrekord",
       },
-      displayTitle: "WORLD\nRECORD",
+      displayTitle: {
+        en: "World\nRecord",
+        de: "Weltrekord",
+      },
       images: [
         {
           src: "/images/athletes/lukas-loibl/Loch1.jpeg",

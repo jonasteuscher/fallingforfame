@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { MobileExperienceNotice } from "@/components/MobileExperienceNotice";
 import { athletes } from "@/data/athletes";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -15,7 +16,9 @@ type HomePageProps = {
 };
 
 export const metadata: Metadata = {
-  title: "Falling for Fame",
+  title: {
+    absolute: "Home | Falling for Fame?",
+  },
 };
 
 export default async function HomePage({ params }: HomePageProps) {
@@ -27,6 +30,8 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <main className="overflow-x-clip">
+      <MobileExperienceNotice content={home.mobileExperienceNotice} />
+
       <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pb-16 xl:px-10">
         <div
           className="absolute inset-0 -z-20 bg-surface"
@@ -75,17 +80,14 @@ export default async function HomePage({ params }: HomePageProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-foreground/70 xl:justify-end">
+          <div className="flex -translate-y-5 items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-foreground/70 sm:translate-y-0 xl:justify-end">
             <span className="h-px w-12 bg-primary" aria-hidden="true" />
             <span>{home.hero.scrollIndicator}</span>
           </div>
         </div>
       </section>
 
-      <section
-        id="opening-question"
-        className="px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
-      >
+      <section id="opening-question" className="px-4 py-20 sm:px-6 sm:py-28 xl:px-10">
         <div className="mx-auto grid max-w-7xl gap-10 xl:grid-cols-[0.9fr_1.1fr] xl:items-end">
           <h2 className="max-w-3xl text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
             {home.openingQuestion.title}

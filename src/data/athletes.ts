@@ -2,6 +2,7 @@ import type {
   Athlete,
   AthleteExperience,
   AthleteOriginStoryBeat,
+  AthletePageComposition,
 } from "@/types/athlete";
 
 const emptyMedia = {
@@ -10,6 +11,123 @@ const emptyMedia = {
   quotes: [],
   links: [],
   articles: [],
+};
+
+const timHowellPage: AthletePageComposition = {
+  navAriaLabel: {
+    en: "Tim Howell profile sections",
+    de: "Tim Howell Profilabschnitte",
+  },
+  progress: [
+    { id: "person", label: { en: "Biography", de: "Biografie" } },
+    { id: "attraction", label: { en: "Career", de: "Karriere" } },
+    { id: "public-image", label: { en: "Public Image", de: "Öffentlichkeit" } },
+    { id: "decision", label: { en: "Decision", de: "Entscheidung" } },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+    { id: "future", label: { en: "Future", de: "Zukunft" } },
+  ],
+  sections: [
+    {
+      type: "interview-video",
+      id: "public-image",
+      featureId: "career",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "scroll-video",
+      id: "decision",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    { type: "audio-story", id: "audio-story", spacing: "standard" },
+    {
+      type: "interview-video",
+      id: "decision-making",
+      featureId: "decision-making",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "project-feature",
+      id: "future",
+      project: "future",
+      status: "future",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    { type: "social-media", id: "social-media", spacing: "compact" },
+    { type: "media-coverage", id: "media-coverage", spacing: "compact" },
+  ],
+};
+
+const lukasLoiblPage: AthletePageComposition = {
+  navAriaLabel: {
+    en: "Lukas Loibl profile sections",
+    de: "Lukas Loibl Profilabschnitte",
+  },
+  progress: [
+    { id: "biography", label: { en: "Biography", de: "Biografie" } },
+    { id: "career", label: { en: "Career", de: "Karriere" } },
+    {
+      id: "planning-comes-first",
+      label: { en: "Planning first", de: "Planung zuerst" },
+    },
+    {
+      id: "audio-story",
+      label: {
+        en: "Social media",
+        de: "Social Media",
+      },
+    },
+    { id: "world-record", label: { en: "World Record", de: "Weltrekord" } },
+    {
+      id: "the-mountain-will-still-be-here",
+      label: { en: "Not jumping", de: "Nicht springen" },
+    },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+  ],
+  sections: [
+    {
+      type: "interview-video",
+      id: "planning-comes-first",
+      featureId: "planning-comes-first",
+      layout: "text-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    { type: "audio-story", id: "audio-story", spacing: "standard" },
+    {
+      type: "project-feature",
+      id: "world-record",
+      project: "current",
+      status: "current",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "the-mountain-will-still-be-here",
+      featureId: "the-mountain-will-still-be-here",
+      layout: "media-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    { type: "social-media", id: "social-media", spacing: "compact" },
+    { type: "media-coverage", id: "media-coverage", spacing: "compact" },
+  ],
 };
 
 function images(
@@ -28,18 +146,86 @@ function publicAssetPath(...segments: string[]) {
   return `/${segments.map((segment) => encodeURIComponent(segment)).join("/")}`;
 }
 
+const galleryImageDimensions: Record<
+  string,
+  Record<string, { width: number; height: number }>
+> = {
+  "josef-braun": {
+    "469340793_1835003297315437_4282046965683917746_n.jpg": {
+      width: 2048,
+      height: 944,
+    },
+    "479193872_1885098192305947_5112094249666224347_n.jpg": { width: 960, height: 958 },
+    "481926393_1903292847153148_1366487483073375849_n.jpg": {
+      width: 2048,
+      height: 2048,
+    },
+    "485131123_1911964859619280_2705298699952572428_n.jpg": { width: 960, height: 958 },
+  },
+  "lukas-loibl": {
+    "D9A50B94-6169-4E85-8800-8924444F81E9.png": { width: 1024, height: 1536 },
+    "IMG_9389.jpeg": { width: 2000, height: 3000 },
+    "IMG_9586.jpeg": { width: 1320, height: 2486 },
+    "IMG_9990.jpeg": { width: 1280, height: 1920 },
+    "Lukas.jpeg": { width: 2001, height: 3000 },
+    "_DSC3618.jpeg": { width: 1688, height: 3000 },
+  },
+  "marcel-geser": {
+    "DJI_20250607050910_0491_D.jpg": { width: 1688, height: 3000 },
+    "GPAB9481.jpg": { width: 3000, height: 2250 },
+    "IMG_5161.jpg": { width: 3000, height: 1688 },
+    "Snapshot_202309249_180900 2.jpg": { width: 1688, height: 3000 },
+    "abutz-20251013-DSC_0542.jpg": { width: 3000, height: 2000 },
+    "abutz-20251013-DSC_0603.jpg": { width: 2250, height: 3000 },
+    "abutz-20251013-DSC_0648.jpg": { width: 3000, height: 2000 },
+    "d82a0d50-72f4-40a5-9916-5f82009bd6a9.jpg": { width: 1687, height: 3000 },
+    "marcel1.jpg": { width: 2000, height: 3000 },
+  },
+  "niclas-strohmeier": {
+    "515298052_24257388017217950_2023238047916629265_n.jpg": {
+      width: 2048,
+      height: 1152,
+    },
+    "681423427_26985451711078220_85980921819799839_n.jpg": {
+      width: 1206,
+      height: 1207,
+    },
+    "IMG_4159.PNG": { width: 2754, height: 1276 },
+    "IMG_9233.JPG": { width: 2617, height: 2617 },
+    "yellow slick jump.jpg": { width: 1206, height: 2144 },
+  },
+  "tim-howell": {
+    "Copy of Ski Base-1.jpg": { width: 2400, height: 3000 },
+    "DSC00644-2.jpg": { width: 2400, height: 3000 },
+    "EH218967-2.jpg": { width: 3000, height: 2000 },
+    "IcelandJuly18-01.jpg": { width: 3000, height: 2003 },
+    "KVD32106.jpg": { width: 3000, height: 2000 },
+    "Tim Howell - May2018-23.jpg": { width: 2400, height: 3000 },
+    "_ZOL5788.jpg": { width: 3000, height: 1996 },
+    "charley-radcliffe-jottnar-social-27.jpg": { width: 1920, height: 1280 },
+    "charley-radcliffe-jottnar-social-31.jpg": { width: 1920, height: 1280 },
+    "for tim (1 of 1).jpg": { width: 3000, height: 2001 },
+    "moab-22.jpg": { width: 3000, height: 1688 },
+  },
+};
+
 function athleteGallery(
   slug: string,
   filenames: string[],
   altTexts: Athlete["images"]["gallery"][number]["alt"][],
 ): Athlete["images"]["gallery"] {
-  return filenames.map((filename, index) => ({
-    src: publicAssetPath("images", "athletes", slug, "gallery", filename),
-    alt: altTexts[index] ?? {
-      en: "BASE jumper in mountain terrain",
-      de: "BASE Jumper in bergigem Gelände",
-    },
-  }));
+  return filenames.map((filename, index) => {
+    const dimensions = galleryImageDimensions[slug]?.[filename];
+
+    return {
+      src: publicAssetPath("images", "athletes", slug, "gallery", filename),
+      alt: altTexts[index] ?? {
+        en: "BASE jumper in mountain terrain",
+        de: "BASE Jumper in bergigem Gelände",
+      },
+      ...dimensions,
+    };
+  });
 }
 
 function experience(
@@ -88,7 +274,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
     },
     {
       phase: { en: "03 — The Algorithm", de: "03 — Der Algorithmus" },
-      title: { en: "One video changes the direction", de: "Ein Video verändert die Richtung" },
+      title: {
+        en: "One video changes the direction",
+        de: "Ein Video verändert die Richtung",
+      },
       body: {
         en: "One day, YouTube recommended a BASE jumping video. Marcel describes that moment as the point where the sport first caught hold of him and opened a new direction within aviation sports.",
         de: "Eines Tages schlug ihm YouTube ein BASE-Jumping-Video vor. Marcel beschreibt diesen Moment als den Beginn seiner Faszination für den Sport und als neue Richtung innerhalb des Fliegens.",
@@ -100,7 +289,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
     },
     {
       phase: { en: "04 — Into BASE", de: "04 — Ins BASE Jumping" },
-      title: { en: "From paragliding to skydiving to BASE", de: "Vom Gleitschirm zum Fallschirm zu BASE" },
+      title: {
+        en: "From paragliding to skydiving to BASE",
+        de: "Vom Gleitschirm zum Fallschirm zu BASE",
+      },
       body: {
         en: "Paragliding led to skydiving, and skydiving later opened the door to BASE jumping. Aviation sports became the centre of his free time and gradually replaced the passion he had once found in breakdance.",
         de: "Aus dem Gleitschirmfliegen wurde Fallschirmspringen, später kam BASE Jumping dazu. Flugsportarten rückten ins Zentrum seiner Freizeit und füllten nach und nach den Platz, den früher Breakdance eingenommen hatte.",
@@ -108,7 +300,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
     },
     {
       phase: { en: "05 — Today", de: "05 — Heute" },
-      title: { en: "Flying as a natural element", de: "Fliegen als natürliches Element" },
+      title: {
+        en: "Flying as a natural element",
+        de: "Fliegen als natürliches Element",
+      },
       body: {
         en: "For Marcel, flying became more than a hobby. He describes it as his natural element, and the mountains and the air remain central to how he spends much of his life.",
         de: "Für Marcel wurde Fliegen mehr als ein Hobby. Er beschreibt es als sein natürliches Element, und die Berge und die Luft prägen bis heute einen grossen Teil seines Lebens.",
@@ -118,7 +313,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
   "niclas-strohmeier": [
     {
       phase: { en: "01 — First Images", de: "01 — Erste Bilder" },
-      title: { en: "A teenage encounter with flight", de: "Eine frühe Begegnung mit dem Fliegen" },
+      title: {
+        en: "A teenage encounter with flight",
+        de: "Eine frühe Begegnung mit dem Fliegen",
+      },
       body: {
         en: "Niclas Strohmeier first saw wingsuit BASE jumping videos on YouTube when he was around thirteen or fourteen. The images of people flying through the mountains immediately stayed with him.",
         de: "Niclas Strohmeier sah Wingsuit-BASE-Jumping zum ersten Mal auf YouTube, als er etwa dreizehn oder vierzehn Jahre alt war. Die Bilder von Menschen, die durch die Berge flogen, blieben sofort hängen.",
@@ -164,7 +362,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
   "josef-braun": [
     {
       phase: { en: "01 — Movement First", de: "01 — Bewegung zuerst" },
-      title: { en: "Speed, control and early risk", de: "Tempo, Kontrolle und frühes Risiko" },
+      title: {
+        en: "Speed, control and early risk",
+        de: "Tempo, Kontrolle und frühes Risiko",
+      },
       body: {
         en: "Josef Braun’s path began long before his first skydive. As a child he was drawn to movement-based sports, spending years riding motocross and later working in motorcycle racing environments.",
         de: "Josef Brauns Weg begann lange vor seinem ersten Fallschirmsprung. Schon als Kind zog es ihn zu Sportarten, in denen Bewegung wichtig ist. Viele Jahre fuhr er Motocross und arbeitete später im Umfeld des Motorradrennsports.",
@@ -172,7 +373,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
     },
     {
       phase: { en: "02 — A Break", de: "02 — Ein Bruch" },
-      title: { en: "An accident changes the direction", de: "Ein Unfall verändert die Richtung" },
+      title: {
+        en: "An accident changes the direction",
+        de: "Ein Unfall verändert die Richtung",
+      },
       body: {
         en: "After an accident interrupted that path, skydiving moved into focus. It was something he had wanted to do for years, but it was never the final goal on its own.",
         de: "Nach einem Unfall, der diesen Weg unterbrach, rückte Fallschirmspringen in den Vordergrund. Es war etwas, das ihn schon lange interessiert hatte, aber nie das eigentliche Endziel war.",
@@ -237,7 +441,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
     },
     {
       phase: { en: "03 — Skydiving", de: "03 — Fallschirmspringen" },
-      title: { en: "The same intensity, fewer injuries", de: "Ähnliche Intensität, weniger Verletzungen" },
+      title: {
+        en: "The same intensity, fewer injuries",
+        de: "Ähnliche Intensität, weniger Verletzungen",
+      },
       body: {
         en: "Two years later he followed the same path. In skydiving, he found the intensity and progression he had known from skateboarding, but with fewer injuries.",
         de: "Zwei Jahre später folgte er demselben Weg. Im Fallschirmspringen fand er eine ähnliche Intensität und Entwicklung wie zuvor beim Skateboarden, nur mit weniger Verletzungen.",
@@ -306,7 +513,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
     },
     {
       phase: { en: "03 — Mountain Objectives", de: "03 — Ziele in den Bergen" },
-      title: { en: "Attention shifts to remote terrain", de: "Der Blick geht ins Gelände" },
+      title: {
+        en: "Attention shifts to remote terrain",
+        de: "Der Blick geht ins Gelände",
+      },
       body: {
         en: "Around the same period, he joined the military, but his attention increasingly moved toward mountain-based objectives and the possibilities of remote terrain.",
         de: "In derselben Zeit trat er ins Militär ein, doch sein Interesse verlagerte sich zunehmend auf Projekte in den Bergen und auf die Möglichkeiten abgelegener Landschaften.",
@@ -330,7 +540,10 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
     },
     {
       phase: { en: "05 — Today", de: "05 — Heute" },
-      title: { en: "An endless source of projects", de: "Eine endlose Quelle neuer Projekte" },
+      title: {
+        en: "An endless source of projects",
+        de: "Eine endlose Quelle neuer Projekte",
+      },
       body: {
         en: "Tim continues to see the sport as an endless source of projects. His motivation is shaped more by curiosity, planning and mountain objectives than by simply collecting jumps.",
         de: "Tim sieht den Sport bis heute als endlose Quelle neuer Projekte. Seine Motivation entsteht eher aus Neugier, Planung und Zielen in den Bergen als aus dem blossen Sammeln von Sprüngen.",
@@ -351,6 +564,7 @@ export const athletes: Athlete[] = [
       en: "Multiple sponsors, primarily clothing and equipment. Sponsored for 7 years.",
       de: "Mehrere Sponsoren, vor allem Kleidung und Ausrüstung. Seit 7 Jahren gesponsert.",
     },
+    page: timHowellPage,
     heroQuote: {
       en: "There is nothing anybody can tell me that's going to make me jump.",
       de: "There is nothing anybody can tell me that's going to make me jump.",
@@ -365,7 +579,6 @@ export const athletes: Athlete[] = [
           "DSC00644-2.jpg",
           "EH218967-2.jpg",
           "IcelandJuly18-01.jpg",
-          "KVD17585.jpg",
           "KVD32106.jpg",
           "Tim Howell - May2018-23.jpg",
           "_ZOL5788.jpg",
@@ -464,7 +677,7 @@ export const athletes: Athlete[] = [
           en: "Social Media",
           de: "Social Media",
         },
-        quote: "YOU'RE ONLY AS GOOD\nAS YOUR LAST STUNT",
+        quote: "You're Only as Good\nas Your Last Stunt",
         intro: {
           en: "Presented here as a pressure around public visibility: the spectacular moment is seen, while preparation and restraint often remain outside the frame.",
           de: "Hier steht der Satz für den Druck öffentlicher Sichtbarkeit: Der spektakuläre Moment ist sichtbar, während Vorbereitung und Zurückhaltung oft ausserhalb des Bildes bleiben.",
@@ -489,10 +702,10 @@ export const athletes: Athlete[] = [
         id: "decision-making",
         placement: "after-gallery",
         chapter: {
-          en: "DECISION MAKING",
-          de: "DECISION MAKING",
+          en: "Decision Making",
+          de: "Decision Making",
         },
-        quote: "MAKE THE\nRIGHT DECISION",
+        quote: "Make the\nRight Decision",
         iframeTitle: {
           en: "Tim Howell interview about decision making",
           de: "Tim Howell Interview über Decision Making",
@@ -522,7 +735,7 @@ export const athletes: Athlete[] = [
           en: "Understanding Fear",
           de: "Angst verstehen",
         },
-        displayTitle: "KNOWLEDGE\nDISPELS FEAR",
+        displayTitle: "Knowledge\nDispels Fear",
         audio: {
           src: "/audio/tim-howell/Tim_knowledge_dispels_fear - isolated.mp3",
         },
@@ -536,13 +749,6 @@ export const athletes: Athlete[] = [
           de: "Tim Howell lächelt in roter Jacke und roter Mütze in verschneiten Bergen",
         },
         duration: "01:05",
-        waveform: [
-          0.18, 0.28, 0.42, 0.76, 0.55, 0.34, 0.62, 0.88, 0.48, 0.26, 0.58,
-          0.72, 0.36, 0.2, 0.44, 0.67, 0.84, 0.52, 0.31, 0.49, 0.73, 0.6,
-          0.29, 0.41, 0.69, 0.92, 0.57, 0.33, 0.5, 0.78, 0.63, 0.38, 0.24,
-          0.46, 0.7, 0.86, 0.54, 0.3, 0.43, 0.65, 0.8, 0.51, 0.27, 0.39,
-          0.59, 0.74, 0.45, 0.22,
-        ],
       },
     ],
     scrollVideo: {
@@ -555,7 +761,7 @@ export const athletes: Athlete[] = [
         en: "The Jump",
         de: "Der Sprung",
       },
-      displayTitle: "THE JUMP",
+      displayTitle: "The Jump",
       video: {
         src: "/video/tim-howell/The_jump.mp4",
         type: "video/mp4",
@@ -602,7 +808,7 @@ export const athletes: Athlete[] = [
         en: "A Leap from the Top of the World",
         de: "A Leap from the Top of the World",
       },
-      displayTitle: "A LEAP FROM\nTHE TOP OF\nTHE WORLD",
+      displayTitle: "A Leap from\nthe Top of\nthe World",
       description: {
         en: "Tim is preparing another attempt to fly from Lhotse in the Himalaya. The project follows the ambition, preparation and uncertainty behind a high-altitude wingsuit objective.",
         de: "Tim bereitet einen weiteren Versuch vor, vom Lhotse im Himalaya zu fliegen. Das Projekt begleitet Ambition, Vorbereitung und Ungewissheit hinter einem Wingsuit-Ziel in grosser Höhe.",
@@ -764,6 +970,7 @@ export const athletes: Athlete[] = [
       en: "Multiple sponsors since 2022, including canopies, wingsuits, cameras and clothing.",
       de: "Mehrere Sponsoren seit 2022, darunter Canopies, Wingsuits, Kameras und Kleidung.",
     },
+    page: lukasLoiblPage,
     heroQuote: {
       en: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
       de: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
@@ -852,10 +1059,10 @@ export const athletes: Athlete[] = [
           de: "Der Berg steht in tausend Jahren noch",
         },
         chapter: {
-          en: "Interview",
-          de: "Interview",
+          en: "Choosing Not to Jump",
+          de: "Nicht springen",
         },
-        quote: "THE MOUNTAIN\nWILL STILL BE HERE\nIN A THOUSAND YEARS",
+        quote: "The Mountain\nWill Still Be Here\nin a Thousand Years",
         subtitle: {
           en: "Not every summit ends with a jump. Sometimes the safest decision is to hike back down and wait for another day.",
           de: "Nicht jeder Gipfel endet mit einem Sprung. Manchmal ist die sicherste Entscheidung, wieder abzusteigen und auf einen anderen Tag zu warten.",
@@ -888,10 +1095,10 @@ export const athletes: Athlete[] = [
           de: "Planung ist oberste Priorität",
         },
         chapter: {
-          en: "Interview",
-          de: "Interview",
+          en: "Decision Making",
+          de: "Entscheidungsfindung",
         },
-        quote: "PLANNING\nCOMES FIRST",
+        quote: "Planning\nComes First",
         subtitle: {
           en: "Every jump begins long before standing at the exit. Weather, conditions, equipment and personal limits determine whether a jump should happen at all.",
           de: "Jeder Sprung beginnt lange vor dem Exit. Wetter, Bedingungen, Ausrüstung und persönliche Grenzen bestimmen, ob ein Sprung überhaupt stattfinden sollte.",
@@ -926,8 +1133,8 @@ export const athletes: Athlete[] = [
           de: "Für die Kamera springen?",
         },
         displayTitle: {
-          en: "SOCIAL MEDIA\nAND SPONSORSHIP",
-          de: "SOCAIL MEDIA\nUND SPONSORING",
+          en: "Social Media\nand Sponsorship",
+          de: "Socail Media\nund Sponsoring",
         },
         audio: {
           src: "/audio/lukas-loibl/Lukas_SocialMedia.wav",
@@ -942,13 +1149,6 @@ export const athletes: Athlete[] = [
           de: "Lukas Loibl lächelt in einem weissen Shirt in einem sonnigen Wald",
         },
         duration: "02:13",
-        waveform: [
-          0.69, 0.58, 0.92, 0.86, 0.67, 0.33, 0.63, 0.43, 0.18, 0.76,
-          0.51, 0.51, 0.7, 0.54, 0.91, 0.55, 0.77, 0.18, 0.82, 0.62,
-          0.71, 0.57, 0.54, 0.43, 0.51, 0.92, 0.74, 0.77, 0.72, 0.83,
-          0.92, 0.73, 0.76, 0.75, 0.48, 0.55, 0.61, 0.31, 0.73, 0.71,
-          0.18, 0.85, 0.83, 0.67, 0.66, 0.68, 0.75, 0.18,
-        ],
       },
     ],
     currentProject: {
@@ -961,7 +1161,10 @@ export const athletes: Athlete[] = [
         en: "World Record",
         de: "Weltrekord",
       },
-      displayTitle: "WORLD\nRECORD",
+      displayTitle: {
+        en: "World\nRecord",
+        de: "Weltrekord",
+      },
       intro: {
         en: "Lukas Loibl became the first wingsuit pilot to fly through ten natural rock formations across ten flights in the European Alps, setting a world record built on technical precision, planning and commitment.",
         de: "Lukas Loibl wurde zum ersten Wingsuit-Piloten, der in zehn Flügen zehn natürliche Felsformationen in den europäischen Alpen durchflog. Der Weltrekord entstand aus technischer Präzision, Planung und konsequenter Vorbereitung.",
@@ -1032,12 +1235,18 @@ export const athletes: Athlete[] = [
     ...emptyMedia,
     links: [
       {
-        label: "Lukas Loibl Website",
+        label: {
+          en: "Official Website",
+          de: "Offizielle Website",
+        },
         url: "https://www.lukasloiblws.com/",
         type: "website",
       },
       {
-        label: "Lukas Loibl Wingsuit School",
+        label: {
+          en: "Wingsuit School",
+          de: "Wingsuit-Schule",
+        },
         url: "https://www.lukasloiblws.com/wingsuitschool",
         type: "website",
         icon: "/socials/lukas_logo.png",
@@ -1306,8 +1515,7 @@ export const athletes: Athlete[] = [
         title: "Hobby / Semiprofessional",
         shortBio:
           "German athlete living in Switzerland with a background in tourism. Active on Instagram and YouTube, he combines a strong online presence with nearly a decade of BASE jumping experience.",
-        intro:
-          "German athlete living in Switzerland with a background in tourism.",
+        intro: "German athlete living in Switzerland with a background in tourism.",
         baseStoryTitle: "Inspired by the dream of flying",
         baseStory:
           "Niclas Strohmeier first encountered wingsuit BASE jumping through videos on YouTube when he was around thirteen or fourteen. The images of people flying through the mountains left a strong impression on him. To him, it looked like one of the most extraordinary experiences a person could have. But he did not leave it as a distant fantasy. He began researching what it would actually take to reach that point and learned that BASE jumping required a foundation in skydiving. As a teenager, he started saving money with that goal in mind. At seventeen he completed his skydiving licence and began building experience step by step. By the age of twenty, with around 340 skydives, he attended a BASE course. What began as fascination with online videos became a structured path into the sport. Over time, that commitment shaped larger decisions in his life, including his move from Germany to Switzerland to be closer to the mountains and to the environment where BASE jumping had become part of his everyday world.",
@@ -1466,7 +1674,6 @@ export const athletes: Athlete[] = [
     ],
     sponsors: ["Group A", "Fly The Earth"],
   },
-
 ];
 
 export function getAthleteBySlug(slug: string) {

@@ -31,7 +31,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <>
-      <ProjectChapterIndicator chapters={dictionary.site.project.chapterIndicator} />
+      <ProjectChapterIndicator
+        chapters={dictionary.site.project.chapterIndicator}
+        hiddenUntilId="the-documentary"
+      />
       <ProjectPageContent content={dictionary.site.project} />
     </>
   );

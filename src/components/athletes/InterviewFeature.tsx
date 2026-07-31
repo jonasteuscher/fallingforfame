@@ -11,6 +11,8 @@ import {
 } from "@/lib/videoPlaybackManager";
 import type { AthleteInterviewFeature } from "@/types/athlete";
 
+import { SectionTitle } from "./SectionTitle";
+
 type InterviewFeatureLabels = {
   play: string;
   fullscreen: string;
@@ -21,12 +23,16 @@ type InterviewFeatureProps = {
   feature: AthleteInterviewFeature;
   locale: Locale;
   labels: InterviewFeatureLabels;
+  layout?: InterviewLayout;
 };
+
+export type InterviewLayout = "stacked" | "text-first" | "media-first";
 
 type YouTubePlayer = {
   playVideo: () => void;
   pauseVideo: () => void;
   destroy: () => void;
+  unloadModule?: (module: "captions" | "cc") => void;
   setSize?: (width: string | number, height: string | number) => void;
   setPlaybackQuality?: (suggestedQuality: "hd1080") => void;
 };
@@ -62,7 +68,12 @@ declare global {
 
 let youTubeApiPromise: Promise<YouTubeApi> | null = null;
 
-export function InterviewFeature({ feature, locale, labels }: InterviewFeatureProps) {
+export function InterviewFeature({
+  feature,
+  locale,
+  labels,
+  layout = "stacked",
+}: InterviewFeatureProps) {
   const containerRef = useRef<HTMLElement | null>(null);
   const playerMountRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YouTubePlayer | null>(null);
@@ -74,7 +85,8 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
   const video = feature.videos[locale];
   const poster = feature.poster ?? youtubePoster(video.videoId);
   const isFullscreen = isNativeFullscreen;
-  const heading = feature.navTitle?.[locale] ?? feature.title?.[locale] ?? feature.quote;
+  const heading =
+    feature.navTitle?.[locale] ?? feature.title?.[locale] ?? feature.quote;
 
   const playerVars = useMemo(
     () => ({
@@ -201,6 +213,8 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
 
           playerRef.current?.setSize?.("100%", "100%");
           playerRef.current?.setPlaybackQuality?.("hd1080");
+          playerRef.current?.unloadModule?.("captions");
+          playerRef.current?.unloadModule?.("cc");
           requestVideoPlayback(playerId);
           playerRef.current?.playVideo();
           setIsLoading(false);
@@ -235,8 +249,7 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
 
     try {
       await iframe.requestFullscreen();
-    } catch {
-    }
+    } catch {}
   }
   return (
     <section
@@ -244,31 +257,47 @@ export function InterviewFeature({ feature, locale, labels }: InterviewFeaturePr
       ref={containerRef}
       aria-labelledby={headingId}
       data-interview-feature-id={feature.id}
-      className="overflow-x-clip border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+      className="overflow-x-clip border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
-      <div className="mx-auto max-w-7xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
-          {feature.chapter[locale]}
-        </p>
-        <h2
-          id={headingId}
-          className="mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
-        >
-          {heading}
-        </h2>
-        {feature.subtitle ?? feature.intro ? (
-          <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
-            {(feature.subtitle ?? feature.intro)?.[locale]}
+      <div
+        className={
+          layout === "stacked"
+            ? "mx-auto max-w-7xl"
+            : [
+                "mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-center xl:gap-16",
+                layout === "media-first"
+                  ? "lg:[&>figure]:col-start-1 lg:[&>figure]:row-start-1 lg:[&>header]:col-start-2 lg:[&>header]:row-start-1"
+                  : "",
+              ].join(" ")
+        }
+        data-interview-layout={layout}
+      >
+        <header>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+            {feature.chapter[locale]}
           </p>
-        ) : null}
-
-        <figure className="mt-10 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-12">
-          <div
-            className="overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]"
+          <SectionTitle
+            id={headingId}
+            size={layout === "stacked" ? "standard" : "interviewSplit"}
           >
-            <div
-              className="relative aspect-video w-full overflow-hidden bg-background"
-            >
+            {heading}
+          </SectionTitle>
+          {(feature.subtitle ?? feature.intro) ? (
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
+              {(feature.subtitle ?? feature.intro)?.[locale]}
+            </p>
+          ) : null}
+        </header>
+
+        <figure
+          className={
+            layout === "stacked"
+              ? "mt-10 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-12"
+              : "mt-0 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+          }
+        >
+          <div className="overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]">
+            <div className="relative aspect-video w-full overflow-hidden bg-background">
               {!hasStarted ? (
                 <>
                   <Image

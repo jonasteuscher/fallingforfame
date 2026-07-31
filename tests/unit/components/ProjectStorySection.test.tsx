@@ -40,9 +40,9 @@ describe("ProjectStorySection", () => {
     render(<ProjectStorySection project={lukasProject()} locale="en" />);
 
     expect(screen.getByText("Current Project")).toBeVisible();
-    expect(
-      screen.getByRole("heading", { name: /WORLD\s+RECORD/ }),
-    ).toBeVisible();
+    const heading = screen.getByRole("heading", { name: /World\s+Record/ });
+    expect(heading).toBeVisible();
+    expect(heading).toHaveClass("uppercase");
     expect(
       screen.getByText(/ten natural rock formations across ten flights/),
     ).toBeVisible();

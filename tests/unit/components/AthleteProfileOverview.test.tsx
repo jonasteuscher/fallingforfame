@@ -1,7 +1,10 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { AthleteProfileOverview } from "@/components/athletes/AthleteProfileOverview";
+import {
+  AthleteProfileOverview,
+  STAT_COUNTER_CONFIG,
+} from "@/components/athletes/AthleteProfileOverview";
 import { athletes } from "@/data/athletes";
 import type { Athlete } from "@/types/athlete";
 
@@ -170,6 +173,13 @@ describe("AthleteProfileOverview", () => {
     expect(
       classNames.some((className) => className.includes("min-[420px]:grid-cols-2")),
     ).toBe(true);
+    expect(container.querySelector("[data-profile-meta]"))
+      .toHaveClass("sm:[grid-template-columns:repeat(2,minmax(0,1fr))]");
+    expect(STAT_COUNTER_CONFIG).toMatchObject({
+      duration: 1400,
+      threshold: 0.4,
+      easing: "easeOutCubic",
+    });
   });
 });
 

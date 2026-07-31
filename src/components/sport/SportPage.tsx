@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import type { sport as sportContent } from "@/content/en/sport";
+import { FindingsChapterNav } from "@/components/findings/FindingsChapterNav";
 import { SportSafetyDisclaimerModal } from "@/components/sport/SportSafetyDisclaimerModal";
+import { WorkTitleText } from "@/components/text/WorkTitleText";
 
 type SportContent = typeof sportContent;
 
@@ -27,6 +28,8 @@ const disciplineImages = [
 
 export function SportPage({ content }: SportPageProps) {
   const sectionById = new Map(content.sections.map((section) => [section.id, section]));
+  const introSection =
+    sectionById.get("what-is-base-jumping") ?? sectionById.get("was-ist-base-jumping");
   const history = sectionById.get("history") ?? sectionById.get("geschichte");
   const comparison =
     sectionById.get("skydiving-vs-base") ?? sectionById.get("skydiving-vs-base");
@@ -40,28 +43,67 @@ export function SportPage({ content }: SportPageProps) {
   const disciplines = sectionById.get("disciplines") ?? sectionById.get("disziplinen");
   const modern =
     sectionById.get("modern-developments") ?? sectionById.get("moderne-entwicklungen");
-
   return (
     <article className="bg-background text-foreground">
       <SportSafetyDisclaimerModal content={content.safetyDisclaimer} />
+      <FindingsChapterNav
+        items={content.nav}
+        ariaLabel={content.navigationLabel}
+        hiddenUntilId={introSection?.id ?? "sport-hero"}
+        compact
+      />
       <SportHero content={content} />
-      <SportIntro content={content.intro} />
+      <SportIntro content={content.intro} sectionId={introSection?.id} />
       <BaseAcronymStory content={content.acronym} />
-      <HistoryTimeline content={content.historyTimeline} title={history?.title} />
-      <SkydivingVsBase content={content.comparison} title={comparison?.title} />
-      <EquipmentExplainer content={content.equipmentVisual} title={equipment?.title} />
-      <DisciplinesGallery content={content.disciplines} title={disciplines?.title} />
-      <SafetyHierarchy content={content.safetyHierarchy} title={safety?.title} />
-      <CommunityNetwork content={content.ethicsNetwork} title={community?.title} />
-      <ThenVsNow content={content.thenVsNow} title={modern?.title} />
+      <HistoryTimeline
+        content={content.historyTimeline}
+        title={history?.title}
+        sectionId={history?.id}
+      />
+      <SkydivingVsBase
+        content={content.comparison}
+        title={comparison?.title}
+        sectionId={comparison?.id}
+      />
+      <EquipmentExplainer
+        content={content.equipmentVisual}
+        title={equipment?.title}
+        sectionId={equipment?.id}
+      />
+      <DisciplinesGallery
+        content={content.disciplines}
+        title={disciplines?.title}
+        sectionId={disciplines?.id}
+      />
+      <SafetyHierarchy
+        content={content.safetyHierarchy}
+        title={safety?.title}
+        sectionId={safety?.id}
+      />
+      <CommunityNetwork
+        content={content.ethicsNetwork}
+        title={community?.title}
+        sectionId={community?.id}
+      />
+      <ThenVsNow
+        content={content.thenVsNow}
+        title={modern?.title}
+        sectionId={modern?.id}
+      />
       <SourcesSection content={content.sources} disclaimer={content.disclaimer} />
     </article>
   );
 }
 
-function SportIntro({ content }: { content: SportContent["intro"] }) {
+function SportIntro({
+  content,
+  sectionId,
+}: {
+  content: SportContent["intro"];
+  sectionId?: string;
+}) {
   return (
-    <section className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
+    <section id={sectionId} className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
       <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.55fr_1fr]">
         <div>
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
@@ -73,7 +115,9 @@ function SportIntro({ content }: { content: SportContent["intro"] }) {
         </div>
         <div className="max-w-reading space-y-5 text-lg leading-8 text-foreground/76">
           {content.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
+            <p key={paragraph}>
+              <WorkTitleText>{paragraph}</WorkTitleText>
+            </p>
           ))}
         </div>
       </div>
@@ -83,7 +127,10 @@ function SportIntro({ content }: { content: SportContent["intro"] }) {
 
 function SportHero({ content }: { content: SportContent }) {
   return (
-    <section className="relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden px-4 py-20 sm:px-6 lg:px-10">
+    <section
+      id="sport-hero"
+      className="relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden px-4 py-20 sm:px-6 lg:px-10"
+    >
       <Image
         src="/images/sport/hero1.jpg"
         alt=""
@@ -339,9 +386,11 @@ function AcronymFlightDeck({
 function HistoryTimeline({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["historyTimeline"];
   title?: string;
+  sectionId?: string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const railSlotRef = useRef<HTMLDivElement>(null);
@@ -436,6 +485,7 @@ function HistoryTimeline({
 
   return (
     <section
+      id={sectionId}
       ref={sectionRef}
       aria-label={title ?? content.title}
       className="px-4 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-24 lg:pb-0"
@@ -592,19 +642,25 @@ function HistoryRail({
 function SkydivingVsBase({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["comparison"];
   title?: string;
+  sectionId?: string;
 }) {
-  return <HeightComparisonScrolly content={content} title={title} />;
+  return (
+    <HeightComparisonScrolly content={content} title={title} sectionId={sectionId} />
+  );
 }
 
 function HeightComparisonScrolly({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["comparison"];
   title?: string;
+  sectionId?: string;
 }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const stepRefs = useRef<Array<HTMLElement | null>>([]);
@@ -686,6 +742,7 @@ function HeightComparisonScrolly({
 
   return (
     <section
+      id={sectionId}
       ref={sectionRef}
       aria-labelledby="comparison-title"
       className="overflow-x-clip px-4 py-16 sm:px-6 lg:px-10"
@@ -744,21 +801,19 @@ function HeightComparisonScrolly({
                 step={step}
                 index={index}
                 active={index === activeStep}
-                table={
-                  step.visual === "summary" ? (
-                    <ComparisonTable
-                      rows={content.rows}
-                      skydivingLabel={content.skydivingLabel}
-                      baseLabel={content.baseLabel}
-                      title={content.scrolly.summaryTitle}
-                      metricLabel={content.scrolly.metricLabel}
-                    />
-                  ) : undefined
-                }
               />
             ))}
           </ol>
         </div>
+      </div>
+      <div className="mx-auto mt-14 w-full max-w-5xl lg:mt-20">
+        <ComparisonTable
+          rows={content.rows}
+          skydivingLabel={content.skydivingLabel}
+          baseLabel={content.baseLabel}
+          title={content.scrolly.summaryTitle}
+          metricLabel={content.scrolly.metricLabel}
+        />
       </div>
     </section>
   );
@@ -770,13 +825,11 @@ const HeightStep = function HeightStep({
   step,
   index,
   active,
-  table,
   stepRef,
 }: {
   step: HeightStepContent;
   index: number;
   active: boolean;
-  table?: ReactNode;
   stepRef: (element: HTMLElement | null) => void;
 }) {
   return (
@@ -817,7 +870,6 @@ const HeightStep = function HeightStep({
             {step.microcopy}
           </p>
         ) : null}
-        {table ? <div className="mt-6 min-w-0">{table}</div> : null}
       </article>
     </li>
   );
@@ -991,13 +1043,18 @@ function ComparisonTable({
   metricLabel: string;
 }) {
   return (
-    <section aria-label={title}>
-      <h3 className="text-xl font-semibold text-foreground">{title}</h3>
-      <div className="mt-4 grid gap-3 sm:hidden">
+    <section aria-labelledby="skydiving-base-comparison-table-title">
+      <h3
+        id="skydiving-base-comparison-table-title"
+        className="text-2xl font-semibold text-foreground"
+      >
+        {title}
+      </h3>
+      <div className="mt-5 grid gap-3 sm:hidden">
         {rows.map((row) => (
           <article
             key={row.label}
-            className="border border-border bg-background/28 p-3"
+            className="border border-border bg-surface/72 p-4"
           >
             <h4 className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
               {row.label}
@@ -1021,20 +1078,26 @@ function ComparisonTable({
           </article>
         ))}
       </div>
-      <div className="mt-4 hidden overflow-x-auto border border-border sm:block">
-        <table className="min-w-[640px] border-collapse bg-surface text-left">
+      <div className="mt-5 hidden border border-border bg-surface/82 sm:block">
+        <table className="w-full table-fixed border-collapse text-left">
+          <caption className="sr-only">{title}</caption>
+          <colgroup>
+            <col className="w-[24%]" />
+            <col className="w-[34%]" />
+            <col className="w-[42%]" />
+          </colgroup>
           <thead>
             <tr className="border-b border-border">
               <th
                 scope="col"
-                className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62"
+                className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-foreground/62"
               >
                 {metricLabel}
               </th>
-              <th scope="col" className="p-3 text-sm font-semibold text-foreground">
+              <th scope="col" className="px-4 py-3 text-sm font-semibold text-foreground">
                 {skydivingLabel}
               </th>
-              <th scope="col" className="p-3 text-sm font-semibold text-primary">
+              <th scope="col" className="px-4 py-3 text-sm font-semibold text-primary">
                 {baseLabel}
               </th>
             </tr>
@@ -1044,12 +1107,16 @@ function ComparisonTable({
               <tr key={row.label} className="border-b border-border last:border-b-0">
                 <th
                   scope="row"
-                  className="p-3 text-xs font-semibold uppercase tracking-wide text-foreground/62"
+                  className="px-4 py-3 align-middle text-xs font-semibold uppercase tracking-wide text-foreground/62"
                 >
                   {row.label}
                 </th>
-                <td className="p-3 text-foreground/76">{row.skydiving}</td>
-                <td className="p-3 font-semibold text-primary">{row.base}</td>
+                <td className="px-4 py-3 align-middle leading-6 text-foreground/76">
+                  {row.skydiving}
+                </td>
+                <td className="px-4 py-3 align-middle font-semibold leading-6 text-primary">
+                  {row.base}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -1062,9 +1129,11 @@ function ComparisonTable({
 function EquipmentExplainer({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["equipmentVisual"];
   title?: string;
+  sectionId?: string;
 }) {
   const defaultEquipmentImage = "/images/sport/equipment/default.jpg";
   const equipmentImages = [
@@ -1080,6 +1149,7 @@ function EquipmentExplainer({
 
   return (
     <section
+      id={sectionId}
       aria-labelledby="equipment-title"
       className="px-4 pt-16 pb-28 sm:px-6 lg:px-10"
     >
@@ -1154,9 +1224,11 @@ function EquipmentExplainer({
 function SafetyHierarchy({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["safetyHierarchy"];
   title?: string;
+  sectionId?: string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionEntered, setSectionEntered] = useState(false);
@@ -1191,6 +1263,7 @@ function SafetyHierarchy({
 
   return (
     <section
+      id={sectionId}
       ref={sectionRef}
       aria-labelledby="safety-title"
       className="bg-[#06172b] px-4 py-24 sm:px-6 lg:px-10 lg:py-36"
@@ -1268,12 +1341,15 @@ function SafetyHierarchy({
 function CommunityNetwork({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["ethicsNetwork"];
   title?: string;
+  sectionId?: string;
 }) {
   return (
     <section
+      id={sectionId}
       aria-labelledby="community-title"
       className="px-4 pt-32 pb-36 sm:px-6 lg:px-10"
     >
@@ -1299,7 +1375,7 @@ function CommunityNetwork({
               <span className="text-sm font-semibold uppercase tracking-wide text-primary">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-5 whitespace-pre-line break-words text-xl font-semibold leading-tight text-foreground [overflow-wrap:anywhere] xl:text-2xl">
+              <h3 className="mt-5 whitespace-pre-line break-normal text-xl font-semibold leading-tight text-foreground [hyphens:manual] [overflow-wrap:normal] [text-wrap:balance] [word-break:normal] xl:text-2xl">
                 {node.name}
               </h3>
               <p className="mt-4 text-sm leading-6 text-foreground/72">
@@ -1316,12 +1392,15 @@ function CommunityNetwork({
 function DisciplinesGallery({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["disciplines"];
   title?: string;
+  sectionId?: string;
 }) {
   return (
     <section
+      id={sectionId}
       aria-labelledby="disciplines-title"
       className="px-4 pt-24 pb-28 sm:px-6 lg:px-10"
     >
@@ -1378,12 +1457,15 @@ function DisciplinesGallery({
 function ThenVsNow({
   content,
   title,
+  sectionId,
 }: {
   content: SportContent["thenVsNow"];
   title?: string;
+  sectionId?: string;
 }) {
   return (
     <section
+      id={sectionId}
       aria-labelledby="then-now-title"
       className="px-4 pt-36 pb-36 sm:px-6 lg:px-10"
     >
@@ -1445,11 +1527,13 @@ function SourcesSection({
           <ul className="grid gap-2">
             {content.items.map((item) => (
               <li key={item} className="border-t border-border pt-3">
-                {item}
+                <WorkTitleText>{item}</WorkTitleText>
               </li>
             ))}
           </ul>
-          <p>{content.closing}</p>
+          <p>
+            <WorkTitleText>{content.closing}</WorkTitleText>
+          </p>
         </div>
       </div>
     </section>

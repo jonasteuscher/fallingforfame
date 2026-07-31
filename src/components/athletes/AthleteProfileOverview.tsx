@@ -7,6 +7,11 @@ import type { Locale } from "@/i18n/config";
 import type { Athlete } from "@/types/athlete";
 
 const EXPERIENCE_REFERENCE_YEAR = 2026;
+export const STAT_COUNTER_CONFIG = {
+  duration: 1400,
+  easing: "easeOutCubic",
+  threshold: 0.4,
+} as const;
 
 type AthleteProfileOverviewLabels = {
   eyebrow: string;
@@ -98,7 +103,10 @@ export function AthleteProfileOverview({
                 {content.shortBio}
               </p>
 
-              <dl className="mt-8 grid gap-5 sm:grid-cols-2 min-[860px]:grid-cols-1 xl:grid-cols-2">
+              <dl
+                className="mt-8 grid gap-y-6 gap-x-10 sm:[grid-template-columns:repeat(2,minmax(0,1fr))] min-[860px]:grid-cols-1 xl:[grid-template-columns:repeat(2,minmax(0,1fr))]"
+                data-profile-meta
+              >
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground/54">
                     {labels.profession}
@@ -155,6 +163,7 @@ export function AthleteProfileOverview({
 function AthleteExperienceStats({ metrics }: { metrics: ExperienceMetric[] }) {
   const ref = useRef<HTMLDListElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const lastRowStartIndex = metrics.length - (metrics.length % 2 || 2);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -175,7 +184,7 @@ function AthleteExperienceStats({ metrics }: { metrics: ExperienceMetric[] }) {
         setIsVisible(true);
         observer.disconnect();
       },
-      { threshold: 0.35 },
+      { threshold: STAT_COUNTER_CONFIG.threshold },
     );
 
     const node = ref.current;
@@ -195,7 +204,11 @@ function AthleteExperienceStats({ metrics }: { metrics: ExperienceMetric[] }) {
       {metrics.map((metric, index) => (
         <div
           key={metric.id}
-          className="min-w-0 border-b border-border py-6 last:border-b-0 min-[420px]:odd:border-r min-[420px]:odd:pr-8 min-[420px]:even:pl-8 min-[420px]:[&:nth-last-child(-n+2)]:border-b-0"
+          className={[
+            "min-w-0 border-border py-6 min-[420px]:odd:border-r min-[420px]:odd:pr-8 min-[420px]:even:pl-8",
+            index < metrics.length - 1 ? "border-b" : "",
+            index >= lastRowStartIndex ? "min-[420px]:border-b-0" : "",
+          ].join(" ")}
         >
           <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground/54">
             {metric.label}
@@ -235,13 +248,13 @@ function AnimatedStat({
       return () => cancelFrame(frame);
     }
 
-    const duration = 900;
+    const duration = STAT_COUNTER_CONFIG.duration;
     const start = performance.now();
     let frame: ReturnType<typeof requestFrame> = 0;
 
     const tick = (time: number) => {
       const progress = clamp((time - start) / duration, 0, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = easeCounter(progress);
 
       setValue(Math.round((metric.numericValue ?? 0) * eased));
 
@@ -416,4 +429,12 @@ function cancelFrame(frame: number | ReturnType<typeof globalThis.setTimeout>) {
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
+}
+
+function easeCounter(progress: number) {
+  if (STAT_COUNTER_CONFIG.easing === "easeOutCubic") {
+    return 1 - Math.pow(1 - progress, 3);
+  }
+
+  return progress;
 }

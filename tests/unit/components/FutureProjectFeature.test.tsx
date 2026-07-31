@@ -39,10 +39,10 @@ describe("FutureProjectFeature", () => {
   it("renders Tim Howell's future project teaser with accessible video metadata", async () => {
     render(<FutureProjectFeature athlete={tim()} locale="en" />);
 
-    expect(screen.getByText("FUTURE PROJECT")).toBeVisible();
+    expect(screen.getByText("Future Project")).toBeVisible();
     expect(
       screen.getByRole("heading", {
-        name: /A LEAP FROM\s+THE TOP OF\s+THE WORLD/,
+        name: /A Leap from\s+the Top of\s+the World/,
       }),
     ).toBeVisible();
     expect(

@@ -1,12 +1,12 @@
 export const project = {
   title: "The Project",
-  body: "Falling for Fame is both an interactive documentary and a research project: a visual investigation into BASE jumping, social media, sponsorship, visibility and risk culture.",
+  body: "Falling for Fame? is both an interactive documentary and a research project: a visual investigation into BASE jumping, social media, sponsorship, visibility and risk culture.",
   heroKicker: "Production journal",
   scrollCta: "Scroll to enter the story",
   chapterIndicator: [
     { id: "the-documentary", label: "Documentary" },
-    { id: "why-this-project", label: "Why this project?" },
-    { id: "behind-the-scenes", label: "Behind the scenes" },
+    { id: "why-this-project", label: "Motivation" },
+    { id: "behind-the-scenes", label: "Making of" },
     { id: "the-research", label: "Research" },
     { id: "research-journey", label: "Journey" },
     { id: "project-goals", label: "Goals" },
@@ -17,7 +17,7 @@ export const project = {
     label: "The Documentary",
     title: "A research project told through images, voices and field notes.",
     paragraphs: [
-      "Falling for Fame began as a bachelor's thesis, but the subject asked for more than academic text. BASE jumping is visual, physical and situational. The environments, decisions and social dynamics behind the sport are hard to understand from statistics alone.",
+      "Falling for Fame? began as a bachelor's thesis, but the subject asked for more than academic text. BASE jumping is visual, physical and situational. The environments, decisions and social dynamics behind the sport are hard to understand from statistics alone.",
       "The interactive documentary turns the research process into a multimedia experience. It combines interviews, field observations, photography, video and editorial storytelling so visitors can move between context, people and production moments at their own pace.",
       "The project does not separate research from storytelling. The research gives the documentary structure and responsibility. The documentary gives the research atmosphere, access and a public-facing form.",
     ],
@@ -53,8 +53,8 @@ export const project = {
     title: "Motivation behind the project",
     blocks: [
       "In 2019, I completed my first skydive. What began as a one-time experience quickly developed into a lasting fascination with sports that are often perceived from the outside only through risk. With growing experience, I began to understand that there is far more behind these activities than adrenaline: training, preparation, responsibility and a strong safety culture.",
-      "At the same time, I noticed how strongly social media shapes the way these sports are perceived. What usually becomes visible are the most spectacular seconds of a jump. What often remains invisible are the preparation, the decision-making processes and the people behind the images. This raised the question of how athletes themselves deal with visibility, reach and public attention.",
-      "From this observation, the research question of this project gradually emerged. Falling for Fame combines academic research and documentary storytelling to create a more nuanced view of BASE jumping. Not in search of spectacle, but in search of the stories, decisions and perspectives behind the images.",
+      "At the same time, I noticed how strongly social media shapes the way these sports are perceived. What usually becomes visible are the most spectacular seconds of a jump. What often remains invisible are the preparation, the decision-making processes and the people behind the images. This raised the question of how athletes themselves deal with visibility, audience growth and public attention.",
+      "From this observation, the research question of this project gradually emerged. Falling for Fame? combines academic research and documentary storytelling to create a more nuanced view of BASE jumping. Not in search of spectacle, but in search of the stories, decisions and perspectives behind the images.",
     ],
     quote:
       "I was not only interested in what moves people to jump. I was interested in how visibility changes what others get to see.",
@@ -167,7 +167,7 @@ export const project = {
     description:
       "This interactive documentary is based on a bachelor's thesis conducted at the University of Applied Sciences of the Grisons (FHGR).\n\nVisitors interested in the academic background, theoretical framework, methodology, and detailed analysis can download the complete thesis.",
     button: "Download Thesis PDF",
-    fileName: "Falling for Fame - Bachelor Thesis",
+    fileName: "Falling for Fame? - Bachelor Thesis",
     pdfLabel: "PDF",
     fileType: "PDF document",
     fileMeta: "Complete thesis PDF will be added later.",

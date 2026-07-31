@@ -24,14 +24,31 @@ type SectionShellProps = {
   title: string;
   children: ReactNode;
   compact?: boolean;
+  spacing?: SectionSpacing;
 };
 
-function SectionShell({ eyebrow, title, children, compact = false }: SectionShellProps) {
+type SectionSpacing = "compact" | "standard" | "immersive";
+
+const sectionSpacingClasses: Record<SectionSpacing, string> = {
+  compact: "py-[var(--section-gap-compact)]",
+  standard: "py-[var(--section-gap-standard)]",
+  immersive: "py-[var(--section-gap-immersive)]",
+};
+
+function SectionShell({
+  eyebrow,
+  title,
+  children,
+  compact = false,
+  spacing,
+}: SectionShellProps) {
+  const resolvedSpacing = spacing ?? (compact ? "compact" : "standard");
+
   return (
     <section
       className={[
         "border-t border-border px-4 sm:px-6 xl:px-10",
-        compact ? "py-14 sm:py-18" : "py-20 sm:py-28",
+        sectionSpacingClasses[resolvedSpacing],
       ].join(" ")}
     >
       <div className="mx-auto max-w-7xl">
@@ -72,7 +89,7 @@ export function AthleteBaseStory({
   return (
     <section
       id="origin-story"
-      className="relative border-t border-border px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+      className="relative border-t border-border px-4 py-[var(--section-gap-standard)] sm:px-6 xl:px-10"
     >
       <div className="mx-auto grid max-w-7xl gap-12 xl:grid-cols-[0.34fr_1fr]">
         <header className="xl:sticky xl:top-28 xl:max-h-[calc(100svh-8rem)] xl:self-start">
@@ -166,7 +183,7 @@ export function AthleteQuoteSection({
   emptyText: string;
 }) {
   return (
-    <SectionShell title={title}>
+    <SectionShell title={title} spacing="standard">
       {athlete.quotes.length > 0 ? (
         <div className="grid gap-8">
           {athlete.quotes.map((quote, index) => (
@@ -189,10 +206,9 @@ export function AthleteGallerySection({
   locale,
   title,
   emptyText,
-  initialVisibleCount,
+  initialVisibleCount = 9,
   viewAllLabel,
   showLessLabel,
-  variant,
 }: {
   images: AthleteImage[];
   locale: Locale;
@@ -201,12 +217,11 @@ export function AthleteGallerySection({
   initialVisibleCount?: number;
   viewAllLabel?: string;
   showLessLabel?: string;
-  variant?: "grid" | "editorial";
 }) {
   const confirmedImages = images.filter((image) => image.src);
 
   return (
-    <SectionShell title={title}>
+    <SectionShell title={title} spacing="standard">
       {confirmedImages.length > 0 ? (
         <AthleteGalleryLightbox
           images={confirmedImages}
@@ -214,7 +229,6 @@ export function AthleteGallerySection({
           initialVisibleCount={initialVisibleCount}
           viewAllLabel={viewAllLabel}
           showLessLabel={showLessLabel}
-          variant={variant}
         />
       ) : (
         <EmptyState>{emptyText}</EmptyState>
@@ -241,7 +255,7 @@ export function AthleteMediaSection({
   const hasMedia = audioWithSources.length > 0 || videoWithSources.length > 0;
 
   return (
-    <SectionShell title={title}>
+    <SectionShell title={title} spacing="standard">
       {hasMedia ? (
         <div className="grid gap-5 xl:grid-cols-2">
           {audioWithSources.map((item) => (
@@ -275,10 +289,12 @@ export function AthleteMediaSection({
 
 export function AthleteLinksSection({
   links,
+  locale,
   title,
   compact = false,
 }: {
   links: AthleteLink[];
+  locale: Locale;
   title: string;
   compact?: boolean;
 }) {
@@ -292,46 +308,74 @@ export function AthleteLinksSection({
 
   return (
     <SectionShell title={title} compact={compact}>
-      <ul className={compact ? "flex flex-wrap gap-3" : "grid gap-3 sm:grid-cols-2 xl:grid-cols-3"}>
-        {confirmedLinks.map((link) => (
-          <li key={`${link.type}-${link.label}-${link.url}`}>
-            <Link
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={[
-                "flex items-center gap-4 border border-border bg-surface font-semibold text-foreground transition hover:border-primary focus-visible:rounded-sm",
-                compact ? "min-h-12 px-4 py-3" : "min-h-24 p-5",
-              ].join(" ")}
-            >
-              <span
+      <ul
+        className={
+          compact ? "flex flex-wrap gap-3" : "grid gap-3 sm:grid-cols-2 xl:grid-cols-3"
+        }
+      >
+        {confirmedLinks.map((link) => {
+          const label = getLocalizedLinkLabel(link, locale);
+
+          return (
+            <li key={`${link.type}-${label}-${link.url}`}>
+              <Link
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={[
-                  "flex shrink-0 items-center justify-center",
-                  compact ? "h-8 w-8" : "h-14 w-14",
+                  "flex items-center gap-4 border border-border bg-surface font-semibold text-foreground transition hover:border-primary focus-visible:rounded-sm",
+                  compact ? "min-h-12 px-4 py-3" : "min-h-24 p-5",
                 ].join(" ")}
               >
-                <Image
-                  src={getSocialIcon(link)}
-                  alt=""
-                  width={44}
-                  height={44}
-                  className={compact ? "max-h-7 w-auto object-contain" : "max-h-11 w-auto object-contain"}
-                />
-              </span>
-              <span className="min-w-0">
-                <span className={compact ? "sr-only" : "block text-xs uppercase tracking-wide text-foreground/54"}>
-                  {getSocialPlatformLabel(link.type)}
+                <span
+                  className={[
+                    "flex shrink-0 items-center justify-center",
+                    compact ? "h-8 w-8" : "h-14 w-14",
+                  ].join(" ")}
+                >
+                  <Image
+                    src={getSocialIcon(link)}
+                    alt=""
+                    width={44}
+                    height={44}
+                    className={
+                      compact
+                        ? "max-h-7 w-auto object-contain"
+                        : "max-h-11 w-auto object-contain"
+                    }
+                  />
                 </span>
-                <span className={compact ? "block break-words text-sm leading-tight" : "mt-1 block break-words text-lg leading-tight"}>
-                  {link.label}
+                <span className="min-w-0">
+                  <span
+                    className={
+                      compact
+                        ? "sr-only"
+                        : "block text-xs uppercase tracking-wide text-foreground/54"
+                    }
+                  >
+                    {getSocialPlatformLabel(link.type)}
+                  </span>
+                  <span
+                    className={
+                      compact
+                        ? "block break-words text-sm leading-tight"
+                        : "mt-1 block break-words text-lg leading-tight"
+                    }
+                  >
+                    {label}
+                  </span>
                 </span>
-              </span>
-            </Link>
-          </li>
-        ))}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </SectionShell>
   );
+}
+
+function getLocalizedLinkLabel(link: AthleteLink, locale: Locale) {
+  return typeof link.label === "string" ? link.label : link.label[locale];
 }
 
 export function AthleteArticlesSection({
@@ -388,7 +432,7 @@ export function AthleteFindingsLinkSection({
   cta: string;
 }) {
   return (
-    <section className="border-t border-border px-4 py-20 sm:px-6 sm:py-24 xl:px-10">
+    <section className="border-t border-border px-4 py-[var(--section-gap-standard)] sm:px-6 xl:px-10">
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
           {eyebrow}
@@ -461,7 +505,7 @@ export function MoreAthletes({
   };
 }) {
   return (
-    <section className="border-t border-border bg-surface/45 px-4 py-20 sm:px-6 sm:py-28 xl:px-10">
+    <section className="border-t border-border bg-surface/45 px-4 py-[var(--section-gap-standard)] sm:px-6 xl:px-10">
       <div className="mx-auto max-w-7xl">
         <h2 className="text-4xl font-semibold leading-tight text-foreground sm:text-6xl">
           {title}

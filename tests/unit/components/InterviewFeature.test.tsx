@@ -9,6 +9,7 @@ type MockPlayer = {
   playVideo: ReturnType<typeof vi.fn>;
   pauseVideo: ReturnType<typeof vi.fn>;
   destroy: ReturnType<typeof vi.fn>;
+  unloadModule: ReturnType<typeof vi.fn>;
   setSize: ReturnType<typeof vi.fn>;
   setPlaybackQuality: ReturnType<typeof vi.fn>;
 };
@@ -40,26 +41,27 @@ const playerConstructor = vi.fn(function MockYouTubePlayer(
   element: HTMLElement,
   options: MockPlayerOptions,
 ) {
-    const iframe = document.createElement("iframe");
-    iframe.src = `https://www.youtube.com/embed/${options.videoId}`;
-    element.appendChild(iframe);
+  const iframe = document.createElement("iframe");
+  iframe.src = `https://www.youtube.com/embed/${options.videoId}`;
+  element.appendChild(iframe);
 
-    const player: MockPlayer = {
-      playVideo: vi.fn(() => {
-        options.events.onStateChange?.({ data: 1 });
-      }),
-      pauseVideo: vi.fn(() => {
-        options.events.onStateChange?.({ data: 2 });
-      }),
-      destroy: vi.fn(),
-      setSize: vi.fn(),
-      setPlaybackQuality: vi.fn(),
-    };
+  const player: MockPlayer = {
+    playVideo: vi.fn(() => {
+      options.events.onStateChange?.({ data: 1 });
+    }),
+    pauseVideo: vi.fn(() => {
+      options.events.onStateChange?.({ data: 2 });
+    }),
+    destroy: vi.fn(),
+    unloadModule: vi.fn(),
+    setSize: vi.fn(),
+    setPlaybackQuality: vi.fn(),
+  };
 
-    createdPlayers.push(player);
-    queueMicrotask(options.events.onReady);
+  createdPlayers.push(player);
+  queueMicrotask(options.events.onReady);
 
-    return player;
+  return player;
 });
 
 describe("InterviewFeature", () => {
@@ -118,8 +120,9 @@ describe("InterviewFeature", () => {
     );
 
     expect(screen.getByText("Social Media")).toBeVisible();
-    expect(screen.getByRole("heading", { name: /YOU'RE ONLY AS GOOD/ }))
-      .toBeVisible();
+    const heading = screen.getByRole("heading", { name: /You're Only as Good/ });
+    expect(heading).toBeVisible();
+    expect(heading).toHaveClass("uppercase");
     expect(
       screen.queryByText(
         "A longer excerpt from the interview, shaped as a quiet moment inside the profile.",
@@ -159,11 +162,14 @@ describe("InterviewFeature", () => {
       cc_load_policy: 0,
       hl: "en",
     });
-    expect(playerConstructor.mock.calls[0]?.[1].playerVars)
-      .not.toHaveProperty("cc_lang_pref");
+    expect(playerConstructor.mock.calls[0]?.[1].playerVars).not.toHaveProperty(
+      "cc_lang_pref",
+    );
     expect(createdPlayers[0]?.playVideo).toHaveBeenCalled();
     expect(createdPlayers[0]?.setSize).toHaveBeenCalledWith("100%", "100%");
     expect(createdPlayers[0]?.setPlaybackQuality).toHaveBeenCalledWith("hd1080");
+    expect(createdPlayers[0]?.unloadModule).toHaveBeenCalledWith("captions");
+    expect(createdPlayers[0]?.unloadModule).toHaveBeenCalledWith("cc");
     expect(document.querySelector("iframe")).toHaveAttribute(
       "title",
       "Tim Howell interview",
@@ -212,8 +218,9 @@ describe("InterviewFeature", () => {
       cc_load_policy: 0,
       hl: "de",
     });
-    expect(playerConstructor.mock.calls[0]?.[1].playerVars)
-      .not.toHaveProperty("cc_lang_pref");
+    expect(playerConstructor.mock.calls[0]?.[1].playerVars).not.toHaveProperty(
+      "cc_lang_pref",
+    );
   });
 
   it("loads the decision-making interview data for both locales", async () => {
@@ -225,9 +232,9 @@ describe("InterviewFeature", () => {
       />,
     );
 
-    expect(screen.getByText("DECISION MAKING")).toBeVisible();
+    expect(screen.getByText("Decision Making")).toBeVisible();
     expect(
-      screen.getByRole("heading", { name: /MAKE THE\s+RIGHT DECISION/ }),
+      screen.getByRole("heading", { name: /Make the\s+Right Decision/ }),
     ).toBeVisible();
     expect(screen.getByAltText("")).toHaveAttribute(
       "src",
@@ -267,7 +274,8 @@ describe("InterviewFeature", () => {
       />,
     );
 
-    expect(screen.getByText("Interview")).toBeVisible();
+    expect(screen.getByText("Choosing Not to Jump")).toBeVisible();
+    expect(screen.queryByText("Interview")).not.toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         name: "The Mountain Will Still Be Here",
@@ -305,12 +313,16 @@ describe("InterviewFeature", () => {
           fullscreen: "Open Lukas Loibl interview fullscreen",
           exitFullscreen: "Exit Lukas Loibl interview fullscreen",
         }}
+        layout="text-first"
       />,
     );
 
     expect(
       screen.getByRole("heading", { name: "Planung ist oberste Priorität" }),
     ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Planung ist oberste Priorität" }),
+    ).toHaveClass("[overflow-wrap:normal]", "[text-wrap:balance]");
     expect(screen.getByAltText("")).toHaveAttribute(
       "src",
       "https://i.ytimg.com/vi/jfAIEg2GOGY/maxresdefault.jpg",
@@ -368,12 +380,15 @@ describe("InterviewFeature", () => {
       <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
     );
 
-    expect(screen.getByTestId("youtube-player-mount").parentElement)
-      .toHaveClass("aspect-video");
-    expect(screen.getByTestId("youtube-player-mount").parentElement)
-      .not.toHaveClass("fullscreen:w-[min(100vw,177.7778vh)]");
-    expect(screen.getByTestId("youtube-player-mount").closest("section"))
-      .toHaveClass("overflow-x-clip");
+    expect(screen.getByTestId("youtube-player-mount").parentElement).toHaveClass(
+      "aspect-video",
+    );
+    expect(screen.getByTestId("youtube-player-mount").parentElement).not.toHaveClass(
+      "fullscreen:w-[min(100vw,177.7778vh)]",
+    );
+    expect(screen.getByTestId("youtube-player-mount").closest("section")).toHaveClass(
+      "overflow-x-clip",
+    );
   });
 });
 

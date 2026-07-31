@@ -1,7 +1,7 @@
 export const home = {
   hero: {
     eyebrow: "Multimedia Documentary",
-    title: "Falling for Fame",
+    title: "Falling for Fame?",
     subtitle: "Myth or Reality in Modern BASE Jumping?",
     intro:
       "A scrollytelling documentary about social media, sponsorship, risk-taking, safety culture and athlete identity in contemporary BASE jumping.",
@@ -9,6 +9,15 @@ export const home = {
     secondaryCta: "Meet the Athletes",
     scrollIndicator: "Scroll to begin",
     visualLabel: "Wingsuit flyer passing a steep cliff above mountain terrain",
+  },
+  mobileExperienceNotice: {
+    eyebrow: "Desktop recommended",
+    title: "Experience the full story",
+    body: "Falling for Fame? is designed as an immersive desktop experience. Some scrollytelling elements, scroll-controlled videos and interactive animations are limited on mobile devices.",
+    supportingText:
+      "You can continue on mobile, but we recommend using a desktop or laptop for the full experience.",
+    button: "Continue on mobile",
+    closeLabel: "Close mobile notice",
   },
   openingQuestion: {
     title: "What happens when risk becomes visible?",

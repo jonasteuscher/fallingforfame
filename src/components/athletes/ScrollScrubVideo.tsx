@@ -10,6 +10,8 @@ import {
 } from "@/lib/videoPlaybackManager";
 import type { AthleteScrollVideo, AthleteScrollVideoCue } from "@/types/athlete";
 
+import { SectionTitle } from "./SectionTitle";
+
 type ScrollScrubVideoProps = {
   video?: AthleteScrollVideo;
   locale: Locale;
@@ -320,12 +322,9 @@ function ScrollScrubSection({
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0">
                   {video.chapter[locale]}
                 </p>
-                <h2
-                  id={headingId}
-                  className="mt-4 max-w-4xl whitespace-pre-line text-[clamp(3.25rem,9vw,8rem)] font-semibold uppercase leading-[0.88] text-foreground motion-safe:animate-[fade-in-up_700ms_ease-out_120ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
-                >
+                <SectionTitle id={headingId} size="scroll">
                   {video.displayTitle}
-                </h2>
+                </SectionTitle>
                 {video.description ? (
                   <p className="mt-6 max-w-xl text-base leading-7 text-foreground/72 sm:text-lg">
                     {video.description[locale]}
@@ -369,18 +368,15 @@ function VideoFallback({
       aria-labelledby={headingId}
       data-scroll-scrub-video-id={video.id}
       data-scroll-scrub-fallback="true"
-      className="overflow-x-clip border-t border-border bg-background px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+      className="overflow-x-clip border-t border-border bg-background px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
           {video.chapter[locale]}
         </p>
-        <h2
-          id={headingId}
-          className="mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere]"
-        >
+        <SectionTitle id={headingId} size="standardStatic">
           {video.displayTitle}
-        </h2>
+        </SectionTitle>
         {video.description ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
             {video.description[locale]}

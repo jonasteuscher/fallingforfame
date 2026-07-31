@@ -1,6 +1,17 @@
 export const sport = {
   kicker: "Sport context",
   title: "About the Sport",
+  navigationLabel: "About the sport sections",
+  nav: [
+    { id: "what-is-base-jumping", label: "BASE" },
+    { id: "history", label: "History" },
+    { id: "skydiving-vs-base", label: "Comparison" },
+    { id: "equipment", label: "Equipment" },
+    { id: "disciplines", label: "Disciplines" },
+    { id: "risk-and-safety-culture", label: "Safety" },
+    { id: "community-and-ethics", label: "Community" },
+    { id: "modern-developments", label: "Today" },
+  ],
   body: "A few seconds of freefall. Years of preparation.\n\nBASE jumping is a sport defined by commitment, precision and consequence. To understand the stories featured in this documentary, it helps to first understand the culture, history and realities of the sport itself.",
   scrollCta: "Scroll to begin",
   disclaimer:
@@ -166,11 +177,11 @@ export const sport = {
     title: "Historical timeline",
     items: [
       {
-        date: "1783",
+        date: "1797",
         title: "Early parachute experiments",
         body: "Parachute ideas appear long before the modern sport. For centuries, people experimented with jumps from towers, cliffs and balloons before BASE jumping became a defined practice.",
         image: {
-          src: "/images/sport/history/1783.jpg",
+          src: "/images/sport/history/1797.jpg",
           alt: "Historical illustration of an early parachute experiment.",
         },
       },
@@ -457,11 +468,11 @@ export const sport = {
   safetyDisclaimer: {
     warningLabel: "WARNING",
     headline: "BASE jumping is an extremely dangerous activity",
-    projectTitle: "Falling for Fame - Mythos oder Realität im modernen Basejumping",
+    projectTitle: "Falling for Fame? - Mythos oder Realität im modernen Basejumping",
     paragraphs: [
       "This documentary examines BASE jumping, social media, sponsorship, visibility, risk culture and safety practices within the sport. BASE jumping is widely regarded as one of the world's most dangerous activities. The athletes featured here operate in environments where altitude, weather, terrain and timing leave very little margin for error.",
       "Participation in this sport is not casual. Experienced jumpers often spend years building skydiving experience, receiving mentorship, studying equipment, learning site assessment and developing risk-management skills before attempting BASE jumps. Even with preparation, modern equipment and deep experience, serious injury or death can occur.",
-      "Falling for Fame is intended to document and inform. It does not promote BASE jumping, teach technique or encourage viewers to participate. Images, stories and observations in this project should not be imitated. Viewers are encouraged to approach the subject critically, respect the athletes' commitment and make informed decisions about risk, media visibility and personal responsibility.",
+      "Falling for Fame? is intended to document and inform. It does not promote BASE jumping, teach technique or encourage viewers to participate. Images, stories and observations in this project should not be imitated. Viewers are encouraged to approach the subject critically, respect the athletes' commitment and make informed decisions about risk, media visibility and personal responsibility.",
       "No person shown on this page, featured in the project or involved in its production accepts responsibility for actions taken by viewers after engaging with this material.",
     ],
     confirmLabel: "I Understand",
@@ -478,7 +489,7 @@ export const sport = {
       "Boenish, C. - Historical publications and archive materials.",
       "Brymer, E. (2005). Extreme Sports: A Positive Transformation in Courage and Humility.",
       "Contemporary specialist publications and educational resources on BASE jumping.",
-      "Interviews and observations from the production of 'Falling for Fame?'.",
+      "Interviews and observations from the production of Falling for Fame?",
     ],
     closing:
       "For deeper context, this project recommends comparing historical sources, safety-oriented literature, academic work and experience reports from the BASE community.",
