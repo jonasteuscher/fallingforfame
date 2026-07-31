@@ -174,21 +174,21 @@ export function NoJumpDecisionSection({
       />
       <div className="hidden md:block md:h-[340svh] md:min-h-[2400px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
-          <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-y-6 px-6 py-8 xl:px-10">
-            <header className="relative z-10 max-w-none">
+          <div className="no-jump-sticky-inner mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-y-6 px-6 py-8 xl:px-10">
+            <header className="no-jump-header relative z-10 max-w-none">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
                 {chapter.eyebrow}
               </p>
               <h2
                 id={`${chapter.id}-title`}
-                className="mt-5 max-w-none whitespace-pre-line break-normal text-[clamp(2.7rem,5vw,5.4rem)] font-semibold uppercase leading-[0.9] text-foreground [overflow-wrap:normal] [text-wrap:balance] [word-break:normal] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+                className="no-jump-title mt-5 max-w-none whitespace-pre-line break-normal text-[clamp(2.7rem,5vw,5.4rem)] font-semibold uppercase leading-[0.9] text-foreground [overflow-wrap:normal] [text-wrap:balance] [word-break:normal] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
               >
                 {chapter.title}
               </h2>
             </header>
-            <div className="grid min-h-0 grid-cols-[minmax(22rem,0.36fr)_minmax(35rem,0.64fr)] gap-10">
-              <div className="flex min-h-0 flex-col justify-start">
-                <p className="mt-8 max-w-[38ch] text-base leading-7 text-foreground/64">
+            <div className="no-jump-layout grid min-h-0 grid-cols-[minmax(22rem,0.36fr)_minmax(35rem,0.64fr)] gap-10">
+              <div className="no-jump-copy flex min-h-0 flex-col justify-start">
+                <p className="no-jump-summary mt-8 max-w-[38ch] text-base leading-7 text-foreground/64">
                   {chapter.summary}
                 </p>
                 <NoJumpConditionList
@@ -196,11 +196,6 @@ export function NoJumpDecisionSection({
                   locale={locale}
                   activeCondition={activeCondition}
                   hiddenAmount={descentProgress}
-                />
-                <NoJumpFinalText
-                  chapter={chapter}
-                  progress={finalProgress}
-                  quoteSourceLabel={quoteSourceLabel}
                 />
               </div>
               <NoJumpImage
@@ -211,6 +206,15 @@ export function NoJumpDecisionSection({
               />
             </div>
           </div>
+        </div>
+      </div>
+      <div className="no-jump-quote-section relative z-20 hidden px-6 pt-12 md:block xl:px-10">
+        <div className="mx-auto max-w-5xl">
+          <NoJumpFinalText
+            chapter={chapter}
+            progress={1}
+            quoteSourceLabel={quoteSourceLabel}
+          />
         </div>
       </div>
       <NoJumpFindingSummary
@@ -240,7 +244,7 @@ function NoJumpImage({
 
   return (
     <figure
-      className="relative my-auto aspect-[16/10] min-h-[34rem] overflow-hidden bg-surface"
+      className="no-jump-media relative my-auto aspect-[16/10] min-h-[34rem] overflow-hidden bg-surface"
       style={{
         transform: `translate3d(${interpolate(descentProgress, 0, 1, 0, -18)}px, 0, 0)`,
       }}
@@ -261,17 +265,17 @@ function NoJumpImage({
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 flex items-center justify-center px-8 text-center text-primary"
+        className="no-jump-overlay absolute inset-0 flex items-center justify-center px-8 text-center text-primary"
         style={{
           opacity: overlayProgress,
           transform: `translate3d(0, ${interpolate(overlayProgress, 0, 1, 22, 0)}px, 0)`,
         }}
       >
         <div className="max-w-[31rem]">
-          <p className="text-[clamp(3.4rem,7vw,6.6rem)] font-semibold uppercase leading-none tracking-[0.04em]">
+          <p className="no-jump-overlay-title text-[clamp(3.4rem,7vw,6.6rem)] font-semibold uppercase leading-none tracking-[0.04em]">
             NO-GO
           </p>
-          <p className="mt-6 whitespace-pre-line text-base leading-7 text-primary/82 sm:text-lg">
+          <p className="no-jump-overlay-copy mt-6 whitespace-pre-line text-base leading-7 text-primary/82 sm:text-lg">
             {noJumpCopy[locale].transition}
           </p>
         </div>
@@ -295,7 +299,7 @@ function NoJumpConditionList({
 
   return (
     <ol
-      className="mt-8 grid max-w-[34rem] gap-2.5 transition-opacity duration-500 ease-out motion-reduce:transition-none"
+      className="no-jump-list mt-8 grid max-w-[34rem] gap-2.5 transition-opacity duration-500 ease-out motion-reduce:transition-none"
       style={{ opacity: 1 - hiddenAmount * 0.72 }}
       aria-label="No-go conditions"
     >
@@ -306,7 +310,10 @@ function NoJumpConditionList({
         return (
           <li
             key={layer}
-            className="grid grid-cols-[2.4rem_1fr] gap-3 border-b border-border/46 pb-3"
+            className={[
+              "no-jump-row grid grid-cols-[2.4rem_1fr] gap-3 border-b border-border/46 pb-3",
+              isActive ? "is-active" : isPast ? "is-past" : "is-upcoming",
+            ].join(" ")}
             style={{ opacity: isActive ? 1 : isPast ? 0.52 : 0.26 }}
             aria-current={isActive ? "step" : undefined}
           >
@@ -327,7 +334,7 @@ function NoJumpConditionList({
               >
                 {layer}
               </p>
-              <p className="mt-1.5 text-sm leading-6 text-foreground/54">
+              <p className="no-jump-row-body mt-1.5 text-sm leading-6 text-foreground/54">
                 {bodies[index]}
               </p>
             </div>
@@ -349,7 +356,7 @@ function NoJumpFinalText({
 }) {
   return (
     <div
-      className="mt-4 max-w-[34rem]"
+      className="no-jump-final-text mt-4 max-w-[34rem]"
       style={{
         opacity: progress,
         transform: `translate3d(0, ${interpolate(progress, 0, 1, 12, 0)}px, 0)`,
@@ -542,7 +549,7 @@ function getActiveCondition(progress: number, count: number) {
     return 0;
   }
 
-  const sequenceProgress = interpolate(progress, 0.15, 0.45, 0, 1);
+  const sequenceProgress = interpolate(progress, 0.12, 0.72, 0, 1);
 
   return Math.min(count - 1, Math.floor(sequenceProgress * count));
 }

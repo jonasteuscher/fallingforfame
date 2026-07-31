@@ -640,6 +640,201 @@ audio {
   }
 }
 
+@media (min-width: 1024px) and (max-width: 1536px), (min-width: 1024px) and (max-height: 900px) {
+  .findings-page #no-jump .no-jump-sticky-inner {
+    grid-template-rows: auto minmax(0, 1fr) !important;
+    gap: clamp(0.75rem, 1.8svh, 1.5rem) !important;
+    padding-top: clamp(1rem, 2svh, 1.65rem) !important;
+    padding-bottom: clamp(0.9rem, 1.8svh, 1.35rem) !important;
+    max-width: min(100%, 73rem) !important;
+  }
+
+  .findings-page #no-jump .no-jump-header p {
+    font-size: 0.78rem !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  .findings-page #no-jump .no-jump-title {
+    margin-top: 0.85rem !important;
+    max-width: min(100%, 21ch) !important;
+    font-size: clamp(3.15rem, 5.7vw, 5.05rem) !important;
+    line-height: 0.87 !important;
+  }
+
+  .findings-page #no-jump .no-jump-layout {
+    grid-template-columns: minmax(17rem, 0.35fr) minmax(0, 0.65fr) !important;
+    gap: clamp(1.25rem, 3vw, 2.4rem) !important;
+    align-items: start !important;
+  }
+
+  .findings-page #no-jump .no-jump-copy {
+    position: relative;
+    min-height: 0;
+    padding-bottom: 0.25rem;
+  }
+
+  .findings-page #no-jump .no-jump-summary {
+    margin-top: 0 !important;
+    max-width: 35ch !important;
+    font-size: clamp(0.88rem, 1.05vw, 0.98rem) !important;
+    line-height: 1.55 !important;
+  }
+
+  .findings-page #no-jump .no-jump-list {
+    margin-top: clamp(0.85rem, 1.8svh, 1.35rem) !important;
+    gap: 0 !important;
+    max-width: 31rem !important;
+  }
+
+  .findings-page #no-jump .no-jump-row {
+    grid-template-columns: 2rem minmax(0, 1fr) !important;
+    gap: 0.75rem !important;
+    padding-block: clamp(0.42rem, 0.85svh, 0.62rem) !important;
+    border-color: color-mix(in srgb, var(--foreground) 16%, transparent) !important;
+  }
+
+  .findings-page #no-jump .no-jump-row.is-active {
+    opacity: 1 !important;
+  }
+
+  .findings-page #no-jump .no-jump-row.is-past {
+    opacity: 0.68 !important;
+  }
+
+  .findings-page #no-jump .no-jump-row.is-upcoming {
+    opacity: 0.52 !important;
+  }
+
+  .findings-page #no-jump .no-jump-row p:first-child {
+    font-size: clamp(0.72rem, 0.92vw, 0.82rem) !important;
+    letter-spacing: 0.12em !important;
+    line-height: 1.2 !important;
+  }
+
+  .findings-page #no-jump .no-jump-row-body {
+    margin-top: 0 !important;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    line-height: 1.45 !important;
+    transition: max-height 420ms ease, opacity 300ms ease, margin-top 300ms ease;
+  }
+
+  .findings-page #no-jump .no-jump-row.is-active .no-jump-row-body {
+    margin-top: 0.35rem !important;
+    max-height: 3rem;
+    opacity: 1;
+  }
+
+  .findings-page #no-jump .no-jump-media {
+    align-self: start !important;
+    min-height: 0 !important;
+    height: min(43svh, 28rem) !important;
+    max-height: calc(100svh - var(--site-header-height) - 21rem) !important;
+    width: 100% !important;
+  }
+
+  .findings-page #no-jump .no-jump-media img {
+    object-fit: cover !important;
+    object-position: 50% 54% !important;
+  }
+
+  .findings-page #no-jump .no-jump-overlay-title {
+    font-size: clamp(2.8rem, 6vw, 5.2rem) !important;
+  }
+
+  .findings-page #no-jump .no-jump-overlay-copy {
+    margin-top: clamp(0.75rem, 1.6svh, 1.25rem) !important;
+    font-size: clamp(0.9rem, 1.15vw, 1.05rem) !important;
+    line-height: 1.55 !important;
+  }
+
+  .findings-page #no-jump .no-jump-final-text {
+    max-width: 31rem !important;
+    margin-top: 0 !important;
+  }
+
+  .findings-page #no-jump .no-jump-final-text blockquote {
+    font-size: clamp(1.25rem, 2vw, 1.7rem) !important;
+    line-height: 1.12 !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px), (min-width: 1024px) and (max-height: 800px) {
+  .findings-page #no-jump .no-jump-sticky-inner {
+    gap: 0.7rem !important;
+    padding-top: 0.9rem !important;
+    padding-bottom: 0.85rem !important;
+    max-width: min(100%, 68rem) !important;
+  }
+
+  .findings-page #no-jump .no-jump-title {
+    margin-top: 0.65rem !important;
+    max-width: min(100%, 20ch) !important;
+    font-size: clamp(2.55rem, 5.05vw, 3.95rem) !important;
+    line-height: 0.86 !important;
+  }
+
+  .findings-page #no-jump .no-jump-layout {
+    grid-template-columns: minmax(15.5rem, 0.35fr) minmax(0, 0.65fr) !important;
+    gap: clamp(1rem, 2.5vw, 1.75rem) !important;
+  }
+
+  .findings-page #no-jump .no-jump-summary {
+    max-width: 32ch !important;
+    font-size: 0.86rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .findings-page #no-jump .no-jump-list {
+    margin-top: 0.7rem !important;
+  }
+
+  .findings-page #no-jump .no-jump-row {
+    grid-template-columns: 1.8rem minmax(0, 1fr) !important;
+    padding-block: 0.32rem !important;
+  }
+
+  .findings-page #no-jump .no-jump-row p:first-child {
+    font-size: 0.68rem !important;
+  }
+
+  .findings-page #no-jump .no-jump-row-body {
+    font-size: 0.78rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .findings-page #no-jump .no-jump-media {
+    height: min(40svh, 23rem) !important;
+    max-height: calc(100svh - var(--site-header-height) - 17.5rem) !important;
+  }
+
+  .findings-page #no-jump .no-jump-media img {
+    object-position: 50% 56% !important;
+  }
+
+  .findings-page #no-jump .no-jump-overlay-title {
+    font-size: clamp(2.4rem, 5.4vw, 4.1rem) !important;
+  }
+
+  .findings-page #no-jump .no-jump-final-text blockquote {
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem) !important;
+  }
+
+  .findings-page .site-section-nav {
+    right: 0.35rem !important;
+    padding: 0.35rem !important;
+  }
+
+  .findings-page .site-section-nav a {
+    min-height: 1.85rem !important;
+    min-width: 1.85rem !important;
+    padding-inline: 0.25rem !important;
+    font-size: 0.58rem !important;
+    letter-spacing: 0.12em !important;
+  }
+}
+
 @media (min-width: 1600px) {
   .site-section-nav {
     right: 1rem !important;
