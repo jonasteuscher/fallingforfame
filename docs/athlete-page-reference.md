@@ -1,7 +1,7 @@
 # Athlete Page Reference System
 
 Tim Howell and Lukas Loibl define the reference system for all athlete pages in
-Falling for Fame. Future athlete pages must use the same shared implementation
+*Falling for Fame?*. Future athlete pages must use the same shared implementation
 language while keeping their own content, media and narrative rhythm.
 
 ## Architecture

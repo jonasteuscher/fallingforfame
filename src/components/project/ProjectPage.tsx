@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import type { project as projectContent } from "@/content/en/project";
 import { ProjectBehindScenes } from "@/components/project/ProjectDocumentationChapter";
+import { WorkTitleText } from "@/components/text/WorkTitleText";
 
 type ProjectContent = typeof projectContent;
 
@@ -73,7 +74,7 @@ function ProjectMotivation({
                   {String(index + 1).padStart(2, "0")}
                 </p>
                 <p className="text-xl leading-9 text-foreground/78 sm:text-2xl sm:leading-10">
-                  {block}
+                  <WorkTitleText>{block}</WorkTitleText>
                 </p>
               </article>
             ))}
@@ -117,7 +118,7 @@ function ProjectHero({ content }: { content: ProjectContent }) {
           {content.title}
         </h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-foreground/78 md:text-2xl md:leading-9">
-          {content.body}
+          <WorkTitleText>{content.body}</WorkTitleText>
         </p>
         <div className="mt-12 flex items-center gap-3 text-xs font-semibold uppercase tracking-wide text-foreground/62">
           <span className="h-px w-12 bg-primary" aria-hidden="true" />
@@ -147,7 +148,9 @@ function DocumentaryChapter({
         <div className="space-y-10">
           <div className="max-w-reading space-y-5 text-lg leading-8 text-foreground/76">
             {content.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+              <p key={paragraph}>
+                <WorkTitleText>{paragraph}</WorkTitleText>
+              </p>
             ))}
           </div>
           <div className="grid gap-4">

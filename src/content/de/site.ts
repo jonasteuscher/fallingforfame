@@ -29,7 +29,7 @@ export const site = {
   },
   footer: {
     description:
-      "'Falling for Fame?' bereitet eine bilinguale multimediale Dokumentationsstruktur für Bachelorarbeit, Interviews und Felddokumentation vor.",
+      "Falling for Fame? bereitet eine bilinguale multimediale Dokumentationsstruktur für Bachelorarbeit, Interviews und Felddokumentation vor.",
     copyright: "© Jonas Teuscher 2026",
     imprint: "Impressum",
   },

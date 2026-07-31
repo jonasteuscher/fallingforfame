@@ -1,6 +1,6 @@
 export const project = {
   title: "Das Projekt",
-  body: "Falling for Fame ist zugleich interaktive Dokumentation und Forschungsprojekt: eine visuelle Auseinandersetzung mit BASE Jumping, Social Media, Sponsoring, Sichtbarkeit und Risikokultur.",
+  body: "Falling for Fame? ist zugleich interaktive Dokumentation und Forschungsprojekt: eine visuelle Auseinandersetzung mit BASE Jumping, Social Media, Sponsoring, Sichtbarkeit und Risikokultur.",
   heroKicker: "Produktionsjournal",
   scrollCta: "Weiter in die Geschichte",
   chapterIndicator: [
@@ -17,7 +17,7 @@ export const project = {
     label: "Die Dokumentation",
     title: "Ein Forschungsprojekt erzählt mit Bildern, Stimmen und Feldnotizen.",
     paragraphs: [
-      "Falling for Fame entstand als Bachelorarbeit, doch das Thema verlangte nach mehr als wissenschaftlichem Text. BASE Jumping ist visuell, körperlich und situativ. Die Umgebungen, Entscheidungen und sozialen Dynamiken hinter dem Sport lassen sich durch Zahlen allein kaum verstehen.",
+      "Falling for Fame? entstand als Bachelorarbeit, doch das Thema verlangte nach mehr als wissenschaftlichem Text. BASE Jumping ist visuell, körperlich und situativ. Die Umgebungen, Entscheidungen und sozialen Dynamiken hinter dem Sport lassen sich durch Zahlen allein kaum verstehen.",
       "Die interaktive Dokumentation übersetzt den Forschungsprozess in eine multimediale Erfahrung. Sie verbindet Interviews, Feldbeobachtungen, Fotografie, Video und redaktionelles Storytelling, damit Besuchende selbst zwischen Kontext, Menschen und Produktionsmomenten wechseln können.",
       "Das Projekt trennt Forschung und Storytelling nicht voneinander. Die Forschung gibt der Dokumentation Struktur und Verantwortung. Die Dokumentation gibt der Forschung Atmosphäre, Zugang und eine öffentliche Form.",
     ],
@@ -54,7 +54,7 @@ export const project = {
     blocks: [
       "2019 absolvierte ich meinen ersten Fallschirmsprung. Was als einmaliges Erlebnis begann, entwickelte sich schnell zu einer anhaltenden Faszination für Sportarten, die von aussen oft nur über Risiko wahrgenommen werden. Mit zunehmender Erfahrung wurde mir jedoch bewusst, dass hinter diesen Aktivitäten weit mehr steckt als Nervenkitzel: Ausbildung, Vorbereitung, Verantwortung und eine ausgeprägte Sicherheitskultur.",
       "Gleichzeitig fiel mir auf, wie stark soziale Medien die Wahrnehmung solcher Sportarten prägen. Sichtbar werden meist die spektakulärsten Sekunden eines Sprungs. Unsichtbar bleiben häufig die Vorbereitung, die Entscheidungsprozesse und die Menschen hinter den Bildern. Dadurch entstand die Frage, wie Athlet:innen selbst mit Sichtbarkeit, Reichweite und öffentlicher Aufmerksamkeit umgehen.",
-      "Aus dieser Beobachtung entwickelte sich schliesslich die Forschungsfrage dieser Arbeit. Falling for Fame verbindet wissenschaftliche Untersuchung und dokumentarisches Storytelling, um einen differenzierteren Blick auf BASE Jumping zu ermöglichen. Nicht auf der Suche nach Spektakel, sondern nach den Geschichten, Entscheidungen und Perspektiven hinter den Bildern.",
+      "Aus dieser Beobachtung entwickelte sich schliesslich die Forschungsfrage dieser Arbeit. Falling for Fame? verbindet wissenschaftliche Untersuchung und dokumentarisches Storytelling, um einen differenzierteren Blick auf BASE Jumping zu ermöglichen. Nicht auf der Suche nach Spektakel, sondern nach den Geschichten, Entscheidungen und Perspektiven hinter den Bildern.",
     ],
     quote:
       "Mich interessierte nicht nur, was Menschen zum Springen bewegt. Mich interessierte, wie Sichtbarkeit verändert, was andere davon sehen.",
@@ -167,7 +167,7 @@ export const project = {
     description:
       "Diese interaktive Dokumentation basiert auf einer Bachelorarbeit an der Fachhochschule Graubünden (FHGR).\n\nInteressierte können die vollständige Arbeit herunterladen, um vertiefte Einblicke in Theorie, Methodik und wissenschaftliche Analyse zu erhalten.",
     button: "PDF herunterladen",
-    fileName: "Falling for Fame - Bachelorarbeit",
+    fileName: "Falling for Fame? - Bachelorarbeit",
     pdfLabel: "PDF",
     fileType: "PDF-Dokument",
     fileMeta: "Die vollständige PDF-Datei wird später ergänzt.",

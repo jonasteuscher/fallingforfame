@@ -17,7 +17,7 @@ type HomePageProps = {
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Home | Falling For Fame?",
+    absolute: "Home | Falling for Fame?",
   },
 };
 

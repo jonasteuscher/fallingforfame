@@ -5,19 +5,16 @@
 GitHub: https://github.com/jonasteuscher/fallingforfame  
 Website: https://fallingforfame.com
 
-Falling for Fame is a bilingual Next.js App Router web documentary about social
-media, visibility, sponsorship, risk-taking, safety culture, community norms and
-athlete identity in modern BASE jumping.
+*Falling for Fame?* is a bilingual Next.js App Router web documentary exploring
+how social media, visibility, sponsorship, risk-taking, safety culture,
+community norms and athlete identity influence modern BASE jumping.
 
-The project is built as a scrollytelling platform for a Bachelor thesis. German
-and English versions share the same implementation while preserving localized
-copy, metadata and routing.
+Built as the practical component of a Bachelor thesis, the project combines
+immersive scrollytelling with qualitative research communication. German and
+English versions share the same implementation while preserving localized
+content, metadata and routing.
 
 ## Overview
-
-Falling for Fame is an interactive bilingual web documentary exploring how
-social media, sponsorship, visibility, safety culture and risk-taking influence
-modern BASE jumping.
 
 The project combines:
 
@@ -26,7 +23,8 @@ The project combines:
 - interactive web technologies
 - qualitative research communication
 
-It serves as the practical implementation accompanying the Bachelor thesis.
+It translates the findings of the accompanying Bachelor thesis into an
+accessible, interactive experience.
 
 ### Screenshots
 

@@ -481,11 +481,11 @@ export const sport = {
   safetyDisclaimer: {
     warningLabel: "WARNUNG",
     headline: "BASEjumping ist eine extrem gefährliche Aktivität",
-    projectTitle: "Falling for Fame - Mythos oder Realität im modernen Basejumping",
+    projectTitle: "Falling for Fame? - Mythos oder Realität im modernen Basejumping",
     paragraphs: [
       "Diese Dokumentation untersucht BASEjumping, Social Media, Sponsoring, Sichtbarkeit, Risikokultur und Sicherheitspraktiken innerhalb des Sports. BASEjumping gilt weltweit als eine der gefährlichsten Aktivitäten. Die gezeigten Athlet:innen bewegen sich in Umgebungen, in denen Höhe, Wetter, Gelände und Timing nur sehr wenig Spielraum für Fehler lassen.",
       "Die Teilnahme an diesem Sport ist nichts Beiläufiges. Erfahrene Springer:innen investieren oft Jahre in Fallschirmerfahrung, Mentoring, Materialkenntnis, Standortbeurteilung und Risikomanagement, bevor sie BASE Sprünge durchführen. Auch mit Vorbereitung, moderner Ausrüstung und grosser Erfahrung können schwere Verletzungen oder Tod eintreten.",
-      "Falling for Fame soll dokumentieren und informieren. Das Projekt bewirbt BASEjumping nicht, vermittelt keine Technik und fordert nicht zur Teilnahme auf. Bilder, Geschichten und Beobachtungen in diesem Projekt sollen nicht nachgeahmt werden. Besucher:innen sind eingeladen, das Thema kritisch einzuordnen, den Einsatz der Athlet:innen respektvoll zu betrachten und informierte Entscheidungen über Risiko, mediale Sichtbarkeit und persönliche Verantwortung zu treffen.",
+      "Falling for Fame? soll dokumentieren und informieren. Das Projekt bewirbt BASEjumping nicht, vermittelt keine Technik und fordert nicht zur Teilnahme auf. Bilder, Geschichten und Beobachtungen in diesem Projekt sollen nicht nachgeahmt werden. Besucher:innen sind eingeladen, das Thema kritisch einzuordnen, den Einsatz der Athlet:innen respektvoll zu betrachten und informierte Entscheidungen über Risiko, mediale Sichtbarkeit und persönliche Verantwortung zu treffen.",
       "Keine Person auf dieser Seite, keine im Projekt gezeigte Person und niemand aus der Produktion übernimmt Verantwortung für Handlungen, die Besucher:innen nach der Auseinandersetzung mit diesem Material ausführen.",
     ],
     confirmLabel: "Ich habe verstanden",
@@ -502,7 +502,7 @@ export const sport = {
       "Boenish, C. - Historische Publikationen und Archivmaterialien.",
       "Brymer, E. (2005). Extreme Sports: A Positive Transformation in Courage and Humility.",
       "Zeitgenössische Fachpublikationen und Bildungsressourcen zum BASE Jumping.",
-      "Interviews und Beobachtungen aus der Produktion von 'Falling for Fame?'.",
+      "Interviews und Beobachtungen aus der Produktion von Falling for Fame?",
     ],
     closing:
       "Für vertiefende Informationen empfehlen wir die Auseinandersetzung mit historischen Quellen, sicherheitsorientierter Literatur, wissenschaftlichen Arbeiten sowie Erfahrungsberichten aus der BASE Gemeinschaft.",

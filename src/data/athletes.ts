@@ -82,8 +82,8 @@ const lukasLoiblPage: AthletePageComposition = {
     {
       id: "audio-story",
       label: {
-        en: "Social media & sponsorship",
-        de: "Social Media & Sponsoring",
+        en: "Social media",
+        de: "Social Media",
       },
     },
     { id: "world-record", label: { en: "World Record", de: "Weltrekord" } },

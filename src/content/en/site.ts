@@ -29,7 +29,7 @@ export const site = {
   },
   footer: {
     description:
-      "'Falling for Fame?' prepares a bilingual multimedia documentary structure for thesis research, interviews and field documentation.",
+      "Falling for Fame? prepares a bilingual multimedia documentary structure for thesis research, interviews and field documentation.",
     copyright: "© Jonas Teuscher 2026",
     imprint: "Imprint",
   },

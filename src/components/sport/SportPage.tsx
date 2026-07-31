@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import type { sport as sportContent } from "@/content/en/sport";
 import { FindingsChapterNav } from "@/components/findings/FindingsChapterNav";
 import { SportSafetyDisclaimerModal } from "@/components/sport/SportSafetyDisclaimerModal";
+import { WorkTitleText } from "@/components/text/WorkTitleText";
 
 type SportContent = typeof sportContent;
 
@@ -114,7 +115,9 @@ function SportIntro({
         </div>
         <div className="max-w-reading space-y-5 text-lg leading-8 text-foreground/76">
           {content.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
+            <p key={paragraph}>
+              <WorkTitleText>{paragraph}</WorkTitleText>
+            </p>
           ))}
         </div>
       </div>
@@ -1524,11 +1527,13 @@ function SourcesSection({
           <ul className="grid gap-2">
             {content.items.map((item) => (
               <li key={item} className="border-t border-border pt-3">
-                {item}
+                <WorkTitleText>{item}</WorkTitleText>
               </li>
             ))}
           </ul>
-          <p>{content.closing}</p>
+          <p>
+            <WorkTitleText>{content.closing}</WorkTitleText>
+          </p>
         </div>
       </div>
     </section>

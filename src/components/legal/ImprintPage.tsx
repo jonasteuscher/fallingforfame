@@ -1,4 +1,5 @@
 import type { imprint as imprintContent } from "@/content/en/imprint";
+import { WorkTitleText } from "@/components/text/WorkTitleText";
 
 type ImprintContent = typeof imprintContent;
 
@@ -39,7 +40,7 @@ export function ImprintPage({ content }: ImprintPageProps) {
             {content.hero.subtitle}
           </p>
           <p className="mt-6 max-w-reading text-lg leading-8 text-foreground/78 sm:text-xl sm:leading-9">
-            {content.hero.body}
+            <WorkTitleText>{content.hero.body}</WorkTitleText>
           </p>
         </div>
       </section>
@@ -78,8 +79,16 @@ function LegalSection({ section }: { section: ImprintContent[keyof ImprintConten
           <p className="text-lg font-semibold text-foreground">{section.name}</p>
         ) : null}
 
-        {"description" in section ? <p>{section.description}</p> : null}
-        {"body" in section ? <p>{section.body}</p> : null}
+        {"description" in section ? (
+          <p>
+            <WorkTitleText>{section.description}</WorkTitleText>
+          </p>
+        ) : null}
+        {"body" in section ? (
+          <p>
+            <WorkTitleText>{section.body}</WorkTitleText>
+          </p>
+        ) : null}
 
         {"address" in section ? (
           <address className="not-italic">

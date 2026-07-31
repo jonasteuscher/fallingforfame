@@ -1,7 +1,7 @@
 export const home = {
   hero: {
     eyebrow: "Multimedia-Dokumentation",
-    title: "Falling for Fame",
+    title: "Falling for Fame?",
     subtitle: "Mythos oder Realität im modernen BASE Jumping?",
     intro:
       "Eine Scrollytelling-Dokumentation über Social Media, Sponsoring, Risikobereitschaft, Sicherheitskultur und Identität im modernen BASE Jumping.",
@@ -14,7 +14,7 @@ export const home = {
   mobileExperienceNotice: {
     eyebrow: "Desktop empfohlen",
     title: "Erlebe die ganze Geschichte",
-    body: "Falling for Fame wurde als immersive Desktop Experience entwickelt. Einige Scrollytelling Elemente, scrollgesteuerte Videos und interaktive Animationen sind auf mobilen Geräten nur eingeschränkt verfügbar.",
+    body: "Falling for Fame? wurde als immersive Desktop Experience entwickelt. Einige Scrollytelling Elemente, scrollgesteuerte Videos und interaktive Animationen sind auf mobilen Geräten nur eingeschränkt verfügbar.",
     supportingText:
       "Du kannst die Webdoku mobil nutzen. Für das vollständige Erlebnis empfehlen wir jedoch einen Desktop oder Laptop.",
     button: "Mobil fortfahren",

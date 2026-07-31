@@ -148,11 +148,9 @@ describe("MobileExperienceNotice", () => {
     expect(
       await screen.findByRole("heading", { name: "Experience the full story" }),
     ).toBeVisible();
-    expect(
-      screen.getByText(
-        /Falling for Fame is designed as an immersive desktop experience/i,
-      ),
-    ).toBeVisible();
+    expect(screen.getByRole("dialog")).toHaveTextContent(
+      /Falling for Fame\? is designed as an immersive desktop experience/i,
+    );
 
     unmount();
     localStorage.clear();

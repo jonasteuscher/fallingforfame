@@ -2,17 +2,17 @@ export const imprint = {
   metadata: {
     title: "Impressum | Falling for Fame?",
     description:
-      "Impressum, Urheberrecht, Bildnachweise und Kontaktangaben zur Webdokumentation Falling for Fame.",
+      "Impressum, Urheberrecht, Bildnachweise und Kontaktangaben zur Webdokumentation Falling for Fame?",
   },
   hero: {
     eyebrow: "Rechtlicher Hinweis",
     title: "Impressum",
     subtitle: "Interaktive multimediale Webdokumentation",
-    body: "Falling for Fame ist eine interaktive multimediale Webdokumentation, die im Rahmen einer Bachelorarbeit entstanden ist. Sie untersucht Social Media, Sponsoring, Risiko, Sicherheitskultur und Athletenidentität im modernen BASE Jumping.",
+    body: "Falling for Fame? ist eine interaktive multimediale Webdokumentation, die im Rahmen einer Bachelorarbeit entstanden ist. Sie untersucht Social Media, Sponsoring, Risiko, Sicherheitskultur und Athletenidentität im modernen BASE Jumping.",
   },
   project: {
     title: "Projekt",
-    name: "Falling for Fame",
+    name: "Falling for Fame?",
     description:
       "Diese Website präsentiert eine forschungsbasierte Webdokumentation für akademische, journalistische und edukative Zwecke.",
   },

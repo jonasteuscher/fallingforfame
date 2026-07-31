@@ -2,6 +2,8 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 
+import { WorkTitleText } from "@/components/text/WorkTitleText";
+
 const safetyWarningStorageKey = "sport-safety-warning-accepted";
 
 type SportSafetyDisclaimerModalProps = {
@@ -185,7 +187,9 @@ export function SportSafetyDisclaimerModal({
             className="mt-6 space-y-5 text-base leading-7 text-foreground/78 sm:text-lg sm:leading-8"
           >
             {content.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+              <p key={paragraph}>
+                <WorkTitleText>{paragraph}</WorkTitleText>
+              </p>
             ))}
           </div>
           <div className="mt-8 flex justify-start">

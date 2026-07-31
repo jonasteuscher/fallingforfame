@@ -2,17 +2,17 @@ export const imprint = {
   metadata: {
     title: "Imprint | Falling for Fame?",
     description:
-      "Legal notice, copyright information, credits and contact details for the Falling for Fame web documentary.",
+      "Legal notice, copyright information, credits and contact details for the Falling for Fame? web documentary.",
   },
   hero: {
     eyebrow: "Legal Notice",
     title: "Imprint",
     subtitle: "Interactive multimedia web documentary",
-    body: "Falling for Fame is an interactive multimedia web documentary created as part of a Bachelor's thesis. It examines social media, sponsorship, risk, safety culture and athlete identity in modern BASE jumping.",
+    body: "Falling for Fame? is an interactive multimedia web documentary created as part of a Bachelor's thesis. It examines social media, sponsorship, risk, safety culture and athlete identity in modern BASE jumping.",
   },
   project: {
     title: "Project",
-    name: "Falling for Fame",
+    name: "Falling for Fame?",
     description:
       "This website presents a research-based web documentary developed for academic, journalistic and educational purposes.",
   },

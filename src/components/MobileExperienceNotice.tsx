@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { WorkTitleText } from "@/components/text/WorkTitleText";
+
 export const mobileExperienceNoticeStorageKey =
   "falling-for-fame-mobile-notice-dismissed";
 
@@ -194,7 +196,9 @@ export function MobileExperienceNotice({ content }: MobileExperienceNoticeProps)
           id="mobile-notice-description"
           className="mt-5 space-y-4 text-base leading-7 text-foreground/78"
         >
-          <p>{content.body}</p>
+          <p>
+            <WorkTitleText>{content.body}</WorkTitleText>
+          </p>
           <p>{content.supportingText}</p>
         </div>
         <button
