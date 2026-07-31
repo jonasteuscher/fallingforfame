@@ -434,7 +434,7 @@ export const findingsPage: FindingsPageContent = {
       summary:
         "Die Interviews legen nahe, dass wachsende Erfahrung verändert, wie Unsicherheit interpretiert wird. Vertrauen kann schnell wachsen, während reife Urteilskraft oft erst später entsteht.",
       finding:
-        "Risikobewusstsein entsteht nicht trotz Fehlern und Erfahrungen, sondern häufig durch ihre Reflexion.",
+        "Risikobewusstsein entwickelt sich durch die kritische Reflexion eigener Fehler und Erfahrungen.",
       accessibleSummary:
         "Dies ist ein heuristisches Muster, kein statistisches Modell und kein universeller Entwicklungsweg für alle Athleten.",
       states: [

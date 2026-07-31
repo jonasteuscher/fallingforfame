@@ -102,8 +102,8 @@ export function SafetyNetworkSection({
       aria-labelledby={`${chapter.id}-title`}
       className="scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
-        <header className="min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
+      <div className="safety-network-inner mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
+        <header className="safety-network-copy min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
           <p
             className={revealClass(hasEntered)}
             style={{ animationDelay: "0ms" }}
@@ -131,7 +131,7 @@ export function SafetyNetworkSection({
           </p>
         </header>
 
-        <div className="min-w-0 space-y-8">
+        <div className="safety-network-content min-w-0 space-y-8">
           <SafetyNetworkVisual
             chapter={chapter}
             isGerman={isGerman}
@@ -160,8 +160,8 @@ function SafetyNetworkVisual({
   hasEntered: boolean;
 }) {
   return (
-    <div className="space-y-6">
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5" aria-label={chapter.navLabel}>
+    <div className="safety-network-visual space-y-6">
+      <ul className="safety-network-nodes grid gap-3 sm:grid-cols-2 lg:grid-cols-5" aria-label={chapter.navLabel}>
         {chapter.layers?.map((node, index) => (
           <li
             key={node}
@@ -169,6 +169,7 @@ function SafetyNetworkVisual({
             aria-label={node}
             className={[
               "grid min-h-20 place-items-center border border-border bg-surface/54 p-3 text-center font-semibold uppercase leading-tight text-foreground/74 transition-colors duration-300 hover:border-foreground/34 hover:text-foreground focus-visible:border-primary focus-visible:text-foreground motion-reduce:opacity-100 motion-reduce:transform-none",
+              "safety-network-node",
               hasEntered ? "network-node-reveal" : "motion-safe:translate-y-4 motion-safe:scale-[0.96] motion-safe:opacity-0",
               isGerman
                 ? "px-3 text-[0.7rem] tracking-[0.08em] [hyphens:none] [overflow-wrap:normal] [text-wrap:balance] [word-break:normal]"
@@ -183,7 +184,7 @@ function SafetyNetworkVisual({
       </ul>
       <div
         className={[
-          "grid items-stretch gap-5 md:grid-cols-2",
+          "safety-network-state-grid grid items-stretch gap-5 md:grid-cols-2",
           revealClass(hasEntered),
         ].join(" ")}
         style={{ animationDelay: `${PANEL_REVEAL_DELAY}ms` }}
@@ -192,7 +193,7 @@ function SafetyNetworkVisual({
           side ? (
             <article
               key={side.title}
-              className="flex h-full min-h-[17.5rem] flex-col border border-border/92 bg-surface/58 p-5 sm:p-7"
+              className="safety-network-state-card flex h-full min-h-[17.5rem] flex-col border border-border/92 bg-surface/58 p-5 sm:p-7"
             >
               <h3 className="text-2xl font-semibold uppercase leading-tight text-foreground">
                 {isGerman ? renderGermanNetworkStateTitle(side.title) : side.title}
@@ -232,7 +233,7 @@ function SafetyNetworkSummary({
   return (
     <aside
       className={[
-        "border border-border bg-background/72 p-5 sm:p-7",
+        "safety-network-summary border border-border bg-background/72 p-5 sm:p-7",
         revealClass(hasEntered),
       ].join(" ")}
       style={{ animationDelay: `${SUMMARY_REVEAL_DELAY}ms` }}

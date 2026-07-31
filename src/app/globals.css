@@ -641,6 +641,115 @@ audio {
 }
 
 @media (min-width: 1024px) and (max-width: 1536px), (min-width: 1024px) and (max-height: 900px) {
+  .findings-page {
+    --community-laptop-gutter: clamp(2.5rem, 4vw, 4rem);
+    --community-laptop-max-width: 72rem;
+  }
+
+  .findings-page #community {
+    padding-left: var(--community-laptop-gutter) !important;
+    padding-right: var(--community-laptop-gutter) !important;
+  }
+
+  .findings-page #community .safety-network-inner {
+    width: min(100%, var(--community-laptop-max-width)) !important;
+    max-width: var(--community-laptop-max-width) !important;
+    margin-inline: auto !important;
+    grid-template-columns: minmax(22rem, 0.82fr) minmax(0, 1.18fr) !important;
+    gap: clamp(3.5rem, 5vw, 5rem) !important;
+  }
+
+  .findings-page #community .safety-network-copy,
+  .findings-page #community .safety-network-content,
+  .findings-page #community .safety-network-visual,
+  .findings-page #community .safety-network-summary {
+    min-width: 0;
+  }
+
+  .findings-page #community .safety-network-copy h2:not(.sr-only) {
+    font-size: clamp(3.2rem, 5vw, 5.25rem) !important;
+    line-height: 0.9 !important;
+    max-width: min(100%, 8.6ch) !important;
+    text-wrap: balance;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .findings-page #community .safety-network-copy p:last-child {
+    max-width: 42ch !important;
+    font-size: clamp(0.95rem, 1.2vw, 1.08rem) !important;
+    line-height: 1.65 !important;
+  }
+
+  .findings-page #community .safety-network-content {
+    max-width: 100%;
+  }
+
+  .findings-page #community .safety-network-nodes {
+    gap: 0.65rem !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+
+  .findings-page #community .safety-network-node {
+    min-height: 4.55rem !important;
+    padding: 0.65rem 0.5rem !important;
+    font-size: 0.64rem !important;
+    line-height: 1.12 !important;
+    letter-spacing: 0.075em !important;
+  }
+
+  .findings-page #community .safety-network-state-grid {
+    gap: 1rem !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .findings-page #community .safety-network-state-card {
+    min-height: 16rem !important;
+    padding: clamp(1.15rem, 2vw, 1.55rem) !important;
+  }
+
+  .findings-page #community .safety-network-state-card h3 {
+    font-size: clamp(1.35rem, 2vw, 1.7rem) !important;
+  }
+
+  .findings-page #community .safety-network-state-card li {
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .findings-page #community .safety-network-summary {
+    width: 100%;
+    max-width: 100% !important;
+    padding: clamp(1.25rem, 2vw, 1.6rem) !important;
+  }
+
+  .findings-page #community .safety-network-summary > div {
+    grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr) !important;
+    gap: clamp(1.5rem, 3vw, 2.25rem) !important;
+  }
+
+  .findings-page #community .safety-network-summary p {
+    line-height: 1.65 !important;
+  }
+
+  .findings-page .site-section-nav {
+    right: 0.65rem !important;
+    padding: 0.35rem !important;
+  }
+
+  .findings-page .site-section-nav a {
+    min-height: 2rem !important;
+    min-width: 2rem !important;
+    gap: 0.45rem !important;
+    padding-inline: 0.3rem !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .findings-page .site-section-nav a span:last-child {
+    max-width: 6.5rem !important;
+  }
+
   .findings-page #no-jump .no-jump-sticky-inner {
     grid-template-rows: auto minmax(0, 1fr) !important;
     gap: clamp(0.75rem, 1.8svh, 1.5rem) !important;
@@ -761,6 +870,70 @@ audio {
 }
 
 @media (min-width: 1024px) and (max-width: 1366px), (min-width: 1024px) and (max-height: 800px) {
+  .findings-page {
+    --community-laptop-gutter: clamp(2rem, 3.4vw, 3rem);
+    --community-laptop-max-width: 66rem;
+  }
+
+  .findings-page #community {
+    padding-left: var(--community-laptop-gutter) !important;
+    padding-right: var(--community-laptop-gutter) !important;
+  }
+
+  .findings-page #community .safety-network-inner {
+    width: min(100%, var(--community-laptop-max-width)) !important;
+    max-width: var(--community-laptop-max-width) !important;
+    margin-inline: auto !important;
+    grid-template-columns: minmax(20rem, 0.8fr) minmax(0, 1.2fr) !important;
+    gap: clamp(3rem, 4.5vw, 4rem) !important;
+  }
+
+  .findings-page #community .safety-network-copy h2:not(.sr-only) {
+    font-size: clamp(2.9rem, 4.7vw, 4.25rem) !important;
+    max-width: min(100%, 8.6ch) !important;
+  }
+
+  .findings-page #community .safety-network-nodes {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.55rem !important;
+  }
+
+  .findings-page #community .safety-network-node {
+    min-height: 4.2rem !important;
+    padding: 0.55rem 0.42rem !important;
+    font-size: 0.6rem !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0.065em !important;
+  }
+
+  .findings-page #community .safety-network-state-grid {
+    gap: 0.85rem !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .findings-page #community .safety-network-state-card {
+    min-height: 14.5rem !important;
+    padding: 1rem !important;
+  }
+
+  .findings-page #community .safety-network-state-card h3 {
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem) !important;
+  }
+
+  .findings-page #community .safety-network-state-card li {
+    font-size: 0.84rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .findings-page #community .safety-network-summary {
+    padding: 1.1rem !important;
+  }
+
+  .findings-page #community .safety-network-summary > div {
+    grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr) !important;
+    gap: 1.25rem !important;
+  }
+
   .findings-page #no-jump .no-jump-sticky-inner {
     gap: 0.7rem !important;
     padding-top: 0.9rem !important;
@@ -832,6 +1005,31 @@ audio {
     padding-inline: 0.25rem !important;
     font-size: 0.58rem !important;
     letter-spacing: 0.12em !important;
+  }
+
+  .findings-page .site-section-nav a span:last-child {
+    display: none !important;
+  }
+
+  .findings-page .site-section-nav a[aria-current="location"] span:last-child {
+    display: inline !important;
+    max-width: 6.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1130px) {
+  .findings-page #community .safety-network-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 2.5rem !important;
+  }
+
+  .findings-page #community .safety-network-copy {
+    position: static !important;
+    max-height: none !important;
+  }
+
+  .findings-page #community .safety-network-copy h2:not(.sr-only) {
+    max-width: min(100%, 12ch) !important;
   }
 }
 
