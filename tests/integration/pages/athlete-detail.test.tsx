@@ -89,7 +89,7 @@ describe("athlete detail page", () => {
       expect(screen.getByText("BASE since")).toBeVisible();
       expect(screen.getByText("BASE jumps")).toBeVisible();
       expect(screen.getByText("Skydives")).toBeVisible();
-      expect(screen.getByText("Reach")).toBeVisible();
+      expect(screen.getByText("Audience")).toBeVisible();
       expect(screen.getByText("Sponsorship")).toBeVisible();
       expect(screen.getByRole("heading", { name: "From Profile To Findings" }))
         .toBeVisible();
@@ -506,7 +506,7 @@ describe("athlete detail page", () => {
     ).toBeVisible();
     expect(screen.getByRole("link", { name: "Planning first" }))
       .toHaveAttribute("href", "#planning-comes-first");
-    expect(screen.getByRole("link", { name: "Social media & sponsorship" }))
+    expect(screen.getByRole("link", { name: "Social media" }))
       .toHaveAttribute("href", "#audio-story");
     expect(screen.getByRole("link", { name: "World Record" })).toHaveAttribute(
       "href",
@@ -629,7 +629,7 @@ describe("athlete detail page", () => {
     ).toBeVisible();
     expect(screen.getByRole("link", { name: "Planung zuerst" }))
       .toHaveAttribute("href", "#planning-comes-first");
-    expect(screen.getByRole("link", { name: "Social Media & Sponsoring" }))
+    expect(screen.getByRole("link", { name: "Social Media" }))
       .toHaveAttribute("href", "#audio-story");
     expect(screen.getByRole("link", { name: "Nicht springen" }))
       .toHaveAttribute("href", "#the-mountain-will-still-be-here");
