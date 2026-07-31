@@ -226,8 +226,6 @@ src/
 tests/
   integration/                Page and navigation integration tests
   unit/                       Component and data unit tests
-docs/
-  athlete-page-reference.md   Athlete page architecture rules
 public/
   images/                     Static image assets
   audio/                      Static audio assets
@@ -295,12 +293,6 @@ Supported section types include interview video, audio story, scroll video,
 project feature, gallery, social links and media coverage. New section types
 should only be added when the content cannot be represented by an existing
 shared module.
-
-Read the full reference before adding or changing athlete pages:
-
-```text
-docs/athlete-page-reference.md
-```
 
 ## Media
 
