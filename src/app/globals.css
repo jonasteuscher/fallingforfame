@@ -867,6 +867,118 @@ audio {
     font-size: clamp(1.25rem, 2vw, 1.7rem) !important;
     line-height: 1.12 !important;
   }
+
+  .findings-page #synthesis {
+    overflow: visible !important;
+    padding-left: var(--findings-laptop-gutter) !important;
+    padding-right: var(--findings-laptop-gutter) !important;
+  }
+
+  .findings-page #synthesis .synthesis-inner {
+    width: min(100%, 72rem) !important;
+    max-width: 72rem !important;
+    margin-inline: auto !important;
+    grid-template-columns: minmax(18rem, 0.4fr) minmax(0, 0.6fr) !important;
+    gap: clamp(2.75rem, 4.5vw, 4.5rem) !important;
+    align-items: start;
+  }
+
+  .findings-page #synthesis .synthesis-copy {
+    top: calc(var(--site-header-height) + 1rem) !important;
+    max-height: calc(100svh - var(--site-header-height) - 2rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-copy h2:not(.sr-only) {
+    max-width: min(100%, 12ch) !important;
+    font-size: clamp(3.15rem, 5vw, 5.2rem) !important;
+    line-height: 0.88 !important;
+  }
+
+  .findings-page #synthesis .synthesis-copy p:last-child {
+    max-width: 36ch !important;
+    font-size: clamp(0.95rem, 1.12vw, 1.05rem) !important;
+    line-height: 1.62 !important;
+  }
+
+  .findings-page #synthesis .synthesis-model-column {
+    min-width: 0;
+    max-width: min(100%, 38rem);
+    justify-self: stretch;
+    padding-top: clamp(0.35rem, 1.2svh, 0.85rem);
+  }
+
+  .findings-page #synthesis .synthesis-model-list {
+    gap: clamp(0.85rem, 1.35svh, 1.1rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage {
+    grid-template-columns: 3.4rem minmax(0, 1fr) !important;
+    gap: 1rem !important;
+    padding: clamp(1rem, 1.55vw, 1.35rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage-number {
+    height: 2.8rem !important;
+    width: 2.8rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage h3 {
+    font-size: clamp(1.18rem, 1.72vw, 1.5rem) !important;
+    line-height: 1.02 !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage.is-core h3 {
+    font-size: clamp(1.35rem, 2.05vw, 1.7rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage p:last-child {
+    margin-top: 0.62rem !important;
+    max-width: 48ch !important;
+    font-size: clamp(0.88rem, 1.05vw, 0.96rem) !important;
+    line-height: 1.55 !important;
+  }
+
+  .findings-page #synthesis .synthesis-practice {
+    grid-column: 2 / 3;
+    width: 100%;
+    max-width: none;
+    margin-top: clamp(3rem, 6svh, 4.5rem) !important;
+    padding-bottom: clamp(4rem, 8svh, 6rem);
+    overflow: visible;
+  }
+
+  .findings-page #synthesis .synthesis-practice-inner {
+    width: min(100%, 52rem);
+    margin-inline: 0 auto;
+  }
+
+  .findings-page #synthesis .synthesis-transition {
+    max-width: 58ch !important;
+    margin-inline: 0 auto;
+    font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+    line-height: 1.65;
+  }
+
+  .findings-page #synthesis .synthesis-practice-label {
+    margin-top: clamp(2rem, 4svh, 3rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-practice-grid {
+    width: min(100%, 52rem);
+    margin-inline: 0 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: clamp(1rem, 1.8vw, 1.25rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-practice-card {
+    min-width: 0;
+    padding: clamp(1rem, 1.5vw, 1.25rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-practice-card p {
+    line-height: 1.6 !important;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1366px), (min-width: 1024px) and (max-height: 800px) {
@@ -994,6 +1106,73 @@ audio {
     font-size: clamp(1.05rem, 1.8vw, 1.35rem) !important;
   }
 
+  .findings-page #synthesis .synthesis-inner {
+    width: min(100%, 64rem) !important;
+    max-width: 64rem !important;
+    grid-template-columns: minmax(16rem, 0.38fr) minmax(0, 0.62fr) !important;
+    gap: clamp(2rem, 3.6vw, 3.25rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-copy h2:not(.sr-only) {
+    font-size: clamp(2.75rem, 4.6vw, 4.2rem) !important;
+    max-width: min(100%, 12ch) !important;
+  }
+
+  .findings-page #synthesis .synthesis-copy p:last-child {
+    max-width: 32ch !important;
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .findings-page #synthesis .synthesis-model-column {
+    max-width: min(100%, 34rem);
+    padding-top: 0.45rem;
+  }
+
+  .findings-page #synthesis .synthesis-model-list {
+    gap: 0.68rem !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage {
+    grid-template-columns: 3rem minmax(0, 1fr) !important;
+    gap: 0.85rem !important;
+    padding: 0.9rem !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage-number {
+    height: 2.45rem !important;
+    width: 2.45rem !important;
+    font-size: 0.72rem !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage h3 {
+    font-size: clamp(1.05rem, 1.6vw, 1.28rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage.is-core h3 {
+    font-size: clamp(1.18rem, 1.85vw, 1.45rem) !important;
+  }
+
+  .findings-page #synthesis .synthesis-stage p:last-child {
+    margin-top: 0.48rem !important;
+    font-size: 0.84rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .findings-page #synthesis .synthesis-practice {
+    margin-top: clamp(2.5rem, 5svh, 3.5rem) !important;
+    padding-bottom: clamp(3.75rem, 7svh, 5rem);
+  }
+
+  .findings-page #synthesis .synthesis-practice-inner,
+  .findings-page #synthesis .synthesis-practice-grid {
+    width: min(100%, 44rem);
+  }
+
+  .findings-page #synthesis .synthesis-practice-card {
+    padding: 1rem !important;
+  }
+
   .findings-page .site-section-nav {
     right: 0.35rem !important;
     padding: 0.35rem !important;
@@ -1014,6 +1193,22 @@ audio {
   .findings-page .site-section-nav a[aria-current="location"] span:last-child {
     display: inline !important;
     max-width: 6.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .findings-page #synthesis .synthesis-practice {
+    grid-column: 1 / -1;
+  }
+
+  .findings-page #synthesis .synthesis-practice-inner,
+  .findings-page #synthesis .synthesis-practice-grid {
+    width: min(100%, 38rem);
+    margin-inline: auto;
+  }
+
+  .findings-page #synthesis .synthesis-practice-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 }
 

@@ -14,6 +14,7 @@ type SynthesisSectionProps = {
 const MODEL_REVEAL_DELAY = 700;
 const MODEL_STAGGER = 420;
 const EXAMPLES_REVEAL_DELAY = MODEL_REVEAL_DELAY + MODEL_STAGGER * 5 + 650;
+const TRANSITION_REVEAL_DELAY = EXAMPLES_REVEAL_DELAY - 250;
 
 const synthesisCopy = {
   en: {
@@ -108,11 +109,11 @@ export function SynthesisSection({ chapter, locale }: SynthesisSectionProps) {
       id={chapter.id}
       ref={sectionRef}
       aria-labelledby={`${chapter.id}-title`}
-      className="scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
+      className="synthesis-section scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
       <p className="sr-only">{chapter.accessibleSummary}</p>
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
-        <header className="min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
+      <div className="synthesis-inner mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
+        <header className="synthesis-copy min-w-0 lg:sticky lg:top-24 lg:row-span-2 lg:max-h-[calc(100svh-7rem)] lg:self-start">
           <p
             className={revealClass(hasEntered)}
             style={{ animationDelay: "0ms" }}
@@ -140,10 +141,10 @@ export function SynthesisSection({ chapter, locale }: SynthesisSectionProps) {
           </p>
         </header>
 
-        <div className="min-w-0">
+        <div className="synthesis-model-column min-w-0">
           <SynthesisModel chapter={chapter} hasEntered={hasEntered} locale={locale} />
-          <SynthesisExamples chapter={chapter} hasEntered={hasEntered} locale={locale} />
         </div>
+        <SynthesisExamples chapter={chapter} hasEntered={hasEntered} locale={locale} />
       </div>
     </section>
   );
@@ -162,7 +163,7 @@ function SynthesisModel({
 
   return (
     <div className="relative">
-      <ol className="relative grid gap-5" aria-label={chapter.navLabel}>
+      <ol className="synthesis-model-list relative grid gap-5" aria-label={chapter.navLabel}>
         <span
           className="absolute left-6 top-8 hidden h-[calc(100%-4rem)] w-px bg-border/70 sm:block"
           aria-hidden="true"
@@ -174,15 +175,15 @@ function SynthesisModel({
             <li
               key={state.title}
               className={[
-                "relative grid gap-4 border bg-surface/50 p-5 sm:grid-cols-[4rem_1fr] sm:p-6",
+                "synthesis-stage relative grid gap-4 border bg-surface/50 p-5 sm:grid-cols-[4rem_1fr] sm:p-6",
                 isCore
-                  ? "border-primary/76 bg-background/72"
+                  ? "is-core border-primary/76 bg-background/72"
                   : "border-border/78",
                 revealClass(hasEntered),
               ].join(" ")}
               style={{ animationDelay: `${MODEL_REVEAL_DELAY + index * MODEL_STAGGER}ms` }}
             >
-              <div className="relative z-10 flex h-12 w-12 items-center justify-center border border-primary bg-background text-sm font-semibold tracking-[0.18em] text-primary">
+              <div className="synthesis-stage-number relative z-10 flex h-12 w-12 items-center justify-center border border-primary bg-background text-sm font-semibold tracking-[0.18em] text-primary">
                 {String(index + 1).padStart(2, "0")}
               </div>
               <div className={isCore ? "py-1" : ""}>
@@ -207,15 +208,6 @@ function SynthesisModel({
           );
         })}
       </ol>
-      <p
-        className={[
-          "mt-8 max-w-[58ch] border-l border-primary pl-5 leading-7 text-foreground/70",
-          revealClass(hasEntered),
-        ].join(" ")}
-        style={{ animationDelay: `${EXAMPLES_REVEAL_DELAY - 250}ms` }}
-      >
-        {copy.transition}
-      </p>
     </div>
   );
 }
@@ -230,29 +222,47 @@ function SynthesisExamples({
   locale: Locale;
 }) {
   const label = synthesisCopy[locale].examplesLabel;
+  const transition = synthesisCopy[locale].transition;
 
   return (
-    <div
-      className={[
-        "mt-12",
-        revealClass(hasEntered),
-      ].join(" ")}
-      style={{ animationDelay: `${EXAMPLES_REVEAL_DELAY}ms` }}
-    >
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-        {label}
-      </p>
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        {chapter.paths?.map((path) => (
-          <article key={path.title} className="border border-border/72 bg-background/42 p-4">
-            <h3 className="text-base font-semibold uppercase leading-snug tracking-[0.08em] text-foreground">
-              {path.title}
-            </h3>
-            <p className="mt-4 text-sm leading-6 text-foreground/68">
-              {path.steps.join(" -> ")}
-            </p>
-          </article>
-        ))}
+    <div className="synthesis-practice mt-12">
+      <div className="synthesis-practice-inner">
+        <p
+          className={[
+            "synthesis-transition max-w-[58ch] border-l border-primary pl-5 leading-7 text-foreground/70",
+            revealClass(hasEntered),
+          ].join(" ")}
+          style={{ animationDelay: `${TRANSITION_REVEAL_DELAY}ms` }}
+        >
+          {transition}
+        </p>
+        <p
+          className={[
+            "synthesis-practice-label mt-10 text-xs font-semibold uppercase tracking-[0.18em] text-primary",
+            revealClass(hasEntered),
+          ].join(" ")}
+          style={{ animationDelay: `${EXAMPLES_REVEAL_DELAY}ms` }}
+        >
+          {label}
+        </p>
+        <div
+          className={[
+            "synthesis-practice-grid mt-5 grid gap-4 md:grid-cols-2",
+            revealClass(hasEntered),
+          ].join(" ")}
+          style={{ animationDelay: `${EXAMPLES_REVEAL_DELAY + 180}ms` }}
+        >
+          {chapter.paths?.map((path) => (
+            <article key={path.title} className="synthesis-practice-card border border-border/72 bg-background/42 p-4">
+              <h3 className="text-base font-semibold uppercase leading-snug tracking-[0.08em] text-foreground">
+                {path.title}
+              </h3>
+              <p className="mt-4 text-sm leading-6 text-foreground/68">
+                {path.steps.join(" -> ")}
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   );
