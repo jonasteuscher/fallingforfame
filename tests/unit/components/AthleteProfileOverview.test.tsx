@@ -19,6 +19,7 @@ const enLabels = {
   skydives: "Skydives",
   reach: "Reach",
   sponsorship: "Sponsorship",
+  statsNote: "(as of Spring 2026)",
   unknown: "Unknown",
   yes: "Yes",
   no: "No",
@@ -35,6 +36,7 @@ const deLabels = {
   skydives: "Skydives",
   reach: "Reichweite",
   sponsorship: "Sponsoring",
+  statsNote: "(Stand Frühjahr 2026)",
   unknown: "Unbekannt",
   yes: "Ja",
   no: "Nein",
@@ -68,6 +70,7 @@ describe("AthleteProfileOverview", () => {
     expect(screen.getByText("Terminal")).toBeVisible();
     expect(screen.getByText("Wingsuit")).toBeVisible();
     expect(screen.getByText("Tracking")).toBeVisible();
+    expect(screen.getByText("(as of Spring 2026)")).toBeVisible();
     expect(container.querySelectorAll("dl")[1]?.querySelectorAll("dt")).toHaveLength(5);
   });
 
@@ -145,7 +148,31 @@ describe("AthleteProfileOverview", () => {
     );
 
     expect(screen.getByText("Portrait media pending")).toBeVisible();
-    expect(screen.getAllByText("Unknown")).toHaveLength(5);
+    expect(screen.getByText("None")).toBeInTheDocument();
+    expect(screen.getAllByText("Unknown")).toHaveLength(4);
+  });
+
+  it("uses the German audience fallback and stats note", () => {
+    const athlete: Athlete = {
+      ...athleteFixture("marcel-geser"),
+      experience: {
+        ...athleteFixture("marcel-geser").experience,
+        socialMediaReach: null,
+      },
+    };
+
+    render(
+      <AthleteProfileOverview
+        athlete={athlete}
+        locale="de"
+        labels={deLabels}
+        portraitAlt="Marcel Geser mit Helm"
+        portraitPlaceholder="Portraitmedien ausstehend"
+      />,
+    );
+
+    expect(screen.getByText("Keine")).toBeInTheDocument();
+    expect(screen.getByText("(Stand Frühjahr 2026)")).toBeVisible();
   });
 
   it("includes responsive grid classes for desktop and compact breakpoints", () => {

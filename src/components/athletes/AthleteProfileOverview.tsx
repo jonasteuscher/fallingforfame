@@ -24,6 +24,7 @@ type AthleteProfileOverviewLabels = {
   skydives: string;
   reach: string;
   sponsorship: string;
+  statsNote: string;
   unknown: string;
   yes: string;
   no: string;
@@ -153,15 +154,21 @@ export function AthleteProfileOverview({
             </div>
           </div>
 
-          <AthleteExperienceStats metrics={metrics} />
+          <AthleteExperienceStats metrics={metrics} note={labels.statsNote} />
         </div>
       </div>
     </section>
   );
 }
 
-function AthleteExperienceStats({ metrics }: { metrics: ExperienceMetric[] }) {
-  const ref = useRef<HTMLDListElement | null>(null);
+function AthleteExperienceStats({
+  metrics,
+  note,
+}: {
+  metrics: ExperienceMetric[];
+  note: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const lastRowStartIndex = metrics.length - (metrics.length % 2 || 2);
 
@@ -197,35 +204,41 @@ function AthleteExperienceStats({ metrics }: { metrics: ExperienceMetric[] }) {
   }, []);
 
   return (
-    <dl
+    <div
       ref={ref}
-      className="grid min-w-0 gap-x-8 border-y border-border min-[420px]:grid-cols-2 lg:mt-1"
+      className="relative min-w-0 border-y border-border pb-7 lg:mt-1"
     >
-      {metrics.map((metric, index) => (
-        <div
-          key={metric.id}
-          className={[
-            "min-w-0 border-border py-6 min-[420px]:odd:border-r min-[420px]:odd:pr-8 min-[420px]:even:pl-8",
-            index < metrics.length - 1 ? "border-b" : "",
-            index >= lastRowStartIndex ? "min-[420px]:border-b-0" : "",
-          ].join(" ")}
-        >
-          <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground/54">
-            {metric.label}
-          </dt>
-          <dd
-            className="mt-3 max-w-full break-words text-[clamp(2rem,4.2vw,3.75rem)] font-semibold leading-none text-foreground [overflow-wrap:anywhere] transition duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(0.75rem)",
-              transitionDelay: `${index * 90}ms`,
-            }}
+      <dl className="grid min-w-0 gap-x-8 min-[420px]:grid-cols-2">
+        {metrics.map((metric, index) => (
+          <div
+            key={metric.id}
+            className={[
+              "min-w-0 border-border py-6 min-[420px]:odd:border-r min-[420px]:odd:pr-8 min-[420px]:even:pl-8",
+              metric.id === "reach" ? "flex flex-col" : "",
+              index < metrics.length - 1 ? "border-b" : "",
+              index >= lastRowStartIndex ? "min-[420px]:border-b-0" : "",
+            ].join(" ")}
           >
-            <AnimatedStat metric={metric} isVisible={isVisible} />
-          </dd>
-        </div>
-      ))}
-    </dl>
+            <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground/54">
+              {metric.label}
+            </dt>
+            <dd
+              className="mt-3 max-w-full break-words text-[clamp(2rem,4.2vw,3.75rem)] font-semibold leading-none text-foreground [overflow-wrap:anywhere] transition duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "translateY(0)" : "translateY(0.75rem)",
+                transitionDelay: `${index * 90}ms`,
+              }}
+            >
+              <AnimatedStat metric={metric} isVisible={isVisible} />
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p className="absolute bottom-3 right-0 text-right text-sm font-medium leading-none text-foreground/78">
+        {note}
+      </p>
+    </div>
   );
 }
 
@@ -325,7 +338,7 @@ function createExperienceMetrics(
       labels.reach,
       experience.socialMediaReach,
       locale,
-      labels.unknown,
+      locale === "de" ? "Keine" : "None",
       "+",
     ),
     {
@@ -345,7 +358,7 @@ function createNumericMetric(
   suffix = "",
   ungrouped = false,
 ): ExperienceMetric {
-  if (value === null) {
+  if (value == null) {
     return {
       id,
       label,

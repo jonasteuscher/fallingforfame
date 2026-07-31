@@ -182,7 +182,7 @@ The site uses locale-prefixed routes:
 /de/findings
 /de/sport
 /de/project
-/de/impressum
+/de/imprint
 
 /sitemap.xml
 ```

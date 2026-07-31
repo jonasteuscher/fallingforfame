@@ -722,7 +722,8 @@ describe("athlete detail page", () => {
     expect(screen.getByText("850+")).toBeInTheDocument();
     expect(screen.getByText("1,500+")).toBeInTheDocument();
     await waitFor(() => expect(screen.getByText("No")).toBeVisible());
-    expect(screen.getAllByText("Unknown")).toHaveLength(1);
+    expect(screen.getByText("None")).toBeInTheDocument();
+    expect(screen.getByText("(as of Spring 2026)")).toBeVisible();
     expect(screen.getByText("Where It All Began")).toBeVisible();
     expect(
       screen.getByRole("heading", { name: "Discovering a passion for flight" }),
@@ -860,7 +861,8 @@ describe("athlete detail page", () => {
     ).toBeVisible();
     expect(screen.getByRole("link", { name: "Erkenntnisse öffnen" }))
       .toHaveAttribute("href", "/de/findings");
-    expect(screen.getAllByText("Unbekannt")).toHaveLength(1);
+    expect(screen.getByText("Keine")).toBeInTheDocument();
+    expect(screen.getByText("(Stand Frühjahr 2026)")).toBeVisible();
   });
 
   it("renders formatted reach and sponsorship information", async () => {

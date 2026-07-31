@@ -29,6 +29,7 @@ const pageLabels = {
       skydives: "Skydives",
       reach: "Audience",
       sponsorship: "Sponsorship",
+      statsNote: "(as of Spring 2026)",
     },
     profileMeta: {
       age: "Age",
@@ -89,6 +90,7 @@ const pageLabels = {
       skydives: "Skydives",
       reach: "Reichweite",
       sponsorship: "Sponsoring",
+      statsNote: "(Stand Frühjahr 2026)",
     },
     profileMeta: {
       age: "Alter",
@@ -200,6 +202,7 @@ export default async function AthletePage({ params }: AthletePageProps) {
           skydives: labels.profileOverview.skydives,
           reach: labels.profileOverview.reach,
           sponsorship: labels.profileOverview.sponsorship,
+          statsNote: labels.profileOverview.statsNote,
           profession: labels.profileMeta.profession,
           role: labels.profileMeta.role,
           disciplines: labels.profileMeta.disciplines,

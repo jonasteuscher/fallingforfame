@@ -23,11 +23,9 @@ export async function generateMetadata({
 
 export default async function ImprintPage({ params }: ImprintPageProps) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
-
-  if (locale !== "en") {
+  if (!isLocale(rawLocale)) {
     notFound();
   }
 
-  return <ImprintPageContent content={getDictionary(locale).site.imprint} />;
+  return <ImprintPageContent content={getDictionary(rawLocale).site.imprint} />;
 }
