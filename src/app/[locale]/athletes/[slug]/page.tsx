@@ -27,7 +27,7 @@ const pageLabels = {
       baseSince: "BASE since",
       baseJumps: "BASE jumps",
       skydives: "Skydives",
-      reach: "Reach",
+      reach: "Audience",
       sponsorship: "Sponsorship",
     },
     profileMeta: {

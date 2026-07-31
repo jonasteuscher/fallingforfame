@@ -163,6 +163,7 @@ export function AthleteProfileOverview({
 function AthleteExperienceStats({ metrics }: { metrics: ExperienceMetric[] }) {
   const ref = useRef<HTMLDListElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const lastRowStartIndex = metrics.length - (metrics.length % 2 || 2);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -203,7 +204,11 @@ function AthleteExperienceStats({ metrics }: { metrics: ExperienceMetric[] }) {
       {metrics.map((metric, index) => (
         <div
           key={metric.id}
-          className="min-w-0 border-b border-border py-6 last:border-b-0 min-[420px]:odd:border-r min-[420px]:odd:pr-8 min-[420px]:even:pl-8 min-[420px]:[&:nth-last-child(-n+2)]:border-b-0"
+          className={[
+            "min-w-0 border-border py-6 min-[420px]:odd:border-r min-[420px]:odd:pr-8 min-[420px]:even:pl-8",
+            index < metrics.length - 1 ? "border-b" : "",
+            index >= lastRowStartIndex ? "min-[420px]:border-b-0" : "",
+          ].join(" ")}
         >
           <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground/54">
             {metric.label}

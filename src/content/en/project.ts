@@ -53,7 +53,7 @@ export const project = {
     title: "Motivation behind the project",
     blocks: [
       "In 2019, I completed my first skydive. What began as a one-time experience quickly developed into a lasting fascination with sports that are often perceived from the outside only through risk. With growing experience, I began to understand that there is far more behind these activities than adrenaline: training, preparation, responsibility and a strong safety culture.",
-      "At the same time, I noticed how strongly social media shapes the way these sports are perceived. What usually becomes visible are the most spectacular seconds of a jump. What often remains invisible are the preparation, the decision-making processes and the people behind the images. This raised the question of how athletes themselves deal with visibility, reach and public attention.",
+      "At the same time, I noticed how strongly social media shapes the way these sports are perceived. What usually becomes visible are the most spectacular seconds of a jump. What often remains invisible are the preparation, the decision-making processes and the people behind the images. This raised the question of how athletes themselves deal with visibility, audience growth and public attention.",
       "From this observation, the research question of this project gradually emerged. Falling for Fame? combines academic research and documentary storytelling to create a more nuanced view of BASE jumping. Not in search of spectacle, but in search of the stories, decisions and perspectives behind the images.",
     ],
     quote:
