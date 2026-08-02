@@ -302,6 +302,7 @@ function MediaVisibilityFrame({
         src={media.src}
         alt={media.alt}
         fill
+        loading="eager"
         sizes="(max-width: 1024px) 100vw, 64vw"
         className="object-cover"
         style={{
@@ -436,7 +437,8 @@ function MobileVisibilitySequence({
           src={media.src}
           alt={media.alt}
           fill
-          sizes="100vw"
+          loading="eager"
+          sizes="(max-width: 767px) calc(100vw - 2rem), 100vw"
           className="object-cover"
           style={{ objectPosition: media.objectPosition ?? "58% 34%" }}
         />
@@ -542,7 +544,8 @@ function ReducedMotionVisibilitySequence({
             src={media.src}
             alt={media.alt}
             fill
-            sizes="100vw"
+            loading="eager"
+            sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1279px) calc(100vw - 3rem), 80rem"
             className="object-cover"
             style={{ objectPosition: media.objectPosition ?? "48% 36%" }}
           />

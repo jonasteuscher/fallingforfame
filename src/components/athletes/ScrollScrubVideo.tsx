@@ -156,19 +156,8 @@ function ScrollScrubSection({
       return;
     }
 
-    const preloadLink = document.createElement("link");
-    preloadLink.rel = "preload";
-    preloadLink.as = "video";
-    preloadLink.href = video.video.src;
-    preloadLink.type = video.video.type;
-    document.head.appendChild(preloadLink);
-
     videoRef.current?.load();
-
-    return () => {
-      preloadLink.remove();
-    };
-  }, [sourceEnabled, video.video.src, video.video.type]);
+  }, [sourceEnabled]);
 
   useEffect(() => {
     if (mode !== "scrub") {

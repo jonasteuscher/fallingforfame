@@ -104,15 +104,17 @@ export function FindingsHero({ content }: FindingsHeroProps) {
       aria-labelledby="findings-hero-title"
     >
       <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
-        <Image
-          src={content.hero.media.src}
-          alt={content.hero.media.alt}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[43%_35%] will-change-transform sm:object-[46%_35%] lg:object-[48%_36%]"
-          style={{ transform: `scale(${mediaScale})` }}
-        />
+        <div className="relative h-full w-full">
+          <Image
+            src={content.hero.media.src}
+            alt={content.hero.media.alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[43%_35%] will-change-transform sm:object-[46%_35%] lg:object-[48%_36%]"
+            style={{ transform: `scale(${mediaScale})` }}
+          />
+        </div>
         <div
           className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--background)_74%,transparent)_0%,color-mix(in_srgb,var(--background)_34%,transparent)_34%,transparent_68%)]"
           style={{ opacity: textGradientOpacity }}
