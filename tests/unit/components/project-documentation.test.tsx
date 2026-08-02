@@ -90,14 +90,17 @@ describe("project documentation components", () => {
     expect(
       screen.getByRole("heading", { name: "Documentary research in practice" }),
     ).toBeVisible();
-    expect(screen.getByText("A concise introduction to the practical research process."))
-      .toBeVisible();
-    expect(screen.getByText("The subject needed more than written explanation."))
-      .toBeVisible();
+    expect(
+      screen.getByText("A concise introduction to the practical research process."),
+    ).toBeVisible();
+    expect(
+      screen.getByText("The subject needed more than written explanation."),
+    ).toBeVisible();
     expect(screen.getByText("The athletes shaped the story.")).toBeVisible();
     expect(screen.getByText("A practical research workflow.")).toBeVisible();
-    expect(screen.getByText("The website lets the research unfold through interaction."))
-      .toBeVisible();
+    expect(
+      screen.getByText("The website lets the research unfold through interaction."),
+    ).toBeVisible();
     expect(screen.getByText("03 images")).toBeVisible();
     expect(screen.getByText(/Research became documentary/)).toBeVisible();
   });
@@ -107,17 +110,16 @@ describe("project documentation components", () => {
     render(<ProjectBehindScenes content={galleryContent} />);
 
     await user.click(screen.getByRole("button", { name: "First fieldwork image" }));
-    expect(screen.getByRole("dialog", { name: "First fieldwork image" }))
-      .toBeVisible();
+    expect(screen.getByRole("dialog", { name: "First fieldwork image" })).toBeVisible();
     expect(document.body.style.overflow).toBe("hidden");
 
     await user.click(screen.getByRole("button", { name: "Next image" }));
-    expect(screen.getByRole("dialog", { name: "Second fieldwork image" }))
-      .toBeVisible();
+    expect(
+      screen.getByRole("dialog", { name: "Second fieldwork image" }),
+    ).toBeVisible();
 
     fireEvent.keyDown(document, { key: "ArrowLeft" });
-    expect(screen.getByRole("dialog", { name: "First fieldwork image" }))
-      .toBeVisible();
+    expect(screen.getByRole("dialog", { name: "First fieldwork image" })).toBeVisible();
 
     fireEvent.keyDown(document, { key: "Escape" });
     await waitFor(() => {

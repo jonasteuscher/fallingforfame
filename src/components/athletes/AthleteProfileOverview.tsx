@@ -204,10 +204,7 @@ function AthleteExperienceStats({
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className="relative min-w-0 border-y border-border pb-7 lg:mt-1"
-    >
+    <div ref={ref} className="relative min-w-0 border-y border-border pb-7 lg:mt-1">
       <dl className="grid min-w-0 gap-x-8 min-[420px]:grid-cols-2">
         {metrics.map((metric, index) => (
           <div
@@ -252,7 +249,11 @@ function AnimatedStat({
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (metric.numericValue === undefined || !isVisible || typeof window === "undefined") {
+    if (
+      metric.numericValue === undefined ||
+      !isVisible ||
+      typeof window === "undefined"
+    ) {
       return;
     }
 
@@ -408,9 +409,8 @@ function formatSponsorContext(name: string, sponsors: string, locale: Locale) {
 }
 
 function formatNumber(value: number, localeOrDisplayValue: Locale | string) {
-  const separator = localeOrDisplayValue === "de" || localeOrDisplayValue.includes("’")
-    ? "’"
-    : ",";
+  const separator =
+    localeOrDisplayValue === "de" || localeOrDisplayValue.includes("’") ? "’" : ",";
 
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
 }
@@ -424,7 +424,10 @@ function prefersReducedMotionSetting() {
 }
 
 function requestFrame(callback: FrameRequestCallback) {
-  if (typeof window !== "undefined" && typeof window.requestAnimationFrame === "function") {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.requestAnimationFrame === "function"
+  ) {
     return window.requestAnimationFrame(callback);
   }
 
@@ -432,7 +435,10 @@ function requestFrame(callback: FrameRequestCallback) {
 }
 
 function cancelFrame(frame: number | ReturnType<typeof globalThis.setTimeout>) {
-  if (typeof window !== "undefined" && typeof window.cancelAnimationFrame === "function") {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.cancelAnimationFrame === "function"
+  ) {
     window.cancelAnimationFrame(Number(frame));
     return;
   }

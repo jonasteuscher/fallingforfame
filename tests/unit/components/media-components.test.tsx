@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { AudioPlayer } from "@/components/media/AudioPlayer";
 import { CustomVideoPlayer } from "@/components/media/CustomVideoPlayer";
@@ -22,6 +22,10 @@ beforeEach(() => {
     configurable: true,
     value: vi.fn(() => Promise.resolve()),
   });
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
 });
 
 describe("media components", () => {
@@ -66,8 +70,9 @@ describe("media components", () => {
       />,
     );
 
-    expect(screen.getByRole("img", { name: "Athlete on an exit point" }))
-      .toHaveAttribute("src", "/images/test.jpg");
+    expect(
+      screen.getByRole("img", { name: "Athlete on an exit point" }),
+    ).toHaveAttribute("src", "/images/test.jpg");
     expect(screen.getByText("Exit point")).toBeVisible();
     expect(screen.getByText("Credit: Archive")).toBeVisible();
 
@@ -152,7 +157,52 @@ describe("media components", () => {
     expect(video.muted).toBe(true);
     expect(screen.getByRole("button", { name: "Unmute video" })).toBeVisible();
 
+    await user.click(screen.getByRole("button", { name: "Unmute video" }));
+    expect(video.muted).toBe(false);
+
+    fireEvent.change(screen.getByLabelText("Video volume"), {
+      target: { value: "0.35" },
+    });
+    expect(video.volume).toBe(0.35);
+    expect(video.muted).toBe(false);
+
     await user.click(screen.getByRole("button", { name: "Enter full screen" }));
     expect(HTMLElement.prototype.requestFullscreen).toHaveBeenCalled();
+
+    fireEvent.pause(video);
+    expect(screen.getByRole("button", { name: "Play video" })).toBeVisible();
+  });
+
+  it("exits fullscreen when the player is already fullscreen", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <CustomVideoPlayer video={{ src: "/video/story.mp4", poster: "/poster.jpg" }} />,
+    );
+    const player = container.firstElementChild;
+
+    Object.defineProperty(document, "fullscreenElement", {
+      configurable: true,
+      value: player,
+    });
+
+    fireEvent(document, new Event("fullscreenchange"));
+    expect(screen.getByRole("button", { name: "Exit full screen" })).toBeVisible();
+
+    await user.click(screen.getByRole("button", { name: "Exit full screen" }));
+    expect(document.exitFullscreen).toHaveBeenCalled();
+  });
+
+  it("uses safe default ids and time labels when no video asset is provided", () => {
+    render(<CustomVideoPlayer />);
+
+    expect(screen.getByLabelText("Video progress")).toHaveAttribute(
+      "id",
+      "video-progress-clip",
+    );
+    expect(screen.getByLabelText("Video volume")).toHaveAttribute(
+      "id",
+      "video-volume-clip",
+    );
+    expect(screen.getByText("0:00 / 0:00")).toBeVisible();
   });
 });

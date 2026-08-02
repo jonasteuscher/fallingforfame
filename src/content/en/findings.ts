@@ -16,12 +16,10 @@ export const findingsPage: FindingsPageContent = {
   hero: {
     eyebrow: "Qualitative study",
     title: "Between Visibility\nand Safety",
-    intro:
-      "Five experienced BASE athletes on visibility, risk and safety culture.",
+    intro: "Five experienced BASE athletes on visibility, risk and safety culture.",
     methodology:
       "Qualitative study · 5 guided interviews · participant observations · photo elicitation",
-    centralStatement:
-      "Visibility changes the conditions in which decisions are made.",
+    centralStatement: "Visibility changes the conditions in which decisions are made.",
     scrollCue: "Scroll through the findings",
     media: {
       src: "/images/findings/hero.jpg",
@@ -90,7 +88,8 @@ export const findingsPage: FindingsPageContent = {
             title: "Inspiration",
             body: "New projects, flight lines and techniques become visible.",
             overlayLabel: "Saved as reference",
-            visualStatement: "The clip starts to reveal places, lines and possibilities.",
+            visualStatement:
+              "The clip starts to reveal places, lines and possibilities.",
             overlayItems: ["Flight line", "Project reference"],
           },
           {
@@ -98,7 +97,8 @@ export const findingsPage: FindingsPageContent = {
             title: "Learning",
             body: "Planning notes, route analysis and technical discussion can turn media into shared knowledge.",
             overlayLabel: "Analysis",
-            visualStatement: "The image becomes a surface for reading conditions, route and terrain.",
+            visualStatement:
+              "The image becomes a surface for reading conditions, route and terrain.",
             annotations: [
               { id: "exit-point", label: "exit point", x: 83, y: 23, align: "right" },
               { id: "flight-corridor", label: "flight corridor", x: 58, y: 39 },
@@ -110,7 +110,8 @@ export const findingsPage: FindingsPageContent = {
             title: "Reflection",
             body: "Close calls and incidents can shift the same interface from entertainment to analysis.",
             overlayLabel: "Shared experience",
-            visualStatement: "The same platform can become a place for learning from mistakes.",
+            visualStatement:
+              "The same platform can become a place for learning from mistakes.",
             overlayItems: ["Lessons", "What happened?"],
           },
         ],
@@ -141,8 +142,7 @@ export const findingsPage: FindingsPageContent = {
       title: "The camera is part of the jump",
       summary:
         "Cameras are normalised in modern BASE jumping, but the interviews do not support a simple camera-causes-risk claim.",
-      finding:
-        "The camera does not make the decision. What matters is how it is used.",
+      finding: "The camera does not make the decision. What matters is how it is used.",
       accessibleSummary:
         "The camera is a visible part of contemporary BASE jumping equipment. It may influence planning, positioning and image composition, but it remains one part of a broader equipment and preparation system. The interviews do not support a simple automatic link between camera use and riskier behaviour; experience, planning and deliberate use remain important.",
       image: {
@@ -159,7 +159,8 @@ export const findingsPage: FindingsPageContent = {
               id: "camera-arm",
               state: "camera",
               label: "CAMERA",
-              description: "The camera documents the jump and enables later review and reflection. In the interviews, it is not presented as a source of risk but as a normal part of everyday practice.",
+              description:
+                "The camera documents the jump and enables later review and reflection. In the interviews, it is not presented as a source of risk but as a normal part of everyday practice.",
               x: 30,
               y: 40,
               preferredSide: "right",
@@ -179,7 +180,8 @@ export const findingsPage: FindingsPageContent = {
               id: "helmet-mount",
               state: "helmet",
               label: "HELMET AND MOUNT",
-              description: "The camera is integrated directly into the protective equipment. Rather than being treated as a separate media device, it forms part of a carefully configured technical system.",
+              description:
+                "The camera is integrated directly into the protective equipment. Rather than being treated as a separate media device, it forms part of a carefully configured technical system.",
               x: 45,
               y: 45,
               preferredSide: "right",
@@ -199,7 +201,8 @@ export const findingsPage: FindingsPageContent = {
               id: "wingsuit",
               state: "equipment",
               label: "WINGSUIT",
-              description: "The wingsuit demands experience, training and careful preparation. Safe performance depends on competence, not on the camera.",
+              description:
+                "The wingsuit demands experience, training and careful preparation. Safe performance depends on competence, not on the camera.",
               x: 67,
               y: 66,
               preferredSide: "right",
@@ -212,7 +215,8 @@ export const findingsPage: FindingsPageContent = {
               id: "container",
               state: "equipment",
               label: "PARACHUTE SYSTEM",
-              description: "The visible container highlights that safety relies on a complex system. The camera is only one element within that system.",
+              description:
+                "The visible container highlights that safety relies on a complex system. The camera is only one element within that system.",
               x: 82,
               y: 60,
               preferredSide: "right",
@@ -232,7 +236,8 @@ export const findingsPage: FindingsPageContent = {
               id: "concentration",
               state: "preparation",
               label: "FOCUS",
-              description: "The athlete's attention is on the upcoming jump, not on the camera. Decisions are shaped by preparation and focus, not by being filmed.",
+              description:
+                "The athlete's attention is on the upcoming jump, not on the camera. Decisions are shaped by preparation and focus, not by being filmed.",
               x: 48,
               y: 53,
               preferredSide: "right",
@@ -272,8 +277,7 @@ export const findingsPage: FindingsPageContent = {
       title: "The visible result is not the whole process",
       summary:
         "Social media shows the final seconds, but usually hides the years of learning, restraint and community knowledge that make those seconds possible.",
-      finding:
-        "Visible: the clip. Invisible: the foundation.",
+      finding: "Visible: the clip. Invisible: the foundation.",
       accessibleSummary:
         "A polished clip may hide years of progression, accumulated experience, mentoring, mistakes, route study, weather knowledge, cancelled jumps, patience, reflection and safety culture.",
       visibleLabel: "Visible: the clip",
@@ -310,8 +314,7 @@ export const findingsPage: FindingsPageContent = {
       accessibleSummary:
         "Short-term visibility can create attention, but recognition was described as being tied to experience, competence, judgement and consistent safe practice.",
       insight: {
-        empirical:
-          "Attention is visible.\nRecognition must be earned over time.",
+        empirical: "Attention is visible.\nRecognition must be earned over time.",
         interpretation:
           "While digital platforms can accelerate visibility, recognition within the community develops through long-term experience, competence and responsible practice.",
       },
@@ -348,18 +351,32 @@ export const findingsPage: FindingsPageContent = {
       title: "Support takes many forms",
       summary:
         "Sponsorship differed substantially between athletes and ranged from minor material support to a foundation for professional work.",
-      finding:
-        "There is a lot more to it than just jumping off cliffs.",
+      finding: "There is a lot more to it than just jumping off cliffs.",
       accessibleSummary:
         "Professional sponsorship includes resources, media work, communication, project development and possible indirect expectations. It is not a single path every athlete follows.",
       quote: "There’s a lot more to it than just jumping off cliffs.",
       spectrum: [
         { title: "Equipment discount", body: "Reduced costs for gear." },
-        { title: "Free equipment", body: "Material support without a full livelihood." },
-        { title: "Project support", body: "Resources for specific expeditions or productions." },
-        { title: "Paid media production", body: "Photography and video become part of the work." },
-        { title: "Coaching and related work", body: "Knowledge becomes a professional service." },
-        { title: "Professional livelihood", body: "Sport, media and communication overlap." },
+        {
+          title: "Free equipment",
+          body: "Material support without a full livelihood.",
+        },
+        {
+          title: "Project support",
+          body: "Resources for specific expeditions or productions.",
+        },
+        {
+          title: "Paid media production",
+          body: "Photography and video become part of the work.",
+        },
+        {
+          title: "Coaching and related work",
+          body: "Knowledge becomes a professional service.",
+        },
+        {
+          title: "Professional livelihood",
+          body: "Sport, media and communication overlap.",
+        },
       ],
       layers: [
         "sport",
@@ -376,8 +393,7 @@ export const findingsPage: FindingsPageContent = {
       title: "Pressure does not have to be spoken",
       summary:
         "Participants rarely described direct commands from sponsors. Pressure was more often indirect or self-generated.",
-      finding:
-        "No direct command. But potentially a self-created obligation.",
+      finding: "No direct command. But potentially a self-created obligation.",
       accessibleSummary:
         "Public visibility, project costs, deadlines, audience expectations and personal ambition can move closer to the decision unless safety boundaries remain clear.",
       controlLabel: "Safety over expectation",
@@ -440,9 +456,18 @@ export const findingsPage: FindingsPageContent = {
       states: [
         { title: "Initial caution", body: "Uncertainty can create restraint." },
         { title: "Increasing confidence", body: "Competence grows through practice." },
-        { title: "Possible overconfidence", body: "Perceived ability can move closer to uncertainty." },
-        { title: "Correction", body: "Errors, close calls, accidents, loss and observation matter." },
-        { title: "Differentiated risk awareness", body: "Reflection changes how risk is interpreted." },
+        {
+          title: "Possible overconfidence",
+          body: "Perceived ability can move closer to uncertainty.",
+        },
+        {
+          title: "Correction",
+          body: "Errors, close calls, accidents, loss and observation matter.",
+        },
+        {
+          title: "Differentiated risk awareness",
+          body: "Reflection changes how risk is interpreted.",
+        },
       ],
     },
     {
@@ -453,8 +478,7 @@ export const findingsPage: FindingsPageContent = {
       title: "Sometimes, not jumping\nis the best decision.",
       summary:
         "Cancelling can remain the competent decision even after a long hike, an expedition, preparation or financial investment.",
-      finding:
-        "Not jumping is not failure. It is an active safety decision.",
+      finding: "Not jumping is not failure. It is an active safety decision.",
       accessibleSummary:
         "Uncertain wind, clouds, visibility, physical condition, mental state, intuition, group dynamics and responsibility can all lead an experienced athlete to walk down.",
       quote: "The mountain will still be there tomorrow.",
@@ -549,19 +573,42 @@ export const findingsPage: FindingsPageContent = {
       paths: [
         {
           title: "Social media as learning infrastructure",
-          steps: ["social media", "inspiration", "learning", "greater knowledge", "more informed decision"],
+          steps: [
+            "social media",
+            "inspiration",
+            "learning",
+            "greater knowledge",
+            "more informed decision",
+          ],
         },
         {
           title: "Social media as imitation environment",
-          steps: ["spectacular content", "imitation", "insufficient progression", "potentially problematic decision"],
+          steps: [
+            "spectacular content",
+            "imitation",
+            "insufficient progression",
+            "potentially problematic decision",
+          ],
         },
         {
           title: "Sponsorship as resource",
-          steps: ["sponsorship", "resources", "training", "projects", "better preparation"],
+          steps: [
+            "sponsorship",
+            "resources",
+            "training",
+            "projects",
+            "better preparation",
+          ],
         },
         {
           title: "Sponsorship as expectation",
-          steps: ["sponsorship", "expectations", "self-generated pressure", "reduced decision freedom", "potentially altered decisions"],
+          steps: [
+            "sponsorship",
+            "expectations",
+            "self-generated pressure",
+            "reduced decision freedom",
+            "potentially altered decisions",
+          ],
         },
       ],
     },

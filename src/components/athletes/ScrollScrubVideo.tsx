@@ -269,13 +269,7 @@ function ScrollScrubSection({
   }, [mode, scheduleScrubUpdate]);
 
   if (mode !== "scrub") {
-    return (
-      <VideoFallback
-        video={video}
-        locale={locale}
-        headingId={headingId}
-      />
-    );
+    return <VideoFallback video={video} locale={locale} headingId={headingId} />;
   }
 
   const scrollLength = Math.max(video.scrollLength, 3);
@@ -437,9 +431,11 @@ function detectCapabilityMode(): CapabilityMode {
     "(prefers-reduced-motion: reduce)",
   ).matches;
   const coarsePointer = window.matchMedia?.("(pointer: coarse)").matches;
-  const connection = (navigator as Navigator & {
-    connection?: { saveData?: boolean };
-  }).connection;
+  const connection = (
+    navigator as Navigator & {
+      connection?: { saveData?: boolean };
+    }
+  ).connection;
   const deviceMemory = (navigator as Navigator & { deviceMemory?: number })
     .deviceMemory;
   const saveData = connection?.saveData;

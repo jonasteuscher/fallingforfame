@@ -23,7 +23,9 @@ describe("imprint page", () => {
     expect(screen.getByRole("heading", { name: "Image Credits" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Athlete Photography" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Historical Images" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "1797 - First Modern Parachute" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "1797 - First Modern Parachute" }),
+    ).toBeVisible();
     expect(
       screen.getByRole("link", { name: "Source: 1797 - First Modern Parachute" }),
     ).toHaveAttribute(

@@ -38,7 +38,9 @@ export function ProjectChapterIndicator({
 
         if (hiddenUntilId) {
           const intro = document.getElementById(hiddenUntilId);
-          const introTop = intro ? intro.getBoundingClientRect().top + window.scrollY : 0;
+          const introTop = intro
+            ? intro.getBoundingClientRect().top + window.scrollY
+            : 0;
 
           setIsPastIntro(window.scrollY + window.innerHeight * 0.35 >= introTop);
         }
@@ -112,7 +114,10 @@ export function ProjectChapterIndicator({
                   ].join(" ")}
                   aria-hidden="true"
                 />
-                <span className="hidden max-w-40 truncate md:inline min-[1600px]:max-w-none" aria-hidden="true">
+                <span
+                  className="hidden max-w-40 truncate md:inline min-[1600px]:max-w-none"
+                  aria-hidden="true"
+                >
                   {chapter.label}
                 </span>
               </a>

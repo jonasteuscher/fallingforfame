@@ -28,16 +28,9 @@ export function ProjectPage({ content }: ProjectPageProps) {
   );
 }
 
-function ProjectMotivation({
-  content,
-}: {
-  content: ProjectContent["motivation"];
-}) {
+function ProjectMotivation({ content }: { content: ProjectContent["motivation"] }) {
   return (
-    <section
-      id="why-this-project"
-      className="border-y border-border bg-background"
-    >
+    <section id="why-this-project" className="border-y border-border bg-background">
       <div className="mx-auto grid min-h-[140svh] max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1fr)] lg:items-start lg:gap-16 lg:px-10 lg:py-20">
         <div className="lg:sticky lg:top-20 lg:h-[calc(100svh-5rem)]">
           <figure className="relative aspect-[4/5] h-[min(78svh,48rem)] overflow-hidden bg-surface lg:h-full lg:aspect-auto">
@@ -129,11 +122,7 @@ function ProjectHero({ content }: { content: ProjectContent }) {
   );
 }
 
-function DocumentaryChapter({
-  content,
-}: {
-  content: ProjectContent["documentary"];
-}) {
+function DocumentaryChapter({ content }: { content: ProjectContent["documentary"] }) {
   return (
     <section id="the-documentary" className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.48fr_1fr]">
@@ -223,11 +212,12 @@ function ResearchChapter({ content }: { content: ProjectContent["research"] }) {
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {content.context.map((item) => (
-            <article key={item.title} className="border border-border bg-surface/80 p-5">
+            <article
+              key={item.title}
+              className="border border-border bg-surface/80 p-5"
+            >
               <h3 className="text-2xl font-semibold text-foreground">{item.title}</h3>
-              <p className="mt-4 text-base leading-7 text-foreground/72">
-                {item.body}
-              </p>
+              <p className="mt-4 text-base leading-7 text-foreground/72">{item.body}</p>
             </article>
           ))}
         </div>
@@ -362,7 +352,10 @@ function ProjectGoals({ content }: { content: ProjectContent["goals"] }) {
 
 function Credits({ content }: { content: ProjectContent["credits"] }) {
   return (
-    <section id="credits" className="border-t border-border px-4 py-16 sm:px-6 lg:px-10">
+    <section
+      id="credits"
+      className="border-t border-border px-4 py-16 sm:px-6 lg:px-10"
+    >
       <div className="mx-auto max-w-7xl">
         <p className="text-sm font-semibold uppercase tracking-wide text-primary">
           {content.label}

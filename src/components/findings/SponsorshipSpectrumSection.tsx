@@ -245,47 +245,53 @@ function SpectrumStage({
           aria-hidden="true"
         />
         <ol className="relative grid grid-cols-6 gap-8 xl:gap-12">
-        {spectrum.map((stage, index) => {
-          const reveal = interpolate(progress, 0.08 + index * 0.09, 0.2 + index * 0.09, 0, 1);
-          const isHigherScope = index >= Math.max(3, Math.floor(spectrum.length / 2));
+          {spectrum.map((stage, index) => {
+            const reveal = interpolate(
+              progress,
+              0.08 + index * 0.09,
+              0.2 + index * 0.09,
+              0,
+              1,
+            );
+            const isHigherScope = index >= Math.max(3, Math.floor(spectrum.length / 2));
 
-          return (
-            <li
-              key={stage.title}
+            return (
+              <li
+                key={stage.title}
                 className="min-w-0"
-              style={{
-                opacity: reveal,
-                transform: `translate3d(0, ${interpolate(reveal, 0, 1, 24, 0)}px, 0)`,
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => onStageSelect(index)}
-                className="group grid w-full grid-rows-[1.75rem_2.25rem_minmax(5.75rem,auto)_minmax(5rem,auto)] text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                style={{
+                  opacity: reveal,
+                  transform: `translate3d(0, ${interpolate(reveal, 0, 1, 24, 0)}px, 0)`,
+                }}
               >
-                <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="flex items-start">
-                  <span
-                    className={[
-                      "mt-[0.56rem] block h-4 w-4 border bg-background transition group-hover:border-primary motion-reduce:transition-none",
-                      isHigherScope ? "border-primary" : "border-border",
-                    ].join(" ")}
-                    aria-hidden="true"
-                  />
-                </span>
-                <span className="block max-w-[12.25rem] break-words text-[clamp(0.98rem,1.04vw,1.2rem)] font-semibold uppercase leading-tight text-foreground [hyphens:auto] [text-wrap:balance]">
-                  <FormattedSponsorshipText text={stage.title} />
-                </span>
-                <span className="block max-w-[12.25rem] text-sm leading-6 text-foreground/68">
-                  {stage.body}
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ol>
+                <button
+                  type="button"
+                  onClick={() => onStageSelect(index)}
+                  className="group grid w-full grid-rows-[1.75rem_2.25rem_minmax(5.75rem,auto)_minmax(5rem,auto)] text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                >
+                  <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex items-start">
+                    <span
+                      className={[
+                        "mt-[0.56rem] block h-4 w-4 border bg-background transition group-hover:border-primary motion-reduce:transition-none",
+                        isHigherScope ? "border-primary" : "border-border",
+                      ].join(" ")}
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <span className="block max-w-[12.25rem] break-words text-[clamp(0.98rem,1.04vw,1.2rem)] font-semibold uppercase leading-tight text-foreground [hyphens:auto] [text-wrap:balance]">
+                    <FormattedSponsorshipText text={stage.title} />
+                  </span>
+                  <span className="block max-w-[12.25rem] text-sm leading-6 text-foreground/68">
+                    {stage.body}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
       </div>
 
       <div
@@ -301,7 +307,13 @@ function SpectrumStage({
           </p>
           <ol className="mt-3 grid grid-cols-[repeat(5,minmax(0,1fr))] gap-0">
             {layers.map((layer, index) => {
-              const reveal = interpolate(progress, 0.48 + index * 0.055, 0.62 + index * 0.055, 0, 1);
+              const reveal = interpolate(
+                progress,
+                0.48 + index * 0.055,
+                0.62 + index * 0.055,
+                0,
+                1,
+              );
 
               return (
                 <li
@@ -457,7 +469,10 @@ function SponsorshipSpectrumStatic({
   return (
     <ol className={["grid gap-5 md:grid-cols-2 lg:grid-cols-3", className].join(" ")}>
       {spectrum.map((stage, index) => (
-        <li key={stage.title} className="grid grid-cols-[2.5rem_1fr] gap-4 border-l border-border py-2">
+        <li
+          key={stage.title}
+          className="grid grid-cols-[2.5rem_1fr] gap-4 border-l border-border py-2"
+        >
           <span className="pl-4 text-xs font-semibold text-primary">
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -519,7 +534,11 @@ function SponsorshipFindingSummary({
   showFinding?: boolean;
 }) {
   return (
-    <aside className={["border border-border bg-background/72 p-5 sm:p-7", className].join(" ")}>
+    <aside
+      className={["border border-border bg-background/72 p-5 sm:p-7", className].join(
+        " ",
+      )}
+    >
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
         {sourcePrefix}
       </p>

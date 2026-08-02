@@ -98,7 +98,8 @@ export const findingsPage: FindingsPageContent = {
             title: "Lernen",
             body: "Planungsnotizen, Routenanalyse und technische Diskussionen können Medien in geteiltes Wissen verwandeln.",
             overlayLabel: "Analyse",
-            visualStatement: "Das Bild wird zur Oberfläche, auf der Bedingungen, Route und Gelände gelesen werden.",
+            visualStatement:
+              "Das Bild wird zur Oberfläche, auf der Bedingungen, Route und Gelände gelesen werden.",
             annotations: [
               { id: "exit-point", label: "Exitpunkt", x: 83, y: 23, align: "right" },
               { id: "flight-corridor", label: "Flugkorridor", x: 58, y: 39 },
@@ -110,7 +111,8 @@ export const findingsPage: FindingsPageContent = {
             title: "Reflexion",
             body: "Beinaheunfälle und Vorfälle können dieselbe Oberfläche von Unterhaltung zu Analyse verschieben.",
             overlayLabel: "Geteilte Erfahrung",
-            visualStatement: "Dieselbe Plattform kann zum Ort werden, an dem aus Fehlern gelernt wird.",
+            visualStatement:
+              "Dieselbe Plattform kann zum Ort werden, an dem aus Fehlern gelernt wird.",
             overlayItems: ["Erkenntnisse", "Was ist passiert?"],
           },
         ],
@@ -141,8 +143,7 @@ export const findingsPage: FindingsPageContent = {
       title: "Die Kamera ist Teil des Sprungs",
       summary:
         "Kameras sind im modernen BASE Jumping normalisiert. Die Interviews stützen aber keine einfache Aussage, dass eine Kamera automatisch Risiko erzeugt.",
-      finding:
-        "Nicht die Kamera entscheidet. Entscheidend ist der Umgang mit ihr.",
+      finding: "Nicht die Kamera entscheidet. Entscheidend ist der Umgang mit ihr.",
       accessibleSummary:
         "Die Kamera ist ein sichtbarer Teil zeitgenössischer BASE-Jumping-Ausrüstung. Sie kann Planung, Positionierung und Bildkomposition beeinflussen, bleibt aber nur ein Teil eines breiteren Ausrüstungs- und Vorbereitungssystems. Die Interviews stützen keinen einfachen automatischen Zusammenhang zwischen Kameranutzung und riskanterem Verhalten; Erfahrung, Planung und bewusster Umgang bleiben wichtig.",
       image: {
@@ -159,7 +160,8 @@ export const findingsPage: FindingsPageContent = {
               id: "camera-arm",
               state: "camera",
               label: "KAMERA",
-              description: "Die Kamera dokumentiert den Sprung und ermöglicht spätere Analyse und Reflexion. In den Interviews erscheint sie nicht als Auslöser von Risiko, sondern als selbstverständlicher Bestandteil der Praxis.",
+              description:
+                "Die Kamera dokumentiert den Sprung und ermöglicht spätere Analyse und Reflexion. In den Interviews erscheint sie nicht als Auslöser von Risiko, sondern als selbstverständlicher Bestandteil der Praxis.",
               x: 30,
               y: 40,
               preferredSide: "right",
@@ -179,7 +181,8 @@ export const findingsPage: FindingsPageContent = {
               id: "helmet-mount",
               state: "helmet",
               label: "HELM UND HALTERUNG",
-              description: "Die Kamera ist direkt in die Schutzausrüstung integriert. Sie wird nicht als separates Medienobjekt verstanden, sondern als Teil eines abgestimmten technischen Systems.",
+              description:
+                "Die Kamera ist direkt in die Schutzausrüstung integriert. Sie wird nicht als separates Medienobjekt verstanden, sondern als Teil eines abgestimmten technischen Systems.",
               x: 45,
               y: 45,
               preferredSide: "right",
@@ -199,7 +202,8 @@ export const findingsPage: FindingsPageContent = {
               id: "wingsuit",
               state: "equipment",
               label: "WINGSUIT",
-              description: "Der Wingsuit verlangt Erfahrung, Training und präzise Vorbereitung. Sicherheit entsteht durch Kompetenz - nicht durch die Kamera.",
+              description:
+                "Der Wingsuit verlangt Erfahrung, Training und präzise Vorbereitung. Sicherheit entsteht durch Kompetenz - nicht durch die Kamera.",
               x: 67,
               y: 66,
               preferredSide: "right",
@@ -212,7 +216,8 @@ export const findingsPage: FindingsPageContent = {
               id: "container",
               state: "equipment",
               label: "SCHIRMSYSTEM",
-              description: "Der sichtbare Container erinnert daran, dass Sicherheit auf einem komplexen System basiert. Die Kamera ist darin nur ein einzelnes Element.",
+              description:
+                "Der sichtbare Container erinnert daran, dass Sicherheit auf einem komplexen System basiert. Die Kamera ist darin nur ein einzelnes Element.",
               x: 82,
               y: 60,
               preferredSide: "right",
@@ -232,7 +237,8 @@ export const findingsPage: FindingsPageContent = {
               id: "concentration",
               state: "preparation",
               label: "KONZENTRATION",
-              description: "Der Athlet richtet seine Aufmerksamkeit auf den bevorstehenden Sprung, nicht auf die Kamera. Entscheidungen entstehen durch Vorbereitung und Fokus, nicht durch die Aufnahme selbst.",
+              description:
+                "Der Athlet richtet seine Aufmerksamkeit auf den bevorstehenden Sprung, nicht auf die Kamera. Entscheidungen entstehen durch Vorbereitung und Fokus, nicht durch die Aufnahme selbst.",
               x: 48,
               y: 53,
               preferredSide: "right",
@@ -272,8 +278,7 @@ export const findingsPage: FindingsPageContent = {
       title: "Das sichtbare Ergebnis ist nicht der ganze Prozess",
       summary:
         "Social Media zeigt die letzten Sekunden. Meist unsichtbar bleiben die Jahre des Lernens, der Zurückhaltung und des Community-Wissens, die diesen Moment erst möglich machen.",
-      finding:
-        "Sichtbar: der Clip. Unsichtbar: die Grundlage.",
+      finding: "Sichtbar: der Clip. Unsichtbar: die Grundlage.",
       accessibleSummary:
         "Ein polierter Clip kann Jahre der Progression, gesammelte Erfahrung, Mentoring, Fehler, Routenstudium, langfristig aufgebautes Wetterwissen, abgesagte Sprünge, Geduld, Reflexion und Sicherheitskultur verbergen.",
       visibleLabel: "Sichtbar: der Clip",
@@ -355,11 +360,26 @@ export const findingsPage: FindingsPageContent = {
       quote: "Da steckt viel mehr dahinter, als nur von Klippen zu springen.",
       spectrum: [
         { title: "Materialrabatt", body: "Geringere Kosten für Ausrüstung." },
-        { title: "Kostenlose Ausrüstung", body: "Materielle Unterstützung ohne vollständige Existenzgrundlage." },
-        { title: "Projekt\nUnterstützung", body: "Ressourcen für konkrete Expeditionen oder Produktionen." },
-        { title: "Bezahlte Medienproduktion", body: "Fotografie und Video werden Teil der Arbeit." },
-        { title: "Coaching und verwandte Arbeit", body: "Wissen wird zu einer professionellen Dienstleistung." },
-        { title: "Professionelle Existenz", body: "Sport, Medien und Kommunikation überschneiden sich." },
+        {
+          title: "Kostenlose Ausrüstung",
+          body: "Materielle Unterstützung ohne vollständige Existenzgrundlage.",
+        },
+        {
+          title: "Projekt\nUnterstützung",
+          body: "Ressourcen für konkrete Expeditionen oder Produktionen.",
+        },
+        {
+          title: "Bezahlte Medienproduktion",
+          body: "Fotografie und Video werden Teil der Arbeit.",
+        },
+        {
+          title: "Coaching und verwandte Arbeit",
+          body: "Wissen wird zu einer professionellen Dienstleistung.",
+        },
+        {
+          title: "Professionelle Existenz",
+          body: "Sport, Medien und Kommunikation überschneiden sich.",
+        },
       ],
       layers: [
         "Sport",
@@ -438,11 +458,23 @@ export const findingsPage: FindingsPageContent = {
       accessibleSummary:
         "Dies ist ein heuristisches Muster, kein statistisches Modell und kein universeller Entwicklungsweg für alle Athleten.",
       states: [
-        { title: "Anfängliche Vorsicht", body: "Unsicherheit kann Zurückhaltung erzeugen." },
+        {
+          title: "Anfängliche Vorsicht",
+          body: "Unsicherheit kann Zurückhaltung erzeugen.",
+        },
         { title: "Wachsendes Vertrauen", body: "Kompetenz wächst durch Praxis." },
-        { title: "Mögliche Selbstüberschätzung", body: "Wahrgenommenes Können kann näher an Unsicherheit rücken." },
-        { title: "Korrektur", body: "Fehler, Beinaheunfälle, Unfälle, Verlust und Beobachtung werden relevant." },
-        { title: "Differenziertes Risikobewusstsein", body: "Reflexion verändert, wie Risiko interpretiert wird." },
+        {
+          title: "Mögliche Selbstüberschätzung",
+          body: "Wahrgenommenes Können kann näher an Unsicherheit rücken.",
+        },
+        {
+          title: "Korrektur",
+          body: "Fehler, Beinaheunfälle, Unfälle, Verlust und Beobachtung werden relevant.",
+        },
+        {
+          title: "Differenziertes Risikobewusstsein",
+          body: "Reflexion verändert, wie Risiko interpretiert wird.",
+        },
       ],
     },
     {
@@ -549,19 +581,42 @@ export const findingsPage: FindingsPageContent = {
       paths: [
         {
           title: "Social Media als Lerninfrastruktur",
-          steps: ["Social Media", "Inspiration", "Lernen", "mehr Wissen", "informiertere Entscheidung"],
+          steps: [
+            "Social Media",
+            "Inspiration",
+            "Lernen",
+            "mehr Wissen",
+            "informiertere Entscheidung",
+          ],
         },
         {
           title: "Social Media als Imitationsumfeld",
-          steps: ["spektakulärer Content", "Imitation", "unzureichende Progression", "potenziell problematische Entscheidung"],
+          steps: [
+            "spektakulärer Content",
+            "Imitation",
+            "unzureichende Progression",
+            "potenziell problematische Entscheidung",
+          ],
         },
         {
           title: "Sponsoring als Ressource",
-          steps: ["Sponsoring", "Ressourcen", "Training", "Projekte", "bessere Vorbereitung"],
+          steps: [
+            "Sponsoring",
+            "Ressourcen",
+            "Training",
+            "Projekte",
+            "bessere Vorbereitung",
+          ],
         },
         {
           title: "Sponsoring als Erwartung",
-          steps: ["Sponsoring", "Erwartungen", "selbst erzeugter Druck", "reduzierte Entscheidungsfreiheit", "potenziell veränderte Entscheidungen"],
+          steps: [
+            "Sponsoring",
+            "Erwartungen",
+            "selbst erzeugter Druck",
+            "reduzierte Entscheidungsfreiheit",
+            "potenziell veränderte Entscheidungen",
+          ],
         },
       ],
     },

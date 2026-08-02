@@ -234,14 +234,24 @@ export const project = {
     items: [
       { label: "Author", value: "Jonas Teuscher" },
       { label: "Degree programme", value: "Multimedia Production" },
-      { label: "University", value: "University of Applied Sciences of the Grisons (FHGR)" },
+      {
+        label: "University",
+        value: "University of Applied Sciences of the Grisons (FHGR)",
+      },
       {
         label: "Supervisors",
         value:
           "Dr. Marie-Therese Mäder (main supervisor), Nils Solanski (co-supervisor)",
       },
-      { label: "Contributors", value: "Interview participants and documentary contributors" },
-      { label: "Special thanks", value: "The BASE jumping community members who shared time, access and perspective" },
+      {
+        label: "Contributors",
+        value: "Interview participants and documentary contributors",
+      },
+      {
+        label: "Special thanks",
+        value:
+          "The BASE jumping community members who shared time, access and perspective",
+      },
     ],
   },
 };

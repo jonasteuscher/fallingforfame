@@ -14,8 +14,9 @@ describe("navigation integration", () => {
   it("renders desktop navigation links with localized routes", () => {
     render(<SiteHeader locale="en" navigation={enSite.navigation} />);
 
-    expect(screen.getByRole("navigation", { name: "Primary navigation" }))
-      .toBeVisible();
+    expect(
+      screen.getByRole("navigation", { name: "Primary navigation" }),
+    ).toBeVisible();
     expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/en");
     expect(screen.getByRole("link", { name: "Athletes" })).toHaveAttribute(
       "href",
@@ -56,7 +57,9 @@ describe("navigation integration", () => {
       }),
     );
 
-    expect(screen.queryByRole("dialog", { name: "Navigation" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("dialog", { name: "Navigation" }),
+    ).not.toBeInTheDocument();
   });
 
   it("renders working language links inside the mobile menu", async () => {
@@ -81,6 +84,8 @@ describe("navigation integration", () => {
     );
 
     await user.click(within(dialog).getByRole("link", { name: "DE" }));
-    expect(screen.queryByRole("dialog", { name: "Navigation" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("dialog", { name: "Navigation" }),
+    ).not.toBeInTheDocument();
   });
 });

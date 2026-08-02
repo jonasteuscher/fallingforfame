@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -66,5 +66,82 @@ describe("SportSafetyDisclaimerModal", () => {
     await waitFor(() => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
+  });
+
+  it("keeps keyboard focus inside the mandatory dialog", async () => {
+    const user = userEvent.setup();
+    const outsideButton = document.createElement("button");
+    outsideButton.textContent = "Outside";
+    document.body.append(outsideButton);
+
+    render(<SportSafetyDisclaimerModal content={sport.safetyDisclaimer} />);
+
+    const confirmButton = screen.getByRole("button", { name: "I Understand" });
+    const dialog = screen.getByRole("dialog", {
+      name: /base jumping is an extremely dangerous activity/i,
+    });
+
+    await waitFor(() => expect(dialog).toHaveFocus());
+
+    await user.tab();
+    expect(confirmButton).toHaveFocus();
+
+    await user.tab();
+    expect(confirmButton).toHaveFocus();
+
+    fireEvent.focusIn(outsideButton);
+
+    expect(confirmButton).toHaveFocus();
+  });
+
+  it("adds scrollbar compensation while open and restores document styles after acknowledgement", async () => {
+    const user = userEvent.setup();
+
+    Object.defineProperty(window, "innerWidth", {
+      configurable: true,
+      value: 1000,
+    });
+    Object.defineProperty(document.documentElement, "clientWidth", {
+      configurable: true,
+      value: 976,
+    });
+    Object.defineProperty(window, "scrollY", {
+      configurable: true,
+      value: 140,
+    });
+
+    render(<SportSafetyDisclaimerModal content={sport.safetyDisclaimer} />);
+
+    await waitFor(() => expect(document.body.style.paddingRight).toBe("24px"));
+    expect(document.body.style.top).toBe("-140px");
+
+    await user.click(screen.getByRole("button", { name: "I Understand" }));
+
+    expect(document.body.style.overflow).toBe("");
+    expect(document.body.style.paddingRight).toBe("");
+    expect(document.body.style.position).toBe("");
+    expect(window.scrollTo).toHaveBeenCalledWith(0, 140);
+  });
+
+  it("still renders and closes when session storage is unavailable", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      throw new Error("Storage unavailable");
+    });
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("Storage unavailable");
+    });
+
+    render(<SportSafetyDisclaimerModal content={sport.safetyDisclaimer} />);
+
+    expect(
+      screen.getByRole("dialog", {
+        name: /base jumping is an extremely dangerous activity/i,
+      }),
+    ).toBeVisible();
+
+    await user.click(screen.getByRole("button", { name: "I Understand" }));
+
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

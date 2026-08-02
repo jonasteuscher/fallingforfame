@@ -80,7 +80,9 @@ export function FindingsHero({ content }: FindingsHeroProps) {
   }, [reducedMotion]);
 
   const displayProgress = reducedMotion ? 0.98 : progress;
-  const socialOpacity = reducedMotion ? 0 : interpolate(displayProgress, 0.18, 0.45, 1, 0);
+  const socialOpacity = reducedMotion
+    ? 0
+    : interpolate(displayProgress, 0.18, 0.45, 1, 0);
   const socialBlur = interpolate(displayProgress, 0.22, 0.45, 0, 5);
   const topUiY = interpolate(displayProgress, 0.18, 0.45, 0, -24);
   const captionY = interpolate(displayProgress, 0.18, 0.45, 0, 24);
@@ -90,9 +92,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
   const titleY = interpolate(displayProgress, 0.68, 0.84, 24, 0);
   const introOpacity = interpolate(displayProgress, 0.78, 0.91, 0, 1);
   const thesisOpacity = interpolate(displayProgress, 0.88, 1, 0, 1);
-  const mediaScale = reducedMotion
-    ? 1
-    : interpolate(displayProgress, 0, 1, 1.006, 1);
+  const mediaScale = reducedMotion ? 1 : interpolate(displayProgress, 0, 1, 1.006, 1);
   const textGradientOpacity = interpolate(displayProgress, 0.62, 0.94, 0, 0.44);
   const bottomGradientOpacity = interpolate(displayProgress, 0.76, 1, 0.08, 0.28);
 
@@ -139,7 +139,10 @@ export function FindingsHero({ content }: FindingsHeroProps) {
               ↓
             </span>
           </span>
-          <span className="text-lg leading-none" aria-label={content.hero.socialPost.menuLabel}>
+          <span
+            className="text-lg leading-none"
+            aria-label={content.hero.socialPost.menuLabel}
+          >
             •••
           </span>
         </div>
@@ -193,10 +196,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
           aria-hidden="true"
         >
           {content.hero.socialPost.actions.map((action, index) => (
-            <div
-              key={action.label}
-              className={index > 1 ? "hidden md:block" : "block"}
-            >
+            <div key={action.label} className={index > 1 ? "hidden md:block" : "block"}>
               <span className="block text-2xl leading-none text-white/86">
                 {action.icon}
               </span>

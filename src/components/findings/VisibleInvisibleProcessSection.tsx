@@ -90,7 +90,10 @@ export function VisibleInvisibleProcessSection({
     };
   }, [reducedMotion]);
 
-  const processItems = useMemo(() => chapter.right?.items ?? [], [chapter.right?.items]);
+  const processItems = useMemo(
+    () => chapter.right?.items ?? [],
+    [chapter.right?.items],
+  );
 
   if (reducedMotion) {
     return (
@@ -348,7 +351,11 @@ function MobileVisibleInvisible({
       </h2>
       <p className="mt-6 text-lg leading-8 text-foreground/76">{chapter.summary}</p>
       <VisibleResultStatic chapter={chapter} className="mt-10" />
-      <InvisibleProcessStatic chapter={chapter} processItems={processItems} className="mt-10" />
+      <InvisibleProcessStatic
+        chapter={chapter}
+        processItems={processItems}
+        className="mt-10"
+      />
       <ProcessFindingSummaryStatic
         chapter={chapter}
         sourcePrefix={sourcePrefix}
@@ -417,7 +424,11 @@ function VisibleResultStatic({
   className?: string;
 }) {
   return (
-    <figure className={["relative aspect-[16/10] overflow-hidden bg-surface", className].join(" ")}>
+    <figure
+      className={["relative aspect-[16/10] overflow-hidden bg-surface", className].join(
+        " ",
+      )}
+    >
       <Image
         src={PROCESS_IMAGE_SRC}
         alt=""
@@ -436,7 +447,10 @@ function VisibleResultStatic({
         </p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {chapter.left?.items.map((item) => (
-            <li key={item} className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/82">
+            <li
+              key={item}
+              className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground/82"
+            >
               {item}
             </li>
           ))}
@@ -513,7 +527,11 @@ function ProcessFindingSummaryStatic({
   showFinding?: boolean;
 }) {
   return (
-    <aside className={["border border-border bg-background/72 p-5 sm:p-7", className].join(" ")}>
+    <aside
+      className={["border border-border bg-background/72 p-5 sm:p-7", className].join(
+        " ",
+      )}
+    >
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
         {sourcePrefix}
       </p>

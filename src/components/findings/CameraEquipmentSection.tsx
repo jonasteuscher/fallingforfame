@@ -82,7 +82,9 @@ export function CameraEquipmentSection({
       return;
     }
 
-    const laptopQuery = window.matchMedia?.("(min-width: 768px) and (max-width: 1599px)");
+    const laptopQuery = window.matchMedia?.(
+      "(min-width: 768px) and (max-width: 1599px)",
+    );
 
     if (!laptopQuery) {
       return;
@@ -184,7 +186,10 @@ export function CameraEquipmentSection({
         mode="mobile"
       />
 
-      <div ref={scrubRef} className="hidden min-h-[390svh] md:block motion-reduce:hidden">
+      <div
+        ref={scrubRef}
+        className="hidden min-h-[390svh] md:block motion-reduce:hidden"
+      >
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-visible bg-background">
           <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-8 px-6 pb-10 pt-20 xl:px-10">
             <CameraSectionHeading chapter={chapter} />
@@ -268,7 +273,9 @@ function CameraNarrative({
           const range = cameraEquipmentStateRanges.find((item) => item.id === state.id);
           const opacity = range
             ? getCameraEquipmentStateOpacity(progress, range)
-            : state.id === activeState.id ? 1 : 0;
+            : state.id === activeState.id
+              ? 1
+              : 0;
           const isActive = state.id === activeState.id;
           const displayOpacity = isActive ? Math.max(opacity, 0.96) : opacity * 0.28;
 
@@ -386,7 +393,9 @@ function CameraImageStage({
     [activeHotspots.length],
   );
 
-  const selectedPlacement = selectedHotspot ? getCalloutPlacement(selectedHotspot, useLaptopCallouts) : null;
+  const selectedPlacement = selectedHotspot
+    ? getCalloutPlacement(selectedHotspot, useLaptopCallouts)
+    : null;
 
   return (
     <figure
@@ -468,23 +477,25 @@ function CameraImageStage({
             </path>
           </svg>
         ) : null}
-        {showHotspots ? activeHotspots.map((hotspot, index) => (
-          <EquipmentHotspotButton
-            key={`${activeState.id}-${hotspot.id}`}
-            hotspot={hotspot}
-            expanded={selectedHotspot?.id === hotspot.id}
-            buttonRef={(node) => {
-              hotspotRefs.current[index] = node;
-            }}
-            onToggle={() =>
-              setSelectedHotspotId((current) =>
-                current === hotspot.id ? null : hotspot.id,
-              )
-            }
-            onMove={(direction) => focusHotspot(index + direction)}
-            activeStateId={activeState.id}
-          />
-        )) : null}
+        {showHotspots
+          ? activeHotspots.map((hotspot, index) => (
+              <EquipmentHotspotButton
+                key={`${activeState.id}-${hotspot.id}`}
+                hotspot={hotspot}
+                expanded={selectedHotspot?.id === hotspot.id}
+                buttonRef={(node) => {
+                  hotspotRefs.current[index] = node;
+                }}
+                onToggle={() =>
+                  setSelectedHotspotId((current) =>
+                    current === hotspot.id ? null : hotspot.id,
+                  )
+                }
+                onMove={(direction) => focusHotspot(index + direction)}
+                activeStateId={activeState.id}
+              />
+            ))
+          : null}
         {selectedHotspot && selectedPlacement ? (
           <CameraCallout
             hotspot={selectedHotspot}
@@ -521,10 +532,7 @@ function EquipmentHotspotButton({
 }) {
   const tooltipId = `camera-hotspot-${activeStateId}-${hotspot.id}`;
   return (
-    <div
-      className="absolute"
-      style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
-    >
+    <div className="absolute" style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}>
       <button
         ref={buttonRef}
         type="button"
@@ -637,7 +645,9 @@ function StaticCameraEquipment({
     <div
       className={[
         "mx-auto max-w-7xl",
-        mode === "mobile" ? "block px-4 py-[var(--section-gap-immersive)] sm:px-6 md:hidden" : "",
+        mode === "mobile"
+          ? "block px-4 py-[var(--section-gap-immersive)] sm:px-6 md:hidden"
+          : "",
       ].join(" ")}
     >
       <header className="max-w-[44rem]">
@@ -669,7 +679,11 @@ function StaticCameraEquipment({
 
       <div className="mt-8 grid gap-5">
         {states.map((state) => (
-          <details key={state.id} className="group border-l border-primary/70 pl-5" open={state.id === "camera"}>
+          <details
+            key={state.id}
+            className="group border-l border-primary/70 pl-5"
+            open={state.id === "camera"}
+          >
             <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 border-b border-border/70 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary transition hover:border-primary/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none">
               <span>{state.title}</span>
               <span
@@ -684,9 +698,13 @@ function StaticCameraEquipment({
               <ol className="mt-3 grid gap-2 text-sm leading-6 text-foreground/68">
                 {state.hotspots.map((hotspot, index) => (
                   <li key={hotspot.id} className="grid grid-cols-[1.75rem_1fr] gap-2">
-                    <span className="font-semibold text-primary">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="font-semibold text-primary">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                     <span>
-                      <span className="font-semibold text-foreground">{hotspot.label}:</span>{" "}
+                      <span className="font-semibold text-foreground">
+                        {hotspot.label}:
+                      </span>{" "}
                       {hotspot.description}
                     </span>
                   </li>
@@ -759,9 +777,10 @@ function CameraFindingSummary({
 function useCameraStates(states?: FindingNarrativeState[]) {
   return useMemo(
     () =>
-      (states ?? []).filter((state): state is CameraEquipmentState =>
-        Boolean(state.id) &&
-        cameraEquipmentStateRanges.some((range) => range.id === state.id),
+      (states ?? []).filter(
+        (state): state is CameraEquipmentState =>
+          Boolean(state.id) &&
+          cameraEquipmentStateRanges.some((range) => range.id === state.id),
       ),
     [states],
   );
@@ -791,7 +810,10 @@ function getPreferredEdge(hotspot: CameraEquipmentHotspot) {
   return "right";
 }
 
-function getCalloutPlacement(hotspot: CameraEquipmentHotspot, useLaptopCallouts = false): CalloutPlacement {
+function getCalloutPlacement(
+  hotspot: CameraEquipmentHotspot,
+  useLaptopCallouts = false,
+): CalloutPlacement {
   if (useLaptopCallouts) {
     const x = clamp(hotspot.x, 28, 72);
     const y = clamp(hotspot.y - 10, 20, 70);
@@ -834,7 +856,12 @@ function getCalloutTransform(placement: CalloutPlacement) {
     return "translate(-50%, calc(-100% - 1rem))";
   }
 
-  if (placement.x >= 0 && placement.x <= 100 && placement.y >= 0 && placement.y <= 100) {
+  if (
+    placement.x >= 0 &&
+    placement.x <= 100 &&
+    placement.y >= 0 &&
+    placement.y <= 100
+  ) {
     return "translate(0, 0)";
   }
 

@@ -1052,10 +1052,7 @@ function ComparisonTable({
       </h3>
       <div className="mt-5 grid gap-3 sm:hidden">
         {rows.map((row) => (
-          <article
-            key={row.label}
-            className="border border-border bg-surface/72 p-4"
-          >
+          <article key={row.label} className="border border-border bg-surface/72 p-4">
             <h4 className="text-xs font-semibold uppercase tracking-wide text-foreground/62">
               {row.label}
             </h4>
@@ -1094,7 +1091,10 @@ function ComparisonTable({
               >
                 {metricLabel}
               </th>
-              <th scope="col" className="px-4 py-3 text-sm font-semibold text-foreground">
+              <th
+                scope="col"
+                className="px-4 py-3 text-sm font-semibold text-foreground"
+              >
                 {skydivingLabel}
               </th>
               <th scope="col" className="px-4 py-3 text-sm font-semibold text-primary">

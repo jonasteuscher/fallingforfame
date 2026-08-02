@@ -12,10 +12,7 @@ type AthleteNarrativeNavProps = {
   ariaLabel: string;
 };
 
-export function AthleteNarrativeNav({
-  items,
-  ariaLabel,
-}: AthleteNarrativeNavProps) {
+export function AthleteNarrativeNav({ items, ariaLabel }: AthleteNarrativeNavProps) {
   const [activeId, setActiveId] = useState(items[0]?.id ?? "");
 
   useEffect(() => {
@@ -108,7 +105,10 @@ export function AthleteNarrativeNav({
                   ].join(" ")}
                   aria-hidden="true"
                 />
-                <span className="hidden max-w-40 truncate md:inline min-[1600px]:max-w-none" aria-hidden="true">
+                <span
+                  className="hidden max-w-40 truncate md:inline min-[1600px]:max-w-none"
+                  aria-hidden="true"
+                >
                   {item.label}
                 </span>
               </a>

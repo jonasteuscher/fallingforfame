@@ -373,9 +373,7 @@ function StateOverlay({ state }: { state: MediaVisibilityState }) {
               transform: annotation.align === "right" ? "translateX(-100%)" : undefined,
             }}
           >
-            <span
-              className={index === 0 ? "text-primary" : "text-foreground/82"}
-            >
+            <span className={index === 0 ? "text-primary" : "text-foreground/82"}>
               {annotation.label}
             </span>
           </span>
@@ -419,8 +417,7 @@ function MobileVisibilitySequence({
     "Selbstdarstellung",
     "Selbstdarstel\u00adlung",
   );
-  const learningState =
-    states.find((state) => state.id === "learning") ?? states[0];
+  const learningState = states.find((state) => state.id === "learning") ?? states[0];
 
   return (
     <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
@@ -470,7 +467,10 @@ function MobileVisibilitySequence({
       </figure>
       <ol className="mt-9 grid gap-6">
         {states.map((state, index) => (
-          <li key={state.id} className="grid grid-cols-[2.5rem_1fr] gap-4 border-l border-border py-1">
+          <li
+            key={state.id}
+            className="grid grid-cols-[2.5rem_1fr] gap-4 border-l border-border py-1"
+          >
             <span className="pl-4 text-xs font-semibold text-primary">
               {String(index + 1).padStart(2, "0")}
             </span>

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -80,6 +80,16 @@ describe("MobileExperienceNotice", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
+  it("renders nothing when matchMedia is unavailable", async () => {
+    window.matchMedia = undefined as unknown as typeof window.matchMedia;
+
+    render(<MobileExperienceNotice content={enContent} />);
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+  });
+
   it("reacts when the viewport changes to mobile", async () => {
     mediaQueryMatches = false;
 
@@ -87,7 +97,9 @@ describe("MobileExperienceNotice", () => {
 
     await waitFor(() => expect(window.matchMedia).toHaveBeenCalled());
     mediaQueryMatches = true;
-    emitMediaQueryChange();
+    act(() => {
+      emitMediaQueryChange();
+    });
 
     expect(
       await screen.findByRole("dialog", { name: "Experience the full story" }),
@@ -139,6 +151,48 @@ describe("MobileExperienceNotice", () => {
     await user.keyboard("{Escape}");
 
     expect(localStorage.getItem(mobileExperienceNoticeStorageKey)).toBe("true");
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("keeps focus inside the dialog and wraps keyboard tabbing", async () => {
+    const user = userEvent.setup();
+    const outsideButton = document.createElement("button");
+    outsideButton.textContent = "Outside";
+    document.body.append(outsideButton);
+
+    render(<MobileExperienceNotice content={enContent} />);
+
+    const continueButton = await screen.findByRole("button", {
+      name: "Continue on mobile",
+    });
+    const closeButton = screen.getByRole("button", { name: "Close mobile notice" });
+
+    expect(continueButton).toHaveFocus();
+
+    await user.tab({ shift: true });
+    expect(closeButton).toHaveFocus();
+
+    fireEvent.focusIn(outsideButton);
+    expect(continueButton).toHaveFocus();
+  });
+
+  it("still opens and closes when local storage is unavailable", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      throw new Error("Storage unavailable");
+    });
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("Storage unavailable");
+    });
+
+    render(<MobileExperienceNotice content={enContent} />);
+
+    expect(
+      await screen.findByRole("dialog", { name: "Experience the full story" }),
+    ).toBeVisible();
+
+    await user.click(screen.getByRole("button", { name: "Continue on mobile" }));
+
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 

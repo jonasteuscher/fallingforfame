@@ -42,8 +42,7 @@ export function AudioWaveform({
     status: "loading",
     samples: loadingSamples,
   });
-  const progress =
-    duration > 0 ? Math.min(Math.max(currentTime / duration, 0), 1) : 0;
+  const progress = duration > 0 ? Math.min(Math.max(currentTime / duration, 0), 1) : 0;
   const isStale = waveform.audioSrc !== audioSrc;
   const samples = isStale ? loadingSamples : waveform.samples;
   const waveformStatus = isStale ? "loading" : waveform.status;

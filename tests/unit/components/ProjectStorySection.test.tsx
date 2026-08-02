@@ -56,18 +56,14 @@ describe("ProjectStorySection", () => {
         "Natural rock opening in the European Alps used for Lukas Loibl's wingsuit record",
       ),
     ).toHaveAttribute("src", "/images/athletes/lukas-loibl/Loch2.jpeg");
-    expect(
-      screen
-        .getByText("A line years in the making")
-        .closest("div"),
-    ).toHaveClass("lg:grid-cols-[minmax(0,0.82fr)_minmax(18rem,0.46fr)]");
+    expect(screen.getByText("A line years in the making").closest("div")).toHaveClass(
+      "lg:grid-cols-[minmax(0,0.82fr)_minmax(18rem,0.46fr)]",
+    );
     expect(
       screen.getByRole("link", { name: "More about the project" }),
     ).toHaveAttribute("href", "#media-coverage");
 
-    const video = screen.getByLabelText(
-      "Lukas Loibl world record wingsuit flight",
-    );
+    const video = screen.getByLabelText("Lukas Loibl world record wingsuit flight");
 
     expect(video).toHaveAttribute("preload", "metadata");
     expect(video).toHaveAttribute("playsinline");
@@ -92,8 +88,10 @@ describe("ProjectStorySection", () => {
     expect(screen.getByText("Aktuelles Projekt")).toBeVisible();
     expect(screen.getByText(/zehn natürliche Felsformationen/)).toBeVisible();
     expect(screen.getByText("Zehn Flüge. Zehn Formationen.")).toBeVisible();
-    expect(screen.getByRole("link", { name: "Mehr zum Projekt" }))
-      .toHaveAttribute("href", "#media-coverage");
+    expect(screen.getByRole("link", { name: "Mehr zum Projekt" })).toHaveAttribute(
+      "href",
+      "#media-coverage",
+    );
   });
 
   it("pauses the project video when it leaves the viewport", () => {
@@ -143,8 +141,7 @@ describe("ProjectStorySection", () => {
 });
 
 function lukasProject() {
-  const project = athletes.find((item) => item.slug === "lukas-loibl")
-    ?.currentProject;
+  const project = athletes.find((item) => item.slug === "lukas-loibl")?.currentProject;
 
   if (!project) {
     throw new Error("Lukas Loibl project fixture missing");

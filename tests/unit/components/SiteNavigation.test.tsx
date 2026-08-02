@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { SiteNavigation } from "@/components/layout/SiteNavigation";
 import { resetMockPathname, setMockPathname } from "../../test-utils/next-navigation";
@@ -24,6 +24,8 @@ const links = [
 
 afterEach(() => {
   resetMockPathname();
+  document.body.style.overflow = "";
+  vi.restoreAllMocks();
 });
 
 describe("SiteNavigation", () => {
@@ -136,5 +138,58 @@ describe("SiteNavigation", () => {
     expect(screen.getByRole("link", { name: "DE" })).not.toHaveAttribute(
       "aria-current",
     );
+  });
+
+  it("traps keyboard focus inside the open mobile menu", async () => {
+    const user = userEvent.setup();
+    render(<SiteNavigation locale="en" links={links} labels={labels} />);
+
+    await user.click(screen.getByRole("button", { name: labels.openMenu }));
+
+    const dialog = screen.getByRole("dialog", { name: labels.menu });
+    const brandLink = within(dialog).getByRole("link", {
+      name: "Falling for Fame?",
+    });
+    const germanLink = within(dialog).getByRole("link", { name: "DE" });
+
+    expect(brandLink).toHaveFocus();
+
+    await user.keyboard("{Shift>}{Tab}{/Shift}");
+    expect(germanLink).toHaveFocus();
+
+    await user.keyboard("{Tab}");
+    expect(brandLink).toHaveFocus();
+  });
+
+  it("restores body scrolling and closes when a mobile menu link is selected", async () => {
+    const user = userEvent.setup();
+    document.body.style.overflow = "auto";
+
+    render(<SiteNavigation locale="en" links={links} labels={labels} />);
+
+    await user.click(screen.getByRole("button", { name: labels.openMenu }));
+    expect(document.body.style.overflow).toBe("hidden");
+
+    await user.click(
+      within(screen.getByRole("dialog", { name: labels.menu })).getByRole("link", {
+        name: "Findings",
+      }),
+    );
+
+    expect(screen.queryByRole("dialog", { name: labels.menu })).not.toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("auto");
+  });
+
+  it("uses the locale root as the mobile brand fallback when no links are provided", async () => {
+    const user = userEvent.setup();
+    render(<SiteNavigation locale="de" links={[]} labels={labels} />);
+
+    await user.click(screen.getByRole("button", { name: labels.openMenu }));
+
+    expect(
+      within(screen.getByRole("dialog", { name: labels.menu })).getByRole("link", {
+        name: "Falling for Fame?",
+      }),
+    ).toHaveAttribute("href", "/de");
   });
 });

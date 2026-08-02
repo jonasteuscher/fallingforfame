@@ -205,7 +205,8 @@ function PressureScene({
 
         <ol className="absolute inset-0">
           {pressureFactors.map((factor, index) => {
-            const position = pressureFactorPositions[index % pressureFactorPositions.length];
+            const position =
+              pressureFactorPositions[index % pressureFactorPositions.length];
             const reveal = getPressureFactorReveal(index, progress);
             const point = getPressureFactorPoint(position, reveal);
             const scaledX = `calc(${point.x}px * var(--pressure-label-scale, 1))`;
@@ -397,7 +398,10 @@ function PressureFactorList({
   return (
     <ol className={["grid gap-3 sm:grid-cols-2", className].join(" ")}>
       {factors.map((factor, index) => (
-        <li key={factor} className="grid grid-cols-[2.75rem_1fr] gap-4 border-l border-border py-2">
+        <li
+          key={factor}
+          className="grid grid-cols-[2.75rem_1fr] gap-4 border-l border-border py-2"
+        >
           <span className="pl-4 text-xs font-semibold text-primary">
             {String(index + 1).padStart(2, "0")}
           </span>
@@ -448,7 +452,11 @@ function PressureFindingSummary({
   className?: string;
 }) {
   return (
-    <aside className={["border border-border bg-background/72 p-5 sm:p-7", className].join(" ")}>
+    <aside
+      className={["border border-border bg-background/72 p-5 sm:p-7", className].join(
+        " ",
+      )}
+    >
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
         {sourcePrefix}
       </p>

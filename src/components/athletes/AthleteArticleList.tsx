@@ -70,7 +70,13 @@ export function AthleteArticleList({
                   />
                 </span>
               ) : null}
-              <span className={compact ? "block text-base font-semibold leading-snug text-foreground" : "block text-xl font-semibold text-foreground"}>
+              <span
+                className={
+                  compact
+                    ? "block text-base font-semibold leading-snug text-foreground"
+                    : "block text-xl font-semibold text-foreground"
+                }
+              >
                 {getArticleLabel(article, locale)}
               </span>
               <span className="mt-2 block text-sm uppercase tracking-wide text-foreground/62">

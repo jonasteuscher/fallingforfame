@@ -98,7 +98,12 @@ export function FindingsChapterNav({
           : "pointer-events-none opacity-0",
       ].join(" ")}
     >
-      <ol className={["flex gap-1 md:flex-col", compact ? "md:gap-0.5 min-[1600px]:gap-1" : ""].join(" ")}>
+      <ol
+        className={[
+          "flex gap-1 md:flex-col",
+          compact ? "md:gap-0.5 min-[1600px]:gap-1" : "",
+        ].join(" ")}
+      >
         {items.map((item) => {
           const isActive = item.id === activeId;
 
@@ -124,7 +129,11 @@ export function FindingsChapterNav({
                   aria-hidden="true"
                 />
                 <span
-                  className={compact ? "hidden max-w-40 truncate md:inline min-[1600px]:max-w-none" : "hidden md:inline"}
+                  className={
+                    compact
+                      ? "hidden max-w-40 truncate md:inline min-[1600px]:max-w-none"
+                      : "hidden md:inline"
+                  }
                   aria-hidden="true"
                 >
                   {item.label}

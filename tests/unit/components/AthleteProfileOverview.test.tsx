@@ -1,5 +1,5 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   AthleteProfileOverview,
@@ -7,6 +7,10 @@ import {
 } from "@/components/athletes/AthleteProfileOverview";
 import { athletes } from "@/data/athletes";
 import type { Athlete } from "@/types/athlete";
+
+type ObserverCallback = IntersectionObserverCallback;
+
+const originalIntersectionObserver = window.IntersectionObserver;
 
 const enLabels = {
   eyebrow: "Profile",
@@ -42,6 +46,29 @@ const deLabels = {
   no: "Nein",
 };
 
+let observerInstances: Array<{
+  callback: ObserverCallback;
+  disconnect: ReturnType<typeof vi.fn>;
+  observe: ReturnType<typeof vi.fn>;
+}> = [];
+
+beforeEach(() => {
+  observerInstances = [];
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
+  if (originalIntersectionObserver) {
+    Object.defineProperty(window, "IntersectionObserver", {
+      configurable: true,
+      writable: true,
+      value: originalIntersectionObserver,
+    });
+  } else {
+    Reflect.deleteProperty(window, "IntersectionObserver");
+  }
+});
+
 describe("AthleteProfileOverview", () => {
   it("renders portrait, biography, metadata, disciplines and five metrics", () => {
     const athlete = athleteFixture("marcel-geser");
@@ -60,10 +87,7 @@ describe("AthleteProfileOverview", () => {
     ).toBeVisible();
     expect(
       screen.getByAltText("Marcel Geser wearing a helmet and blue wingsuit gear"),
-    ).toHaveAttribute(
-      "src",
-      "/images/athletes/marcel-geser/profile.jpg",
-    );
+    ).toHaveAttribute("src", "/images/athletes/marcel-geser/profile.jpg");
     expect(screen.getByText(athlete.content.en.shortBio)).toBeVisible();
     expect(screen.getByText("Paragliding Pilot")).toBeVisible();
     expect(screen.getAllByText("Hobby BASE Jumper").length).toBeGreaterThan(0);
@@ -119,8 +143,7 @@ describe("AthleteProfileOverview", () => {
       ),
     ).toBeVisible();
     expect(screen.queryByAltText(/Jöttnar logo/i)).not.toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: /Jöttnar/i }))
-      .not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /Jöttnar/i })).not.toBeInTheDocument();
   });
 
   it("uses fallback text when optional values are missing", () => {
@@ -175,6 +198,81 @@ describe("AthleteProfileOverview", () => {
     expect(screen.getByText("(Stand Frühjahr 2026)")).toBeVisible();
   });
 
+  it("starts stat counters only after the stats grid enters the viewport", async () => {
+    function MockIntersectionObserver(callback: ObserverCallback) {
+      const instance = {
+        callback,
+        disconnect: vi.fn(),
+        observe: vi.fn(),
+      };
+      observerInstances.push(instance);
+      return instance;
+    }
+
+    Object.defineProperty(window, "IntersectionObserver", {
+      configurable: true,
+      writable: true,
+      value: vi.fn(MockIntersectionObserver),
+    });
+
+    const requestFrame = vi
+      .spyOn(window, "requestAnimationFrame")
+      .mockImplementation((callback) => {
+        callback(performance.now() + STAT_COUNTER_CONFIG.duration);
+        return 1;
+      });
+
+    render(
+      <AthleteProfileOverview
+        athlete={athleteFixture("lukas-loibl")}
+        locale="en"
+        labels={enLabels}
+        portraitAlt="Lukas Loibl smiling in a yellow jacket outdoors"
+        portraitPlaceholder="Portrait media pending"
+      />,
+    );
+
+    expect(observerInstances).toHaveLength(1);
+    expect(observerInstances[0]?.observe).toHaveBeenCalledTimes(1);
+
+    observerInstances[0]?.callback(
+      [{ isIntersecting: false } as IntersectionObserverEntry],
+      observerInstances[0] as unknown as IntersectionObserver,
+    );
+    expect(requestFrame).not.toHaveBeenCalled();
+
+    observerInstances[0]?.callback(
+      [{ isIntersecting: true } as IntersectionObserverEntry],
+      observerInstances[0] as unknown as IntersectionObserver,
+    );
+
+    await waitFor(() => expect(requestFrame).toHaveBeenCalled());
+    expect(observerInstances[0]?.disconnect).toHaveBeenCalled();
+  });
+
+  it("renders a single sponsor relationship without a list separator", () => {
+    const athlete: Athlete = {
+      ...athleteFixture("tim-howell"),
+      sponsors: ["Solo Sponsor"],
+    };
+
+    render(
+      <AthleteProfileOverview
+        athlete={athlete}
+        locale="en"
+        labels={enLabels}
+        portraitAlt="Tim Howell wearing a cap and harness in front of mountains"
+        portraitPlaceholder="Portrait media pending"
+      />,
+    );
+
+    expect(
+      screen.getByText(
+        "Tim Howell reports sponsorship relationships with Solo Sponsor. These partnerships are documented here as part of the athlete's professional context within BASE jumping.",
+      ),
+    ).toBeVisible();
+  });
+
   it("includes responsive grid classes for desktop and compact breakpoints", () => {
     const { container } = render(
       <AthleteProfileOverview
@@ -186,22 +284,21 @@ describe("AthleteProfileOverview", () => {
       />,
     );
 
-    const classNames = Array.from(container.querySelectorAll("*")).map((node) =>
-      node.getAttribute("class") ?? "",
+    const classNames = Array.from(container.querySelectorAll("*")).map(
+      (node) => node.getAttribute("class") ?? "",
     );
 
     expect(
       classNames.some((className) =>
-        className.includes(
-          "lg:grid-cols-[minmax(0,1.12fr)_minmax(20rem,0.88fr)]",
-        ),
+        className.includes("lg:grid-cols-[minmax(0,1.12fr)_minmax(20rem,0.88fr)]"),
       ),
     ).toBe(true);
     expect(
       classNames.some((className) => className.includes("min-[420px]:grid-cols-2")),
     ).toBe(true);
-    expect(container.querySelector("[data-profile-meta]"))
-      .toHaveClass("sm:[grid-template-columns:repeat(2,minmax(0,1fr))]");
+    expect(container.querySelector("[data-profile-meta]")).toHaveClass(
+      "sm:[grid-template-columns:repeat(2,minmax(0,1fr))]",
+    );
     expect(STAT_COUNTER_CONFIG).toMatchObject({
       duration: 1400,
       threshold: 0.4,

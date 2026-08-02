@@ -30,8 +30,10 @@ describe("AthleteHero", () => {
     expect(container.querySelector("blockquote p")).toHaveClass(
       "[overflow-wrap:anywhere]",
     );
-    expect(screen.getByRole("link", { name: "Scroll the profile" }))
-      .toHaveAttribute("href", "#profile-experience");
+    expect(screen.getByRole("link", { name: "Scroll the profile" })).toHaveAttribute(
+      "href",
+      "#profile-experience",
+    );
   });
 
   it("still renders when optional athlete metadata is missing", () => {
@@ -51,9 +53,7 @@ describe("AthleteHero", () => {
       />,
     );
 
-    expect(
-      screen.getByRole("heading", { name: "Tim Howell", level: 1 }),
-    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Tim Howell", level: 1 })).toBeVisible();
     expect(screen.getByText("Country unknown | Age unknown")).toBeVisible();
     expect(screen.getByText(timHeroQuote)).toBeVisible();
   });

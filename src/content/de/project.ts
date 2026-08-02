@@ -29,7 +29,8 @@ export const project = {
     cards: [
       {
         label: "Warum dokumentarisch?",
-        title: "Weil das Thema an Orten gelebt wird, die die meisten Betrachtenden nie sehen.",
+        title:
+          "Weil das Thema an Orten gelebt wird, die die meisten Betrachtenden nie sehen.",
         body: "Bilder, Ton und Rhythmus können Atmosphäre, Vorbereitung und Unsicherheit vermitteln, die eine schriftliche Arbeit nur beschreiben kann.",
       },
       {
@@ -239,8 +240,15 @@ export const project = {
         label: "Betreuungspersonen",
         value: "Dr. Marie-Therese Mäder (Hauptreferentin), Nils Solanski (Korreferat)",
       },
-      { label: "Mitwirkende", value: "Interviewpartner:innen und dokumentarische Mitwirkende" },
-      { label: "Dank", value: "Den Mitgliedern der BASE-Jumping-Community, die Zeit, Zugang und Perspektiven geteilt haben" },
+      {
+        label: "Mitwirkende",
+        value: "Interviewpartner:innen und dokumentarische Mitwirkende",
+      },
+      {
+        label: "Dank",
+        value:
+          "Den Mitgliedern der BASE-Jumping-Community, die Zeit, Zugang und Perspektiven geteilt haben",
+      },
     ],
   },
 };

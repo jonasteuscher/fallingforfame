@@ -58,21 +58,41 @@ describe("CameraEquipmentSection", () => {
     expect(images[0]).toHaveAttribute("src", "/images/findings/Camera.jpg");
   });
 
+  it("renders nothing when the required documentary image is missing", () => {
+    const chapter: FindingChapter = {
+      ...getCameraChapter(),
+      image: undefined,
+    };
+
+    const { container } = render(
+      <CameraEquipmentSection chapter={chapter} {...labels} />,
+    );
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it("renders English and German final statements without changing the core finding", () => {
     const { rerender } = render(
-      <CameraEquipmentSection chapter={getCameraChapter(englishFindings)} {...labels} />,
+      <CameraEquipmentSection
+        chapter={getCameraChapter(englishFindings)}
+        {...labels}
+      />,
     );
 
     expect(
       screen.getAllByText(/The camera does not make the decision/i).length,
     ).toBeGreaterThan(0);
-    expect(screen.getAllByText(/What matters is how it is used/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/What matters is how it is used/i).length,
+    ).toBeGreaterThan(0);
 
     rerender(
       <CameraEquipmentSection chapter={getCameraChapter(germanFindings)} {...labels} />,
     );
 
-    expect(screen.getAllByText(/Nicht die Kamera entscheidet/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/Nicht die Kamera entscheidet/i).length).toBeGreaterThan(
+      0,
+    );
     expect(
       screen.getAllByText(/Entscheidend ist der Umgang mit ihr/i).length,
     ).toBeGreaterThan(0);
@@ -94,7 +114,8 @@ describe("CameraEquipmentSection", () => {
     expect(cameraButton).toHaveAttribute("aria-expanded", "true");
     expect(screen.getAllByRole("dialog", { name: "CAMERA" })).toHaveLength(1);
     expect(
-      screen.getAllByText(/The camera documents the jump and enables later review/i).length,
+      screen.getAllByText(/The camera documents the jump and enables later review/i)
+        .length,
     ).toBeGreaterThan(1);
 
     await user.keyboard("{Escape}");
@@ -138,7 +159,9 @@ describe("CameraEquipmentSection", () => {
 
     render(<CameraEquipmentSection chapter={chapter} {...labels} />);
 
-    const cameraButton = screen.getByRole("button", { name: /Camera: The camera is visible/i });
+    const cameraButton = screen.getByRole("button", {
+      name: /Camera: The camera is visible/i,
+    });
     const helmetButton = screen.getByRole("button", {
       name: /Helmet: The camera mount is part/i,
     });
@@ -208,7 +231,9 @@ describe("CameraEquipmentSection", () => {
 
     render(<CameraEquipmentSection chapter={chapter} {...labels} />);
 
-    const cameraButton = screen.getByRole("button", { name: /Camera: The camera is visible/i });
+    const cameraButton = screen.getByRole("button", {
+      name: /Camera: The camera is visible/i,
+    });
     const helmetButton = screen.getByRole("button", {
       name: /Helmet: The helmet carries/i,
     });
@@ -219,14 +244,112 @@ describe("CameraEquipmentSection", () => {
     expect(helmetButton).toHaveFocus();
   });
 
+  it("moves keyboard focus backward with left and up arrow keys", async () => {
+    const user = userEvent.setup();
+    const chapter: FindingChapter = {
+      ...getCameraChapter(),
+      states: [
+        {
+          id: "camera",
+          title: "Action camera",
+          body: "A media object that becomes ordinary equipment.",
+          hotspots: [
+            {
+              id: "camera-arm",
+              state: "camera",
+              label: "Camera",
+              description: "The camera is visible.",
+              x: 30,
+              y: 40,
+            },
+            {
+              id: "helmet",
+              state: "camera",
+              label: "Helmet",
+              description: "The helmet carries the camera mount.",
+              x: 45,
+              y: 45,
+            },
+          ],
+        },
+        ...(getCameraChapter().states ?? []).filter((state) => state.id !== "camera"),
+      ],
+    };
+
+    render(<CameraEquipmentSection chapter={chapter} {...labels} />);
+
+    const cameraButton = screen.getByRole("button", {
+      name: /Camera: The camera is visible/i,
+    });
+    const helmetButton = screen.getByRole("button", {
+      name: /Helmet: The helmet carries/i,
+    });
+
+    helmetButton.focus();
+    await user.keyboard("{ArrowLeft}");
+    expect(cameraButton).toHaveFocus();
+
+    helmetButton.focus();
+    await user.keyboard("{ArrowUp}");
+    expect(cameraButton).toHaveFocus();
+  });
+
+  it("wraps hotspot focus from the final hotspot back to the first", async () => {
+    const user = userEvent.setup();
+    const chapter: FindingChapter = {
+      ...getCameraChapter(),
+      states: [
+        {
+          id: "camera",
+          title: "Action camera",
+          body: "A media object that becomes ordinary equipment.",
+          hotspots: [
+            {
+              id: "camera-arm",
+              state: "camera",
+              label: "Camera",
+              description: "The camera is visible.",
+              x: 30,
+              y: 40,
+            },
+            {
+              id: "helmet",
+              state: "camera",
+              label: "Helmet",
+              description: "The helmet carries the camera mount.",
+              x: 45,
+              y: 45,
+            },
+          ],
+        },
+        ...(getCameraChapter().states ?? []).filter((state) => state.id !== "camera"),
+      ],
+    };
+
+    render(<CameraEquipmentSection chapter={chapter} {...labels} />);
+
+    const cameraButton = screen.getByRole("button", {
+      name: /Camera: The camera is visible/i,
+    });
+    const helmetButton = screen.getByRole("button", {
+      name: /Helmet: The helmet carries/i,
+    });
+
+    helmetButton.focus();
+    await user.keyboard("{ArrowRight}");
+
+    expect(cameraButton).toHaveFocus();
+  });
+
   it("exposes all narrative states in reduced-motion mode", async () => {
     mockReducedMotion(true);
 
     render(<CameraEquipmentSection chapter={getCameraChapter()} {...labels} />);
 
     await waitFor(() => {
-      expect(screen.getByRole("heading", { name: /The camera is part of the jump/i }))
-        .toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { name: /The camera is part of the jump/i }),
+      ).toBeInTheDocument();
     });
 
     for (const state of getCameraChapter().states ?? []) {
@@ -243,13 +366,68 @@ describe("CameraEquipmentSection", () => {
       ?.closest("div");
 
     expect(mobileSection).not.toBeNull();
-    expect(within(mobileSection as HTMLElement).getByText("Action camera")).toBeInTheDocument();
-    expect(within(mobileSection as HTMLElement).getByText(/CAMERA/)).toBeInTheDocument();
-    expect(within(mobileSection as HTMLElement).queryByRole("button")).not.toBeInTheDocument();
+    expect(
+      within(mobileSection as HTMLElement).getByText("Action camera"),
+    ).toBeInTheDocument();
+    expect(
+      within(mobileSection as HTMLElement).getByText(/CAMERA/),
+    ).toBeInTheDocument();
+    expect(
+      within(mobileSection as HTMLElement).queryByRole("button"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("uses fallback summary text when insight copy is omitted", () => {
+    mockReducedMotion(true);
+    const chapter: FindingChapter = {
+      ...getCameraChapter(),
+      insight: undefined,
+      finding: "Fallback empirical finding.",
+      accessibleSummary: "Fallback accessible interpretation.",
+    };
+
+    render(<CameraEquipmentSection chapter={chapter} {...labels} />);
+
+    expect(screen.getAllByText("Fallback empirical finding.")[0]).toBeVisible();
+    expect(
+      screen.getAllByText("Fallback accessible interpretation.")[0],
+    ).toBeInTheDocument();
+  });
+
+  it("filters invalid narrative states from the reduced-motion fallback", () => {
+    mockReducedMotion(true);
+    const chapter: FindingChapter = {
+      ...getCameraChapter(),
+      states: [
+        {
+          id: undefined,
+          title: "Invalid missing id",
+          body: "This state should not render.",
+        },
+        {
+          id: "camera",
+          title: "Valid state",
+          body: "This state should render.",
+          hotspots: [],
+        },
+      ],
+    };
+
+    render(<CameraEquipmentSection chapter={chapter} {...labels} />);
+
+    expect(screen.queryByText("Invalid missing id")).not.toBeInTheDocument();
+    expect(screen.getByText("Valid state")).toBeVisible();
+    expect(screen.getByText("This state should render.")).toBeVisible();
   });
 
   it("keeps hotspot data percentage-based, unique and scoped to valid states", () => {
-    const validStates = new Set(["camera", "helmet", "equipment", "preparation", "decision"]);
+    const validStates = new Set([
+      "camera",
+      "helmet",
+      "equipment",
+      "preparation",
+      "decision",
+    ]);
 
     for (const content of [englishFindings, germanFindings]) {
       const chapter = getCameraChapter(content);

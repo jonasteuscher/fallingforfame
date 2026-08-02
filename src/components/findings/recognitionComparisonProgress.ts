@@ -43,8 +43,16 @@ export function getRecognitionComparisonState(
   );
 
   return {
-    visibilityEmphasis: clamp(0.42 + visibilityBuild * 0.58 - visibilityRecede * 0.5, 0.3, 1),
-    visibilityOpacity: clamp(0.58 + visibilityBuild * 0.42 - visibilityRecede * 0.42, 0.34, 1),
+    visibilityEmphasis: clamp(
+      0.42 + visibilityBuild * 0.58 - visibilityRecede * 0.5,
+      0.3,
+      1,
+    ),
+    visibilityOpacity: clamp(
+      0.58 + visibilityBuild * 0.42 - visibilityRecede * 0.42,
+      0.34,
+      1,
+    ),
     recognitionEmphasis: clamp(0.28 + recognitionBuild * 0.72, 0.28, 1),
     recognitionOpacity: clamp(0.5 + recognitionBuild * 0.5, 0.5, 1),
     dividerBias: interpolate(clampedProgress, 0.18, 0.76, -1, 1),
