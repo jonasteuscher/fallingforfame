@@ -241,7 +241,7 @@ export const project = {
       {
         label: "Supervisors",
         value:
-          "Dr. Marie-Therese Mäder (main supervisor), Nils Solanski (co-supervisor)",
+          "Dr. Marie-Therese Mäder (main supervisor), Nils Solanki (co-supervisor)",
       },
       {
         label: "Contributors",

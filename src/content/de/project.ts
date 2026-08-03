@@ -238,7 +238,7 @@ export const project = {
       { label: "Hochschule", value: "Fachhochschule Graubünden (FHGR)" },
       {
         label: "Betreuungspersonen",
-        value: "Dr. Marie-Therese Mäder (Hauptreferentin), Nils Solanski (Korreferat)",
+        value: "Dr. Marie-Therese Mäder (Hauptreferentin), Nils Solanki (Korreferat)",
       },
       {
         label: "Mitwirkende",
