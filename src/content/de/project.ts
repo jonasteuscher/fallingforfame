@@ -168,10 +168,12 @@ export const project = {
     description:
       "Diese interaktive Dokumentation basiert auf einer Bachelorarbeit an der Fachhochschule Graubünden (FHGR).\n\nInteressierte können die vollständige Arbeit herunterladen, um vertiefte Einblicke in Theorie, Methodik und wissenschaftliche Analyse zu erhalten.",
     button: "PDF herunterladen",
-    fileName: "Falling for Fame? - Bachelorarbeit",
+    fileName: "Zwischen Sichtbarkeit und Sicherheit - Bachelorarbeit",
     pdfLabel: "PDF",
     fileType: "PDF-Dokument",
-    fileMeta: "Die vollständige PDF-Datei wird später ergänzt.",
+    fileMeta: "Vollständige Bachelorarbeit als PDF.",
+    coverAlt:
+      "Cover der Bachelorarbeit Zwischen Sichtbarkeit und Sicherheit.",
   },
   journey: {
     label: "Rechercheweg",

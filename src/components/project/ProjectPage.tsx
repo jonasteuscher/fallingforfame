@@ -248,14 +248,14 @@ function ThesisChapter({ content }: { content: ProjectContent["thesis"] }) {
         </div>
         <article className="border border-primary bg-surface p-4 sm:p-6">
           <div className="grid gap-5 md:grid-cols-[0.42fr_1fr]">
-            <div className="flex aspect-[3/4] flex-col justify-between border border-border bg-background p-5">
-              <div className="text-sm font-semibold uppercase tracking-wide text-primary">
-                {content.fileType}
-              </div>
-              <div className="text-6xl font-semibold leading-none text-primary">
-                {content.pdfLabel}
-              </div>
-              <div className="h-2 w-2/3 bg-primary" aria-hidden="true" />
+            <div className="relative aspect-[210/297] overflow-hidden border border-border bg-background">
+              <Image
+                src="/document/thesis/Thesis_Cover.jpg"
+                alt={content.coverAlt}
+                fill
+                sizes="(min-width: 768px) 18rem, 90vw"
+                className="object-cover object-top"
+              />
             </div>
             <div className="flex flex-col justify-between gap-8 p-1">
               <div>
@@ -266,13 +266,13 @@ function ThesisChapter({ content }: { content: ProjectContent["thesis"] }) {
                   {content.fileMeta}
                 </p>
               </div>
-              <button
-                type="button"
-                disabled
-                className="w-full cursor-not-allowed border border-primary bg-primary px-5 py-4 text-left text-sm font-semibold uppercase tracking-wide text-background opacity-70 md:w-fit"
+              <a
+                href="/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf"
+                download
+                className="w-full border border-primary bg-primary px-5 py-4 text-left text-sm font-semibold uppercase tracking-wide text-background transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:w-fit"
               >
                 {content.button}
-              </button>
+              </a>
             </div>
           </div>
         </article>

@@ -167,10 +167,12 @@ export const project = {
     description:
       "This interactive documentary is based on a bachelor's thesis conducted at the University of Applied Sciences of the Grisons (FHGR).\n\nVisitors interested in the academic background, theoretical framework, methodology, and detailed analysis can download the complete thesis.",
     button: "Download Thesis PDF",
-    fileName: "Falling for Fame? - Bachelor Thesis",
+    fileName: "Zwischen Sichtbarkeit und Sicherheit - Bachelorarbeit",
     pdfLabel: "PDF",
     fileType: "PDF document",
-    fileMeta: "Complete thesis PDF will be added later.",
+    fileMeta: "Complete bachelor thesis as a PDF.",
+    coverAlt:
+      "Cover of the bachelor thesis Zwischen Sichtbarkeit und Sicherheit.",
   },
   journey: {
     label: "Research Journey",
