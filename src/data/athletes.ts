@@ -241,7 +241,7 @@ const galleryImageDimensions: Record<
   "lukas-loibl": {
     "D9A50B94-6169-4E85-8800-8924444F81E9.png": { width: 1024, height: 1536 },
     "IMG_9389.jpeg": { width: 2000, height: 3000 },
-    "IMG_9586.jpeg": { width: 1320, height: 2486, objectPosition: "50% 74%" },
+    "IMG_9586.jpeg": { width: 1320, height: 2486, objectPosition: "50% 30%" },
     "IMG_9990.jpeg": { width: 1280, height: 1920 },
     "Lukas.jpeg": { width: 2001, height: 3000 },
     "_DSC3618.jpeg": { width: 1688, height: 3000 },

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { WorkTitleText } from "@/components/text/WorkTitleText";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { localizedImprintPath } from "@/i18n/navigation";
+import { localizedImprintPath, localizedPrivacyPath } from "@/i18n/navigation";
 
 type SiteFooterProps = {
   locale: Locale;
@@ -21,12 +21,26 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           </p>
           <p className="mt-4">{footer.copyright}</p>
         </div>
-        <Link
-          href={localizedImprintPath(locale)}
-          className="inline-flex min-h-11 items-center text-sm font-semibold uppercase tracking-wide text-foreground/72 transition hover:text-primary focus-visible:rounded-sm focus-visible:text-primary"
+        <nav
+          aria-label={locale === "de" ? "Rechtliche Links" : "Legal links"}
+          className="flex flex-wrap items-center gap-x-3 gap-y-2"
         >
-          {footer.imprint}
-        </Link>
+          <Link
+            href={localizedImprintPath(locale)}
+            className="inline-flex min-h-11 items-center text-sm font-semibold uppercase tracking-wide text-foreground/72 transition hover:text-primary focus-visible:rounded-sm focus-visible:text-primary"
+          >
+            {footer.imprint}
+          </Link>
+          <span aria-hidden="true" className="text-foreground/36">
+            ·
+          </span>
+          <Link
+            href={localizedPrivacyPath(locale)}
+            className="inline-flex min-h-11 items-center text-sm font-semibold uppercase tracking-wide text-foreground/72 transition hover:text-primary focus-visible:rounded-sm focus-visible:text-primary"
+          >
+            {footer.privacy}
+          </Link>
+        </nav>
       </div>
     </footer>
   );
