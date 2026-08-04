@@ -46,7 +46,7 @@ export const project = {
   },
   motivation: {
     image: {
-      src: "/images/project/motivation.jpg",
+      src: "/images/project/motivation.JPG",
       alt: "Documentary author smiling with parachute gear in a wooded area",
     },
     label: "Personal perspective",
