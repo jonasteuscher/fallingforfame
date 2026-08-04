@@ -6,5 +6,5 @@ export function localizedPath(locale: Locale, path = "") {
 }
 
 export function localizedImprintPath(locale: Locale) {
-  return localizedPath(locale, locale === "de" ? "/impressum" : "/imprint");
+  return localizedPath(locale, "/imprint");
 }

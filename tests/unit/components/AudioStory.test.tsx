@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { AudioProvider } from "@/components/audio";
@@ -112,6 +112,7 @@ describe("AudioStory", () => {
   });
 
   afterEach(() => {
+    vi.useRealTimers();
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
   });
@@ -122,8 +123,9 @@ describe("AudioStory", () => {
     expect(audioInstances[0]?.src).toBe(story().audio.src);
     expect(globalThis.fetch).toHaveBeenCalledWith(story().transcript.en);
     expect(await screen.findByText("Knowledge dispels fear.")).toBeVisible();
-    expect(screen.getByRole("button", { name: "Play Understanding Fear" }))
-      .toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Play Understanding Fear" }),
+    ).toBeVisible();
   });
 
   it("loads the German transcript for German visitors", async () => {
@@ -218,8 +220,9 @@ describe("AudioStory", () => {
     renderStory("en");
     await screen.findByText("Knowledge dispels fear.");
 
-    expect(screen.getByTestId("audio-waveform").querySelectorAll("span").length)
-      .toBeGreaterThan(10);
+    expect(
+      screen.getByTestId("audio-waveform").querySelectorAll("span").length,
+    ).toBeGreaterThan(10);
 
     fireEvent.pointerDown(screen.getByRole("slider", { name: "Seek audio story" }), {
       clientX: 50,
@@ -249,20 +252,155 @@ describe("AudioStory", () => {
     const { container } = renderStory("en");
     await screen.findByText("Knowledge dispels fear.");
 
-    expect(container.querySelector(".md\\:grid-cols-\\[11rem_1fr\\]"))
-      .toBeInTheDocument();
+    expect(
+      container.querySelector(".md\\:grid-cols-\\[11rem_1fr\\]"),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Transcript" }));
     expect(screen.getByRole("button", { name: "Transcript" })).toHaveAttribute(
       "aria-expanded",
       "false",
     );
   });
+
+  it("renders optional story fields defensively", async () => {
+    const customStory: AthleteAudioStory = {
+      ...story(),
+      id: "plain-title",
+      chapter: { en: "Plain chapter", de: "Einfaches Kapitel" },
+      title: { en: "Plain Audio", de: "Plain Audio" },
+      displayTitle: "Shared display title",
+      description: undefined,
+      portrait: null,
+      portraitAlt: undefined,
+    };
+
+    renderStory("en", customStory);
+
+    expect(screen.getByRole("heading", { name: "Shared display title" })).toBeVisible();
+    expect(await screen.findByText("Knowledge dispels fear.")).toBeVisible();
+  });
+
+  it("loads the transcript without IntersectionObserver support", async () => {
+    vi.stubGlobal("IntersectionObserver", undefined);
+
+    renderStory("en");
+
+    expect(globalThis.fetch).not.toHaveBeenCalledWith(story().transcript.en);
+
+    await screen.findByText("Knowledge dispels fear.");
+    expect(globalThis.fetch).toHaveBeenCalledWith(story().transcript.en);
+  });
+
+  it("shows an accessible transcript error when loading fails", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(() =>
+        Promise.resolve({
+          ok: false,
+          text: () => Promise.resolve(""),
+        }),
+      ),
+    );
+
+    renderStory("en");
+
+    expect(await screen.findByText("Transcript could not be loaded.")).toBeVisible();
+  });
+
+  it("keeps seeking disabled until a duration is available", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        () =>
+          new Promise(() => {
+            // Keep transcript loading so the component has no fallback duration.
+          }),
+      ),
+    );
+    renderStory("en");
+
+    const slider = screen.getByRole("slider", { name: "Seek audio story" });
+    audioInstances[0].duration = 0;
+
+    fireEvent.pointerDown(slider, { clientX: 75, pointerId: 1 });
+    fireEvent.keyDown(slider, { key: "ArrowRight" });
+
+    expect(audioInstances[0]?.currentTime).toBe(0);
+    expect(slider).toHaveAttribute("aria-valuemax", "0");
+  });
+
+  it("updates duration from metadata and resets playback at the end", async () => {
+    renderStory("en");
+    await screen.findByText("Knowledge dispels fear.");
+
+    const audio = audioInstances[0];
+    audio.duration = 90;
+    audio.dispatchEvent(new Event("loadedmetadata"));
+
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: "Seek audio story" })).toHaveAttribute(
+        "aria-valuemax",
+        "90",
+      ),
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Play Understanding Fear" }));
+    audio.currentTime = 90;
+    act(() => {
+      audio.dispatchEvent(new Event("ended"));
+    });
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole("button", { name: "Play Understanding Fear" }),
+      ).toBeVisible(),
+    );
+    await waitFor(() =>
+      expect(screen.getByRole("slider", { name: "Seek audio story" })).toHaveAttribute(
+        "aria-valuenow",
+        "90",
+      ),
+    );
+  });
+
+  it("supports keyboard and pointer seeking branches", async () => {
+    renderStory("en");
+    await screen.findByText("Knowledge dispels fear.");
+
+    const slider = screen.getByRole("slider", { name: "Seek audio story" });
+
+    fireEvent.keyDown(slider, { key: "ArrowRight" });
+    expect(audioInstances[0]?.currentTime).toBe(5);
+
+    fireEvent.keyDown(slider, { key: "ArrowRight", shiftKey: true });
+    expect(audioInstances[0]?.currentTime).toBe(15);
+
+    fireEvent.keyDown(slider, { key: "ArrowLeft" });
+    expect(audioInstances[0]?.currentTime).toBe(10);
+
+    fireEvent.keyDown(slider, { key: "Home" });
+    expect(audioInstances[0]?.currentTime).toBe(0);
+
+    fireEvent.keyDown(slider, { key: "End" });
+    expect(audioInstances[0]?.currentTime).toBeCloseTo(64.62, 2);
+
+    fireEvent.keyDown(slider, { key: "Escape" });
+    expect(audioInstances[0]?.currentTime).toBeCloseTo(64.62, 2);
+
+    vi.mocked(Element.prototype.hasPointerCapture).mockReturnValueOnce(false);
+    fireEvent.pointerMove(slider, { clientX: 25, pointerId: 1 });
+    expect(audioInstances[0]?.currentTime).toBeCloseTo(64.62, 2);
+
+    vi.mocked(Element.prototype.hasPointerCapture).mockReturnValueOnce(true);
+    fireEvent.pointerMove(slider, { clientX: 25, pointerId: 1 });
+    expect(audioInstances[0]?.currentTime).toBeCloseTo(16.155, 2);
+  });
 });
 
-function renderStory(locale: "en" | "de") {
+function renderStory(locale: "en" | "de", storyOverride = story()) {
   return render(
     <AudioProvider>
-      <AudioStory story={story()} locale={locale} />
+      <AudioStory story={storyOverride} locale={locale} />
     </AudioProvider>,
   );
 }

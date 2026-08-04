@@ -29,7 +29,8 @@ export const project = {
     cards: [
       {
         label: "Warum dokumentarisch?",
-        title: "Weil das Thema an Orten gelebt wird, die die meisten Betrachtenden nie sehen.",
+        title:
+          "Weil das Thema an Orten gelebt wird, die die meisten Betrachtenden nie sehen.",
         body: "Bilder, Ton und Rhythmus können Atmosphäre, Vorbereitung und Unsicherheit vermitteln, die eine schriftliche Arbeit nur beschreiben kann.",
       },
       {
@@ -167,10 +168,12 @@ export const project = {
     description:
       "Diese interaktive Dokumentation basiert auf einer Bachelorarbeit an der Fachhochschule Graubünden (FHGR).\n\nInteressierte können die vollständige Arbeit herunterladen, um vertiefte Einblicke in Theorie, Methodik und wissenschaftliche Analyse zu erhalten.",
     button: "PDF herunterladen",
-    fileName: "Falling for Fame? - Bachelorarbeit",
+    fileName: "Zwischen Sichtbarkeit und Sicherheit - Bachelorarbeit",
     pdfLabel: "PDF",
     fileType: "PDF-Dokument",
-    fileMeta: "Die vollständige PDF-Datei wird später ergänzt.",
+    fileMeta: "Vollständige Bachelorarbeit als PDF.",
+    coverAlt:
+      "Cover der Bachelorarbeit Zwischen Sichtbarkeit und Sicherheit.",
   },
   journey: {
     label: "Rechercheweg",
@@ -237,10 +240,17 @@ export const project = {
       { label: "Hochschule", value: "Fachhochschule Graubünden (FHGR)" },
       {
         label: "Betreuungspersonen",
-        value: "Dr. Marie-Therese Mäder (Hauptreferentin), Nils Solanski (Korreferat)",
+        value: "Dr. Marie-Therese Mäder (Hauptreferentin), Nils Solanki (Korreferat)",
       },
-      { label: "Mitwirkende", value: "Interviewpartner:innen und dokumentarische Mitwirkende" },
-      { label: "Dank", value: "Den Mitgliedern der BASE-Jumping-Community, die Zeit, Zugang und Perspektiven geteilt haben" },
+      {
+        label: "Mitwirkende",
+        value: "Interviewpartner:innen und dokumentarische Mitwirkende",
+      },
+      {
+        label: "Dank",
+        value:
+          "Den Mitgliedern der BASE-Jumping-Community, die Zeit, Zugang und Perspektiven geteilt haben",
+      },
     ],
   },
 };

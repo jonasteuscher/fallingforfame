@@ -22,14 +22,33 @@ describe("project page", () => {
       screen.getByRole("heading", { name: "Motivation behind the project" }),
     ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Bachelor Thesis" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "Zwischen Sichtbarkeit und Sicherheit - Bachelorarbeit",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("img", {
+        name: "Cover of the bachelor thesis Zwischen Sichtbarkeit und Sicherheit.",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("Thesis_Cover.jpg"));
+    expect(screen.getByText("Complete bachelor thesis as a PDF.")).toBeVisible();
+    expect(screen.getByRole("link", { name: "Download Thesis PDF" })).toHaveAttribute(
+      "href",
+      "/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf",
+    );
+    expect(screen.getByRole("link", { name: "Download Thesis PDF" })).toHaveAttribute(
+      "download",
+    );
     expect(screen.getByText("Research question")).toBeVisible();
     expect(screen.getByText("Photo Elicitation")).toBeVisible();
     expect(screen.getAllByText("Behind the scenes")[0]).toBeVisible();
     expect(screen.getByText("Understanding begins with context.")).toBeVisible();
-    expect(screen.getByRole("navigation", { name: "Project chapters" }))
-      .toBeVisible();
-    expect(screen.getByRole("link", { name: "Documentary" }))
-      .toHaveAttribute("href", "#the-documentary");
+    expect(screen.getByRole("navigation", { name: "Project chapters" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "Documentary" })).toHaveAttribute(
+      "href",
+      "#the-documentary",
+    );
   });
 
   it("renders localized German project content", async () => {
@@ -46,6 +65,24 @@ describe("project page", () => {
       }),
     ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Bachelorarbeit" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "Zwischen Sichtbarkeit und Sicherheit - Bachelorarbeit",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("img", {
+        name: "Cover der Bachelorarbeit Zwischen Sichtbarkeit und Sicherheit.",
+      }),
+    ).toHaveAttribute("src", expect.stringContaining("Thesis_Cover.jpg"));
+    expect(screen.getByText("Vollständige Bachelorarbeit als PDF.")).toBeVisible();
+    expect(screen.getByRole("link", { name: "PDF herunterladen" })).toHaveAttribute(
+      "href",
+      "/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf",
+    );
+    expect(screen.getByRole("link", { name: "PDF herunterladen" })).toHaveAttribute(
+      "download",
+    );
     expect(screen.getAllByText("Forschungsfrage")[0]).toBeVisible();
     expect(screen.getByText("Photo Elicitation")).toBeVisible();
     expect(screen.getByText("Hinter den Kulissen")).toBeVisible();

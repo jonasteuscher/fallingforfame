@@ -29,11 +29,14 @@ const synthesisCopy = {
     transition:
       "Das Modell erklärt, warum der Einfluss indirekt ist. Die Beispiele zeigen, wie dieselben Kräfte in der Praxis schützend oder problematisch wirken können.",
   },
-} as const satisfies Record<Locale, {
-  counterpoint: string;
-  examplesLabel: string;
-  transition: string;
-}>;
+} as const satisfies Record<
+  Locale,
+  {
+    counterpoint: string;
+    examplesLabel: string;
+    transition: string;
+  }
+>;
 
 export function SynthesisSection({ chapter, locale }: SynthesisSectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -114,18 +117,12 @@ export function SynthesisSection({ chapter, locale }: SynthesisSectionProps) {
       <p className="sr-only">{chapter.accessibleSummary}</p>
       <div className="synthesis-inner mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
         <header className="synthesis-copy min-w-0 lg:sticky lg:top-24 lg:row-span-2 lg:max-h-[calc(100svh-7rem)] lg:self-start">
-          <p
-            className={revealClass(hasEntered)}
-            style={{ animationDelay: "0ms" }}
-          >
+          <p className={revealClass(hasEntered)} style={{ animationDelay: "0ms" }}>
             <span className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
               {chapter.eyebrow}
             </span>
           </p>
-          <div
-            className={revealClass(hasEntered)}
-            style={{ animationDelay: "120ms" }}
-          >
+          <div className={revealClass(hasEntered)} style={{ animationDelay: "120ms" }}>
             <SectionTitle id={`${chapter.id}-title`} size="interviewSplit">
               {chapter.title}
             </SectionTitle>
@@ -163,7 +160,10 @@ function SynthesisModel({
 
   return (
     <div className="relative">
-      <ol className="synthesis-model-list relative grid gap-5" aria-label={chapter.navLabel}>
+      <ol
+        className="synthesis-model-list relative grid gap-5"
+        aria-label={chapter.navLabel}
+      >
         <span
           className="absolute left-6 top-8 hidden h-[calc(100%-4rem)] w-px bg-border/70 sm:block"
           aria-hidden="true"
@@ -181,7 +181,9 @@ function SynthesisModel({
                   : "border-border/78",
                 revealClass(hasEntered),
               ].join(" ")}
-              style={{ animationDelay: `${MODEL_REVEAL_DELAY + index * MODEL_STAGGER}ms` }}
+              style={{
+                animationDelay: `${MODEL_REVEAL_DELAY + index * MODEL_STAGGER}ms`,
+              }}
             >
               <div className="synthesis-stage-number relative z-10 flex h-12 w-12 items-center justify-center border border-primary bg-background text-sm font-semibold tracking-[0.18em] text-primary">
                 {String(index + 1).padStart(2, "0")}
@@ -195,7 +197,9 @@ function SynthesisModel({
                 <h3
                   className={[
                     "font-semibold uppercase leading-tight",
-                    isCore ? "text-[1.7rem] text-foreground" : "text-2xl text-foreground/88",
+                    isCore
+                      ? "text-[1.7rem] text-foreground"
+                      : "text-2xl text-foreground/88",
                   ].join(" ")}
                 >
                   {state.title}
@@ -253,7 +257,10 @@ function SynthesisExamples({
           style={{ animationDelay: `${EXAMPLES_REVEAL_DELAY + 180}ms` }}
         >
           {chapter.paths?.map((path) => (
-            <article key={path.title} className="synthesis-practice-card border border-border/72 bg-background/42 p-4">
+            <article
+              key={path.title}
+              className="synthesis-practice-card border border-border/72 bg-background/42 p-4"
+            >
               <h3 className="text-base font-semibold uppercase leading-snug tracking-[0.08em] text-foreground">
                 {path.title}
               </h3>

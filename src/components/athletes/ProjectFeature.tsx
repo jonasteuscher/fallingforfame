@@ -333,12 +333,7 @@ function ProjectVideo({
           onEnded={() => clearActiveVideo(videoId)}
           className="h-full w-full bg-black object-cover"
         >
-          {sourceEnabled ? (
-            <source
-              src={project.video.src}
-              type={videoType}
-            />
-          ) : null}
+          {sourceEnabled ? <source src={project.video.src} type={videoType} /> : null}
         </video>
       </div>
       {videoCaption ? (

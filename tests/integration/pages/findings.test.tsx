@@ -18,13 +18,20 @@ describe("findings page", () => {
     );
 
     expect(
-      screen.getByRole("heading", { name: /Between Visibility\s+and Safety/i, level: 1 }),
+      screen.getByRole("heading", {
+        name: /Between Visibility\s+and Safety/i,
+        level: 1,
+      }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Five experienced BASE athletes on visibility, risk and safety culture."),
+      screen.getByText(
+        "Five experienced BASE athletes on visibility, risk and safety culture.",
+      ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Visibility changes the conditions in which decisions are made."),
+      screen.getByText(
+        "Visibility changes the conditions in which decisions are made.",
+      ),
     ).toBeInTheDocument();
     expect(screen.getByText(/Visibility does not directly create risk/i)).toBeVisible();
     expect(screen.getByRole("navigation", { name: "Findings chapters" })).toBeVisible();
@@ -33,29 +40,56 @@ describe("findings page", () => {
       "#visibility",
     );
 
-    expect(screen.getByRole("heading", { name: "More than self-presentation" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "More than self-presentation" }),
+    ).toBeVisible();
     expect(
       screen.getByRole("heading", { name: /Attention is not\s+recognition/i }),
     ).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Support takes many forms" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Pressure does not have to be spoken" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Support takes many forms" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Pressure does not have to be spoken" }),
+    ).toBeVisible();
     expect(
       screen.getByRole("heading", { name: /The exit is\s+not the beginning/i }),
     ).toBeVisible();
     expect(
-      screen.getByRole("heading", { name: /Sometimes, not jumping\s+is the best decision/i }),
+      screen.getByRole("heading", {
+        name: /Sometimes, not jumping\s+is the best decision/i,
+      }),
     ).toBeVisible();
-    expect(screen.getByRole("heading", { name: /Risk\s+looks\s+different\s+with\s+experience/i })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "Safety is not built alone" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "The influence is indirect" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "What this study contributes" })).toBeVisible();
-    expect(screen.getByRole("link", { name: "Decision" })).toHaveAttribute("href", "#decision");
+    expect(
+      screen.getByRole("heading", {
+        name: /Risk\s+looks\s+different\s+with\s+experience/i,
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Safety is not built alone" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "The influence is indirect" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "What this study contributes" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Decision" })).toHaveAttribute(
+      "href",
+      "#decision",
+    );
     expect(screen.queryByRole("link", { name: "No Jump" })).not.toBeInTheDocument();
-    expect(screen.getAllByRole("img", { name: /walks down along a rocky mountain ridge/i })[0])
-      .toHaveAttribute("src", expect.stringContaining("Walk_down.jpg"));
-    expect(screen.getAllByText(/Sometimes, not jumping\s+is the best decision/i).length)
-      .toBeGreaterThan(0);
-    expect(screen.getAllByText(/The mountain will still be there tomorrow/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByRole("img", {
+        name: /walks down along a rocky mountain ridge/i,
+      })[0],
+    ).toHaveAttribute("src", expect.stringContaining("Walk_down.jpg"));
+    expect(
+      screen.getAllByText(/Sometimes, not jumping\s+is the best decision/i).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/The mountain will still be there tomorrow/i).length,
+    ).toBeGreaterThan(0);
 
     expect(screen.getByRole("button", { name: /Discovery/i })).toHaveAttribute(
       "aria-current",
@@ -79,7 +113,10 @@ describe("findings page", () => {
     );
 
     expect(
-      screen.getByRole("heading", { name: /Zwischen Sichtbarkeit\s+und Sicherheit/i, level: 1 }),
+      screen.getByRole("heading", {
+        name: /Zwischen Sichtbarkeit\s+und Sicherheit/i,
+        level: 1,
+      }),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
@@ -94,12 +131,22 @@ describe("findings page", () => {
     expect(
       screen.getByText(/Sichtbarkeit führt nicht automatisch zu mehr Risiko/i),
     ).toBeVisible();
-    expect(screen.getByRole("navigation", { name: "Kapitel der Erkenntnisse" })).toBeVisible();
-    expect(screen.getByRole("link", { name: "Entscheidung" })).toHaveAttribute("href", "#decision");
-    expect(screen.queryByRole("link", { name: "Nicht Springen" })).not.toBeInTheDocument();
-    expect(screen.getAllByRole("img", { name: /felsigen Berggrat ab/i })[0])
-      .toHaveAttribute("src", expect.stringContaining("Walk_down.jpg"));
-    expect(screen.getAllByText(/Der Berg steht auch morgen noch dort/i).length).toBeGreaterThan(0);
+    expect(
+      screen.getByRole("navigation", { name: "Kapitel der Erkenntnisse" }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Entscheidung" })).toHaveAttribute(
+      "href",
+      "#decision",
+    );
+    expect(
+      screen.queryByRole("link", { name: "Nicht Springen" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getAllByRole("img", { name: /felsigen Berggrat ab/i })[0],
+    ).toHaveAttribute("src", expect.stringContaining("Walk_down.jpg"));
+    expect(
+      screen.getAllByText(/Der Berg steht auch morgen noch dort/i).length,
+    ).toBeGreaterThan(0);
     expect(screen.getAllByText("Sicherheit vor Erwartung").length).toBeGreaterThan(0);
     expect(screen.getByText(/Die Studie liefert qualitative Tiefe/i)).toBeVisible();
     expect(screen.getByText(/keine statistische Repräsentativität/i)).toBeVisible();
@@ -120,11 +167,20 @@ describe("findings page", () => {
       expect(screen.getAllByText(chapter.accessibleSummary).length).toBeGreaterThan(0);
     }
 
-    const synthesis = screen.getByRole("heading", { name: "The influence is indirect" })
+    const synthesis = screen
+      .getByRole("heading", { name: "The influence is indirect" })
       .closest("section");
     expect(synthesis).not.toBeNull();
-    expect(within(synthesis as HTMLElement).getByText(/same forces can become protective or problematic/i)).toBeVisible();
-    expect(within(synthesis as HTMLElement).getAllByText(/experience, risk competence and safety culture/i).length).toBeGreaterThan(0);
+    expect(
+      within(synthesis as HTMLElement).getByText(
+        /same forces can become protective or problematic/i,
+      ),
+    ).toBeVisible();
+    expect(
+      within(synthesis as HTMLElement).getAllByText(
+        /experience, risk competence and safety culture/i,
+      ).length,
+    ).toBeGreaterThan(0);
   });
 
   it("does not introduce quantitative claims beyond the declared qualitative sample", () => {
@@ -143,9 +199,7 @@ describe("findings page", () => {
     expect(englishIds.indexOf("visible-process")).toBe(
       englishIds.indexOf("camera") + 1,
     );
-    expect(germanIds.indexOf("visible-process")).toBe(
-      germanIds.indexOf("camera") + 1,
-    );
+    expect(germanIds.indexOf("visible-process")).toBe(germanIds.indexOf("camera") + 1);
   });
 
   it("renders no-jump as the decision conclusion before experience", async () => {
@@ -153,8 +207,9 @@ describe("findings page", () => {
       EnglishFindingsPage({ params: Promise.resolve({ locale: "en" }) }),
     );
 
-    const renderedIds = Array.from(document.querySelectorAll("section[id]"))
-      .map((section) => section.id);
+    const renderedIds = Array.from(document.querySelectorAll("section[id]")).map(
+      (section) => section.id,
+    );
     const decisionIndex = renderedIds.indexOf("decision");
     const noJumpIndex = renderedIds.indexOf("no-jump");
     const experienceIndex = renderedIds.indexOf("experience");
@@ -178,6 +233,17 @@ describe("findings page", () => {
     await expect(
       generateGermanFindingsMetadata({
         params: Promise.resolve({ locale: "de" }),
+      }),
+    ).resolves.toMatchObject({
+      title: "Erkenntnisse | Falling for Fame?",
+      description: expect.stringContaining("Qualitative Erkenntnisse"),
+    });
+  });
+
+  it("uses German metadata as the invalid locale fallback", async () => {
+    await expect(
+      generateGermanFindingsMetadata({
+        params: Promise.resolve({ locale: "invalid" }),
       }),
     ).resolves.toMatchObject({
       title: "Erkenntnisse | Falling for Fame?",

@@ -51,10 +51,7 @@ describe("FutureProjectFeature", () => {
     expect(screen.getByText("Teaser (2023)")).toBeVisible();
     expect(
       screen.getByRole("link", { name: /First attempt \(2024\)/ }),
-    ).toHaveAttribute(
-      "href",
-      "https://explorersweb.com/lhotse-wingsuit-update/",
-    );
+    ).toHaveAttribute("href", "https://explorersweb.com/lhotse-wingsuit-update/");
     expect(
       screen.getByRole("link", { name: /First attempt \(2024\)/ }),
     ).toHaveAttribute("target", "_blank");

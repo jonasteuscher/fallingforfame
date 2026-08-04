@@ -17,8 +17,9 @@ describe("StatisticBlock", () => {
     expect(
       screen.getByRole("heading", { name: "Athlete portraits", level: 2 }),
     ).toBeVisible();
-    expect(screen.getByText("Prepared for interview-led multimedia chapters."))
-      .toBeVisible();
+    expect(
+      screen.getByText("Prepared for interview-led multimedia chapters."),
+    ).toBeVisible();
   });
 
   it("handles a missing detail", () => {

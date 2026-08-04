@@ -62,20 +62,20 @@ describe("not found page", () => {
     expect(document.querySelectorAll("h1")).toHaveLength(1);
   });
 
-  it("uses the English fallback for global unknown routes without a locale", async () => {
+  it("uses the default German fallback for global unknown routes without a locale", async () => {
     setMockPathname("/does-not-exist");
 
     render(<>{GlobalNotFound()}</>);
 
     expect(
       screen.getByRole("heading", {
-        name: "This page has taken a different path",
+        name: "Diese Seite ist einen anderen Weg gegangen",
         level: 1,
       }),
     ).toBeVisible();
-    expect(screen.getByRole("link", { name: "Back to home" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Zur Startseite" })).toHaveAttribute(
       "href",
-      "/en",
+      "/de",
     );
   });
 

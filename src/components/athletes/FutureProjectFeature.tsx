@@ -8,10 +8,7 @@ type FutureProjectFeatureProps = {
   locale: Locale;
 };
 
-export function FutureProjectFeature({
-  athlete,
-  locale,
-}: FutureProjectFeatureProps) {
+export function FutureProjectFeature({ athlete, locale }: FutureProjectFeatureProps) {
   return (
     <ProjectFeature
       athleteName={athlete.name}

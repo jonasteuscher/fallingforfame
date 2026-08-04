@@ -49,9 +49,7 @@ export function AudioStory({ story, locale }: AudioStoryProps) {
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
           {story.chapter[locale]}
         </p>
-        <SectionTitle id={headingId}>
-          {displayTitle}
-        </SectionTitle>
+        <SectionTitle id={headingId}>{displayTitle}</SectionTitle>
         {story.description ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
             {story.description[locale]}
@@ -271,14 +269,8 @@ function AudioStoryCard({
     const nextDuration = audioRef.current?.duration || resolvedDuration;
     const nextProgress = nextDuration > 0 ? clamp(nextTime / nextDuration, 0, 1) : 0;
 
-    progressFillRef.current?.style.setProperty(
-      "transform",
-      `scaleX(${nextProgress})`,
-    );
-    progressThumbRef.current?.style.setProperty(
-      "left",
-      `${nextProgress * 100}%`,
-    );
+    progressFillRef.current?.style.setProperty("transform", `scaleX(${nextProgress})`);
+    progressThumbRef.current?.style.setProperty("left", `${nextProgress * 100}%`);
     setCurrentTime(nextTime);
   }
 
@@ -397,7 +389,11 @@ function AudioStoryCard({
               <button
                 type="button"
                 onClick={togglePlayback}
-                aria-label={isPlaying ? labels.pause(story.title[locale]) : labels.play(story.title[locale])}
+                aria-label={
+                  isPlaying
+                    ? labels.pause(story.title[locale])
+                    : labels.play(story.title[locale])
+                }
                 className="group/play grid h-16 w-16 shrink-0 cursor-pointer place-items-center rounded-full border border-primary/70 bg-primary text-background shadow-[0_0_38px_color-mix(in_srgb,var(--primary)_32%,transparent)] transition duration-300 hover:scale-105 hover:bg-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none"
               >
                 {isPlaying ? (

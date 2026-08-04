@@ -4,9 +4,6 @@ import { describe, expect, it } from "vitest";
 import EnglishImprintPage, {
   generateMetadata as generateEnglishImprintMetadata,
 } from "@/app/[locale]/imprint/page";
-import GermanImprintPage, {
-  generateMetadata as generateGermanImpressumMetadata,
-} from "@/app/[locale]/impressum/page";
 import sitemap from "@/app/sitemap";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { renderAsyncPage } from "../../test-utils/render-pages";
@@ -26,7 +23,9 @@ describe("imprint page", () => {
     expect(screen.getByRole("heading", { name: "Image Credits" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Athlete Photography" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Historical Images" })).toBeVisible();
-    expect(screen.getByRole("heading", { name: "1797 - First Modern Parachute" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "1797 - First Modern Parachute" }),
+    ).toBeVisible();
     expect(
       screen.getByRole("link", { name: "Source: 1797 - First Modern Parachute" }),
     ).toHaveAttribute(
@@ -37,9 +36,9 @@ describe("imprint page", () => {
     expect(document.querySelectorAll("h1")).toHaveLength(1);
   });
 
-  it("renders the German legal notice at /de/impressum", async () => {
+  it("renders the German legal notice at /de/imprint", async () => {
     await renderAsyncPage(
-      GermanImprintPage({ params: Promise.resolve({ locale: "de" }) }),
+      EnglishImprintPage({ params: Promise.resolve({ locale: "de" }) }),
     );
 
     expect(screen.getByRole("heading", { name: "Impressum", level: 1 })).toBeVisible();
@@ -71,7 +70,7 @@ describe("imprint page", () => {
       title: "Imprint | Falling for Fame?",
     });
     await expect(
-      generateGermanImpressumMetadata({
+      generateEnglishImprintMetadata({
         params: Promise.resolve({ locale: "de" }),
       }),
     ).resolves.toMatchObject({
@@ -91,7 +90,7 @@ describe("imprint page", () => {
 
     expect(screen.getByRole("link", { name: "Impressum" })).toHaveAttribute(
       "href",
-      "/de/impressum",
+      "/de/imprint",
     );
   });
 
@@ -99,8 +98,8 @@ describe("imprint page", () => {
     const urls = sitemap().map((entry) => entry.url);
 
     expect(urls).toContain("https://fallingforfame.vercel.app/en/imprint");
-    expect(urls).toContain("https://fallingforfame.vercel.app/de/impressum");
-    expect(urls).not.toContain("https://fallingforfame.vercel.app/de/imprint");
+    expect(urls).toContain("https://fallingforfame.vercel.app/de/imprint");
+    expect(urls).not.toContain("https://fallingforfame.vercel.app/de/impressum");
     expect(urls).not.toContain("https://fallingforfame.vercel.app/en/impressum");
   });
 });

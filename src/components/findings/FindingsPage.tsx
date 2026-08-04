@@ -41,7 +41,7 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
         hiddenUntilId="findings-hero"
       />
       <FindingsHero content={content} />
-      {chapters.map((chapter) => (
+      {chapters.map((chapter) =>
         chapter.kind === "media-visibility" ? (
           <FindingsVisibilitySequence
             key={chapter.id}
@@ -130,17 +130,9 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             interpretationLabel={content.interpretationLabel}
           />
         ) : chapter.kind === "synthesis-model" ? (
-          <SynthesisSection
-            key={chapter.id}
-            chapter={chapter}
-            locale={locale}
-          />
+          <SynthesisSection key={chapter.id} chapter={chapter} locale={locale} />
         ) : chapter.kind === "methodology" ? (
-          <ResearchContextSection
-            key={chapter.id}
-            chapter={chapter}
-            locale={locale}
-          />
+          <ResearchContextSection key={chapter.id} chapter={chapter} locale={locale} />
         ) : (
           <FindingChapterSection
             key={chapter.id}
@@ -151,8 +143,8 @@ export function FindingsPage({ content, locale }: FindingsPageProps) {
             interpretationLabel={content.interpretationLabel}
             quoteSourceLabel={content.quoteSourceLabel}
           />
-        )
-      ))}
+        ),
+      )}
     </main>
   );
 }
@@ -165,7 +157,9 @@ function orderFindingsChapters(chapters: FindingChapter[]) {
   }
 
   const withoutNoJump = chapters.filter((chapter) => chapter !== noJump);
-  const decisionIndex = withoutNoJump.findIndex((chapter) => chapter.kind === "decision-layers");
+  const decisionIndex = withoutNoJump.findIndex(
+    (chapter) => chapter.kind === "decision-layers",
+  );
 
   if (decisionIndex === -1) {
     return chapters;
@@ -233,11 +227,7 @@ function FindingChapterSection({
   );
 }
 
-function ChapterVisual({
-  chapter,
-}: {
-  chapter: FindingChapter;
-}) {
+function ChapterVisual({ chapter }: { chapter: FindingChapter }) {
   switch (chapter.kind) {
     case "media-visibility":
       return null;
@@ -279,7 +269,9 @@ function SponsorshipSpectrum({ chapter }: { chapter: FindingChapter }) {
           >
             <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold uppercase tracking-[0.15em] text-foreground">
               {stage.title}
-              <span className="text-primary" aria-hidden="true">+</span>
+              <span className="text-primary" aria-hidden="true">
+                +
+              </span>
             </summary>
             <p className="mt-3 text-sm leading-6 text-foreground/72">{stage.body}</p>
           </details>
@@ -338,8 +330,13 @@ function DecisionLayers({ chapter }: { chapter: FindingChapter }) {
       ) : null}
       <ol className="space-y-3">
         {chapter.layers?.map((layer, index) => (
-          <li key={layer} className="grid grid-cols-[3rem_1fr] items-start gap-3 border border-border bg-surface/52 p-4">
-            <span className="text-sm font-semibold text-primary">{String(index + 1).padStart(2, "0")}</span>
+          <li
+            key={layer}
+            className="grid grid-cols-[3rem_1fr] items-start gap-3 border border-border bg-surface/52 p-4"
+          >
+            <span className="text-sm font-semibold text-primary">
+              {String(index + 1).padStart(2, "0")}
+            </span>
             <span className="text-lg font-semibold text-foreground">{layer}</span>
           </li>
         ))}
@@ -353,7 +350,10 @@ function ExperienceCurve({ chapter }: { chapter: FindingChapter }) {
     <ol className="relative space-y-5 before:absolute before:left-4 before:top-0 before:h-full before:w-px before:bg-border">
       {chapter.states?.map((state, index) => (
         <li key={state.title} className="relative grid gap-2 pl-12">
-          <span className="absolute left-[0.44rem] top-1 h-5 w-5 border border-primary bg-background" aria-hidden="true" />
+          <span
+            className="absolute left-[0.44rem] top-1 h-5 w-5 border border-primary bg-background"
+            aria-hidden="true"
+          />
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
             {String(index + 1).padStart(2, "0")}
           </p>
@@ -396,7 +396,9 @@ function VisibleInvisible({ chapter }: { chapter: FindingChapter }) {
           {chapter.visibleLabel}
         </p>
         <ul className="mt-5 space-y-3 text-foreground/72">
-          {chapter.left?.items.map((item) => <li key={item}>{item}</li>)}
+          {chapter.left?.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
         </ul>
       </article>
       <article className="border border-primary/50 bg-background/72 p-5">
@@ -405,7 +407,10 @@ function VisibleInvisible({ chapter }: { chapter: FindingChapter }) {
         </p>
         <ul className="mt-5 grid gap-3 sm:grid-cols-2">
           {chapter.right?.items.map((item) => (
-            <li key={item} className="border border-border bg-surface/42 p-3 text-foreground/76">
+            <li
+              key={item}
+              className="border border-border bg-surface/42 p-3 text-foreground/76"
+            >
               {item}
             </li>
           ))}
@@ -420,18 +425,26 @@ function SynthesisModel({ chapter }: { chapter: FindingChapter }) {
     <div className="space-y-8">
       <ol className="grid gap-4">
         {chapter.states?.map((state, index) => (
-          <li key={state.title} className="relative border border-border bg-surface/58 p-5">
+          <li
+            key={state.title}
+            className="relative border border-border bg-surface/58 p-5"
+          >
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
               {String(index + 1).padStart(2, "0")}
             </p>
-            <h3 className="mt-2 text-2xl font-semibold text-foreground">{state.title}</h3>
+            <h3 className="mt-2 text-2xl font-semibold text-foreground">
+              {state.title}
+            </h3>
             <p className="mt-2 leading-7 text-foreground/72">{state.body}</p>
           </li>
         ))}
       </ol>
       <div className="grid gap-4 md:grid-cols-2">
         {chapter.paths?.map((path) => (
-          <article key={path.title} className="border border-border bg-background/48 p-4">
+          <article
+            key={path.title}
+            className="border border-border bg-background/48 p-4"
+          >
             <h3 className="text-lg font-semibold text-foreground">{path.title}</h3>
             <p className="mt-3 text-sm leading-6 text-foreground/72">
               {path.steps.join(" → ")}
@@ -447,7 +460,10 @@ function ProcessList({ items }: { items: string[] }) {
   return (
     <ul className="grid gap-3">
       {items.map((item) => (
-        <li key={item} className="border border-border bg-surface/52 p-4 text-sm font-semibold uppercase tracking-[0.14em] text-foreground/74">
+        <li
+          key={item}
+          className="border border-border bg-surface/52 p-4 text-sm font-semibold uppercase tracking-[0.14em] text-foreground/74"
+        >
           {item}
         </li>
       ))}
@@ -475,7 +491,13 @@ function FindingSummary({
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
         {sourcePrefix}
       </p>
-      <div className={isGermanCommunity ? "mt-5 grid gap-6 md:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)]" : "mt-5 grid gap-5 md:grid-cols-2"}>
+      <div
+        className={
+          isGermanCommunity
+            ? "mt-5 grid gap-6 md:grid-cols-[minmax(0,0.46fr)_minmax(0,0.54fr)]"
+            : "mt-5 grid gap-5 md:grid-cols-2"
+        }
+      >
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground/58">
             {empiricalLabel}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { FindingsPage as FindingsDocumentaryPage } from "@/components/findings";
 import { getDictionary } from "@/i18n/dictionaries";
-import { isLocale, type Locale } from "@/i18n/config";
+import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 
 type FindingsPageProps = {
   params: Promise<{
@@ -14,7 +14,7 @@ export async function generateMetadata({
   params,
 }: FindingsPageProps): Promise<Metadata> {
   const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dictionary = getDictionary(locale);
 
   return {
@@ -25,7 +25,7 @@ export async function generateMetadata({
 
 export default async function FindingsPage({ params }: FindingsPageProps) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dictionary = getDictionary(locale);
 
   return <FindingsDocumentaryPage content={dictionary.site.findings} locale={locale} />;

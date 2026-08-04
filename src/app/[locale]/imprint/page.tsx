@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ImprintPage as ImprintPageContent } from "@/components/legal/ImprintPage";
-import { isLocale, type Locale } from "@/i18n/config";
+import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
 type ImprintPageProps = {
@@ -15,7 +15,7 @@ export async function generateMetadata({
   params,
 }: ImprintPageProps): Promise<Metadata> {
   const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dictionary = getDictionary(locale);
 
   return dictionary.site.imprint.metadata;
@@ -23,11 +23,9 @@ export async function generateMetadata({
 
 export default async function ImprintPage({ params }: ImprintPageProps) {
   const { locale: rawLocale } = await params;
-  const locale: Locale = isLocale(rawLocale) ? rawLocale : "en";
-
-  if (locale !== "en") {
+  if (!isLocale(rawLocale)) {
     notFound();
   }
 
-  return <ImprintPageContent content={getDictionary(locale).site.imprint} />;
+  return <ImprintPageContent content={getDictionary(rawLocale).site.imprint} />;
 }

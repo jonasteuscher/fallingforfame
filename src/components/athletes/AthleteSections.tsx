@@ -298,8 +298,8 @@ export function AthleteLinksSection({
   title: string;
   compact?: boolean;
 }) {
-  const confirmedLinks = links.filter(
-    (link): link is AthleteLink & { url: string } => Boolean(link.url),
+  const confirmedLinks = links.filter((link): link is AthleteLink & { url: string } =>
+    Boolean(link.url),
   );
 
   if (confirmedLinks.length === 0) {
@@ -396,8 +396,7 @@ export function AthleteArticlesSection({
   initialVisibleCount?: number;
 }) {
   const confirmedArticles = articles.filter(
-    (article): article is AthleteArticle & { url: string } =>
-      Boolean(article.url),
+    (article): article is AthleteArticle & { url: string } => Boolean(article.url),
   );
 
   if (confirmedArticles.length === 0) {

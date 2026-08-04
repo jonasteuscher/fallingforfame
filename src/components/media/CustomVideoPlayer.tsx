@@ -171,10 +171,7 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
               {isMuted ? "Unmute" : "Mute"}
             </button>
 
-            <label
-              className="sr-only"
-              htmlFor={`video-volume-${video?.src ?? "clip"}`}
-            >
+            <label className="sr-only" htmlFor={`video-volume-${video?.src ?? "clip"}`}>
               Video volume
             </label>
             <input

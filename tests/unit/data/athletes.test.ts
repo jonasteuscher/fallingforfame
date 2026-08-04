@@ -20,10 +20,7 @@ const expectedHeroQuotes = new Map([
     "marcel-geser",
     "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
   ],
-  [
-    "niclas-strohmeier",
-    "Die langsame Progression ist die sichere Progression.",
-  ],
+  ["niclas-strohmeier", "Die langsame Progression ist die sichere Progression."],
   [
     "josef-braun",
     "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
@@ -163,8 +160,7 @@ describe("athletes data", () => {
     expect(
       athletes
         .filter(
-          (athlete) =>
-            athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+          (athlete) => athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
         )
         .every((athlete) => athlete.interviewFeatures === undefined),
     ).toBe(true);
@@ -223,8 +219,7 @@ describe("athletes data", () => {
     expect(
       athletes
         .filter(
-          (athlete) =>
-            athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+          (athlete) => athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
         )
         .every((athlete) => athlete.audioStories === undefined),
     ).toBe(true);
@@ -377,15 +372,18 @@ describe("athletes data", () => {
   });
 
   it("uses confirmed local portrait images where available", () => {
-    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.images.portrait)
-      .toBe("/images/athletes/tim-howell/profile.jpg");
+    expect(
+      athletes.find((athlete) => athlete.slug === "tim-howell")?.images.portrait,
+    ).toBe("/images/athletes/tim-howell/profile.jpg");
     expect(
       athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.portrait,
     ).toBe("/images/athletes/marcel-geser/profile.jpg");
-    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.portrait)
-      .toBe("/images/athletes/lukas-loibl/profile.jpg");
-    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.images.portrait)
-      .toBe("/images/athletes/josef-braun/profile-color.jpg");
+    expect(
+      athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.portrait,
+    ).toBe("/images/athletes/lukas-loibl/profile.jpg");
+    expect(
+      athletes.find((athlete) => athlete.slug === "josef-braun")?.images.portrait,
+    ).toBe("/images/athletes/josef-braun/profile-color.jpg");
     expect(
       athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.images.portrait,
     ).toBe("/images/athletes/niclas-strohmeier/profile.jpg");
@@ -404,16 +402,21 @@ describe("athletes data", () => {
   });
 
   it("uses confirmed local hero images where available", () => {
-    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.images.hero)
-      .toBe("/images/athletes/tim-howell/hero.jpg");
-    expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.hero)
-      .toBe("/images/athletes/marcel-geser/hero.jpg");
-    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.hero)
-      .toBe("/images/athletes/lukas-loibl/hero.jpeg");
-    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.images.hero)
-      .toBe("/images/athletes/josef-braun/hero.JPG");
-    expect(athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.images.hero)
-      .toBe("/images/athletes/niclas-strohmeier/hero.jpg");
+    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.images.hero).toBe(
+      "/images/athletes/tim-howell/hero.jpg",
+    );
+    expect(
+      athletes.find((athlete) => athlete.slug === "marcel-geser")?.images.hero,
+    ).toBe("/images/athletes/marcel-geser/hero.jpg");
+    expect(
+      athletes.find((athlete) => athlete.slug === "lukas-loibl")?.images.hero,
+    ).toBe("/images/athletes/lukas-loibl/hero.jpeg");
+    expect(
+      athletes.find((athlete) => athlete.slug === "josef-braun")?.images.hero,
+    ).toBe("/images/athletes/josef-braun/hero.JPG");
+    expect(
+      athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.images.hero,
+    ).toBe("/images/athletes/niclas-strohmeier/hero.jpg");
     expect(
       athletes
         .filter(
@@ -447,39 +450,42 @@ describe("athletes data", () => {
   });
 
   it("contains verified athlete metadata and experience values", () => {
-    expect(athletes.map((athlete) => [athlete.slug, athlete.age, athlete.country]))
-      .toEqual([
-        ["tim-howell", 37, "United Kingdom"],
-        ["lukas-loibl", 26, "Austria"],
-        ["marcel-geser", 45, "Switzerland"],
-        ["niclas-strohmeier", 28, "Germany"],
-        ["josef-braun", 27, "Germany"],
-      ]);
-    expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.experience)
-      .toMatchObject({ skydives: 850, basejumps: 1500, sponsored: false });
-    expect(athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.experience)
-      .toMatchObject({ socialMediaReach: 500000, sponsored: false });
-    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.experience)
-      .toMatchObject({ socialMediaReach: 280000, sponsored: false });
-    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.experience)
-      .toMatchObject({ skydives: 3500, basejumps: 3000, sponsored: true });
-    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.experience)
-      .toMatchObject({ baseSeasons: 14, basejumps: 1450, sponsored: true });
+    expect(
+      athletes.map((athlete) => [athlete.slug, athlete.age, athlete.country]),
+    ).toEqual([
+      ["tim-howell", 37, "United Kingdom"],
+      ["lukas-loibl", 26, "Austria"],
+      ["marcel-geser", 45, "Switzerland"],
+      ["niclas-strohmeier", 28, "Germany"],
+      ["josef-braun", 27, "Germany"],
+    ]);
+    expect(
+      athletes.find((athlete) => athlete.slug === "marcel-geser")?.experience,
+    ).toMatchObject({ skydives: 850, basejumps: 1500, sponsored: false });
+    expect(
+      athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.experience,
+    ).toMatchObject({ socialMediaReach: 500000, sponsored: false });
+    expect(
+      athletes.find((athlete) => athlete.slug === "josef-braun")?.experience,
+    ).toMatchObject({ socialMediaReach: 280000, sponsored: false });
+    expect(
+      athletes.find((athlete) => athlete.slug === "lukas-loibl")?.experience,
+    ).toMatchObject({ skydives: 3500, basejumps: 3000, sponsored: true });
+    expect(
+      athletes.find((athlete) => athlete.slug === "tim-howell")?.experience,
+    ).toMatchObject({ baseSeasons: 14, basejumps: 1450, sponsored: true });
   });
 
   it("contains athlete-specific sponsor data", () => {
-    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.sponsors)
-      .toEqual([
-        "Jöttnar",
-        "Scarpa",
-        "Adrenalin BASE",
-        "Inigo Insurance",
-        "Stirling Timepieces",
-      ]);
-    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.sponsors)
-      .toEqual(["Group A", "Fly The Earth"]);
-    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.sponsors)
-      .toEqual(["Atair Canopies", "Squirrel", "DJI", "Moreboards"]);
+    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.sponsors).toEqual(
+      ["Jöttnar", "Scarpa", "Adrenalin BASE", "Inigo Insurance", "Stirling Timepieces"],
+    );
+    expect(
+      athletes.find((athlete) => athlete.slug === "josef-braun")?.sponsors,
+    ).toEqual(["Group A", "Fly The Earth"]);
+    expect(
+      athletes.find((athlete) => athlete.slug === "lukas-loibl")?.sponsors,
+    ).toEqual(["Atair Canopies", "Squirrel", "DJI", "Moreboards"]);
     expect(
       athletes
         .filter(
@@ -493,36 +499,46 @@ describe("athletes data", () => {
   });
 
   it("contains athlete-specific external links and media coverage", () => {
-    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.links)
-      .toHaveLength(3);
-    expect(athletes.find((athlete) => athlete.slug === "josef-braun")?.articles)
-      .toEqual([
-        {
-          title: {
-            en: "Jack Simpson Podcast with Josef Braun",
-            de: "Jack Simpson Podcast with Josef Braun",
-          },
-          publisher: "Spotify",
-          logo: "/images/publishers/spotify.webp",
-          url: "https://open.spotify.com/episode/3X4xOWb8lMYXub1Fw96rM6?si=81846fae04874b6c",
+    expect(
+      athletes.find((athlete) => athlete.slug === "josef-braun")?.links,
+    ).toHaveLength(3);
+    expect(
+      athletes.find((athlete) => athlete.slug === "josef-braun")?.articles,
+    ).toEqual([
+      {
+        title: {
+          en: "Jack Simpson Podcast with Josef Braun",
+          de: "Jack Simpson Podcast with Josef Braun",
         },
-      ]);
-    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.links)
-      .toHaveLength(5);
-    expect(athletes.find((athlete) => athlete.slug === "lukas-loibl")?.articles)
-      .toHaveLength(5);
-    expect(athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.links)
-      .toHaveLength(4);
-    expect(athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.articles)
-      .toHaveLength(0);
-    expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.links)
-      .toMatchObject([{ type: "youtube" }]);
-    expect(athletes.find((athlete) => athlete.slug === "marcel-geser")?.articles)
-      .toHaveLength(3);
-    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.links)
-      .toHaveLength(4);
-    expect(athletes.find((athlete) => athlete.slug === "tim-howell")?.articles)
-      .toHaveLength(8);
+        publisher: "Spotify",
+        logo: "/images/publishers/spotify.webp",
+        url: "https://open.spotify.com/episode/3X4xOWb8lMYXub1Fw96rM6?si=81846fae04874b6c",
+      },
+    ]);
+    expect(
+      athletes.find((athlete) => athlete.slug === "lukas-loibl")?.links,
+    ).toHaveLength(5);
+    expect(
+      athletes.find((athlete) => athlete.slug === "lukas-loibl")?.articles,
+    ).toHaveLength(5);
+    expect(
+      athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.links,
+    ).toHaveLength(4);
+    expect(
+      athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.articles,
+    ).toHaveLength(0);
+    expect(
+      athletes.find((athlete) => athlete.slug === "marcel-geser")?.links,
+    ).toMatchObject([{ type: "youtube" }]);
+    expect(
+      athletes.find((athlete) => athlete.slug === "marcel-geser")?.articles,
+    ).toHaveLength(3);
+    expect(
+      athletes.find((athlete) => athlete.slug === "tim-howell")?.links,
+    ).toHaveLength(4);
+    expect(
+      athletes.find((athlete) => athlete.slug === "tim-howell")?.articles,
+    ).toHaveLength(8);
   });
 
   it("contains Lukas Loibl's current world record project data only on his profile", () => {
@@ -572,9 +588,7 @@ describe("athletes data", () => {
 
   it("uses Josef Braun's story image on the Today step", () => {
     const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
-    const todayStep = josef?.originStory.find(
-      (beat) => beat.phase.en === "05 — Today",
-    );
+    const todayStep = josef?.originStory.find((beat) => beat.phase.en === "05 — Today");
 
     expect(todayStep?.media).toMatchObject({
       type: "image",

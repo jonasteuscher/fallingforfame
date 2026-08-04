@@ -26,11 +26,7 @@ type SectionTitleProps = {
   size?: SectionTitleSize;
 };
 
-export function SectionTitle({
-  id,
-  children,
-  size = "standard",
-}: SectionTitleProps) {
+export function SectionTitle({ id, children, size = "standard" }: SectionTitleProps) {
   return (
     <h2 id={id} className={sectionTitleClassNames[size]}>
       {children}

@@ -19,7 +19,9 @@ describe("pressure model progress", () => {
 
   it("defines unique deterministic positions for each pressure factor", () => {
     const ids = pressureFactorPositions.map((position) => position.id);
-    const destinations = pressureFactorPositions.map((position) => `${position.x}:${position.y}`);
+    const destinations = pressureFactorPositions.map(
+      (position) => `${position.x}:${position.y}`,
+    );
 
     expect(new Set(ids).size).toBe(pressureFactorPositions.length);
     expect(new Set(destinations).size).toBe(pressureFactorPositions.length);

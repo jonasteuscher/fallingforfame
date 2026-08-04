@@ -80,7 +80,9 @@ export function FindingsHero({ content }: FindingsHeroProps) {
   }, [reducedMotion]);
 
   const displayProgress = reducedMotion ? 0.98 : progress;
-  const socialOpacity = reducedMotion ? 0 : interpolate(displayProgress, 0.18, 0.45, 1, 0);
+  const socialOpacity = reducedMotion
+    ? 0
+    : interpolate(displayProgress, 0.18, 0.45, 1, 0);
   const socialBlur = interpolate(displayProgress, 0.22, 0.45, 0, 5);
   const topUiY = interpolate(displayProgress, 0.18, 0.45, 0, -24);
   const captionY = interpolate(displayProgress, 0.18, 0.45, 0, 24);
@@ -90,9 +92,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
   const titleY = interpolate(displayProgress, 0.68, 0.84, 24, 0);
   const introOpacity = interpolate(displayProgress, 0.78, 0.91, 0, 1);
   const thesisOpacity = interpolate(displayProgress, 0.88, 1, 0, 1);
-  const mediaScale = reducedMotion
-    ? 1
-    : interpolate(displayProgress, 0, 1, 1.006, 1);
+  const mediaScale = reducedMotion ? 1 : interpolate(displayProgress, 0, 1, 1.006, 1);
   const textGradientOpacity = interpolate(displayProgress, 0.62, 0.94, 0, 0.44);
   const bottomGradientOpacity = interpolate(displayProgress, 0.76, 1, 0.08, 0.28);
 
@@ -104,15 +104,17 @@ export function FindingsHero({ content }: FindingsHeroProps) {
       aria-labelledby="findings-hero-title"
     >
       <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
-        <Image
-          src={content.hero.media.src}
-          alt={content.hero.media.alt}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[43%_35%] will-change-transform sm:object-[46%_35%] lg:object-[48%_36%]"
-          style={{ transform: `scale(${mediaScale})` }}
-        />
+        <div className="relative h-full w-full">
+          <Image
+            src={content.hero.media.src}
+            alt={content.hero.media.alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[43%_35%] will-change-transform sm:object-[46%_35%] lg:object-[48%_36%]"
+            style={{ transform: `scale(${mediaScale})` }}
+          />
+        </div>
         <div
           className="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--background)_74%,transparent)_0%,color-mix(in_srgb,var(--background)_34%,transparent)_34%,transparent_68%)]"
           style={{ opacity: textGradientOpacity }}
@@ -139,7 +141,10 @@ export function FindingsHero({ content }: FindingsHeroProps) {
               ↓
             </span>
           </span>
-          <span className="text-lg leading-none" aria-label={content.hero.socialPost.menuLabel}>
+          <span
+            className="text-lg leading-none"
+            aria-label={content.hero.socialPost.menuLabel}
+          >
             •••
           </span>
         </div>
@@ -193,10 +198,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
           aria-hidden="true"
         >
           {content.hero.socialPost.actions.map((action, index) => (
-            <div
-              key={action.label}
-              className={index > 1 ? "hidden md:block" : "block"}
-            >
+            <div key={action.label} className={index > 1 ? "hidden md:block" : "block"}>
               <span className="block text-2xl leading-none text-white/86">
                 {action.icon}
               </span>

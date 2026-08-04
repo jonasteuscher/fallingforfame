@@ -73,7 +73,8 @@ const journeySegments = [
 ] as const;
 
 const journeyStageStops = [0, 0.2451, 0.5914, 0.852, 1] as const;
-const journeyPath = "M32 78 C40 75 44 64 50 58 C60 48 63 25 70 27 C78 29 75 55 84 48 C88 43 93 42 96 43";
+const journeyPath =
+  "M32 78 C40 75 44 64 50 58 C60 48 63 25 70 27 C78 29 75 55 84 48 C88 43 93 42 96 43";
 
 const sourceNotes = {
   en: "Based on Dunning & Kruger (1999). Qualitative interpretation from the interview findings.",
@@ -214,7 +215,10 @@ export function ExperienceJourneySection({
             />
 
             <ExperienceStageList stages={stages} activeStage={activeStage} />
-            <ExperienceSourceNote locale={locale} className="absolute bottom-24 left-6 xl:left-10" />
+            <ExperienceSourceNote
+              locale={locale}
+              className="absolute bottom-24 left-6 xl:left-10"
+            />
           </div>
         </div>
       </div>
@@ -329,7 +333,11 @@ function ExperienceJourneyCanvas({
         {annotations[activeStage]}
       </div>
       <figcaption className="sr-only">
-        {stages.map((stage, index) => `Stage ${index + 1} of ${stages.length}: ${stage.title}`).join(". ")}
+        {stages
+          .map(
+            (stage, index) => `Stage ${index + 1} of ${stages.length}: ${stage.title}`,
+          )
+          .join(". ")}
       </figcaption>
     </figure>
   );
@@ -343,7 +351,10 @@ function ExperienceStageList({
   activeStage: number;
 }) {
   return (
-    <ol className="flex min-h-0 flex-col justify-center gap-5" aria-label="Experience stages">
+    <ol
+      className="flex min-h-0 flex-col justify-center gap-5"
+      aria-label="Experience stages"
+    >
       {stages.map((stage, index) => {
         const isActive = index === activeStage;
         const isComplete = index < activeStage;
@@ -442,7 +453,9 @@ function MobileExperienceJourney({
                 <h3 className="text-lg font-semibold uppercase tracking-[0.1em] text-foreground">
                   {stage.title}
                 </h3>
-                <p className="mt-3 leading-7 text-foreground/72">{annotations[index]}</p>
+                <p className="mt-3 leading-7 text-foreground/72">
+                  {annotations[index]}
+                </p>
               </div>
             </div>
           </li>
@@ -625,7 +638,13 @@ function getJourneyPathProgress(progress: number) {
   }
 
   if (progress <= 0.77) {
-    return interpolate(progress, 0.66, 0.77, journeyStageStops[2], journeyStageStops[3]);
+    return interpolate(
+      progress,
+      0.66,
+      0.77,
+      journeyStageStops[2],
+      journeyStageStops[3],
+    );
   }
 
   if (progress <= 0.84) {
@@ -647,17 +666,17 @@ function getMarkerPosition(progress: number) {
   );
   const segmentStart = journeyStageStops[segmentIndex];
   const segmentEnd = journeyStageStops[segmentIndex + 1];
-  const local = segmentEnd === segmentStart ? 0 : (clamped - segmentStart) / (segmentEnd - segmentStart);
+  const local =
+    segmentEnd === segmentStart
+      ? 0
+      : (clamped - segmentStart) / (segmentEnd - segmentStart);
   const segment = journeySegments[segmentIndex];
   const t = findBezierTAtLength(segment, local);
 
   return getBezierPoint(segment, t);
 }
 
-function getBezierPoint(
-  segment: readonly JourneyPoint[],
-  t: number,
-) {
+function getBezierPoint(segment: readonly JourneyPoint[], t: number) {
   const inverse = 1 - t;
 
   return {
@@ -674,10 +693,7 @@ function getBezierPoint(
   };
 }
 
-function findBezierTAtLength(
-  segment: readonly JourneyPoint[],
-  target: number,
-) {
+function findBezierTAtLength(segment: readonly JourneyPoint[], target: number) {
   let low = 0;
   let high = 1;
 
@@ -694,10 +710,7 @@ function findBezierTAtLength(
   return (low + high) / 2;
 }
 
-function getBezierLength(
-  segment: readonly JourneyPoint[],
-  t: number,
-) {
+function getBezierLength(segment: readonly JourneyPoint[], t: number) {
   const samples = 18;
   let length = 0;
   let previous: JourneyPoint = segment[0];

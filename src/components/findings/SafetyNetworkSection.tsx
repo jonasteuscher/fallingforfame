@@ -104,18 +104,12 @@ export function SafetyNetworkSection({
     >
       <div className="safety-network-inner mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
         <header className="safety-network-copy min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
-          <p
-            className={revealClass(hasEntered)}
-            style={{ animationDelay: "0ms" }}
-          >
+          <p className={revealClass(hasEntered)} style={{ animationDelay: "0ms" }}>
             <span className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
               {chapter.eyebrow}
             </span>
           </p>
-          <div
-            className={revealClass(hasEntered)}
-            style={{ animationDelay: "90ms" }}
-          >
+          <div className={revealClass(hasEntered)} style={{ animationDelay: "90ms" }}>
             <SectionTitle id={`${chapter.id}-title`} size="interviewSplit">
               {chapter.title}
             </SectionTitle>
@@ -161,7 +155,10 @@ function SafetyNetworkVisual({
 }) {
   return (
     <div className="safety-network-visual space-y-6">
-      <ul className="safety-network-nodes grid gap-3 sm:grid-cols-2 lg:grid-cols-5" aria-label={chapter.navLabel}>
+      <ul
+        className="safety-network-nodes grid gap-3 sm:grid-cols-2 lg:grid-cols-5"
+        aria-label={chapter.navLabel}
+      >
         {chapter.layers?.map((node, index) => (
           <li
             key={node}
@@ -170,7 +167,9 @@ function SafetyNetworkVisual({
             className={[
               "grid min-h-20 place-items-center border border-border bg-surface/54 p-3 text-center font-semibold uppercase leading-tight text-foreground/74 transition-colors duration-300 hover:border-foreground/34 hover:text-foreground focus-visible:border-primary focus-visible:text-foreground motion-reduce:opacity-100 motion-reduce:transform-none",
               "safety-network-node",
-              hasEntered ? "network-node-reveal" : "motion-safe:translate-y-4 motion-safe:scale-[0.96] motion-safe:opacity-0",
+              hasEntered
+                ? "network-node-reveal"
+                : "motion-safe:translate-y-4 motion-safe:scale-[0.96] motion-safe:opacity-0",
               isGerman
                 ? "px-3 text-[0.7rem] tracking-[0.08em] [hyphens:none] [overflow-wrap:normal] [text-wrap:balance] [word-break:normal]"
                 : "text-xs tracking-[0.12em]",
@@ -202,9 +201,16 @@ function SafetyNetworkVisual({
                 {side.items.map((item) => (
                   <li
                     key={item}
-                    className={isGerman ? "flex gap-3 text-sm leading-6 text-foreground/76" : "flex gap-3 text-foreground/76"}
+                    className={
+                      isGerman
+                        ? "flex gap-3 text-sm leading-6 text-foreground/76"
+                        : "flex gap-3 text-foreground/76"
+                    }
                   >
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-primary" aria-hidden="true" />
+                    <span
+                      className="mt-2 h-1.5 w-1.5 shrink-0 bg-primary"
+                      aria-hidden="true"
+                    />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -279,7 +285,7 @@ function renderGermanNetworkNode(node: string) {
   const lineBreaks: Record<string, string[]> = {
     "erfahrene Community-Mitglieder": ["Erfahrene", "Community-", "Mitglieder"],
     "Beinaheunfall-Diskussionen": ["Beinahe-unfall-", "Diskussionen"],
-    "Ausrüstungschecks": ["Ausrüstungs-", "Checks"],
+    Ausrüstungschecks: ["Ausrüstungs-", "Checks"],
     "Sprungpartner:innen": ["Sprung-", "partner:innen"],
   };
   const lines = lineBreaks[node];

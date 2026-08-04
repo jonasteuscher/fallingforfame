@@ -127,16 +127,19 @@ const researchContextCopy = {
       },
     ],
   },
-} as const satisfies Record<Locale, {
-  intro: string;
-  methodTitle: string;
-  limitationsTitle: string;
-  continueTitle: string;
-  conclusion: string;
-  methodGroups: readonly { title: string; body: string }[];
-  limitations: readonly { title: string; body: string }[];
-  continueLinks: readonly { href: string; label: string; description: string }[];
-}>;
+} as const satisfies Record<
+  Locale,
+  {
+    intro: string;
+    methodTitle: string;
+    limitationsTitle: string;
+    continueTitle: string;
+    conclusion: string;
+    methodGroups: readonly { title: string; body: string }[];
+    limitations: readonly { title: string; body: string }[];
+    continueLinks: readonly { href: string; label: string; description: string }[];
+  }
+>;
 
 export function ResearchContextSection({
   chapter,
@@ -226,7 +229,9 @@ export function ResearchContextSection({
                   className="group inline-flex max-w-[22rem] items-start gap-3 text-sm font-semibold uppercase tracking-[0.16em] text-foreground/78 transition hover:text-foreground focus-visible:text-foreground motion-reduce:transition-none"
                   aria-label={`${link.label}. ${link.description}`}
                 >
-                  <span className="text-primary" aria-hidden="true">-&gt;</span>
+                  <span className="text-primary" aria-hidden="true">
+                    -&gt;
+                  </span>
                   <span>
                     <span className="block group-hover:underline">{link.label}</span>
                     <span className="mt-1 block text-xs font-normal normal-case leading-5 tracking-normal text-foreground/54">

@@ -7,10 +7,7 @@ type ProjectStorySectionProps = {
   locale: Locale;
 };
 
-export function ProjectStorySection({
-  project,
-  locale,
-}: ProjectStorySectionProps) {
+export function ProjectStorySection({ project, locale }: ProjectStorySectionProps) {
   return (
     <ProjectFeature
       athleteName="Lukas Loibl"

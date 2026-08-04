@@ -130,6 +130,75 @@ const lukasLoiblPage: AthletePageComposition = {
   ],
 };
 
+function standardAthletePage({
+  navAriaLabel,
+  includeMediaCoverage = false,
+}: {
+  navAriaLabel: AthletePageComposition["navAriaLabel"];
+  includeMediaCoverage?: boolean;
+}): AthletePageComposition {
+  return {
+    navAriaLabel,
+    progress: [
+      { id: "biography", label: { en: "Biography", de: "Biografie" } },
+      { id: "origin", label: { en: "Career", de: "Karriere" } },
+      { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+      { id: "social-media", label: { en: "Links", de: "Links" } },
+      ...(includeMediaCoverage
+        ? [
+            {
+              id: "media-coverage",
+              label: { en: "Coverage", de: "Medien" },
+            },
+          ]
+        : []),
+    ],
+    sections: [
+      {
+        type: "gallery",
+        id: "gallery",
+        spacing: "standard",
+        includeInProgress: true,
+      },
+      {
+        type: "social-media",
+        id: "social-media",
+        spacing: "compact",
+        includeInProgress: true,
+      },
+      {
+        type: "media-coverage",
+        id: "media-coverage",
+        spacing: "compact",
+        includeInProgress: includeMediaCoverage,
+      },
+    ],
+  };
+}
+
+const marcelGeserPage = standardAthletePage({
+  navAriaLabel: {
+    en: "Marcel Geser profile sections",
+    de: "Marcel Geser Profilabschnitte",
+  },
+  includeMediaCoverage: true,
+});
+
+const niclasStrohmeierPage = standardAthletePage({
+  navAriaLabel: {
+    en: "Niclas Strohmeier profile sections",
+    de: "Niclas Strohmeier Profilabschnitte",
+  },
+});
+
+const josefBraunPage = standardAthletePage({
+  navAriaLabel: {
+    en: "Josef Braun profile sections",
+    de: "Josef Braun Profilabschnitte",
+  },
+  includeMediaCoverage: true,
+});
+
 function images(
   hero: string | null = null,
   portrait: string | null = null,
@@ -1327,6 +1396,7 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
+    page: marcelGeserPage,
     heroQuote: {
       en: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
       de: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
@@ -1469,6 +1539,7 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
+    page: niclasStrohmeierPage,
     heroQuote: {
       en: "Die langsame Progression ist die sichere Progression.",
       de: "Die langsame Progression ist die sichere Progression.",
@@ -1576,6 +1647,7 @@ export const athletes: Athlete[] = [
       en: null,
       de: null,
     },
+    page: josefBraunPage,
     heroQuote: {
       en: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
       de: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",

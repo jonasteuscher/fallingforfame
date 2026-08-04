@@ -33,7 +33,7 @@ export function SiteHeader({ locale, navigation }: SiteHeaderProps) {
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background xl:bg-background/85 xl:backdrop-blur">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6"
         aria-label="Primary navigation"

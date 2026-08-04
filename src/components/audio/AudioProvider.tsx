@@ -11,10 +11,7 @@ import {
   useState,
 } from "react";
 
-import {
-  pauseActiveVideo,
-  subscribeToVideoPlayback,
-} from "@/lib/videoPlaybackManager";
+import { pauseActiveVideo, subscribeToVideoPlayback } from "@/lib/videoPlaybackManager";
 
 type AudioContextValue = {
   activeId: string | null;

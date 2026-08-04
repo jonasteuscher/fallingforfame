@@ -61,6 +61,14 @@ describe("ScrollScrubVideo", () => {
       writable: true,
       configurable: true,
     });
+    Object.defineProperty(navigator, "connection", {
+      value: undefined,
+      configurable: true,
+    });
+    Object.defineProperty(navigator, "deviceMemory", {
+      value: undefined,
+      configurable: true,
+    });
     Element.prototype.getBoundingClientRect = vi.fn(
       () =>
         ({
@@ -95,13 +103,14 @@ describe("ScrollScrubVideo", () => {
     const heading = screen.getByRole("heading", { name: "The Jump" });
     expect(heading).toBeVisible();
     expect(heading).toHaveClass("uppercase");
-    expect(container.querySelector("[data-scroll-video-copy] > div"))
-      .toHaveClass("lg:grid-cols-[minmax(0,0.68fr)_minmax(18rem,0.32fr)]");
-    expect(screen.getByText("The line begins long before the exit."))
-      .toBeInTheDocument();
+    expect(container.querySelector("[data-scroll-video-copy] > div")).toHaveClass(
+      "lg:grid-cols-[minmax(0,0.68fr)_minmax(18rem,0.32fr)]",
+    );
+    expect(
+      screen.getByText("The line begins long before the exit."),
+    ).toBeInTheDocument();
     expect(screen.getByText("Every movement is prepared.")).toBeInTheDocument();
-    expect(screen.getByText("In the end, the decision remains."))
-      .toBeInTheDocument();
+    expect(screen.getByText("In the end, the decision remains.")).toBeInTheDocument();
     expect(container.querySelector("[data-scroll-cue-start]")).not.toBeInTheDocument();
     await waitFor(() =>
       expect(container.querySelector("source")).toHaveAttribute(
@@ -112,7 +121,9 @@ describe("ScrollScrubVideo", () => {
   });
 
   it("waits for metadata before scrubbing and clamps progress to the video bounds", async () => {
-    const { container } = render(<ScrollScrubVideo video={scrollVideo()} locale="en" />);
+    const { container } = render(
+      <ScrollScrubVideo video={scrollVideo()} locale="en" />,
+    );
     await waitForScrubMode();
     const section = container.querySelector(
       '[data-scroll-scrub-video-id="iran-jump"]',
@@ -164,7 +175,9 @@ describe("ScrollScrubVideo", () => {
   });
 
   it("schedules scroll updates with requestAnimationFrame and recalculates on resize", async () => {
-    const { container } = render(<ScrollScrubVideo video={scrollVideo()} locale="en" />);
+    const { container } = render(
+      <ScrollScrubVideo video={scrollVideo()} locale="en" />,
+    );
     await waitForScrubMode();
     const section = container.querySelector(
       '[data-scroll-scrub-video-id="iran-jump"]',
@@ -272,8 +285,130 @@ describe("ScrollScrubVideo", () => {
     ).toBeInTheDocument();
   });
 
+  it("uses fallback mode when save-data or low-memory capabilities are detected", () => {
+    Object.defineProperty(navigator, "connection", {
+      value: { saveData: true },
+      configurable: true,
+    });
+
+    const { rerender } = render(<ScrollScrubVideo video={scrollVideo()} locale="en" />);
+
+    expect(
+      document.querySelector('[data-scroll-scrub-fallback="true"]'),
+    ).toBeInTheDocument();
+
+    Object.defineProperty(navigator, "connection", {
+      value: { saveData: false },
+      configurable: true,
+    });
+    Object.defineProperty(navigator, "deviceMemory", {
+      value: 2,
+      configurable: true,
+    });
+
+    rerender(<ScrollScrubVideo video={scrollVideo()} locale="en" />);
+
+    expect(
+      document.querySelector('[data-scroll-scrub-fallback="true"]'),
+    ).toBeInTheDocument();
+  });
+
+  it("lazy-loads the video source when IntersectionObserver is unavailable", async () => {
+    Object.defineProperty(window, "IntersectionObserver", {
+      value: undefined,
+      configurable: true,
+    });
+
+    const { container } = render(
+      <ScrollScrubVideo video={scrollVideo()} locale="en" />,
+    );
+
+    await waitForScrubMode();
+    await waitFor(() =>
+      expect(container.querySelector("source")).toHaveAttribute(
+        "src",
+        "/video/tim-howell/The_jump.mp4",
+      ),
+    );
+  });
+
+  it("shows and clears the buffering indicator around seeking events", async () => {
+    const { container } = render(
+      <ScrollScrubVideo video={scrollVideo()} locale="en" />,
+    );
+    await waitForScrubMode();
+    const section = container.querySelector(
+      '[data-scroll-scrub-video-id="iran-jump"]',
+    ) as HTMLElement;
+    const video = container.querySelector("video") as HTMLVideoElement;
+
+    Object.defineProperty(section, "offsetHeight", {
+      value: 4000,
+      configurable: true,
+    });
+    Object.defineProperty(video, "duration", {
+      value: 10,
+      configurable: true,
+    });
+    Object.defineProperty(video, "currentTime", {
+      value: 0,
+      writable: true,
+      configurable: true,
+    });
+
+    act(() => {
+      video.dispatchEvent(new Event("loadedmetadata"));
+    });
+    runRaf();
+    window.scrollY = 2_000;
+    window.dispatchEvent(new Event("scroll"));
+    runRaf();
+
+    act(() => {
+      video.dispatchEvent(new Event("waiting"));
+    });
+
+    expect(container.querySelector(".animate-pulse")).toBeInTheDocument();
+
+    act(() => {
+      video.dispatchEvent(new Event("seeked"));
+    });
+
+    expect(container.querySelector(".animate-pulse")).not.toBeInTheDocument();
+  });
+
+  it("renders fallback media without optional description, poster or cues", () => {
+    const video = {
+      ...scrollVideo(),
+      description: undefined,
+      poster: undefined,
+      cues: undefined,
+    };
+
+    window.matchMedia = vi.fn((query: string) => ({
+      matches: query === "(prefers-reduced-motion: reduce)",
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+
+    const { container } = render(<ScrollScrubVideo video={video} locale="en" />);
+
+    expect(screen.getByRole("heading", { name: "The Jump" })).toBeVisible();
+    expect(
+      screen.queryByText("The line begins long before the exit."),
+    ).not.toBeInTheDocument();
+    expect(container.querySelector("video")).not.toHaveAttribute("poster");
+  });
+
   it("handles missing metadata without crashing", async () => {
-    const { container } = render(<ScrollScrubVideo video={scrollVideo()} locale="en" />);
+    const { container } = render(
+      <ScrollScrubVideo video={scrollVideo()} locale="en" />,
+    );
     await waitForScrubMode();
     const video = container.querySelector("video") as HTMLVideoElement;
 

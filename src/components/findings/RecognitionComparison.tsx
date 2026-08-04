@@ -162,7 +162,10 @@ export function RecognitionComparison({
               </p>
             </header>
 
-            <figure className="relative grid min-h-0 content-center" aria-labelledby={`${chapter.id}-caption`}>
+            <figure
+              className="relative grid min-h-0 content-center"
+              aria-labelledby={`${chapter.id}-caption`}
+            >
               <figcaption id={`${chapter.id}-caption`} className="sr-only">
                 {chapter.accessibleSummary} {chapter.disclaimer}
               </figcaption>
@@ -245,8 +248,20 @@ function RecognitionSide({
   const emphasis = isVisibility ? state.visibilityEmphasis : state.recognitionEmphasis;
   const opacity = isVisibility ? state.visibilityOpacity : state.recognitionOpacity;
   const drift = isVisibility
-    ? interpolate(progress, recognitionPhases.visibilityRecede[0], recognitionPhases.visibilityRecede[1], 0, -18)
-    : interpolate(progress, recognitionPhases.recognitionBuild[0], recognitionPhases.recognitionBuild[1], 16, 0);
+    ? interpolate(
+        progress,
+        recognitionPhases.visibilityRecede[0],
+        recognitionPhases.visibilityRecede[1],
+        0,
+        -18,
+      )
+    : interpolate(
+        progress,
+        recognitionPhases.recognitionBuild[0],
+        recognitionPhases.recognitionBuild[1],
+        16,
+        0,
+      );
 
   return (
     <div
@@ -337,7 +352,9 @@ function StaticRecognitionComparison({
     <div
       className={[
         "px-4 py-[var(--section-gap-standard)] sm:px-6 xl:px-10",
-        mode === "mobile" ? "md:hidden motion-reduce:block" : "hidden motion-reduce:block",
+        mode === "mobile"
+          ? "md:hidden motion-reduce:block"
+          : "hidden motion-reduce:block",
       ].join(" ")}
       data-recognition-layout={mode === "mobile" ? "sequential" : "static"}
     >
@@ -361,7 +378,10 @@ function StaticRecognitionComparison({
               descriptor={chapter.left.descriptor}
               items={chapter.left.items}
             />
-            <div className="flex items-center justify-center text-3xl text-primary lg:hidden" aria-hidden="true">
+            <div
+              className="flex items-center justify-center text-3xl text-primary lg:hidden"
+              aria-hidden="true"
+            >
               ↓
             </div>
             <StaticSide

@@ -31,7 +31,8 @@ const noJumpCopy = {
       "Mehrere wechselnde Bedingungen können Unsicherheit erzeugen. Nicht zu springen ist eine aktive Sicherheitsentscheidung und keine Niederlage. Erfahrung und Verantwortung stützen die Entscheidung abzusteigen.",
     noGo: "No-Go",
     keyInsight: "Manchmal ist der sicherste Sprung keiner",
-    transition: "Diese Entscheidung entsteht nicht spontan.\nSie entwickelt sich mit Erfahrung.",
+    transition:
+      "Diese Entscheidung entsteht nicht spontan.\nSie entwickelt sich mit Erfahrung.",
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 

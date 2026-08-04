@@ -91,8 +91,7 @@ export const imprint = {
         items: [
           {
             title: "Squirrel 5-LITE",
-            description:
-              "Produktbild des Squirrel 5-LITE BASE-Fallschirmsystems.",
+            description: "Produktbild des Squirrel 5-LITE BASE-Fallschirmsystems.",
             source: "https://squirrel.ws/parachutes/base-jumping/5-lite/",
             credit: "Squirrel LLC",
           },
@@ -111,8 +110,7 @@ export const imprint = {
           },
           {
             title: "Birdman Team Instagram",
-            description:
-              "Screenshot des öffentlichen Instagram-Accounts @birdmanteam.",
+            description: "Screenshot des öffentlichen Instagram-Accounts @birdmanteam.",
             source: "https://www.instagram.com/birdmanteam/reels/",
             credit: "Instagram / @birdmanteam",
           },

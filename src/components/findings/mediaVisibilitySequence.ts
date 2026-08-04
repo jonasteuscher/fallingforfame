@@ -45,8 +45,7 @@ export function getActiveMediaVisibilityState(
 ) {
   const clampedProgress = clamp(progress, 0, 1);
   const activeRange = ranges.find(
-    (range) =>
-      clampedProgress >= range.peakStart && clampedProgress <= range.peakEnd,
+    (range) => clampedProgress >= range.peakStart && clampedProgress <= range.peakEnd,
   );
 
   if (activeRange) {

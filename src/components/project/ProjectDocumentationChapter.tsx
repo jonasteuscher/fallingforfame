@@ -324,7 +324,7 @@ export function ProjectBehindScenes({
 }) {
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
   const activeImage =
-    activeImageIndex === null ? null : content.images[activeImageIndex] ?? null;
+    activeImageIndex === null ? null : (content.images[activeImageIndex] ?? null);
 
   useEffect(() => {
     if (!activeImage) {

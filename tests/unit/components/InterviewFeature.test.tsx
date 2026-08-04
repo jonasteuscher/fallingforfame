@@ -74,6 +74,14 @@ describe("InterviewFeature", () => {
       configurable: true,
       value: elementRequestFullscreen,
     });
+    Object.defineProperty(HTMLIFrameElement.prototype, "requestFullscreen", {
+      configurable: true,
+      value: elementRequestFullscreen,
+    });
+    Object.defineProperty(document, "fullscreenElement", {
+      configurable: true,
+      value: null,
+    });
 
     window.YT = {
       Player: playerConstructor as unknown as NonNullable<
@@ -112,6 +120,11 @@ describe("InterviewFeature", () => {
   afterEach(() => {
     delete window.YT;
     intersectionCallback = null;
+    Object.defineProperty(document, "fullscreenElement", {
+      configurable: true,
+      value: null,
+    });
+    vi.restoreAllMocks();
   });
 
   it("renders the cinematic quote, poster and accessible play control", () => {
@@ -203,6 +216,47 @@ describe("InterviewFeature", () => {
     expect(elementRequestFullscreen.mock.instances[0]).toBe(
       document.querySelector("iframe"),
     );
+  });
+
+  it("exits fullscreen when the iframe is already fullscreen", async () => {
+    const exitFullscreen = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(document, "exitFullscreen", {
+      configurable: true,
+      value: exitFullscreen,
+    });
+
+    render(
+      <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: labels.play }));
+    await waitFor(() => expect(playerConstructor).toHaveBeenCalledTimes(1));
+
+    Object.defineProperty(document, "fullscreenElement", {
+      configurable: true,
+      value: document.querySelector("iframe"),
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: labels.fullscreen }));
+
+    expect(exitFullscreen).toHaveBeenCalledTimes(1);
+    expect(elementRequestFullscreen).not.toHaveBeenCalled();
+  });
+
+  it("keeps playback available when fullscreen requests are rejected", async () => {
+    elementRequestFullscreen.mockRejectedValueOnce(new Error("Fullscreen denied"));
+
+    render(
+      <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: labels.play }));
+    await waitFor(() => expect(playerConstructor).toHaveBeenCalledTimes(1));
+
+    fireEvent.click(screen.getByRole("button", { name: labels.fullscreen }));
+
+    await waitFor(() => expect(elementRequestFullscreen).toHaveBeenCalledTimes(1));
+    expect(screen.getByRole("button", { name: labels.fullscreen })).toBeVisible();
   });
 
   it("loads the German YouTube interview for the German locale", async () => {
@@ -352,6 +406,35 @@ describe("InterviewFeature", () => {
     expect(createdPlayers[0]?.pauseVideo).toHaveBeenCalled();
   });
 
+  it("keeps playback running while the interview remains sufficiently visible", async () => {
+    render(
+      <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: labels.play }));
+    await waitFor(() => expect(createdPlayers[0]?.playVideo).toHaveBeenCalled());
+    createdPlayers[0]?.pauseVideo.mockClear();
+
+    intersectionCallback?.([{ isIntersecting: true, intersectionRatio: 0.75 }]);
+
+    expect(createdPlayers[0]?.pauseVideo).not.toHaveBeenCalled();
+  });
+
+  it("works when IntersectionObserver is unavailable", async () => {
+    const testWindow = window as unknown as { IntersectionObserver?: unknown };
+    delete testWindow.IntersectionObserver;
+
+    render(
+      <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: labels.play }));
+
+    await waitFor(() => expect(playerConstructor).toHaveBeenCalledTimes(1));
+    expect(createdPlayers[0]?.playVideo).toHaveBeenCalled();
+    expect(intersectionCallback).toBeNull();
+  });
+
   it("pauses another active interview when a new one starts", async () => {
     render(
       <>
@@ -389,6 +472,39 @@ describe("InterviewFeature", () => {
     expect(screen.getByTestId("youtube-player-mount").closest("section")).toHaveClass(
       "overflow-x-clip",
     );
+  });
+
+  it("falls back to quote heading and omits optional intro copy when no title text is supplied", () => {
+    const fallbackFeature: AthleteInterviewFeature = {
+      ...feature("career"),
+      id: "quote-only",
+      title: undefined,
+      navTitle: undefined,
+      subtitle: undefined,
+      intro: undefined,
+      quote: "A quote-only interview heading",
+      poster: "/images/custom-poster.jpg",
+    };
+
+    const { container } = render(
+      <InterviewFeature
+        feature={fallbackFeature}
+        locale="en"
+        labels={labels}
+        layout="media-first"
+      />,
+    );
+
+    expect(
+      screen.getByRole("heading", { name: "A quote-only interview heading" }),
+    ).toBeVisible();
+    expect(screen.getByAltText("")).toHaveAttribute("src", "/images/custom-poster.jpg");
+    expect(
+      screen.queryByText(/A longer excerpt from the interview/),
+    ).not.toBeInTheDocument();
+    expect(
+      container.querySelector("[data-interview-layout='media-first']"),
+    ).toBeInTheDocument();
   });
 });
 

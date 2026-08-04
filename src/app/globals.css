@@ -174,7 +174,8 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1599px), (min-width: 1024px) and (max-height: 900px) {
+@media (min-width: 1024px) and (max-width: 1599px),
+  (min-width: 1024px) and (max-height: 900px) {
   .findings-page {
     --section-gap-standard: clamp(4.75rem, 7svh, 7.25rem);
     --section-gap-immersive: clamp(5.75rem, 8svh, 8rem);
@@ -197,15 +198,44 @@ audio {
     height: calc(100svh - var(--site-header-height));
   }
 
-  .findings-page :is(#visibility, #recognition, #camera, #visible-process, #sponsorship, #pressure, #decision, #no-jump, #experience) {
+  .findings-page
+    :is(
+      #visibility,
+      #recognition,
+      #camera,
+      #visible-process,
+      #sponsorship,
+      #pressure,
+      #decision,
+      #no-jump,
+      #experience
+    ) {
     overflow-x: clip;
   }
 
-  .findings-page :is(#visibility, #recognition, #camera, #visible-process, #sponsorship, #pressure, #decision, #no-jump, #experience, #community, #synthesis, #research-context) > :is(div, section) {
+  .findings-page
+    :is(
+      #visibility,
+      #recognition,
+      #camera,
+      #visible-process,
+      #sponsorship,
+      #pressure,
+      #decision,
+      #no-jump,
+      #experience,
+      #community,
+      #synthesis,
+      #research-context
+    )
+    > :is(div, section) {
     max-width: 100%;
   }
 
-  .findings-page :is(#recognition, #camera, #visible-process, #sponsorship) .sticky > div,
+  .findings-page
+    :is(#recognition, #camera, #visible-process, #sponsorship)
+    .sticky
+    > div,
   .findings-page :is(#decision, #experience) .sticky > div,
   .findings-page #pressure .sticky > div,
   .findings-page #no-jump .sticky > div {
@@ -215,7 +245,9 @@ audio {
     max-width: min(100%, 76rem);
   }
 
-  .findings-page :is(#recognition, #camera, #visible-process, #sponsorship) h2:not(.sr-only),
+  .findings-page
+    :is(#recognition, #camera, #visible-process, #sponsorship)
+    h2:not(.sr-only),
   .findings-page :is(#pressure, #no-jump) h2:not(.sr-only),
   .findings-page :is(#community, #synthesis, #research-context) h2:not(.sr-only) {
     font-size: var(--findings-laptop-display-lg) !important;
@@ -235,7 +267,18 @@ audio {
     line-height: 0.88 !important;
   }
 
-  .findings-page :is(#recognition, #camera, #visible-process, #sponsorship, #pressure, #decision, #experience) header p:not(:first-child) {
+  .findings-page
+    :is(
+      #recognition,
+      #camera,
+      #visible-process,
+      #sponsorship,
+      #pressure,
+      #decision,
+      #experience
+    )
+    header
+    p:not(:first-child) {
     margin-top: clamp(1rem, 2svh, 1.5rem);
     font-size: clamp(0.95rem, 1.25vw, 1.05rem);
     line-height: 1.55;
@@ -259,7 +302,10 @@ audio {
   }
 
   .findings-page :is(#decision, #experience) .sticky > div {
-    grid-template-columns: minmax(13rem, 0.31fr) minmax(20rem, 0.42fr) minmax(13rem, 0.27fr) !important;
+    grid-template-columns: minmax(13rem, 0.31fr) minmax(20rem, 0.42fr) minmax(
+        13rem,
+        0.27fr
+      ) !important;
     gap: clamp(1rem, 2vw, 1.75rem);
   }
 
@@ -396,7 +442,10 @@ audio {
     min-height: min(48svh, 27rem) !important;
   }
 
-  .findings-page #recognition figure div[class*="absolute"][class*="bottom-0"][class*="bg-background"] {
+  .findings-page
+    #recognition
+    figure
+    div[class*="absolute"][class*="bottom-0"][class*="bg-background"] {
     width: 100% !important;
     max-width: none !important;
   }
@@ -440,7 +489,7 @@ audio {
     font-size: clamp(3.5rem, 5.8vw, 6.2rem) !important;
   }
 
-  .findings-page #pressure [class*="h-\\[min\\(52vw"] {
+  .findings-page #pressure .pressure-orbit {
     height: min(42vw, 27rem) !important;
     width: min(58vw, 43rem) !important;
   }
@@ -464,7 +513,7 @@ audio {
     line-height: 1.6 !important;
   }
 
-  .findings-page #pressure [class*="h-40"][class*="w-56"] {
+  .findings-page #pressure .pressure-athlete-card {
     height: 7.5rem !important;
     width: 10.5rem !important;
   }
@@ -482,13 +531,38 @@ audio {
     object-fit: cover;
   }
 
-  .findings-page :is(#visibility, #recognition, #camera, #visible-process, #sponsorship, #pressure, #decision, #experience, #no-jump) aside[class*="border"],
-  .findings-page :is(#visibility, #recognition, #camera, #visible-process, #sponsorship, #pressure, #decision, #experience, #no-jump) div[class*="border"][class*="bg-background"] {
+  .findings-page
+    :is(
+      #visibility,
+      #recognition,
+      #camera,
+      #visible-process,
+      #sponsorship,
+      #pressure,
+      #decision,
+      #experience,
+      #no-jump
+    )
+    aside[class*="border"],
+  .findings-page
+    :is(
+      #visibility,
+      #recognition,
+      #camera,
+      #visible-process,
+      #sponsorship,
+      #pressure,
+      #decision,
+      #experience,
+      #no-jump
+    )
+    div[class*="border"][class*="bg-background"] {
     max-width: min(100%, 58rem);
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1366px), (min-width: 1024px) and (max-height: 820px) {
+@media (min-width: 1024px) and (max-width: 1366px),
+  (min-width: 1024px) and (max-height: 820px) {
   .findings-page {
     --findings-laptop-display-lg: clamp(2.85rem, 5vw, 4.55rem);
     --findings-laptop-display-md: clamp(2.25rem, 4.2vw, 3.65rem);
@@ -518,7 +592,10 @@ audio {
   }
 
   .findings-page :is(#decision, #experience) .sticky > div {
-    grid-template-columns: minmax(12rem, 0.3fr) minmax(18rem, 0.43fr) minmax(12rem, 0.27fr) !important;
+    grid-template-columns: minmax(12rem, 0.3fr) minmax(18rem, 0.43fr) minmax(
+        12rem,
+        0.27fr
+      ) !important;
   }
 
   .findings-page #visibility p[aria-hidden="true"] {
@@ -582,7 +659,7 @@ audio {
     font-size: clamp(3rem, 5vw, 4.75rem) !important;
   }
 
-  .findings-page #pressure [class*="h-\\[min\\(52vw"] {
+  .findings-page #pressure .pressure-orbit {
     height: min(36vw, 22rem) !important;
     width: min(52vw, 36rem) !important;
   }
@@ -612,20 +689,169 @@ audio {
   }
 }
 
+@media (min-width: 1024px) and (max-width: 1536px) and (max-height: 1000px) {
+  .findings-page #pressure .pressure-sticky-track {
+    height: 430svh !important;
+    min-height: 2850px !important;
+  }
+
+  .findings-page #pressure .pressure-sticky-inner {
+    padding-top: clamp(1rem, 1.8svh, 1.6rem) !important;
+    padding-bottom: clamp(1rem, 1.8svh, 1.5rem) !important;
+  }
+
+  .findings-page #pressure .pressure-title {
+    margin-top: 0.75rem !important;
+    font-size: clamp(3rem, 5.1vw, 5.35rem) !important;
+    line-height: 0.88 !important;
+  }
+
+  .findings-page #pressure .pressure-summary {
+    margin-top: 1rem !important;
+    max-width: 39rem !important;
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem) !important;
+    line-height: 1.5 !important;
+  }
+
+  .findings-page #pressure .pressure-scene-slot {
+    padding-top: 0 !important;
+  }
+
+  .findings-page #pressure .pressure-scene-canvas {
+    --pressure-center-y: 48%;
+    --pressure-label-scale: 0.72;
+  }
+
+  .findings-page #pressure .pressure-orbit {
+    height: min(35vw, 23rem) !important;
+    width: min(50vw, 37rem) !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1536px) and (max-height: 900px) {
+  .findings-page #pressure .pressure-sticky-track {
+    height: 450svh !important;
+    min-height: 3000px !important;
+  }
+
+  .findings-page #pressure .pressure-sticky-inner {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .findings-page #pressure .pressure-title {
+    margin-top: 0.6rem !important;
+    font-size: clamp(2.75rem, 4.9vw, 4.65rem) !important;
+  }
+
+  .findings-page #pressure .pressure-summary {
+    margin-top: 0.8rem !important;
+    max-width: 36rem !important;
+    font-size: 0.95rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .findings-page #pressure .pressure-scene-canvas {
+    --pressure-center-y: 45%;
+    --pressure-label-scale: 0.68;
+  }
+
+  .findings-page #pressure .pressure-factor-label {
+    width: clamp(9.25rem, 12vw, 11rem) !important;
+  }
+
+  .findings-page #pressure .pressure-factor-label span:last-child {
+    margin-top: 0.35rem !important;
+    padding-left: 0.8rem !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.08em !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 800px) {
+  .findings-page #pressure .pressure-sticky-track {
+    height: 470svh !important;
+    min-height: 3200px !important;
+  }
+
+  .findings-page #pressure .pressure-title {
+    max-width: min(100%, 17ch) !important;
+    font-size: clamp(2.45rem, 4.6vw, 4.05rem) !important;
+  }
+
+  .findings-page #pressure .pressure-summary {
+    max-width: 34rem !important;
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .findings-page #pressure .pressure-scene-canvas {
+    --pressure-center-y: 43%;
+    --pressure-label-scale: 0.64;
+  }
+
+  .findings-page #pressure .pressure-athlete-card {
+    height: 6.5rem !important;
+    width: 9.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) and (max-height: 800px) {
+  .findings-page #pressure .pressure-sticky-inner {
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+
+  .findings-page #pressure .pressure-title {
+    font-size: clamp(2.25rem, 4.4vw, 3.7rem) !important;
+  }
+
+  .findings-page #pressure .pressure-summary {
+    margin-top: 0.65rem !important;
+    max-width: 32rem !important;
+  }
+
+  .findings-page #pressure .pressure-scene-canvas {
+    --pressure-center-y: 41%;
+    --pressure-label-scale: 0.61;
+  }
+
+  .findings-page #pressure .pressure-factor-label {
+    width: clamp(8.5rem, 11.5vw, 10.25rem) !important;
+  }
+}
+
 @media (min-width: 1024px) and (max-height: 760px) {
   .findings-page {
     --section-gap-standard: 4.5rem;
     --section-gap-immersive: 5rem;
   }
 
-  .findings-page :is(#recognition, #camera, #visible-process, #sponsorship, #pressure, #decision, #experience, #no-jump) h2:not(.sr-only),
-  .findings-page :is(#visibility, #recognition, #visible-process) p[aria-hidden="true"] {
+  .findings-page
+    :is(
+      #recognition,
+      #camera,
+      #visible-process,
+      #sponsorship,
+      #pressure,
+      #decision,
+      #experience,
+      #no-jump
+    )
+    h2:not(.sr-only),
+  .findings-page
+    :is(#visibility, #recognition, #visible-process)
+    p[aria-hidden="true"] {
     font-size: clamp(2.55rem, 4.6vw, 4.25rem) !important;
     line-height: 0.88 !important;
   }
 
   .findings-page :is(#decision, #experience) header p:last-child,
-  .findings-page :is(#recognition, #camera, #visible-process, #sponsorship, #pressure) header p:not(:first-child) {
+  .findings-page
+    :is(#recognition, #camera, #visible-process, #sponsorship, #pressure)
+    header
+    p:not(:first-child) {
     font-size: 0.9rem;
     line-height: 1.45;
   }
@@ -638,9 +864,34 @@ audio {
   .findings-page #camera figure[class*="aspect-"] {
     height: min(42svh, 24rem) !important;
   }
+
+  .findings-page #pressure .pressure-sticky-track {
+    height: 490svh !important;
+    min-height: 3350px !important;
+  }
+
+  .findings-page #pressure .pressure-title {
+    font-size: clamp(2.1rem, 4.2vw, 3.4rem) !important;
+  }
+
+  .findings-page #pressure .pressure-summary {
+    font-size: 0.86rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .findings-page #pressure .pressure-scene-canvas {
+    --pressure-center-y: 40%;
+    --pressure-label-scale: 0.58;
+  }
+
+  .findings-page #pressure .pressure-factor-label span:last-child {
+    font-size: 0.72rem !important;
+    line-height: 1.16 !important;
+  }
 }
 
-@media (min-width: 1024px) and (max-width: 1536px), (min-width: 1024px) and (max-height: 900px) {
+@media (min-width: 1024px) and (max-width: 1536px),
+  (min-width: 1024px) and (max-height: 900px) {
   .findings-page {
     --community-laptop-gutter: clamp(2.5rem, 4vw, 4rem);
     --community-laptop-max-width: 72rem;
@@ -826,7 +1077,10 @@ audio {
     overflow: hidden;
     opacity: 0;
     line-height: 1.45 !important;
-    transition: max-height 420ms ease, opacity 300ms ease, margin-top 300ms ease;
+    transition:
+      max-height 420ms ease,
+      opacity 300ms ease,
+      margin-top 300ms ease;
   }
 
   .findings-page #no-jump .no-jump-row.is-active .no-jump-row-body {
@@ -981,7 +1235,8 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1366px), (min-width: 1024px) and (max-height: 800px) {
+@media (min-width: 1024px) and (max-width: 1366px),
+  (min-width: 1024px) and (max-height: 800px) {
   .findings-page {
     --community-laptop-gutter: clamp(2rem, 3.4vw, 3rem);
     --community-laptop-max-width: 66rem;

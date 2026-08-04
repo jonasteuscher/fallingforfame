@@ -91,8 +91,7 @@ export const imprint = {
         items: [
           {
             title: "Squirrel 5-LITE",
-            description:
-              "Product image of the Squirrel 5-LITE BASE parachute system.",
+            description: "Product image of the Squirrel 5-LITE BASE parachute system.",
             source: "https://squirrel.ws/parachutes/base-jumping/5-lite/",
             credit: "Squirrel LLC",
           },

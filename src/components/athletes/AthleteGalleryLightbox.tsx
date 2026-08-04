@@ -31,10 +31,8 @@ const labels = {
   },
 } as const;
 
-const thumbnailSizes =
-  "(min-width: 1280px) 30vw, (min-width: 640px) 46vw, 92vw";
-const lightboxSizes =
-  "(min-width: 1280px) 1280px, (min-width: 768px) 90vw, 100vw";
+const thumbnailSizes = "(min-width: 1280px) 30vw, (min-width: 640px) 46vw, 92vw";
+const lightboxSizes = "(min-width: 1280px) 1280px, (min-width: 768px) 90vw, 100vw";
 
 export function AthleteGalleryLightbox({
   images,
@@ -51,9 +49,7 @@ export function AthleteGalleryLightbox({
   const hasHiddenImages =
     initialVisibleCount !== undefined && images.length > initialVisibleCount;
   const visibleImages =
-    hasHiddenImages && !isExpanded
-      ? images.slice(0, initialVisibleCount)
-      : images;
+    hasHiddenImages && !isExpanded ? images.slice(0, initialVisibleCount) : images;
 
   const lightboxPreloadProps = useMemo(
     () =>
@@ -76,25 +72,28 @@ export function AthleteGalleryLightbox({
     [images],
   );
 
-  const warmImage = useCallback((index: number) => {
-    if (typeof window === "undefined") {
-      return;
-    }
+  const warmImage = useCallback(
+    (index: number) => {
+      if (typeof window === "undefined") {
+        return;
+      }
 
-    const image = lightboxPreloadProps[index];
+      const image = lightboxPreloadProps[index];
 
-    if (!image || warmedImages.current.has(image.src)) {
-      return;
-    }
+      if (!image || warmedImages.current.has(image.src)) {
+        return;
+      }
 
-    warmedImages.current.add(image.src);
+      warmedImages.current.add(image.src);
 
-    const preloadImage = new window.Image();
-    preloadImage.decoding = "async";
-    preloadImage.sizes = image.sizes ?? lightboxSizes;
-    preloadImage.srcset = image.srcSet ?? "";
-    preloadImage.src = image.src;
-  }, [lightboxPreloadProps]);
+      const preloadImage = new window.Image();
+      preloadImage.decoding = "async";
+      preloadImage.sizes = image.sizes ?? lightboxSizes;
+      preloadImage.srcset = image.srcSet ?? "";
+      preloadImage.src = image.src;
+    },
+    [lightboxPreloadProps],
+  );
 
   useEffect(() => {
     if (activeIndex === null) {
@@ -114,9 +113,7 @@ export function AthleteGalleryLightbox({
 
       if (event.key === "ArrowLeft") {
         setActiveIndex((current) =>
-          current === null
-            ? current
-            : (current - 1 + images.length) % images.length,
+          current === null ? current : (current - 1 + images.length) % images.length,
         );
       }
     }
@@ -203,9 +200,7 @@ export function AthleteGalleryLightbox({
           aria-expanded={isExpanded}
           className="mt-8 inline-flex min-h-12 cursor-pointer items-center border border-primary bg-primary px-5 text-sm font-semibold uppercase tracking-[0.18em] text-background transition hover:bg-transparent hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
         >
-          {isExpanded
-            ? (showLessLabel ?? text.previous)
-            : (viewAllLabel ?? text.next)}
+          {isExpanded ? (showLessLabel ?? text.previous) : (viewAllLabel ?? text.next)}
         </button>
       ) : null}
 

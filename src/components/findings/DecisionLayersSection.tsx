@@ -228,8 +228,12 @@ function DecisionDocumentaryScene({
   const labels = annotationLabels[locale];
   const actions = actionLabels[locale];
   const modelOpacity = 1;
-  const finalDecision = fullyAnnotated ? 1 : getStepVisibility(9, activeStep, stepProgress);
-  const thresholdProgress = fullyAnnotated ? 1 : interpolate(finalDecision, 0.42, 0.72, 0, 1);
+  const finalDecision = fullyAnnotated
+    ? 1
+    : getStepVisibility(9, activeStep, stepProgress);
+  const thresholdProgress = fullyAnnotated
+    ? 1
+    : interpolate(finalDecision, 0.42, 0.72, 0, 1);
   const resultProgress = fullyAnnotated ? 1 : interpolate(finalDecision, 0.74, 1, 0, 1);
   const checkpoints = layers.map((_, index) => ({
     number: String(index + 1).padStart(2, "0"),
@@ -389,7 +393,11 @@ function DecisionCheckpoint({
           : visible >= 1
             ? "color-mix(in srgb, var(--foreground) 78%, transparent)"
             : "color-mix(in srgb, var(--foreground) 30%, transparent)",
-        opacity: active ? interpolate(visible, 0, 1, 0.3, 1) : visible >= 1 ? 0.76 : 0.34,
+        opacity: active
+          ? interpolate(visible, 0, 1, 0.3, 1)
+          : visible >= 1
+            ? 0.76
+            : 0.34,
         top: `${svgYToCssPercent(checkpoint.y)}%`,
         transform: `translate3d(-50%, -50%, 0) scale(${active ? interpolate(visible, 0, 1, 0.92, 1) : 1})`,
         boxShadow: active
@@ -400,7 +408,11 @@ function DecisionCheckpoint({
       <span
         className={[
           "block text-[0.62rem] font-semibold leading-none transition-colors duration-500 motion-reduce:transition-none",
-          active ? "text-primary" : visible >= 1 ? "text-foreground/78" : "text-foreground/38",
+          active
+            ? "text-primary"
+            : visible >= 1
+              ? "text-foreground/78"
+              : "text-foreground/38",
         ].join(" ")}
       >
         {checkpoint.number}
@@ -474,7 +486,10 @@ function DecisionProcessList({
   onFocusStep: (index: number | null) => void;
 }) {
   return (
-    <ol className="flex min-h-0 flex-col justify-center gap-3" aria-label="Decision layers">
+    <ol
+      className="flex min-h-0 flex-col justify-center gap-3"
+      aria-label="Decision layers"
+    >
       {layers.map((layer, index) => {
         const isActive = index === activeStep;
         const isComplete = index < activeStep || progress >= 0.88;
@@ -486,7 +501,9 @@ function DecisionProcessList({
               type="button"
               className={[
                 "group grid w-full grid-cols-[2.3rem_1fr] items-start gap-3 border-b border-border/50 pb-3 text-left transition-[opacity,transform,color] duration-500 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none",
-                isActive ? "translate-y-0 text-foreground" : "translate-y-1 text-foreground/72",
+                isActive
+                  ? "translate-y-0 text-foreground"
+                  : "translate-y-1 text-foreground/72",
               ].join(" ")}
               style={{ opacity }}
               aria-current={isActive ? "step" : undefined}
@@ -557,7 +574,10 @@ function MobileDecisionLayers({
       </div>
       <ol className="mt-10 grid gap-7" aria-label="Decision layers">
         {layers.map((layer, index) => (
-          <li key={layer} className="grid grid-cols-[2.7rem_1fr] gap-4 border-l border-border py-1">
+          <li
+            key={layer}
+            className="grid grid-cols-[2.7rem_1fr] gap-4 border-l border-border py-1"
+          >
             <span className="pl-4 text-xs font-semibold text-primary">
               {String(index + 1).padStart(2, "0")}
             </span>
