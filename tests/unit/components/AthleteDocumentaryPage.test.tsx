@@ -80,23 +80,35 @@ describe("AthleteDocumentaryPage shared section system", () => {
       });
     }
 
-    expect(marcel?.page?.progress.slice(0, 5).map((section) => section.id)).toEqual([
+    expect(marcel?.page?.progress.map((section) => section.id)).toEqual([
       "biography",
       "origin",
-      "gallery",
+      "media-perception",
+      "stockhorn-reflection",
+      "proximity-flight",
       "audio-story",
-      "social-media",
+      "career-highlights",
+      "gallery",
     ]);
     expect(marcel?.page?.sections.map((section) => section.type)).toEqual([
-      "gallery",
+      "interview-video",
+      "interview-video",
+      "scroll-video",
       "audio-story",
+      "local-video",
+      "gallery",
       "social-media",
       "media-coverage",
     ]);
-    expect(marcel?.page?.sections[1]).toMatchObject({
+    expect(marcel?.page?.sections[3]).toMatchObject({
       id: "audio-story",
       storyId: "process-behind-the-highlight",
       spacing: "standard",
+      includeInProgress: true,
+    });
+    expect(marcel?.page?.sections[5]).toMatchObject({
+      type: "gallery",
+      id: "gallery",
       includeInProgress: true,
     });
 
@@ -105,7 +117,7 @@ describe("AthleteDocumentaryPage shared section system", () => {
     ).not.toContainEqual(expect.objectContaining({ id: "media-coverage" }));
     expect(
       athletes.find((athlete) => athlete.slug === "marcel-geser")?.page?.progress,
-    ).toContainEqual(expect.objectContaining({ id: "media-coverage" }));
+    ).not.toContainEqual(expect.objectContaining({ id: "media-coverage" }));
     expect(
       athletes.find((athlete) => athlete.slug === "josef-braun")?.page?.progress,
     ).toContainEqual(expect.objectContaining({ id: "media-coverage" }));

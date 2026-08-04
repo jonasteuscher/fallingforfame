@@ -74,6 +74,7 @@ describe("athletes data", () => {
   it("contains localized interview feature data on profiles with interview chapters", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
+    const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
 
     expect(tim?.interviewFeatures).toMatchObject([
       {
@@ -157,10 +158,45 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(marcel?.interviewFeatures).toMatchObject([
+      {
+        id: "media-perception",
+        title: {
+          en: "How the Media Misunderstands Risk",
+          de: "Wie Medien Risiko missverstehen",
+        },
+        highlightQuote: {
+          en: "Personally, I often feel that the outside world misjudges the risk.",
+          de: "Persönlich habe ich häufig das Gefühl, dass die Aussenwelt das Risiko falsch einschätzt.",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "Ux61aE9Q4Us" },
+          de: { provider: "youtube", videoId: "4Z0y1E7hUy0" },
+        },
+      },
+      {
+        id: "stockhorn-reflection",
+        title: {
+          en: "Reflecting on his home jump",
+          de: "Reflexion über seinen Heimsprung",
+        },
+        highlightQuote: {
+          en: "Even now, when I watch the video again, I remember every single detail.",
+          de: "Auch wenn ich das Video jetzt nochmal schaue, dann erinnere ich mich noch an jedes Detail.",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "pWXj7Prr6L4" },
+          de: { provider: "youtube", videoId: "2dOWBr7Vfzw" },
+        },
+      },
+    ]);
     expect(
       athletes
         .filter(
-          (athlete) => athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+          (athlete) =>
+            athlete.slug !== "tim-howell" &&
+            athlete.slug !== "lukas-loibl" &&
+            athlete.slug !== "marcel-geser",
         )
         .every((athlete) => athlete.interviewFeatures === undefined),
     ).toBe(true);
@@ -312,8 +348,9 @@ describe("athletes data", () => {
     ).toBe(true);
   });
 
-  it("contains Tim Howell's scroll scrub jump data only on his profile", () => {
+  it("contains athlete-specific scroll scrub jump data", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+    const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
 
     expect(tim?.scrollVideo).toMatchObject({
       id: "iran-jump",
@@ -328,6 +365,7 @@ describe("athletes data", () => {
       displayTitle: "The Jump",
       video: {
         src: "/video/tim-howell/The_jump.mp4",
+        scrubSrc: "/video/tim-howell/The_jump_scrub.mp4",
         type: "video/mp4",
       },
       poster: null,
@@ -364,10 +402,54 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(marcel?.scrollVideo).toMatchObject({
+      id: "proximity-flight",
+      displayTitle: {
+        en: "The Final\nLine",
+        de: "Die fertige\nLinie",
+      },
+      video: {
+        src: "/video/marcel-geser/The_jump.mp4",
+        scrubSrc: "/video/marcel-geser/The_jump_scrub.mp4",
+        type: "video/mp4",
+      },
+      scrollLength: 4,
+    });
+    expect(marcel?.scrollVideo?.cues).toBeUndefined();
     expect(
       athletes
-        .filter((athlete) => athlete.slug !== "tim-howell")
+        .filter(
+          (athlete) =>
+            athlete.slug !== "tim-howell" && athlete.slug !== "marcel-geser",
+        )
         .every((athlete) => athlete.scrollVideo === undefined),
+    ).toBe(true);
+  });
+
+  it("contains Marcel Geser's closing local career film", () => {
+    const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
+
+    expect(marcel?.localVideoFeatures).toMatchObject([
+      {
+        id: "career-highlights",
+        title: {
+          en: "Career Highlights",
+          de: "Karriere-Highlights",
+        },
+        displayTitle: {
+          en: "Years in Flight",
+          de: "Jahre im Flug",
+        },
+        video: {
+          src: "/video/marcel-geser/Summary.mp4",
+          type: "video/mp4",
+        },
+      },
+    ]);
+    expect(
+      athletes
+        .filter((athlete) => athlete.slug !== "marcel-geser")
+        .every((athlete) => athlete.localVideoFeatures === undefined),
     ).toBe(true);
   });
 

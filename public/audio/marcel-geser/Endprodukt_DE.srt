@@ -1,6 +1,6 @@
 1
 00:00:00,000 --> 00:00:04,880
-Das Problem ist, dass man ja immer mit dem Endprodukt konfrontiert wird.
+Das Problem ist, dass man ja immer nur mit dem Endprodukt konfrontiert wird.
 
 2
 00:00:04,880 --> 00:00:11,300
@@ -8,11 +8,11 @@ Also es kann sein, dass ein Springer 20, 30 Mal den Sprung gemacht hat, bis er g
 
 3
 00:00:12,180 --> 00:00:16,100
-Postet wird er dann nur noch die beste Linie, die er je geflogen hat.
+Posten wird er dann nur noch die beste Linie, die er je geflogen hat.
 
 4
 00:00:16,560 --> 00:00:19,660
-Die er zu nahem Boden war, wie er noch nie vorher.
+Bei der er so nah am Boden war, wie noch nie zuvor.
 
 5
 00:00:20,840 --> 00:00:25,460
@@ -45,20 +45,4 @@ Weil ich glaube, es wäre für viele, gerade jetzt auch junge Springer, die mit 
 12
 00:00:52,780 --> 00:00:57,380
 wäre es auch spannend, den Prozess hinter den Highlights zu sehen.
-
-13
-00:00:57,640 --> 00:00:58,140
-Vielen Dank.
-
-14
-00:00:58,140 --> 00:00:58,640
-Vielen Dank.
-
-15
-00:00:58,640 --> 00:00:59,140
-Vielen Dank.
-
-16
-00:00:59,140 --> 00:00:59,640
-Vielen Dank.
 

@@ -68,6 +68,7 @@ export type AthleteInterviewFeature = {
   quote: string;
   subtitle?: LocalizedText;
   intro?: LocalizedText;
+  highlightQuote?: LocalizedText;
   iframeTitle: LocalizedText;
   poster: string | null;
   videos: {
@@ -79,6 +80,21 @@ export type AthleteInterviewFeature = {
       provider: "youtube";
       videoId: string;
     };
+  };
+};
+
+export type AthleteLocalVideoFeature = {
+  id: string;
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle?: LocalizedText;
+  intro: LocalizedText;
+  video: {
+    src: string;
+    type: "video/mp4";
+    poster?: string | null;
+    label: LocalizedText;
+    caption?: LocalizedText;
   };
 };
 
@@ -128,6 +144,13 @@ export type AthletePageSectionConfig =
   | {
       id: string;
       type: "scroll-video";
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    }
+  | {
+      id: string;
+      type: "local-video";
+      featureId: string;
       includeInProgress?: boolean;
       spacing?: "compact" | "standard" | "immersive";
     }
@@ -218,10 +241,11 @@ export type AthleteScrollVideo = {
   id: string;
   chapter: LocalizedText;
   title: LocalizedText;
-  displayTitle: string;
+  displayTitle: string | LocalizedText;
   description?: LocalizedText;
   video: {
     src: string;
+    scrubSrc?: string;
     type: "video/mp4";
   };
   poster?: string | null;
@@ -289,6 +313,7 @@ export type Athlete = {
   originStory: AthleteOriginStoryBeat[];
   interviewFeatures?: AthleteInterviewFeature[];
   audioStories?: AthleteAudioStory[];
+  localVideoFeatures?: AthleteLocalVideoFeature[];
   scrollVideo?: AthleteScrollVideo;
   futureProject?: AthleteFutureProject;
   currentProject?: AthleteCurrentProject;

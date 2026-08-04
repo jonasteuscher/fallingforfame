@@ -133,15 +133,9 @@ const lukasLoiblPage: AthletePageComposition = {
 function standardAthletePage({
   navAriaLabel,
   includeMediaCoverage = false,
-  audioStory,
 }: {
   navAriaLabel: AthletePageComposition["navAriaLabel"];
   includeMediaCoverage?: boolean;
-  audioStory?: {
-    id: string;
-    storyId: string;
-    label: AthletePageComposition["progress"][number]["label"];
-  };
 }): AthletePageComposition {
   return {
     navAriaLabel,
@@ -149,7 +143,6 @@ function standardAthletePage({
       { id: "biography", label: { en: "Biography", de: "Biografie" } },
       { id: "origin", label: { en: "Career", de: "Karriere" } },
       { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
-      ...(audioStory ? [{ id: audioStory.id, label: audioStory.label }] : []),
       { id: "social-media", label: { en: "Links", de: "Links" } },
       ...(includeMediaCoverage
         ? [
@@ -167,17 +160,6 @@ function standardAthletePage({
         spacing: "standard",
         includeInProgress: true,
       },
-      ...(audioStory
-        ? [
-            {
-              type: "audio-story" as const,
-              id: audioStory.id,
-              storyId: audioStory.storyId,
-              spacing: "standard" as const,
-              includeInProgress: true,
-            },
-          ]
-        : []),
       {
         type: "social-media",
         id: "social-media",
@@ -194,21 +176,93 @@ function standardAthletePage({
   };
 }
 
-const marcelGeserPage = standardAthletePage({
+const marcelGeserPage: AthletePageComposition = {
   navAriaLabel: {
     en: "Marcel Geser profile sections",
     de: "Marcel Geser Profilabschnitte",
   },
-  includeMediaCoverage: true,
-  audioStory: {
-    id: "audio-story",
-    storyId: "process-behind-the-highlight",
-    label: {
-      en: "Behind the highlight",
-      de: "Hinter dem Highlight",
+  progress: [
+    { id: "biography", label: { en: "Biography", de: "Biografie" } },
+    { id: "origin", label: { en: "Career", de: "Karriere" } },
+    {
+      id: "media-perception",
+      label: { en: "Media & Risk", de: "Medien & Risiko" },
     },
-  },
-});
+    {
+      id: "stockhorn-reflection",
+      label: { en: "Home Jump", de: "Heimsprung" },
+    },
+    {
+      id: "proximity-flight",
+      label: { en: "The Flight", de: "Der Flug" },
+    },
+    {
+      id: "audio-story",
+      label: { en: "Behind the Highlight", de: "Hinter dem Highlight" },
+    },
+    {
+      id: "career-highlights",
+      label: { en: "Career Highlights", de: "Karriere-Highlights" },
+    },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+  ],
+  sections: [
+    {
+      type: "interview-video",
+      id: "media-perception",
+      featureId: "media-perception",
+      layout: "text-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "stockhorn-reflection",
+      featureId: "stockhorn-reflection",
+      layout: "media-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "scroll-video",
+      id: "proximity-flight",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "audio-story",
+      id: "audio-story",
+      storyId: "process-behind-the-highlight",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "local-video",
+      id: "career-highlights",
+      featureId: "career-highlights",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "social-media",
+      id: "social-media",
+      spacing: "compact",
+      includeInProgress: false,
+    },
+    {
+      type: "media-coverage",
+      id: "media-coverage",
+      spacing: "compact",
+      includeInProgress: false,
+    },
+  ],
+};
 
 const niclasStrohmeierPage = standardAthletePage({
   navAriaLabel: {
@@ -867,6 +921,7 @@ export const athletes: Athlete[] = [
       displayTitle: "The Jump",
       video: {
         src: "/video/tim-howell/The_jump.mp4",
+        scrubSrc: "/video/tim-howell/The_jump_scrub.mp4",
         type: "video/mp4",
       },
       poster: null,
@@ -1523,6 +1578,152 @@ export const athletes: Athlete[] = [
       },
     },
     originStory: originStories["marcel-geser"],
+    interviewFeatures: [
+      {
+        id: "media-perception",
+        placement: "after-origin",
+        title: {
+          en: "How the Media Misunderstands Risk",
+          de: "Wie Medien Risiko missverstehen",
+        },
+        navTitle: {
+          en: "How the Media Misunderstands Risk",
+          de: "Wie Medien Risiko missverstehen",
+        },
+        chapter: {
+          en: "Media and Public Perception",
+          de: "Medien und öffentliche Wahrnehmung",
+        },
+        quote: "How the Media\nMisunderstands Risk",
+        subtitle: {
+          en: "Marcel explains how reporting centred on fatal accidents can make BASE jumping appear like a fifty-fifty gamble, obscuring both the knowledge within the sport and the beauty that drew him to it.",
+          de: "Marcel erklärt, wie eine auf tödliche Unfälle fokussierte Berichterstattung BASE Jumping wie ein Fünfzig-fünfzig-Risiko erscheinen lässt und dabei sowohl das Wissen im Sport als auch dessen Schönheit verdeckt.",
+        },
+        highlightQuote: {
+          en: "Personally, I often feel that the outside world misjudges the risk.",
+          de: "Persönlich habe ich häufig das Gefühl, dass die Aussenwelt das Risiko falsch einschätzt.",
+        },
+        iframeTitle: {
+          en: "Marcel Geser interview about media portrayals of BASE jumping risk",
+          de: "Marcel Geser Interview über die mediale Darstellung des Risikos im BASE Jumping",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "Ux61aE9Q4Us",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "4Z0y1E7hUy0",
+          },
+        },
+      },
+      {
+        id: "stockhorn-reflection",
+        placement: "after-gallery",
+        title: {
+          en: "Reflecting on his home jump",
+          de: "Reflexion über seinen Heimsprung",
+        },
+        navTitle: {
+          en: "Reflecting on his home jump",
+          de: "Reflexion über seinen Heimsprung",
+        },
+        chapter: {
+          en: "Reflection and Memory",
+          de: "Reflexion und Erinnerung",
+        },
+        quote: "A Jump\nto Remember",
+        subtitle: {
+          en: "Watching footage from his home jump at the Stockhorn, Marcel recalls the conditions, the person beside him and the details that turned the flight into a lasting memory.",
+          de: "Beim Betrachten der Aufnahme von seinem Heimsprung am Stockhorn erinnert sich Marcel an die Bedingungen, die Person an seiner Seite und an jene Details, die den Flug zu einer bleibenden Erinnerung machten.",
+        },
+        highlightQuote: {
+          en: "Even now, when I watch the video again, I remember every single detail.",
+          de: "Auch wenn ich das Video jetzt nochmal schaue, dann erinnere ich mich noch an jedes Detail.",
+        },
+        iframeTitle: {
+          en: "Marcel Geser reflecting on his Stockhorn wingsuit jump",
+          de: "Marcel Geser reflektiert seinen Wingsuit-Sprung am Stockhorn",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "pWXj7Prr6L4",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "2dOWBr7Vfzw",
+          },
+        },
+      },
+    ],
+    scrollVideo: {
+      id: "proximity-flight",
+      chapter: {
+        en: "WHAT THE IMAGE LEAVES OUT",
+        de: "WAS DAS BILD NICHT ZEIGT",
+      },
+      title: {
+        en: "The Proximity Flight",
+        de: "Der Proximity-Flug",
+      },
+      displayTitle: {
+        en: "The Final\nLine",
+        de: "Die fertige\nLinie",
+      },
+      description: {
+        en: "The problem is that people only ever see the final result.",
+        de: "Das Problem ist, dass man ja immer nur mit dem Endprodukt konfrontiert wird.",
+      },
+      video: {
+        src: "/video/marcel-geser/The_jump.mp4",
+        scrubSrc: "/video/marcel-geser/The_jump_scrub.mp4",
+        type: "video/mp4",
+      },
+      poster: null,
+      scrollLength: 4,
+      fallbackLabel: {
+        en: "Marcel Geser flying a low proximity wingsuit line",
+        de: "Marcel Geser fliegt eine tiefe Proximity-Linie im Wingsuit",
+      },
+    },
+    localVideoFeatures: [
+      {
+        id: "career-highlights",
+        chapter: {
+          en: "CAREER HIGHLIGHTS",
+          de: "KARRIERE-HIGHLIGHTS",
+        },
+        title: {
+          en: "Career Highlights",
+          de: "Karriere-Highlights",
+        },
+        displayTitle: {
+          en: "Years in Flight",
+          de: "Jahre im Flug",
+        },
+        intro: {
+          en: "A four-minute retrospective brings together flights from the past three to five years of Marcel's BASE jumping career, closing the portrait with the passion for flying that began his journey.",
+          de: "Ein vierminütiger Rückblick versammelt Flüge aus den vergangenen drei bis fünf Jahren von Marcels BASE-Jumping-Laufbahn und führt das Porträt zurück zu jener Leidenschaft fürs Fliegen, mit der sein Weg begann.",
+        },
+        video: {
+          src: "/video/marcel-geser/Summary.mp4",
+          type: "video/mp4",
+          poster: null,
+          label: {
+            en: "Marcel Geser career highlights from recent BASE jumping years",
+            de: "Marcel Gesers Karriere-Highlights aus den vergangenen BASE-Jumping-Jahren",
+          },
+          caption: {
+            en: "Selected flights from Marcel Geser's recent BASE jumping career.",
+            de: "Ausgewählte Flüge aus Marcel Gesers jüngerer BASE-Jumping-Laufbahn.",
+          },
+        },
+      },
+    ],
     ...emptyMedia,
     audioStories: [
       {

@@ -115,7 +115,7 @@ describe("ScrollScrubVideo", () => {
     await waitFor(() =>
       expect(container.querySelector("source")).toHaveAttribute(
         "src",
-        "/video/tim-howell/The_jump.mp4",
+        "/video/tim-howell/The_jump_scrub.mp4",
       ),
     );
   });
@@ -133,7 +133,7 @@ describe("ScrollScrubVideo", () => {
     await waitFor(() =>
       expect(container.querySelector("source")).toHaveAttribute(
         "src",
-        "/video/tim-howell/The_jump.mp4",
+        "/video/tim-howell/The_jump_scrub.mp4",
       ),
     );
     Object.defineProperty(section, "offsetHeight", {
@@ -156,6 +156,9 @@ describe("ScrollScrubVideo", () => {
     expect(container.querySelector("[data-scroll-video-copy]")).toHaveStyle({
       visibility: "hidden",
     });
+    expect(container.querySelector("[data-scroll-video-scrim]")).toHaveStyle({
+      opacity: "0",
+    });
     expect(video.currentTime).toBe(0);
 
     act(() => {
@@ -171,6 +174,14 @@ describe("ScrollScrubVideo", () => {
     expect(container.querySelector("[data-scroll-video-copy]")).toHaveStyle({
       visibility: "visible",
     });
+    expect(container.querySelector("[data-scroll-video-scrim]")).toHaveStyle({
+      opacity: "1",
+    });
+
+    act(() => {
+      video.dispatchEvent(new Event("seeked"));
+    });
+
     expect(video.currentTime).toBe(0);
   });
 
@@ -260,6 +271,10 @@ describe("ScrollScrubVideo", () => {
     expect(
       document.querySelector('[data-scroll-scrub-fallback="true"]'),
     ).toBeInTheDocument();
+    expect(document.querySelector("source")).toHaveAttribute(
+      "src",
+      "/video/tim-howell/The_jump.mp4",
+    );
   });
 
   it("uses the fallback on coarse touch phones and tablets", () => {
@@ -327,7 +342,7 @@ describe("ScrollScrubVideo", () => {
     await waitFor(() =>
       expect(container.querySelector("source")).toHaveAttribute(
         "src",
-        "/video/tim-howell/The_jump.mp4",
+        "/video/tim-howell/The_jump_scrub.mp4",
       ),
     );
   });

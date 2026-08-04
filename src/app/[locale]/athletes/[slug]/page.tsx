@@ -301,6 +301,24 @@ function buildAthleteSections(athlete: Athlete) {
           },
         ];
 
+      case "local-video": {
+        const feature = athlete.localVideoFeatures?.find(
+          (item) => item.id === section.featureId,
+        );
+
+        return feature
+          ? [
+              {
+                id: section.id,
+                type: "local-video",
+                feature,
+                spacing: section.spacing ?? "immersive",
+                includeInProgress: section.includeInProgress ?? true,
+              },
+            ]
+          : [];
+      }
+
       case "project-feature":
         return [
           {
