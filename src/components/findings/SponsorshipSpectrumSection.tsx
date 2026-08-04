@@ -367,9 +367,9 @@ function MobileSponsorshipSpectrum({
       </p>
       <p
         aria-hidden="true"
-        className="mt-4 text-[clamp(2.75rem,11vw,4.2rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance]"
+        className="mt-4 max-w-full text-[clamp(2.75rem,11vw,4.2rem)] font-semibold uppercase leading-[0.9] text-foreground [hyphens:manual] [text-wrap:balance]"
       >
-        {chapter.title}
+        {getMobileSponsorshipTitle(chapter.title)}
       </p>
       <p className="mt-6 text-lg leading-8 text-foreground/76">{chapter.summary}</p>
       <SponsorshipSpectrumStatic spectrum={spectrum} className="mt-10" />
@@ -395,6 +395,10 @@ function MobileSponsorshipSpectrum({
       />
     </div>
   );
+}
+
+function getMobileSponsorshipTitle(title: string) {
+  return title.replace("Unterstützung", "Unterstüt\u00adzung");
 }
 
 function ReducedMotionSponsorship({

@@ -105,7 +105,7 @@ export function ProjectFeature({
                   >
                     {link.label[locale]}
                     <span className="ml-3" aria-hidden="true">
-                      ↗
+                      ↗︎
                     </span>
                   </Link>
                 ) : (

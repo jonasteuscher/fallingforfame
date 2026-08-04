@@ -166,11 +166,15 @@ export const project = {
     title: "Bachelor Thesis",
     description:
       "This interactive documentary is based on a bachelor's thesis conducted at the University of Applied Sciences of the Grisons (FHGR).\n\nVisitors interested in the academic background, theoretical framework, methodology, and detailed analysis can download the complete thesis.",
-    button: "Download Thesis PDF",
+    openButton: "Open Thesis (PDF)",
+    openButtonAriaLabel: "Open Thesis PDF in a new browser tab",
+    downloadButton: "Download Thesis PDF",
+    downloadButtonAriaLabel: "Download Thesis PDF",
     fileName: "Zwischen Sichtbarkeit und Sicherheit - Bachelorarbeit",
     pdfLabel: "PDF",
     fileType: "PDF document",
     fileMeta: "Complete bachelor thesis as a PDF.",
+    pdfMeta: "PDF • 151 pages • 27.5 MB",
     coverAlt:
       "Cover of the bachelor thesis Zwischen Sichtbarkeit und Sicherheit.",
   },

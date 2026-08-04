@@ -300,9 +300,9 @@ function MobilePressureModel({
       </p>
       <p
         aria-hidden="true"
-        className="mt-4 text-[clamp(2.75rem,11vw,4.2rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance]"
+        className="mt-4 max-w-full text-[clamp(2.75rem,11vw,4.2rem)] font-semibold uppercase leading-[0.9] text-foreground [hyphens:manual] [text-wrap:balance]"
       >
-        {chapter.title}
+        {getMobilePressureTitle(chapter.title)}
       </p>
       <p className="mt-6 text-lg leading-8 text-foreground/76">{chapter.summary}</p>
       <div className="mt-10 border border-border bg-background/52 p-6 text-center">
@@ -326,6 +326,10 @@ function MobilePressureModel({
       />
     </div>
   );
+}
+
+function getMobilePressureTitle(title: string) {
+  return title.replace("ausgesprochen", "ausgespro\u00adchen");
 }
 
 function ReducedMotionPressureModel({
