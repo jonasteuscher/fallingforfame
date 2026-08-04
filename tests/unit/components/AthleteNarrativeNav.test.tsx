@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { AthleteNarrativeNav } from "@/components/athletes/AthleteNarrativeNav";
@@ -61,6 +61,26 @@ describe("AthleteNarrativeNav", () => {
     expect(screen.getByRole("link", { name: "Profile" })).toHaveAttribute(
       "aria-current",
       "location",
+    );
+  });
+
+  it("hides the navigation until the athlete page starts scrolling", () => {
+    const { rerender } = render(
+      <AthleteNarrativeNav items={items} ariaLabel="Athlete sections" />,
+    );
+
+    expect(screen.getByRole("navigation", { name: "Athlete sections" })).toHaveClass(
+      "opacity-0",
+      "pointer-events-none",
+    );
+
+    setScrollState({ scrollY: 24 });
+    act(() => window.dispatchEvent(new Event("scroll")));
+    rerender(<AthleteNarrativeNav items={items} ariaLabel="Athlete sections" />);
+
+    expect(screen.getByRole("navigation", { name: "Athlete sections" })).toHaveClass(
+      "opacity-100",
+      "pointer-events-auto",
     );
   });
 

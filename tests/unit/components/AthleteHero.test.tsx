@@ -27,12 +27,18 @@ describe("AthleteHero", () => {
 
     expect(screen.getByText(timHeroQuote)).toBeVisible();
     expect(container.querySelector("blockquote")).toHaveTextContent(timHeroQuote);
+    expect(container.querySelector("blockquote span")).toHaveClass("hidden", "xl:block");
+    expect(container.querySelector("blockquote p span")).toHaveClass("xl:hidden");
     expect(container.querySelector("blockquote p")).toHaveClass(
       "[overflow-wrap:anywhere]",
     );
     expect(screen.getByRole("link", { name: "Scroll the profile" })).toHaveAttribute(
       "href",
       "#profile-experience",
+    );
+    expect(screen.getByRole("link", { name: "Scroll the profile" })).toHaveClass(
+      "mx-auto",
+      "xl:mx-0",
     );
   });
 

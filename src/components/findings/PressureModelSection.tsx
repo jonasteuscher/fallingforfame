@@ -120,25 +120,25 @@ export function PressureModelSection({
         interpretationLabel={interpretationLabel}
       />
 
-      <div className="hidden md:block md:h-[400svh] md:min-h-[2600px]">
+      <div className="pressure-sticky-track hidden md:block md:h-[400svh] md:min-h-[2600px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
-          <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] px-6 py-8 xl:px-10">
-            <header className="relative z-10 max-w-[70rem]">
+          <div className="pressure-sticky-inner mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] px-6 py-8 xl:px-10">
+            <header className="pressure-header relative z-10 max-w-[70rem]">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
                 {chapter.eyebrow}
               </p>
               <h2
                 id={`${chapter.id}-title`}
-                className="mt-4 max-w-[62rem] text-[clamp(3rem,5.4vw,6.7rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance]"
+                className="pressure-title mt-4 max-w-[62rem] text-[clamp(3rem,5.4vw,6.7rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance]"
               >
                 {chapter.title}
               </h2>
-              <p className="mt-6 max-w-[43rem] text-lg leading-8 text-foreground/76">
+              <p className="pressure-summary mt-6 max-w-[43rem] text-lg leading-8 text-foreground/76">
                 {chapter.summary}
               </p>
             </header>
 
-            <div className="relative min-h-0 pt-2">
+            <div className="pressure-scene-slot relative min-h-0 pt-2">
               <PressureScene
                 chapter={chapter}
                 pressureFactors={pressureFactors}
@@ -187,7 +187,7 @@ function PressureScene({
     <div className="relative mx-auto flex h-full max-w-[76rem] flex-col">
       <div className="pressure-scene-canvas relative min-h-0 flex-1">
         <div
-          className="absolute left-1/2 top-[var(--pressure-center-y,38%)] h-[min(52vw,36rem)] w-[min(70vw,55rem)] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-border/42"
+          className="pressure-orbit absolute left-1/2 top-[var(--pressure-center-y,38%)] h-[min(52vw,36rem)] w-[min(70vw,55rem)] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-border/42"
           style={{
             opacity: interpolate(progress, 0, 0.2, 0.28, 0.12 + safety * 0.08),
             transform: `translate3d(-50%, -50%, 0) scale(${interpolate(progress, 0.36, 0.87, 1, 0.92 + safety * 0.08)})`,
@@ -195,7 +195,7 @@ function PressureScene({
           aria-hidden="true"
         />
         <div
-          className="absolute left-1/2 top-[var(--pressure-center-y,38%)] grid h-40 w-56 -translate-x-1/2 -translate-y-1/2 place-items-center border border-primary/70 bg-background/88 text-center shadow-[0_26px_90px_color-mix(in_srgb,var(--background)_76%,black)] lg:h-44 lg:w-60"
+          className="pressure-athlete-card absolute left-1/2 top-[var(--pressure-center-y,38%)] grid h-40 w-56 -translate-x-1/2 -translate-y-1/2 place-items-center border border-primary/70 bg-background/88 text-center shadow-[0_26px_90px_color-mix(in_srgb,var(--background)_76%,black)] lg:h-44 lg:w-60"
           data-pressure-athlete
         >
           <span className="px-4 text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
@@ -222,7 +222,7 @@ function PressureScene({
             return (
               <li
                 key={factor}
-                className="absolute w-[clamp(10.5rem,14vw,13rem)]"
+                className="pressure-factor-label absolute w-[clamp(10.5rem,14vw,13rem)]"
                 style={{
                   left: "50%",
                   top: "var(--pressure-center-y, 38%)",

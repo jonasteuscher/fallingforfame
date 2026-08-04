@@ -62,7 +62,7 @@ describe("MobileExperienceNotice", () => {
       name: "Experience the full story",
     });
 
-    expect(window.matchMedia).toHaveBeenCalledWith("(max-width: 767px)");
+    expect(window.matchMedia).toHaveBeenCalledWith("(max-width: 1024px)");
     expect(dialog).toHaveAttribute("aria-modal", "true");
     expect(dialog).toHaveAttribute("aria-labelledby", "mobile-notice-title");
     expect(dialog).toHaveAttribute("aria-describedby", "mobile-notice-description");

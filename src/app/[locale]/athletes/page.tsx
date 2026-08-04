@@ -30,7 +30,7 @@ export default async function AthletesPage({ params }: AthletesPageProps) {
 
   return (
     <>
-      <section className="relative isolate flex min-h-[calc(100svh-3.5rem)] items-end overflow-hidden px-4 pb-16 pt-28 sm:px-6 xl:px-10">
+      <section className="relative isolate flex min-h-[calc(100svh-3.5rem)] items-end overflow-hidden px-4 pb-24 pt-24 min-[420px]:pb-16 min-[420px]:pt-28 sm:px-6 xl:px-10">
         <div className="absolute inset-0 -z-20 bg-surface" aria-hidden="true">
           <Image
             src="/images/athletes/hero_athletes.jpg"
@@ -49,15 +49,15 @@ export default async function AthletesPage({ params }: AthletesPageProps) {
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
               {content.eyebrow}
             </p>
-            <h1 className="mt-5 max-w-5xl text-5xl font-semibold leading-tight text-foreground sm:text-7xl xl:text-8xl">
+            <h1 className="mt-4 max-w-5xl text-[2.65rem] font-semibold leading-[1.08] text-foreground min-[420px]:mt-5 min-[420px]:text-5xl min-[420px]:leading-tight sm:text-7xl xl:text-8xl">
               {content.title}
             </h1>
-            <p className="mt-6 max-w-reading text-lg leading-8 text-foreground/82 sm:text-xl">
+            <p className="mt-5 max-w-reading text-base leading-7 text-foreground/82 min-[420px]:mt-6 min-[420px]:text-lg min-[420px]:leading-8 sm:text-xl">
               {content.intro}
             </p>
             <Link
               href="#athlete-grid"
-              className="mt-8 inline-flex min-h-12 items-center justify-center rounded-sm bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary-foreground transition hover:bg-primary/88 focus-visible:outline-primary"
+              className="mt-6 inline-flex min-h-12 items-center justify-center rounded-sm bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-wide text-primary-foreground transition hover:bg-primary/88 focus-visible:outline-primary min-[420px]:mt-8"
             >
               {content.gridAnchor}
             </Link>

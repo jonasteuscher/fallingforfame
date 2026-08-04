@@ -50,20 +50,26 @@ export function AthleteHero({
           {quote ? (
             <blockquote className="relative mt-6 max-w-[42rem] border-l-2 border-primary pl-5 text-foreground/82 motion-safe:animate-[fade-in-up_700ms_ease-out_270ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-8 sm:pl-7">
               <span
-                className="pointer-events-none absolute -left-1 top-0 -translate-x-full text-[clamp(3.5rem,12vw,7.5rem)] font-semibold leading-none text-primary/38"
+                className="pointer-events-none absolute -left-1 top-0 hidden -translate-x-full text-[clamp(3.5rem,12vw,7.5rem)] font-semibold leading-none text-primary/38 xl:block"
                 aria-hidden="true"
               >
                 &ldquo;
               </span>
               <p className="max-w-full break-words text-[clamp(1.25rem,2.2vw,2rem)] font-medium leading-[1.35] [overflow-wrap:anywhere]">
+                <span aria-hidden="true" className="xl:hidden">
+                  &ldquo;
+                </span>
                 {quote}
+                <span aria-hidden="true" className="xl:hidden">
+                  &rdquo;
+                </span>
               </p>
             </blockquote>
           ) : null}
         </div>
         <a
           href="#profile-experience"
-          className="group flex max-w-max items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-foreground/72 outline-none transition hover:text-foreground focus-visible:text-foreground motion-safe:animate-[fade-in-up_700ms_ease-out_360ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+          className="group mx-auto flex max-w-max items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-foreground/72 outline-none transition hover:text-foreground focus-visible:text-foreground motion-safe:animate-[fade-in-up_700ms_ease-out_360ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 xl:mx-0"
           aria-label={scrollHint}
         >
           <span className="h-px w-12 bg-primary" aria-hidden="true" />

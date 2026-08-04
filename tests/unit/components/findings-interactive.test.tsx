@@ -229,6 +229,98 @@ describe("findings interactive sections", () => {
     });
   });
 
+  it("keeps chapter navigation hidden until the configured hidden section is passed", async () => {
+    const hero = document.createElement("section");
+    hero.id = "hero";
+    vi.spyOn(hero, "getBoundingClientRect").mockReturnValue({
+      top: -300,
+      bottom: 500,
+      left: 0,
+      right: 0,
+      width: 0,
+      height: 800,
+      x: 0,
+      y: -300,
+      toJSON: () => undefined,
+    });
+    document.body.append(hero);
+    setViewport({ scrollY: 300, innerHeight: 800 });
+
+    render(
+      <FindingsChapterNav
+        items={[{ id: "visibility", label: "Visibility" }]}
+        ariaLabel="Findings chapters"
+        hiddenUntilId="hero"
+        revealAfterHiddenSection
+      />,
+    );
+
+    const nav = screen.getByRole("navigation", { name: "Findings chapters" });
+    expect(nav).toHaveClass("opacity-0", "pointer-events-none");
+
+    vi.mocked(hero.getBoundingClientRect).mockReturnValue({
+      top: -560,
+      bottom: 240,
+      left: 0,
+      right: 0,
+      width: 0,
+      height: 800,
+      x: 0,
+      y: -560,
+      toJSON: () => undefined,
+    });
+    setViewport({ scrollY: 560, innerHeight: 800 });
+    act(() => window.dispatchEvent(new Event("scroll")));
+
+    await waitFor(() => {
+      expect(nav).toHaveClass("opacity-100", "pointer-events-auto");
+    });
+  });
+
+  it("does not reveal hidden-section navigation from near-bottom scroll metrics", async () => {
+    const hero = document.createElement("section");
+    hero.id = "hero";
+    vi.spyOn(hero, "getBoundingClientRect").mockReturnValue({
+      top: 0,
+      bottom: 760,
+      left: 0,
+      right: 0,
+      width: 0,
+      height: 760,
+      x: 0,
+      y: 0,
+      toJSON: () => undefined,
+    });
+    document.body.append(hero);
+    setViewport({ scrollY: 0, innerHeight: 760 });
+    Object.defineProperty(document.documentElement, "scrollHeight", {
+      configurable: true,
+      value: 760,
+    });
+
+    render(
+      <FindingsChapterNav
+        items={[
+          { id: "base", label: "BASE" },
+          { id: "today", label: "Today" },
+        ]}
+        ariaLabel="Sport chapters"
+        hiddenUntilId="hero"
+        revealAfterHiddenSection
+      />,
+    );
+
+    act(() => window.dispatchEvent(new Event("scroll")));
+
+    await waitFor(() => {
+      expect(screen.getByRole("navigation", { name: "Sport chapters" })).toHaveClass(
+        "opacity-0",
+        "pointer-events-none",
+      );
+    });
+    expect(screen.getByLabelText("BASE")).toHaveAttribute("aria-current", "location");
+  });
+
   it("renders the synthesis model and practical pathways in reduced motion", () => {
     const chapter = chapterByKind(enFindings, "synthesis-model");
 

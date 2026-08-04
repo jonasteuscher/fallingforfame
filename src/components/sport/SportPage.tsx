@@ -49,8 +49,9 @@ export function SportPage({ content }: SportPageProps) {
       <FindingsChapterNav
         items={content.nav}
         ariaLabel={content.navigationLabel}
-        hiddenUntilId={introSection?.id ?? "sport-hero"}
+        hiddenUntilId="sport-hero"
         compact
+        revealAfterHiddenSection
       />
       <SportHero content={content} />
       <SportIntro content={content.intro} sectionId={introSection?.id} />

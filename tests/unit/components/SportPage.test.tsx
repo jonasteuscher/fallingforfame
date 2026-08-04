@@ -10,12 +10,18 @@ vi.mock("@/components/findings/FindingsChapterNav", () => ({
     items,
     ariaLabel,
     hiddenUntilId,
+    revealAfterHiddenSection,
   }: {
     items: Array<{ id: string; label: string }>;
     ariaLabel: string;
     hiddenUntilId?: string;
+    revealAfterHiddenSection?: boolean;
   }) => (
-    <nav aria-label={ariaLabel} data-hidden-until={hiddenUntilId}>
+    <nav
+      aria-label={ariaLabel}
+      data-hidden-until={hiddenUntilId}
+      data-reveal-after-hidden-section={String(Boolean(revealAfterHiddenSection))}
+    >
       {items.map((item) => (
         <a key={item.id} href={`#${item.id}`}>
           {item.label}
@@ -81,7 +87,8 @@ describe("SportPage", () => {
     const nav = screen.getByRole("navigation", {
       name: "About the sport sections",
     });
-    expect(nav).toHaveAttribute("data-hidden-until", "what-is-base-jumping");
+    expect(nav).toHaveAttribute("data-hidden-until", "sport-hero");
+    expect(nav).toHaveAttribute("data-reveal-after-hidden-section", "true");
     expect(within(nav).getByRole("link", { name: "Comparison" })).toHaveAttribute(
       "href",
       "#skydiving-vs-base",
@@ -119,7 +126,8 @@ describe("SportPage", () => {
     const nav = screen.getByRole("navigation", {
       name: "Kapitel über den Sport",
     });
-    expect(nav).toHaveAttribute("data-hidden-until", "was-ist-base-jumping");
+    expect(nav).toHaveAttribute("data-hidden-until", "sport-hero");
+    expect(nav).toHaveAttribute("data-reveal-after-hidden-section", "true");
     expect(within(nav).getByRole("link", { name: "Vergleich" })).toHaveAttribute(
       "href",
       "#skydiving-vs-base",
