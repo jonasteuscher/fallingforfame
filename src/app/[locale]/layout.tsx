@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { AudioProvider } from "@/components/audio";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { MobileExperienceNotice } from "@/components/MobileExperienceNotice";
 import { ScrollProgressIndicator } from "@/components/scrollytelling";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/i18n/config";
@@ -32,6 +33,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <AudioProvider>
       <ScrollProgressIndicator />
       <SiteHeader locale={locale as Locale} navigation={dictionary.site.navigation} />
+      <MobileExperienceNotice content={dictionary.site.home.mobileExperienceNotice} />
       <main className="flex-1 pt-14">{children}</main>
       <SiteFooter locale={locale as Locale} />
     </AudioProvider>

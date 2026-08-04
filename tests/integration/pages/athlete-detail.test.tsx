@@ -104,6 +104,70 @@ describe("athlete detail page", () => {
     }
   });
 
+  it("renders the standardized profile structure for Marcel, Niclas and Josef", async () => {
+    const standardizedProfiles = [
+      {
+        slug: "marcel-geser",
+        nav: "Marcel Geser profile sections",
+        hasCoverage: true,
+      },
+      {
+        slug: "niclas-strohmeier",
+        nav: "Niclas Strohmeier profile sections",
+        hasCoverage: false,
+      },
+      {
+        slug: "josef-braun",
+        nav: "Josef Braun profile sections",
+        hasCoverage: true,
+      },
+    ];
+
+    for (const profile of standardizedProfiles) {
+      const { container, unmount } = await renderAsyncPage(
+        AthletePage({
+          params: Promise.resolve({ locale: "en", slug: profile.slug }),
+        }),
+      );
+
+      expect(screen.getByRole("navigation", { name: profile.nav })).toBeVisible();
+      expect(screen.getByRole("link", { name: "Biography" })).toHaveAttribute(
+        "href",
+        "#biography",
+      );
+      expect(screen.getByRole("link", { name: "Career" })).toHaveAttribute(
+        "href",
+        "#origin",
+      );
+      expect(screen.getByRole("link", { name: "Gallery" })).toHaveAttribute(
+        "href",
+        "#gallery",
+      );
+      expect(screen.getByRole("link", { name: "Links" })).toHaveAttribute(
+        "href",
+        "#social-media",
+      );
+      expect(container.querySelector("#biography")).toBeInTheDocument();
+      expect(container.querySelector("#origin")).toBeInTheDocument();
+      expect(container.querySelector("#gallery")).toBeInTheDocument();
+      expect(container.querySelector("#social-media")).toBeInTheDocument();
+
+      if (profile.hasCoverage) {
+        expect(screen.getByRole("link", { name: "Coverage" })).toHaveAttribute(
+          "href",
+          "#media-coverage",
+        );
+        expect(container.querySelector("#media-coverage")).toBeInTheDocument();
+      } else {
+        expect(
+          screen.queryByRole("link", { name: "Coverage" }),
+        ).not.toBeInTheDocument();
+      }
+
+      unmount();
+    }
+  });
+
   it("renders only the matching hero quote for each athlete", async () => {
     for (const athlete of athletes) {
       const { unmount } = await renderAsyncPage(

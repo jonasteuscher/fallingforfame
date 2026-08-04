@@ -33,7 +33,7 @@ export function AthleteHero({
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_20%,var(--surface-muted),transparent_32%),linear-gradient(135deg,var(--background)_0%,var(--surface)_52%,var(--accent)_100%)]" />
         )}
       </div>
-      <div className="absolute inset-0 -z-10 bg-background/62" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/38 via-background/58 to-background/66" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-3/4 bg-gradient-to-t from-background via-background/82 to-background/0" />
 
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-7 sm:gap-9">

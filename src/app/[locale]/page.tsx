@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { MobileExperienceNotice } from "@/components/MobileExperienceNotice";
 import { athletes } from "@/data/athletes";
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -30,8 +29,6 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <main className="overflow-x-clip">
-      <MobileExperienceNotice content={home.mobileExperienceNotice} />
-
       <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pb-16 xl:px-10">
         <div
           className="absolute inset-0 -z-20 bg-surface"

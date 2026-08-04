@@ -17,6 +17,9 @@ describe("AthleteDocumentaryPage shared section system", () => {
   it("stores reference athlete page composition in typed athlete data", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
+    const standardProfiles = athletes.filter((athlete) =>
+      ["marcel-geser", "niclas-strohmeier", "josef-braun"].includes(athlete.slug),
+    );
 
     expect(tim?.page?.sections.map((section) => section.type)).toEqual([
       "interview-video",
@@ -50,6 +53,41 @@ describe("AthleteDocumentaryPage shared section system", () => {
           section.id === "the-mountain-will-still-be-here",
       ),
     ).toMatchObject({ layout: "media-first", spacing: "immersive" });
+
+    expect(standardProfiles).toHaveLength(3);
+    for (const athlete of standardProfiles) {
+      expect(athlete.page?.progress.slice(0, 4).map((section) => section.id)).toEqual([
+        "biography",
+        "origin",
+        "gallery",
+        "social-media",
+      ]);
+      expect(athlete.page?.sections.map((section) => section.type)).toEqual([
+        "gallery",
+        "social-media",
+        "media-coverage",
+      ]);
+      expect(athlete.page?.sections[0]).toMatchObject({
+        id: "gallery",
+        spacing: "standard",
+        includeInProgress: true,
+      });
+      expect(athlete.page?.sections[1]).toMatchObject({
+        id: "social-media",
+        spacing: "compact",
+        includeInProgress: true,
+      });
+    }
+
+    expect(
+      athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.page?.progress,
+    ).not.toContainEqual(expect.objectContaining({ id: "media-coverage" }));
+    expect(
+      athletes.find((athlete) => athlete.slug === "marcel-geser")?.page?.progress,
+    ).toContainEqual(expect.objectContaining({ id: "media-coverage" }));
+    expect(
+      athletes.find((athlete) => athlete.slug === "josef-braun")?.page?.progress,
+    ).toContainEqual(expect.objectContaining({ id: "media-coverage" }));
   });
 
   it("keeps athlete route composition data-driven instead of slug-mapped", () => {
