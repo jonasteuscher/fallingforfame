@@ -110,7 +110,15 @@ describe("scrollytelling primitives", () => {
     );
 
     expect(document.querySelector("#chapter")).toBeInTheDocument();
-    expect(screen.getByText("Sticky image")).toBeVisible();
+    const stickyMedia = screen.getByText("Sticky image").parentElement;
+
+    expect(stickyMedia).toBeVisible();
+    expect(stickyMedia).toHaveClass(
+      "xl:sticky",
+      "xl:top-24",
+      "xl:h-[calc(100dvh-8rem)]",
+    );
+    expect(stickyMedia).not.toHaveClass("lg:sticky", "md:sticky");
     expect(screen.getByText("Chapter break")).toBeVisible();
     expect(screen.getByRole("heading", { name: "Finding title" })).toBeVisible();
     expect(screen.getByText("Finding summary")).toBeVisible();

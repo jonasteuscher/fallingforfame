@@ -120,7 +120,7 @@ export function PressureModelSection({
         interpretationLabel={interpretationLabel}
       />
 
-      <div className="pressure-sticky-track hidden md:block md:h-[400svh] md:min-h-[2600px]">
+      <div className="pressure-sticky-track hidden xl:block xl:h-[400svh] xl:min-h-[2600px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
           <div className="pressure-sticky-inner mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] px-6 py-8 xl:px-10">
             <header className="pressure-header relative z-10 max-w-[70rem]">
@@ -149,12 +149,12 @@ export function PressureModelSection({
         </div>
       </div>
 
-      <div className="pressure-safety-section relative z-10 hidden px-6 pt-16 md:block xl:px-10">
+      <div className="pressure-safety-section relative z-10 hidden px-6 pt-16 xl:block xl:px-10">
         <PressureSafetySummary chapter={chapter} progress={progress} />
       </div>
 
       <div
-        className="relative z-10 hidden px-6 pt-20 pb-[var(--section-gap-standard)] md:block xl:px-10"
+        className="relative z-10 hidden px-6 pt-20 pb-[var(--section-gap-standard)] xl:block xl:px-10"
         style={{
           opacity: getPressureInterpretationOpacity(progress),
           transform: `translate3d(0, ${interpolate(getPressureInterpretationOpacity(progress), 0, 1, 16, 0)}px, 0)`,
@@ -294,7 +294,7 @@ function MobilePressureModel({
   interpretationLabel: string;
 }) {
   return (
-    <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
+    <div className="findings-flow-layout px-4 py-[var(--section-gap-standard)] sm:px-6 xl:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.eyebrow}
       </p>

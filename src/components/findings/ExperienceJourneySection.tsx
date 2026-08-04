@@ -205,7 +205,7 @@ export function ExperienceJourneySection({
         interpretationLabel={interpretationLabel}
       />
 
-      <div className="hidden md:block md:h-[420svh] md:min-h-[2800px]">
+      <div className="hidden xl:block xl:h-[420svh] xl:min-h-[2800px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
           <div className="relative mx-auto grid h-full max-w-7xl grid-cols-[minmax(16rem,0.34fr)_minmax(25rem,0.42fr)_minmax(15rem,0.24fr)] gap-8 px-6 py-8 xl:px-10">
             <header className="flex min-h-0 flex-col justify-center">
@@ -418,7 +418,7 @@ function MobileExperienceJourney({
   const annotations = journeyAnnotations[locale];
 
   return (
-    <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
+    <div className="findings-flow-layout px-4 py-[var(--section-gap-standard)] sm:px-6 xl:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.eyebrow}
       </p>
@@ -552,8 +552,8 @@ function ReducedMotionExperienceJourney({
       aria-labelledby={`${chapter.id}-title`}
       className="scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-standard)] sm:px-6 xl:px-10"
     >
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.34fr_0.42fr_0.24fr]">
-        <header className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-10 xl:grid-cols-[0.34fr_0.42fr_0.24fr]">
+        <header className="xl:sticky xl:top-24 xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
             {chapter.eyebrow}
           </p>
@@ -610,7 +610,7 @@ function ExperienceFindingSummary({
   empiricalLabel,
   interpretationLabel,
   progress,
-  className = "relative z-10 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10",
+  className = "relative z-10 hidden px-6 pb-[var(--section-gap-standard)] xl:block xl:px-10",
 }: Omit<ExperienceJourneySectionProps, "locale"> & {
   progress: number;
   className?: string;

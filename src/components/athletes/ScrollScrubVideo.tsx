@@ -433,7 +433,7 @@ function detectCapabilityMode(): CapabilityMode {
     return "fallback";
   }
 
-  if (coarsePointer && window.innerWidth < 900) {
+  if (coarsePointer) {
     return "fallback";
   }
 

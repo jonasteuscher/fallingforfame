@@ -123,7 +123,7 @@ export function VisibleInvisibleProcessSection({
         interpretationLabel={interpretationLabel}
       />
 
-      <div className="hidden md:block md:h-[390svh] md:min-h-[2500px]">
+      <div className="hidden xl:block xl:h-[390svh] xl:min-h-[2500px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
           <div className="mx-auto flex h-full max-w-7xl flex-col px-6 py-10 xl:px-10">
             <header
@@ -158,7 +158,7 @@ export function VisibleInvisibleProcessSection({
           </div>
         </div>
       </div>
-      <div className="relative z-10 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10">
+      <div className="relative z-10 hidden px-6 pb-[var(--section-gap-standard)] xl:block xl:px-10">
         <ProcessFindingSummaryStatic
           chapter={chapter}
           sourcePrefix={sourcePrefix}
@@ -339,7 +339,7 @@ function MobileVisibleInvisible({
   interpretationLabel: string;
 }) {
   return (
-    <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
+    <div className="findings-flow-layout px-4 py-[var(--section-gap-standard)] sm:px-6 xl:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.eyebrow}
       </p>

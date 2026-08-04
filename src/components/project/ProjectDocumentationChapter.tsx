@@ -269,8 +269,8 @@ function DocumentationInteractive({
       aria-labelledby="documentation-interactive-title"
       className="px-4 py-24 sm:px-6 lg:px-10 lg:py-36"
     >
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.72fr_1fr]">
-        <div className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-10 xl:grid-cols-[0.72fr_1fr]">
+        <div className="xl:sticky xl:top-24 xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.title}
           </p>

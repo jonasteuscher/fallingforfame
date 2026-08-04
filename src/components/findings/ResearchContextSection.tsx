@@ -153,8 +153,8 @@ export function ResearchContextSection({
       aria-labelledby={`${chapter.id}-title`}
       className="scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
-        <header className="min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-12 xl:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
+        <header className="min-w-0 xl:sticky xl:top-24 xl:max-h-[calc(100svh-7rem)] xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary motion-safe:animate-[fade-in-up_430ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0">
             {chapter.eyebrow}
           </p>

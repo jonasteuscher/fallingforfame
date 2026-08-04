@@ -262,7 +262,7 @@ describe("ScrollScrubVideo", () => {
     ).toBeInTheDocument();
   });
 
-  it("uses mobile fallback on coarse touch devices", () => {
+  it("uses the fallback on coarse touch phones and tablets", () => {
     window.matchMedia = vi.fn((query: string) => ({
       matches: query === "(pointer: coarse)",
       media: query,
@@ -274,7 +274,7 @@ describe("ScrollScrubVideo", () => {
       dispatchEvent: vi.fn(),
     }));
     Object.defineProperty(window, "innerWidth", {
-      value: 390,
+      value: 1024,
       configurable: true,
     });
 

@@ -34,9 +34,9 @@ function ProjectMotivation({ content }: { content: ProjectContent["motivation"] 
       id="why-this-project"
       className="max-w-[100svw] overflow-x-clip border-y border-border bg-background"
     >
-      <div className="mx-auto grid w-full max-w-[100svw] gap-10 px-4 py-16 sm:px-6 lg:min-h-[140svh] lg:max-w-7xl lg:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1fr)] lg:items-start lg:gap-16 lg:px-10 lg:py-20">
-        <div className="w-full min-w-0 max-w-full lg:sticky lg:top-20 lg:h-[calc(100svh-5rem)]">
-          <figure className="relative aspect-[4/5] w-full max-w-full overflow-hidden bg-surface lg:h-full lg:aspect-auto">
+      <div className="mx-auto grid w-full max-w-[100svw] gap-10 px-4 py-16 sm:px-6 xl:min-h-[140svh] xl:max-w-7xl xl:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1fr)] xl:items-start xl:gap-16 xl:px-10 xl:py-20">
+        <div className="w-full min-w-0 max-w-full xl:sticky xl:top-20 xl:h-[calc(100svh-5rem)]">
+          <figure className="relative aspect-[4/5] w-full max-w-full overflow-hidden bg-surface xl:h-full xl:aspect-auto">
             <Image
               src={content.image.src}
               alt={content.image.alt}
@@ -131,8 +131,8 @@ function ProjectHero({ content }: { content: ProjectContent }) {
 function DocumentaryChapter({ content }: { content: ProjectContent["documentary"] }) {
   return (
     <section id="the-documentary" className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.48fr_1fr]">
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-12 xl:grid-cols-[0.48fr_1fr]">
+        <aside className="xl:sticky xl:top-24 xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.label}
           </p>
@@ -349,8 +349,8 @@ function DownloadIcon() {
 function ResearchJourney({ content }: { content: ProjectContent["journey"] }) {
   return (
     <section id="research-journey" className="px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)]">
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-10 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)]">
+        <aside className="xl:sticky xl:top-24 xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.label}
           </p>

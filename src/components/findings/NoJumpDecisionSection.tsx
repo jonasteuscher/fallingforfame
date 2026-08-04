@@ -173,7 +173,7 @@ export function NoJumpDecisionSection({
         interpretationLabel={interpretationLabel}
         quoteSourceLabel={quoteSourceLabel}
       />
-      <div className="hidden md:block md:h-[340svh] md:min-h-[2400px]">
+      <div className="hidden xl:block xl:h-[340svh] xl:min-h-[2400px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
           <div className="no-jump-sticky-inner mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-y-6 px-6 py-8 xl:px-10">
             <header className="no-jump-header relative z-10 max-w-none">
@@ -209,7 +209,7 @@ export function NoJumpDecisionSection({
           </div>
         </div>
       </div>
-      <div className="no-jump-quote-section relative z-20 hidden px-6 pt-12 md:block xl:px-10">
+      <div className="no-jump-quote-section relative z-20 hidden px-6 pt-12 xl:block xl:px-10">
         <div className="mx-auto max-w-5xl">
           <NoJumpFinalText
             chapter={chapter}
@@ -404,7 +404,7 @@ function MobileNoJumpDecision({
   layers: string[];
 }) {
   return (
-    <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
+    <div className="findings-flow-layout px-4 py-[var(--section-gap-standard)] sm:px-6 xl:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.eyebrow}
       </p>
@@ -531,7 +531,7 @@ function NoJumpFindingSummary({
   sourcePrefix,
   empiricalLabel,
   interpretationLabel,
-  className = "relative z-20 hidden px-6 pt-12 pb-[var(--section-gap-standard)] md:block xl:px-10",
+  className = "relative z-20 hidden px-6 pt-12 pb-[var(--section-gap-standard)] xl:block xl:px-10",
 }: Omit<NoJumpDecisionSectionProps, "locale" | "quoteSourceLabel"> & {
   className?: string;
 }) {

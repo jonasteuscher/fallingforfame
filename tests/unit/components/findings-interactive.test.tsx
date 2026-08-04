@@ -35,7 +35,7 @@ function mockReducedMotion(matches: boolean) {
   }));
 }
 
-function setViewport({ width = 1440, height = 900 } = {}) {
+function setViewport({ width = 1440, height = 900, scrollY = 0 } = {}) {
   Object.defineProperty(window, "innerWidth", {
     configurable: true,
     value: width,
@@ -43,6 +43,10 @@ function setViewport({ width = 1440, height = 900 } = {}) {
   Object.defineProperty(window, "innerHeight", {
     configurable: true,
     value: height,
+  });
+  Object.defineProperty(window, "scrollY", {
+    configurable: true,
+    value: scrollY,
   });
 }
 
@@ -244,7 +248,7 @@ describe("findings interactive sections", () => {
       toJSON: () => undefined,
     });
     document.body.append(hero);
-    setViewport({ scrollY: 300, innerHeight: 800 });
+    setViewport({ scrollY: 300, height: 800 });
 
     render(
       <FindingsChapterNav
@@ -269,7 +273,7 @@ describe("findings interactive sections", () => {
       y: -560,
       toJSON: () => undefined,
     });
-    setViewport({ scrollY: 560, innerHeight: 800 });
+    setViewport({ scrollY: 560, height: 800 });
     act(() => window.dispatchEvent(new Event("scroll")));
 
     await waitFor(() => {
@@ -292,7 +296,7 @@ describe("findings interactive sections", () => {
       toJSON: () => undefined,
     });
     document.body.append(hero);
-    setViewport({ scrollY: 0, innerHeight: 760 });
+    setViewport({ scrollY: 0, height: 760 });
     Object.defineProperty(document.documentElement, "scrollHeight", {
       configurable: true,
       value: 760,

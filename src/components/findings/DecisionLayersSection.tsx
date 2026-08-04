@@ -166,7 +166,7 @@ export function DecisionLayersSection({
         interpretationLabel={interpretationLabel}
       />
 
-      <div className="hidden md:block md:h-[560svh] md:min-h-[3600px]">
+      <div className="hidden xl:block xl:h-[560svh] xl:min-h-[3600px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
           <div className="mx-auto grid h-full max-w-7xl grid-cols-[minmax(15rem,0.32fr)_minmax(26rem,0.44fr)_minmax(15rem,0.24fr)] gap-8 px-6 py-8 xl:px-10">
             <header className="flex min-h-0 flex-col justify-center">
@@ -547,7 +547,7 @@ function MobileDecisionLayers({
   layers: string[];
 }) {
   return (
-    <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
+    <div className="findings-flow-layout px-4 py-[var(--section-gap-standard)] sm:px-6 xl:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.eyebrow}
       </p>
@@ -616,8 +616,8 @@ function ReducedMotionDecisionLayers({
       aria-labelledby={`${chapter.id}-title`}
       className="scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-standard)] sm:px-6 xl:px-10"
     >
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.34fr_0.38fr_0.28fr]">
-        <header className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-10 xl:grid-cols-[0.34fr_0.38fr_0.28fr]">
+        <header className="xl:sticky xl:top-24 xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
             {chapter.eyebrow}
           </p>
@@ -659,7 +659,7 @@ function DecisionFindingSummary({
   sourcePrefix,
   empiricalLabel,
   interpretationLabel,
-  className = "relative z-10 hidden -mt-24 px-6 pb-40 md:block xl:px-10",
+  className = "relative z-10 hidden -mt-24 px-6 pb-40 xl:block xl:px-10",
 }: Omit<DecisionLayersSectionProps, "locale"> & {
   className?: string;
 }) {

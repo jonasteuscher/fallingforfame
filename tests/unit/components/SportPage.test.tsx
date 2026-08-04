@@ -103,6 +103,12 @@ describe("SportPage", () => {
       }),
     ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Equipment" })).toBeVisible();
+    expect(screen.getByRole("img", { name: "Equipment system" })).toHaveClass(
+      "object-cover",
+    );
+    expect(
+      screen.getByRole("img", { name: "Equipment system" }).parentElement,
+    ).toHaveClass("xl:hidden", "aspect-[4/5]", "max-w-md");
     expect(screen.getByRole("heading", { name: "Community and Ethics" })).toBeVisible();
     expect(
       screen.getByRole("heading", { name: "Sources & Further Reading" }),

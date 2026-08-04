@@ -83,7 +83,7 @@ export function CameraEquipmentSection({
     }
 
     const laptopQuery = window.matchMedia?.(
-      "(min-width: 768px) and (max-width: 1599px)",
+      "(min-width: 1280px) and (max-width: 1599px)",
     );
 
     if (!laptopQuery) {
@@ -188,7 +188,7 @@ export function CameraEquipmentSection({
 
       <div
         ref={scrubRef}
-        className="hidden min-h-[390svh] md:block motion-reduce:hidden"
+        className="hidden min-h-[390svh] xl:block motion-reduce:hidden"
       >
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-visible bg-background">
           <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-8 px-6 pb-10 pt-20 xl:px-10">
@@ -213,7 +213,7 @@ export function CameraEquipmentSection({
           </div>
         </div>
       </div>
-      <div className="relative z-10 hidden pb-[var(--section-gap-standard)] md:block">
+      <div className="relative z-10 hidden pb-[var(--section-gap-standard)] xl:block">
         <div className="camera-summary-wrap mx-auto max-w-7xl px-6 xl:px-10">
           <CameraFindingSummary
             chapter={chapter}
@@ -646,7 +646,7 @@ function StaticCameraEquipment({
       className={[
         "mx-auto max-w-7xl",
         mode === "mobile"
-          ? "block px-4 py-[var(--section-gap-immersive)] sm:px-6 md:hidden"
+          ? "findings-flow-layout block px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:hidden"
           : "",
       ].join(" ")}
     >
