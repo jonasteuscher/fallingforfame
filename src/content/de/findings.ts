@@ -482,7 +482,7 @@ export const findingsPage: FindingsPageContent = {
       kind: "no-jump",
       navLabel: "Nicht Springen",
       eyebrow: "Die wichtigste Entscheidung",
-      title: "Nicht zu springen\nist manchmal\ndie beste Entscheidung.",
+      title: "Nicht zu springen\nist manchmal\ndie beste Entschei­dung.",
       summary:
         "Ein Abbruch kann auch nach langem Zustieg, Expedition, Vorbereitung oder finanzieller Investition die kompetente Entscheidung bleiben.",
       finding:

@@ -1281,7 +1281,7 @@ function SafetyHierarchy({
             {title ?? content.title}
           </h2>
         </div>
-        <ol className="order-2 flex flex-col-reverse gap-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+        <ol className="order-2 flex min-w-0 flex-col-reverse gap-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
           {content.levels.map((level, index) => (
             <li
               key={level}
@@ -1304,8 +1304,8 @@ function SafetyHierarchy({
               <div
                 className={
                   index === content.levels.length - 1
-                    ? "grid min-h-28 grid-cols-[auto_1fr] items-center gap-5 border border-primary bg-primary px-5 py-6 text-background shadow-[0_0_42px_color-mix(in_srgb,var(--primary)_24%,transparent)] sm:px-7"
-                    : "grid min-h-28 grid-cols-[auto_1fr] items-center gap-5 border border-border bg-surface/72 px-5 py-6 text-foreground sm:px-7"
+                    ? "grid min-h-28 min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-5 border border-primary bg-primary px-5 py-6 text-background shadow-[0_0_42px_color-mix(in_srgb,var(--primary)_24%,transparent)] sm:px-7"
+                    : "grid min-h-28 min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-5 border border-border bg-surface/72 px-5 py-6 text-foreground sm:px-7"
                 }
               >
                 <span
@@ -1317,7 +1317,7 @@ function SafetyHierarchy({
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-3xl font-semibold leading-none tracking-normal sm:text-5xl lg:text-6xl">
+                <span className="min-w-0 text-2xl font-semibold leading-tight tracking-normal [overflow-wrap:anywhere] sm:text-5xl sm:leading-none lg:text-6xl">
                   {level}
                 </span>
               </div>

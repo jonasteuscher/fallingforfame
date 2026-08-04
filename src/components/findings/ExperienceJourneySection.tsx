@@ -81,6 +81,19 @@ const sourceNotes = {
   de: "Anlehnung an Dunning & Kruger (1999). Qualitative Interpretation auf Grundlage der Interviewbefunde.",
 } as const satisfies Record<Locale, string>;
 
+const graphLabels = {
+  en: {
+    label: "Experience curve",
+    title: "Experience curve with five numbered stages",
+    stage: "Stage",
+  },
+  de: {
+    label: "Erfahrungskurve",
+    title: "Erfahrungskurve mit fünf nummerierten Schritten",
+    stage: "Schritt",
+  },
+} as const satisfies Record<Locale, Record<string, string>>;
+
 export function ExperienceJourneySection({
   chapter,
   locale,
@@ -419,44 +432,24 @@ function MobileExperienceJourney({
       <p className="mt-8 max-w-[38ch] text-base leading-7 text-foreground/64">
         {chapter.summary}
       </p>
-      <ol className="mt-12 grid gap-10" aria-label="Experience stages">
+      <MobileExperienceGraph stages={stages} locale={locale} />
+      <ExperienceSourceNote locale={locale} className="mt-4" />
+      <ol className="mt-10 grid gap-8" aria-label="Experience stages">
         {stages.map((stage, index) => (
-          <li key={stage.title} className="grid gap-4">
-            <svg className="h-16 w-full" viewBox="0 0 100 32" aria-hidden="true">
-              <path
-                d="M6 24 C24 24 28 11 44 14 C58 17 60 8 70 10 C82 13 84 16 94 15"
-                fill="none"
-                pathLength={1}
-                stroke="var(--foreground)"
-                strokeDasharray={1}
-                strokeDashoffset={1 - (index + 1) / stages.length}
-                strokeLinecap="round"
-                strokeWidth="0.8"
-                opacity="0.22"
-              />
-              <path
-                d="M6 24 C24 24 28 11 44 14 C58 17 60 8 70 10 C82 13 84 16 94 15"
-                fill="none"
-                pathLength={1}
-                stroke="var(--primary)"
-                strokeDasharray={1}
-                strokeDashoffset={1 - (index + 1) / stages.length}
-                strokeLinecap="round"
-                strokeWidth="1"
-              />
-            </svg>
-            <div className="grid grid-cols-[2.8rem_1fr] gap-4">
-              <span className="text-xs font-semibold text-primary">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <h3 className="text-lg font-semibold uppercase tracking-[0.1em] text-foreground">
-                  {stage.title}
-                </h3>
-                <p className="mt-3 leading-7 text-foreground/72">
-                  {annotations[index]}
-                </p>
-              </div>
+          <li
+            key={stage.title}
+            className="grid grid-cols-[2.8rem_minmax(0,1fr)] gap-4 border-b border-border/46 pb-8"
+          >
+            <span className="text-xs font-semibold text-primary">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div className="min-w-0">
+              <h3 className="text-lg font-semibold uppercase tracking-[0.1em] text-foreground">
+                {stage.title}
+              </h3>
+              <p className="mt-3 leading-7 text-foreground/72">
+                {annotations[index]}
+              </p>
             </div>
           </li>
         ))}
@@ -469,8 +462,77 @@ function MobileExperienceJourney({
         progress={1}
         className="mt-12 block px-0 pb-0"
       />
-      <ExperienceSourceNote locale={locale} className="mt-5" />
     </div>
+  );
+}
+
+function MobileExperienceGraph({
+  stages,
+  locale,
+}: {
+  stages: NonNullable<FindingChapter["states"]>;
+  locale: Locale;
+}) {
+  const labels = graphLabels[locale];
+
+  return (
+    <figure className="mt-10 w-full overflow-hidden" aria-label={labels.label}>
+      <svg
+        className="block aspect-[4/3] w-full"
+        viewBox="24 14 78 74"
+        role="img"
+        aria-labelledby="mobile-experience-graph-title"
+      >
+        <title id="mobile-experience-graph-title">
+          {labels.title}
+        </title>
+        <path
+          d={journeyPath}
+          fill="none"
+          stroke="var(--foreground)"
+          strokeLinecap="round"
+          strokeWidth="0.8"
+          opacity="0.18"
+        />
+        <path
+          d={journeyPath}
+          fill="none"
+          stroke="var(--primary)"
+          strokeLinecap="round"
+          strokeWidth="1.15"
+        />
+        {journeyPoints.map((point, index) => (
+          <g key={stages[index]?.title ?? index}>
+            <circle
+              cx={point.x}
+              cy={point.y}
+              r="2.2"
+              fill="var(--background)"
+              stroke="var(--primary)"
+              strokeWidth="0.75"
+            />
+            <text
+              x={point.x}
+              y={point.y - 4.5}
+              fill="var(--foreground)"
+              fontSize="4"
+              fontWeight="700"
+              textAnchor="middle"
+            >
+              {String(index + 1).padStart(2, "0")}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <figcaption className="sr-only">
+        {stages
+          .map(
+            (stage, index) =>
+              `${labels.stage} ${index + 1} / ${stages.length}: ${stage.title}`,
+          )
+          .join(". ")}
+      </figcaption>
+    </figure>
   );
 }
 

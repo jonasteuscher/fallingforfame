@@ -290,18 +290,20 @@ function NoJumpConditionList({
   locale,
   activeCondition,
   hiddenAmount,
+  mobileSolid,
 }: {
   layers: string[];
   locale: Locale;
   activeCondition: number;
   hiddenAmount: number;
+  mobileSolid?: boolean;
 }) {
   const bodies = conditionBodies[locale];
 
   return (
     <ol
       className="no-jump-list mt-8 grid max-w-[34rem] gap-2.5 transition-opacity duration-500 ease-out motion-reduce:transition-none"
-      style={{ opacity: 1 - hiddenAmount * 0.72 }}
+      style={{ opacity: mobileSolid ? 1 : 1 - hiddenAmount * 0.72 }}
       aria-label="No-go conditions"
     >
       {layers.map((layer, index) => {
@@ -315,13 +317,19 @@ function NoJumpConditionList({
               "no-jump-row grid grid-cols-[2.4rem_1fr] gap-3 border-b border-border/46 pb-3",
               isActive ? "is-active" : isPast ? "is-past" : "is-upcoming",
             ].join(" ")}
-            style={{ opacity: isActive ? 1 : isPast ? 0.52 : 0.26 }}
+            style={{
+              opacity: mobileSolid ? 1 : isActive ? 1 : isPast ? 0.52 : 0.26,
+            }}
             aria-current={isActive ? "step" : undefined}
           >
             <span
               className={[
                 "text-xs font-semibold",
-                isActive ? "text-primary" : "text-foreground/48",
+                mobileSolid
+                  ? "text-foreground"
+                  : isActive
+                    ? "text-primary"
+                    : "text-foreground/48",
               ].join(" ")}
             >
               {String(index + 1).padStart(2, "0")}
@@ -330,12 +338,22 @@ function NoJumpConditionList({
               <p
                 className={[
                   "text-sm font-semibold uppercase tracking-[0.12em]",
-                  isActive ? "text-foreground" : "text-foreground/58",
+                  mobileSolid
+                    ? "text-foreground"
+                    : isActive
+                      ? "text-foreground"
+                      : "text-foreground/58",
                 ].join(" ")}
               >
                 {layer}
               </p>
-              <p className="no-jump-row-body mt-1.5 text-sm leading-6 text-foreground/54">
+              <p
+                className={
+                  mobileSolid
+                    ? "no-jump-row-body mt-1.5 text-sm leading-6 text-foreground"
+                    : "no-jump-row-body mt-1.5 text-sm leading-6 text-foreground/54"
+                }
+              >
                 {bodies[index]}
               </p>
             </div>
@@ -428,6 +446,7 @@ function MobileNoJumpDecision({
         locale={locale}
         activeCondition={layers.length - 1}
         hiddenAmount={0}
+        mobileSolid
       />
       <div className="mt-10 border-l border-primary pl-5">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
