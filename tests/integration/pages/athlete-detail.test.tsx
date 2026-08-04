@@ -847,6 +847,12 @@ describe("athlete detail page", () => {
       ),
     ).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Photo Gallery" })).toBeVisible();
+    const gallerySection = screen
+      .getByRole("heading", { name: "Photo Gallery" })
+      .closest("section");
+    const audioStory = container.querySelector(
+      '[data-audio-story-id="process-behind-the-highlight"]',
+    );
     expect(
       screen
         .getByRole("heading", { name: "Photo Gallery" })
@@ -877,6 +883,23 @@ describe("athlete detail page", () => {
       screen.getAllByRole("button", { name: "Close full-size image" })[0],
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(audioStory).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Beyond the\s+Final Result/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play The Process Behind the Highlight",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByAltText(
+        "Marcel Geser smiling with his parachute in front of snowy mountains",
+      ),
+    ).toHaveAttribute("src", "/images/athletes/marcel-geser/audio.jpg");
+    expect(
+      screen.getByRole("link", { name: "Behind the highlight" }),
+    ).toHaveAttribute("href", "#audio-story");
     expect(screen.queryByText("Interview Quotes")).not.toBeInTheDocument();
     expect(screen.queryByText("Audio Interviews")).not.toBeInTheDocument();
     expect(container.querySelector("video")).toBeNull();
@@ -886,6 +909,15 @@ describe("athlete detail page", () => {
     expect(
       screen.getByRole("heading", { name: "Personal Links & Socials" }),
     ).toBeVisible();
+    const linksSection = screen
+      .getByRole("heading", { name: "Personal Links & Socials" })
+      .closest("section");
+    expect(
+      gallerySection?.compareDocumentPosition(audioStory as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(audioStory?.compareDocumentPosition(linksSection as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
     expect(
       screen.getByRole("link", { name: /Marcel Geser on YouTube/ }),
     ).toHaveAttribute("target", "_blank");
@@ -946,6 +978,17 @@ describe("athlete detail page", () => {
       ),
     ).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Fotogalerie" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: /Mehr als das\s+Endprodukt/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Der Prozess hinter dem Highlight abspielen",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Hinter dem Highlight" }),
+    ).toHaveAttribute("href", "#audio-story");
     expect(screen.queryByText("Interviewzitate")).not.toBeInTheDocument();
     expect(screen.queryByText("Audio-Interviews")).not.toBeInTheDocument();
     expect(

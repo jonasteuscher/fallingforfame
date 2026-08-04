@@ -133,9 +133,15 @@ const lukasLoiblPage: AthletePageComposition = {
 function standardAthletePage({
   navAriaLabel,
   includeMediaCoverage = false,
+  audioStory,
 }: {
   navAriaLabel: AthletePageComposition["navAriaLabel"];
   includeMediaCoverage?: boolean;
+  audioStory?: {
+    id: string;
+    storyId: string;
+    label: AthletePageComposition["progress"][number]["label"];
+  };
 }): AthletePageComposition {
   return {
     navAriaLabel,
@@ -143,6 +149,7 @@ function standardAthletePage({
       { id: "biography", label: { en: "Biography", de: "Biografie" } },
       { id: "origin", label: { en: "Career", de: "Karriere" } },
       { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+      ...(audioStory ? [{ id: audioStory.id, label: audioStory.label }] : []),
       { id: "social-media", label: { en: "Links", de: "Links" } },
       ...(includeMediaCoverage
         ? [
@@ -160,6 +167,17 @@ function standardAthletePage({
         spacing: "standard",
         includeInProgress: true,
       },
+      ...(audioStory
+        ? [
+            {
+              type: "audio-story" as const,
+              id: audioStory.id,
+              storyId: audioStory.storyId,
+              spacing: "standard" as const,
+              includeInProgress: true,
+            },
+          ]
+        : []),
       {
         type: "social-media",
         id: "social-media",
@@ -182,6 +200,14 @@ const marcelGeserPage = standardAthletePage({
     de: "Marcel Geser Profilabschnitte",
   },
   includeMediaCoverage: true,
+  audioStory: {
+    id: "audio-story",
+    storyId: "process-behind-the-highlight",
+    label: {
+      en: "Behind the highlight",
+      de: "Hinter dem Highlight",
+    },
+  },
 });
 
 const niclasStrohmeierPage = standardAthletePage({
@@ -1498,6 +1524,37 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["marcel-geser"],
     ...emptyMedia,
+    audioStories: [
+      {
+        id: "process-behind-the-highlight",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "The Process Behind the Highlight",
+          de: "Der Prozess hinter dem Highlight",
+        },
+        displayTitle: {
+          en: "Beyond the\nFinal Result",
+          de: "Mehr als das\nEndprodukt",
+        },
+        audio: {
+          src: "/audio/marcel-geser/Endprodukt.wav",
+        },
+        transcript: {
+          en: "/audio/marcel-geser/Endprodukt_EN.srt",
+          de: "/audio/marcel-geser/Endprodukt_DE.srt",
+        },
+        portrait: "/images/athletes/marcel-geser/audio.jpg",
+        portraitAlt: {
+          en: "Marcel Geser smiling with his parachute in front of snowy mountains",
+          de: "Marcel Geser lächelt mit seinem Fallschirm vor verschneiten Bergen",
+        },
+        duration: "00:58",
+      },
+    ],
     links: [
       {
         label: "Marcel Geser on YouTube",

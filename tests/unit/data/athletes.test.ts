@@ -169,6 +169,7 @@ describe("athletes data", () => {
   it("contains reusable audio story data on the profiles with audio chapters", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
+    const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
 
     expect(tim?.audioStories).toMatchObject([
       {
@@ -216,10 +217,37 @@ describe("athletes data", () => {
       },
     ]);
     expect(lukas?.audioStories?.[0]).not.toHaveProperty("waveform");
+    expect(marcel?.audioStories).toMatchObject([
+      {
+        id: "process-behind-the-highlight",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "The Process Behind the Highlight",
+          de: "Der Prozess hinter dem Highlight",
+        },
+        audio: {
+          src: "/audio/marcel-geser/Endprodukt.wav",
+        },
+        transcript: {
+          en: "/audio/marcel-geser/Endprodukt_EN.srt",
+          de: "/audio/marcel-geser/Endprodukt_DE.srt",
+        },
+        portrait: "/images/athletes/marcel-geser/audio.jpg",
+        duration: "00:58",
+      },
+    ]);
+    expect(marcel?.audioStories?.[0]).not.toHaveProperty("waveform");
     expect(
       athletes
         .filter(
-          (athlete) => athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+          (athlete) =>
+            athlete.slug !== "tim-howell" &&
+            athlete.slug !== "lukas-loibl" &&
+            athlete.slug !== "marcel-geser",
         )
         .every((athlete) => athlete.audioStories === undefined),
     ).toBe(true);
