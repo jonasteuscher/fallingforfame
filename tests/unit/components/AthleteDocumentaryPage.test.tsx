@@ -26,8 +26,8 @@ describe("AthleteDocumentaryPage shared section system", () => {
       "scroll-video",
       "audio-story",
       "interview-video",
-      "gallery",
       "project-feature",
+      "gallery",
       "social-media",
       "media-coverage",
     ]);

@@ -59,6 +59,11 @@ describe("AthleteGalleryLightbox", () => {
     expect(
       screen.getAllByRole("button", { name: /open image full size/i }),
     ).toHaveLength(2);
+    expect(screen.getAllByRole("listitem")[0]).toHaveAttribute(
+      "data-gallery-orientation",
+      "landscape",
+    );
+    expect(screen.getAllByRole("img")[0]).toHaveClass("object-cover");
 
     const toggle = screen.getByRole("button", { name: "View full gallery" });
     expect(toggle).toHaveAttribute("aria-expanded", "false");
@@ -88,6 +93,12 @@ describe("AthleteGalleryLightbox", () => {
     expect(screen.getByRole("dialog", { name: "Zweiter Exit" })).toBeVisible();
     expect(screen.getByText("Bild 2 / 3")).toBeVisible();
     expect(document.body.style.overflow).toBe("hidden");
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Bildansicht schliessen" })).toHaveFocus();
+    });
+    expect(
+      screen.getByRole("dialog", { name: "Zweiter Exit" }).querySelector("img"),
+    ).toHaveClass("object-contain");
 
     await user.keyboard("{ArrowRight}");
     expect(screen.getByRole("dialog", { name: "Dritter Landeplatz" })).toBeVisible();
@@ -104,6 +115,13 @@ describe("AthleteGalleryLightbox", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
     expect(document.body.style.overflow).toBe("");
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", {
+          name: "Bild in voller Groesse oeffnen: Dritter Landeplatz",
+        }),
+      ).toHaveFocus();
+    });
   });
 
   it("shows no previous or next controls for a single image lightbox", async () => {
@@ -124,6 +142,28 @@ describe("AthleteGalleryLightbox", () => {
     expect(
       screen.queryByRole("button", { name: "Previous image" }),
     ).not.toBeInTheDocument();
+  });
+
+  it("closes the lightbox when the backdrop is clicked", async () => {
+    const user = userEvent.setup();
+
+    render(<AthleteGalleryLightbox images={images} locale="en" />);
+
+    await user.click(
+      screen.getByRole("button", {
+        name: "Open image full size: First mountain flight",
+      }),
+    );
+
+    const dialog = screen.getByRole("dialog", { name: "First mountain flight" });
+    const backdrop = dialog.querySelector('[aria-hidden="true"]');
+    expect(backdrop).toBeInTheDocument();
+
+    fireEvent.click(backdrop as Element);
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
   });
 
   it("warms the target image on focus and pointer hover without opening the dialog", () => {

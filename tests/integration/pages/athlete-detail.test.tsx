@@ -239,11 +239,19 @@ describe("athlete detail page", () => {
     expect(futureProject).toBeInTheDocument();
     expect(galleryLayout).toHaveClass(
       "grid",
-      "grid-cols-1",
-      "items-start",
-      "md:grid-cols-12",
+      "grid-cols-3",
+      "gap-2",
+      "md:grid-cols-2",
+      "xl:grid-cols-3",
     );
-    expect(galleryLayout?.querySelector("img")).toHaveClass("h-auto", "object-contain");
+    expect(galleryLayout).not.toHaveClass("overflow-y-auto", "overflow-x-auto", "snap-y");
+    expect(galleryLayout?.querySelector("li")).toHaveClass(
+      "col-span-2",
+      "row-span-2",
+      "md:col-span-1",
+    );
+    expect(galleryLayout?.querySelector("button > span")).toHaveClass("aspect-[4/3]");
+    expect(galleryLayout?.querySelector("img")).toHaveClass("h-full", "object-cover");
     expect(
       screen.getByRole("heading", {
         name: /You're Only as Good\s+as Your Last Stunt/,
@@ -347,14 +355,14 @@ describe("athlete detail page", () => {
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
-      (decisionInterview?.compareDocumentPosition(gallerySection as Node) ?? 0) &
+      (decisionInterview?.compareDocumentPosition(futureProject as Node) ?? 0) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(gallerySection?.compareDocumentPosition(futureProject as Node)).toBe(
+    expect(futureProject?.compareDocumentPosition(gallerySection as Node)).toBe(
       Node.DOCUMENT_POSITION_FOLLOWING,
     );
     expect(
-      (futureProject?.compareDocumentPosition(linksSection as Node) ?? 0) &
+      (gallerySection?.compareDocumentPosition(linksSection as Node) ?? 0) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
@@ -397,9 +405,26 @@ describe("athlete detail page", () => {
       "href",
       "#gallery",
     );
+    expect(
+      screen
+        .getByRole("heading", { name: "Photo Gallery" })
+        .closest("section")
+        ?.querySelector('[data-gallery-layout="editorial-grid"]'),
+    ).toHaveAttribute("data-gallery-count", "6");
     expect(screen.getByRole("button", { name: "View full gallery" })).toHaveAttribute(
       "aria-expanded",
       "false",
+    );
+    fireEvent.click(screen.getByRole("button", { name: "View full gallery" }));
+    expect(
+      screen
+        .getByRole("heading", { name: "Photo Gallery" })
+        .closest("section")
+        ?.querySelector('[data-gallery-layout="editorial-grid"]'),
+    ).toHaveAttribute("data-gallery-count", "11");
+    expect(screen.getByRole("button", { name: "Show curated selection" })).toHaveAttribute(
+      "aria-expanded",
+      "true",
     );
     fireEvent.click(screen.getByRole("button", { name: "View all coverage" }));
     expect(screen.getByText("Pro record: Tim Howell")).toBeVisible();
@@ -543,12 +568,12 @@ describe("athlete detail page", () => {
     expect(projectSection).toBeInTheDocument();
     expect(mediaCoverageAnchor).toBeInTheDocument();
     expect(galleryLayout).toHaveAttribute("data-gallery-count", "6");
-    expect(galleryLayout?.querySelectorAll("li").item(5)).toHaveClass(
-      "md:col-span-6",
-      "xl:col-span-4",
+    expect(galleryLayout?.querySelectorAll("li").item(5)).toHaveAttribute(
+      "data-gallery-orientation",
+      "portrait",
     );
-    expect(galleryLayout?.querySelectorAll("button").item(0)).toHaveClass(
-      "aspect-[2/3]",
+    expect(galleryLayout?.querySelectorAll("button > span").item(0)).toHaveClass(
+      "aspect-[4/3]",
       "overflow-hidden",
     );
     expect(galleryLayout?.querySelector("img")).toHaveClass("object-cover");
@@ -827,7 +852,7 @@ describe("athlete detail page", () => {
         .getByRole("heading", { name: "Photo Gallery" })
         .closest("section")
         ?.querySelector('[data-gallery-layout="editorial-grid"]'),
-    ).toHaveClass("grid", "grid-cols-1", "items-start", "md:grid-cols-12");
+    ).toHaveClass("grid", "grid-cols-3", "gap-2", "md:grid-cols-2", "xl:grid-cols-3");
     expect(
       container.querySelector(
         'img[src="/images/athletes/marcel-geser/gallery/DJI_20250607050910_0491_D.jpg"]',
@@ -837,13 +862,14 @@ describe("athlete detail page", () => {
       container.querySelector(
         'img[src="/images/athletes/marcel-geser/gallery/DJI_20250607050910_0491_D.jpg"]',
       ),
-    ).toHaveClass("h-auto", "object-contain");
+    ).toHaveClass("h-full", "object-cover");
     fireEvent.click(
       screen.getByRole("button", {
         name: /Open image full size: Wingsuit pilot standing on a grassy launch slope/,
       }),
     );
     expect(screen.getByRole("dialog")).toBeVisible();
+    expect(screen.getByRole("dialog").querySelector("img")).toHaveClass("object-contain");
     expect(screen.getByText("Image 1 / 9")).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "Next image" }));
     expect(screen.getByText("Image 2 / 9")).toBeVisible();

@@ -206,7 +206,7 @@ export function AthleteGallerySection({
   locale,
   title,
   emptyText,
-  initialVisibleCount = 9,
+  initialVisibleCount = 6,
   viewAllLabel,
   showLessLabel,
 }: {

@@ -23,8 +23,8 @@ const timHowellPage: AthletePageComposition = {
     { id: "attraction", label: { en: "Career", de: "Karriere" } },
     { id: "public-image", label: { en: "Public Image", de: "Öffentlichkeit" } },
     { id: "decision", label: { en: "Decision", de: "Entscheidung" } },
-    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
     { id: "future", label: { en: "Future", de: "Zukunft" } },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
   ],
   sections: [
     {
@@ -49,17 +49,17 @@ const timHowellPage: AthletePageComposition = {
       includeInProgress: true,
     },
     {
-      type: "gallery",
-      id: "gallery",
-      spacing: "standard",
-      includeInProgress: true,
-    },
-    {
       type: "project-feature",
       id: "future",
       project: "future",
       status: "future",
       spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
       includeInProgress: true,
     },
     { type: "social-media", id: "social-media", spacing: "compact" },
@@ -217,7 +217,14 @@ function publicAssetPath(...segments: string[]) {
 
 const galleryImageDimensions: Record<
   string,
-  Record<string, { width: number; height: number }>
+  Record<
+    string,
+    {
+      width: number;
+      height: number;
+      objectPosition?: Athlete["images"]["gallery"][number]["objectPosition"];
+    }
+  >
 > = {
   "josef-braun": {
     "469340793_1835003297315437_4282046965683917746_n.jpg": {
@@ -234,7 +241,7 @@ const galleryImageDimensions: Record<
   "lukas-loibl": {
     "D9A50B94-6169-4E85-8800-8924444F81E9.png": { width: 1024, height: 1536 },
     "IMG_9389.jpeg": { width: 2000, height: 3000 },
-    "IMG_9586.jpeg": { width: 1320, height: 2486 },
+    "IMG_9586.jpeg": { width: 1320, height: 2486, objectPosition: "50% 74%" },
     "IMG_9990.jpeg": { width: 1280, height: 1920 },
     "Lukas.jpeg": { width: 2001, height: 3000 },
     "_DSC3618.jpeg": { width: 1688, height: 3000 },
@@ -258,10 +265,11 @@ const galleryImageDimensions: Record<
     "681423427_26985451711078220_85980921819799839_n.jpg": {
       width: 1206,
       height: 1207,
+      objectPosition: "50% 64%",
     },
     "IMG_4159.PNG": { width: 2754, height: 1276 },
     "IMG_9233.JPG": { width: 2617, height: 2617 },
-    "yellow slick jump.jpg": { width: 1206, height: 2144 },
+    "yellow slick jump.jpg": { width: 1206, height: 2144, objectPosition: "50% 82%" },
   },
   "tim-howell": {
     "Copy of Ski Base-1.jpg": { width: 2400, height: 3000 },

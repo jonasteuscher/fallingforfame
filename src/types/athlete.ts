@@ -30,8 +30,19 @@ export type AthleteOriginStoryBeat = {
 export type AthleteImage = {
   src: string;
   alt: LocalizedText;
+  caption?: LocalizedText;
+  credit?: LocalizedText;
   width?: number;
   height?: number;
+  orientation?: "landscape" | "portrait";
+  featured?: "wide" | "tall";
+  objectPosition?:
+    | string
+    | {
+        desktop?: string;
+        tablet?: string;
+        mobile?: string;
+      };
 };
 
 export type AthleteAudio = {
