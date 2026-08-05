@@ -67,12 +67,17 @@ describe("ProjectStorySection", () => {
 
     expect(video).toHaveAttribute("preload", "metadata");
     expect(video).toHaveAttribute("playsinline");
-    expect(video).toHaveAttribute("controls");
+    expect(video).not.toHaveAttribute("controls");
     expect(video).toHaveAttribute(
       "poster",
       "/video/lukas-loibl/The_hole_thumbnail.png",
     );
     expect(video.closest("div")).toHaveClass("aspect-video");
+    expect(
+      screen.getByRole("button", {
+        name: "Play Lukas Loibl world record wingsuit flight",
+      }),
+    ).toBeVisible();
 
     await waitFor(() =>
       expect(video.querySelector("source")).toHaveAttribute(

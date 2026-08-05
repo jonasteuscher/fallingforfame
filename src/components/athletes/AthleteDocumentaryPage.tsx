@@ -188,7 +188,7 @@ export function AthleteDocumentaryPage({
     .map((section) => ({ id: section.id, label: section.label }));
 
   return (
-    <>
+    <div data-athlete-page={athlete.slug}>
       {navItems.length > 0 ? (
         <AthleteNarrativeNav items={navItems} ariaLabel={navAriaLabel} />
       ) : null}
@@ -242,7 +242,7 @@ export function AthleteDocumentaryPage({
         countryLabels={sectionLabels.countryLabels}
         cardLabels={sectionLabels.cardLabels}
       />
-    </>
+    </div>
   );
 }
 

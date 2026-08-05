@@ -1518,3 +1518,20 @@ audio {
     white-space: nowrap !important;
   }
 }
+
+@media (min-width: 1280px) and (max-width: 1536px) {
+  [data-athlete-page="niclas-strohmeier"] .athlete-section-title {
+    max-width: 100%;
+    font-size: clamp(3rem, 5.2vw, 5rem);
+    hyphens: none;
+    overflow-wrap: normal;
+    text-wrap: balance;
+    word-break: normal;
+  }
+
+  [data-athlete-page="niclas-strohmeier"]
+    [data-interview-feature-id]
+    .athlete-section-title {
+    font-size: clamp(2.5rem, 4.1vw, 4rem);
+  }
+}

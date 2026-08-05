@@ -85,6 +85,7 @@ export type AthleteInterviewFeature = {
 
 export type AthleteLocalVideoFeature = {
   id: string;
+  controls?: "native" | "cinematic";
   chapter: LocalizedText;
   title: LocalizedText;
   displayTitle?: LocalizedText;

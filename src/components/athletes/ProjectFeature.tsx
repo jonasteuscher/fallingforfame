@@ -2,14 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useId, useRef, useState } from "react";
+import { useId } from "react";
 
 import type { Locale } from "@/i18n/config";
-import {
-  clearActiveVideo,
-  registerVideoPlayer,
-  requestVideoPlayback,
-} from "@/lib/videoPlaybackManager";
 import type {
   AthleteCurrentProject,
   AthleteFutureProject,
@@ -17,6 +12,7 @@ import type {
   ProjectStatus,
 } from "@/types/athlete";
 
+import { CinematicVideoPlayer } from "./CinematicVideoPlayer";
 import { SectionTitle } from "./SectionTitle";
 
 export const projectStatusLabels: Record<ProjectStatus, LocalizedText> = {
@@ -265,10 +261,6 @@ function ProjectVideo({
   status: ProjectStatus;
   locale: Locale;
 }) {
-  const figureRef = useRef<HTMLElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const videoId = useId();
-  const [sourceEnabled, setSourceEnabled] = useState(false);
   let videoLabel: string;
   let videoType = "video/mp4";
   let videoCaption: string | undefined;
@@ -281,61 +273,16 @@ function ProjectVideo({
     videoCaption = project.video.caption?.[locale];
   }
 
-  useEffect(() => {
-    return registerVideoPlayer(videoId, () => {
-      videoRef.current?.pause();
-    });
-  }, [videoId]);
-
-  useEffect(() => {
-    const node = figureRef.current;
-
-    if (!node || typeof IntersectionObserver === "undefined") {
-      const timeout = window.setTimeout(() => setSourceEnabled(true), 0);
-
-      return () => window.clearTimeout(timeout);
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setSourceEnabled(true);
-        }
-
-        if (!entry?.isIntersecting || entry.intersectionRatio < 0.28) {
-          videoRef.current?.pause();
-        }
-      },
-      { rootMargin: "500px 0px", threshold: [0, 0.28, 0.7] },
-    );
-
-    observer.observe(node);
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <figure
-      ref={figureRef}
-      className="mt-16 motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 lg:mt-24"
-    >
-      <div className="aspect-video w-full overflow-hidden bg-black shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]">
-        <video
-          ref={videoRef}
-          controls
-          preload="metadata"
-          playsInline
-          poster={project.video.poster ?? undefined}
-          aria-label={videoLabel}
-          title={videoLabel}
-          onPlay={() => requestVideoPlayback(videoId)}
-          onPause={() => clearActiveVideo(videoId)}
-          onEnded={() => clearActiveVideo(videoId)}
-          className="h-full w-full bg-black object-cover"
-        >
-          {sourceEnabled ? <source src={project.video.src} type={videoType} /> : null}
-        </video>
-      </div>
+    <figure className="mt-16 motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 lg:mt-24">
+      <CinematicVideoPlayer
+        src={project.video.src}
+        type={videoType}
+        poster={project.video.poster}
+        label={videoLabel}
+        locale={locale}
+        objectFit="cover"
+      />
       {videoCaption ? (
         <figcaption className="mt-3 text-sm leading-6 text-foreground/65">
           {videoCaption}

@@ -270,31 +270,69 @@ const niclasStrohmeierPage: AthletePageComposition = {
     de: "Niclas Strohmeier Profilabschnitte",
   },
   progress: [
-    { id: "biography", label: { en: "Biography", de: "Biografie" } },
-    { id: "origin", label: { en: "Career", de: "Karriere" } },
+    { id: "biography", label: { en: "Profile", de: "Profil" } },
     {
-      id: "experience-and-caution",
-      label: { en: "Experience", de: "Erfahrung" },
+      id: "origin",
+      label: { en: "Career", de: "Karriere" },
+      includeInProgress: false,
+    },
+    {
+      id: "the-jump",
+      label: { en: "The Jump", de: "Der Sprung" },
+    },
+    {
+      id: "social-media-impact",
+      label: { en: "Social Media", de: "Social Media" },
     },
     {
       id: "slow-progression",
-      label: { en: "Progression", de: "Entwicklung" },
+      label: { en: "Progression", de: "Progression" },
+    },
+    {
+      id: "more-than-the-jump",
+      label: { en: "More Than the Jump", de: "Mehr als der Sprung" },
+    },
+    {
+      id: "experience-and-caution",
+      label: { en: "Development", de: "Entwicklung" },
     },
     { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
-    { id: "social-media", label: { en: "Links", de: "Links" } },
   ],
   sections: [
     {
-      type: "audio-story",
-      id: "experience-and-caution",
-      storyId: "experience-and-caution",
-      spacing: "standard",
+      type: "local-video",
+      id: "the-jump",
+      featureId: "the-jump",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "social-media-impact",
+      featureId: "social-media-impact",
+      layout: "text-first",
+      spacing: "immersive",
       includeInProgress: true,
     },
     {
       type: "audio-story",
       id: "slow-progression",
       storyId: "slow-progression",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "more-than-the-jump",
+      featureId: "more-than-the-jump",
+      layout: "media-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "audio-story",
+      id: "experience-and-caution",
+      storyId: "experience-and-caution",
       spacing: "standard",
       includeInProgress: true,
     },
@@ -307,12 +345,6 @@ const niclasStrohmeierPage: AthletePageComposition = {
     {
       type: "social-media",
       id: "social-media",
-      spacing: "compact",
-      includeInProgress: true,
-    },
-    {
-      type: "media-coverage",
-      id: "media-coverage",
       spacing: "compact",
       includeInProgress: false,
     },
@@ -1741,6 +1773,7 @@ export const athletes: Athlete[] = [
     localVideoFeatures: [
       {
         id: "career-highlights",
+        controls: "cinematic",
         chapter: {
           en: "CAREER HIGHLIGHTS",
           de: "KARRIERE-HIGHLIGHTS",
@@ -1926,6 +1959,111 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["niclas-strohmeier"],
     ...emptyMedia,
+    interviewFeatures: [
+      {
+        id: "social-media-impact",
+        placement: "after-origin",
+        title: {
+          en: "How will social media change the BASE scene in the long term?",
+          de: "Wie verändert Social Media die BASE-Szene langfristig?",
+        },
+        navTitle: {
+          en: "How will social media change the BASE scene in the long term?",
+          de: "Wie verändert Social Media die BASE-Szene langfristig?",
+        },
+        chapter: {
+          en: "Social Media as Inspiration",
+          de: "Social Media als Inspiration",
+        },
+        quote: "How Will Social Media Change the BASE Scene?",
+        subtitle: {
+          en: "Niclas sees social media as a doorway into the sport: it can inspire new people, connect them with the community and make more shared knowledge visible. Its value begins with learning, not blind imitation.",
+          de: "Niclas sieht Social Media als Türöffner zum Sport: Die Plattformen können neue Menschen inspirieren, sie mit der Community verbinden und gemeinsames Wissen sichtbarer machen. Ihr Wert beginnt beim Lernen, nicht beim blinden Nachahmen.",
+        },
+        iframeTitle: {
+          en: "Niclas Strohmeier interview about the long-term influence of social media on BASE jumping",
+          de: "Niclas Strohmeier Interview über den langfristigen Einfluss von Social Media auf BASE Jumping",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "Ea3IJi8G6_g",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "9Ugc1_Mp_Ts",
+          },
+        },
+      },
+      {
+        id: "more-than-the-jump",
+        placement: "after-gallery",
+        title: {
+          en: "More Than Just the Jump",
+          de: "Mehr als nur der Sprung",
+        },
+        navTitle: {
+          en: "More Than Just the Jump",
+          de: "Mehr als nur der Sprung",
+        },
+        chapter: {
+          en: "Mountains, Nature and Community",
+          de: "Berge, Natur und Gemeinschaft",
+        },
+        quote: "More Than Just the Jump",
+        subtitle: {
+          en: "Beyond the visible seconds of a jump, Niclas describes a sport shaped by time in the mountains, nature, friendships and shared experiences. That wider reality is easily lost when BASE jumping is reduced to danger and spectacle.",
+          de: "Hinter den sichtbaren Sekunden eines Sprungs beschreibt Niclas einen Sport, der von Zeit in den Bergen, Natur, Freundschaften und gemeinsamen Erlebnissen geprägt ist. Diese umfassendere Realität geht leicht verloren, wenn BASE Jumping auf Gefahr und Spektakel reduziert wird.",
+        },
+        iframeTitle: {
+          en: "Niclas Strohmeier interview about the experiences beyond a BASE jump",
+          de: "Niclas Strohmeier Interview über die Erlebnisse jenseits eines BASE-Sprungs",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "lXJYZ2X_4G0",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "_EVriuqgoMM",
+          },
+        },
+      },
+    ],
+    localVideoFeatures: [
+      {
+        id: "the-jump",
+        controls: "cinematic",
+        chapter: {
+          en: "Immersive Flight",
+          de: "Immersiver Flug",
+        },
+        title: {
+          en: "The Jump Lasts Only Seconds",
+          de: "Der Sprung dauert nur Sekunden",
+        },
+        displayTitle: {
+          en: "The Jump Lasts\nOnly Seconds",
+          de: "Der Sprung dauert\nnur Sekunden",
+        },
+        intro: {
+          en: "Behind these few seconds are years of experience, preparation and deliberate decisions.",
+          de: "Hinter diesen wenigen Sekunden stehen Jahre der Erfahrung, Vorbereitung und bewusster Entscheidungen.",
+        },
+        video: {
+          src: "/video/niclas-strohmeier/The_jump.MP4",
+          type: "video/mp4",
+          poster: "/video/niclas-strohmeier/The_jump_thumbnail.jpg",
+          label: {
+            en: "Niclas Strohmeier BASE jump",
+            de: "BASE-Sprung von Niclas Strohmeier",
+          },
+        },
+      },
+    ],
     audioStories: [
       {
         id: "experience-and-caution",

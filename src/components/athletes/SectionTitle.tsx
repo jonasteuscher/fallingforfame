@@ -28,7 +28,10 @@ type SectionTitleProps = {
 
 export function SectionTitle({ id, children, size = "standard" }: SectionTitleProps) {
   return (
-    <h2 id={id} className={sectionTitleClassNames[size]}>
+    <h2
+      id={id}
+      className={`athlete-section-title ${sectionTitleClassNames[size]}`}
+    >
       {children}
     </h2>
   );

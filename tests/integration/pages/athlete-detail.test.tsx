@@ -158,7 +158,7 @@ describe("athlete detail page", () => {
     }
   });
 
-  it("renders Niclas Strohmeier's two audio stories in narrative order", async () => {
+  it("renders Niclas Strohmeier's complete media narrative in order", async () => {
     const { container, unmount } = await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "en", slug: "niclas-strohmeier" }),
@@ -171,33 +171,102 @@ describe("athlete detail page", () => {
     const progressionStory = container.querySelector(
       '[data-audio-story-id="slow-progression"]',
     );
+    const jumpVideo = container.querySelector(
+      '[data-local-video-feature-id="the-jump"]',
+    );
+    const socialMediaInterview = container.querySelector(
+      '[data-interview-feature-id="social-media-impact"]',
+    );
+    const moreThanJumpInterview = container.querySelector(
+      '[data-interview-feature-id="more-than-the-jump"]',
+    );
     const gallery = container.querySelector("#gallery");
+    const links = container.querySelector("#social-media");
 
+    expect(jumpVideo).toBeInTheDocument();
+    expect(socialMediaInterview).toBeInTheDocument();
     expect(experienceStory).toBeInTheDocument();
     expect(progressionStory).toBeInTheDocument();
+    expect(moreThanJumpInterview).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /The Jump Lasts\s+Only Seconds/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Play Niclas Strohmeier BASE jump" }),
+    ).toBeVisible();
+    expect(screen.getByLabelText("Niclas Strohmeier BASE jump")).not.toHaveAttribute(
+      "controls",
+    );
+    expect(
+      screen.getByRole("heading", {
+        name: "How will social media change the BASE scene in the long term?",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "More Than Just the Jump" }),
+    ).toBeVisible();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/Ea3IJi8G6_g/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/lXJYZ2X_4G0/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /From Invulnerability\s+to Caution/ }),
     ).toBeVisible();
     expect(
       screen.getByRole("heading", { name: /Slow Progression\s+Is Safe Progression/ }),
     ).toBeVisible();
-    expect(screen.getByRole("link", { name: "Experience" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Profile" })).toHaveAttribute(
       "href",
-      "#experience-and-caution",
+      "#biography",
     );
     expect(screen.getByRole("link", { name: "Progression" })).toHaveAttribute(
       "href",
       "#slow-progression",
     );
+    expect(screen.queryByRole("link", { name: "Career" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "The Jump" })).toHaveAttribute(
+      "href",
+      "#the-jump",
+    );
+    expect(screen.getByRole("link", { name: "Social Media" })).toHaveAttribute(
+      "href",
+      "#social-media-impact",
+    );
+    expect(screen.getByRole("link", { name: "More Than the Jump" })).toHaveAttribute(
+      "href",
+      "#more-than-the-jump",
+    );
+    expect(screen.getByRole("link", { name: "Development" })).toHaveAttribute(
+      "href",
+      "#experience-and-caution",
+    );
+    expect(jumpVideo?.compareDocumentPosition(socialMediaInterview as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
     expect(
-      experienceStory?.compareDocumentPosition(progressionStory as Node) ?? 0,
+      socialMediaInterview?.compareDocumentPosition(progressionStory as Node) ?? 0,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(progressionStory?.compareDocumentPosition(gallery as Node) ?? 0).toBe(
+    expect(
+      progressionStory?.compareDocumentPosition(moreThanJumpInterview as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      moreThanJumpInterview?.compareDocumentPosition(experienceStory as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(experienceStory?.compareDocumentPosition(gallery as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(gallery?.compareDocumentPosition(links as Node) ?? 0).toBe(
       Node.DOCUMENT_POSITION_FOLLOWING,
     );
     unmount();
 
-    await renderAsyncPage(
+    const { container: germanContainer } = await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "de", slug: "niclas-strohmeier" }),
       }),
@@ -211,6 +280,24 @@ describe("athlete detail page", () => {
         name: /Langsame Progression\s+ist sichere Progression/,
       }),
     ).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "Wie verändert Social Media die BASE-Szene langfristig?",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Mehr als nur der Sprung" }),
+    ).toBeVisible();
+    expect(
+      germanContainer.querySelector(
+        'img[src="https://i.ytimg.com/vi/9Ugc1_Mp_Ts/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      germanContainer.querySelector(
+        'img[src="https://i.ytimg.com/vi/_EVriuqgoMM/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Risiko respektieren lernen abspielen" }),
     ).toBeVisible();
@@ -745,7 +832,12 @@ describe("athlete detail page", () => {
     ).toHaveAttribute("src", "/images/athletes/lukas-loibl/Loch2.jpeg");
     expect(
       screen.getByLabelText("Lukas Loibl world record wingsuit flight"),
-    ).toHaveAttribute("controls");
+    ).not.toHaveAttribute("controls");
+    expect(
+      screen.getByRole("button", {
+        name: "Play Lukas Loibl world record wingsuit flight",
+      }),
+    ).toBeVisible();
     expect(
       screen.getByLabelText("Lukas Loibl world record wingsuit flight"),
     ).toHaveAttribute("poster", "/video/lukas-loibl/The_hole_thumbnail.png");
@@ -959,7 +1051,12 @@ describe("athlete detail page", () => {
       screen.getByLabelText(
         "Marcel Geser career highlights from recent BASE jumping years",
       ),
-    ).toHaveAttribute("controls");
+    ).not.toHaveAttribute("controls");
+    expect(
+      screen.getByRole("button", {
+        name: "Play Marcel Geser career highlights from recent BASE jumping years",
+      }),
+    ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Photo Gallery" })).toBeVisible();
     const gallerySection = screen
       .getByRole("heading", { name: "Photo Gallery" })

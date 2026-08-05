@@ -75,6 +75,7 @@ describe("athletes data", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
     const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
+    const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
 
     expect(tim?.interviewFeatures).toMatchObject([
       {
@@ -190,13 +191,38 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(niclas?.interviewFeatures).toMatchObject([
+      {
+        id: "social-media-impact",
+        title: {
+          en: "How will social media change the BASE scene in the long term?",
+          de: "Wie verändert Social Media die BASE-Szene langfristig?",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "Ea3IJi8G6_g" },
+          de: { provider: "youtube", videoId: "9Ugc1_Mp_Ts" },
+        },
+      },
+      {
+        id: "more-than-the-jump",
+        title: {
+          en: "More Than Just the Jump",
+          de: "Mehr als nur der Sprung",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "lXJYZ2X_4G0" },
+          de: { provider: "youtube", videoId: "_EVriuqgoMM" },
+        },
+      },
+    ]);
     expect(
       athletes
         .filter(
           (athlete) =>
             athlete.slug !== "tim-howell" &&
             athlete.slug !== "lukas-loibl" &&
-            athlete.slug !== "marcel-geser",
+            athlete.slug !== "marcel-geser" &&
+            athlete.slug !== "niclas-strohmeier",
         )
         .every((athlete) => athlete.interviewFeatures === undefined),
     ).toBe(true);
@@ -463,8 +489,9 @@ describe("athletes data", () => {
     ).toBe(true);
   });
 
-  it("contains Marcel Geser's closing local career film", () => {
+  it("contains the athlete-specific local films", () => {
     const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
+    const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
 
     expect(marcel?.localVideoFeatures).toMatchObject([
       {
@@ -483,9 +510,27 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(niclas?.localVideoFeatures).toMatchObject([
+      {
+        id: "the-jump",
+        controls: "cinematic",
+        title: {
+          en: "The Jump Lasts Only Seconds",
+          de: "Der Sprung dauert nur Sekunden",
+        },
+        video: {
+          src: "/video/niclas-strohmeier/The_jump.MP4",
+          type: "video/mp4",
+          poster: "/video/niclas-strohmeier/The_jump_thumbnail.jpg",
+        },
+      },
+    ]);
     expect(
       athletes
-        .filter((athlete) => athlete.slug !== "marcel-geser")
+        .filter(
+          (athlete) =>
+            athlete.slug !== "marcel-geser" && athlete.slug !== "niclas-strohmeier",
+        )
         .every((athlete) => athlete.localVideoFeatures === undefined),
     ).toBe(true);
   });

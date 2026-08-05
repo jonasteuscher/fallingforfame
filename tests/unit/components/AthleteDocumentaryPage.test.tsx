@@ -116,22 +116,32 @@ describe("AthleteDocumentaryPage shared section system", () => {
     expect(niclas?.page?.progress.map((section) => section.id)).toEqual([
       "biography",
       "origin",
-      "experience-and-caution",
+      "the-jump",
+      "social-media-impact",
       "slow-progression",
+      "more-than-the-jump",
+      "experience-and-caution",
       "gallery",
-      "social-media",
     ]);
     expect(niclas?.page?.sections.map((section) => section.type)).toEqual([
+      "local-video",
+      "interview-video",
       "audio-story",
+      "interview-video",
       "audio-story",
       "gallery",
       "social-media",
-      "media-coverage",
     ]);
-    expect(niclas?.page?.sections.slice(0, 2)).toMatchObject([
+    expect(niclas?.page?.sections.slice(0, 5)).toMatchObject([
       {
-        id: "experience-and-caution",
-        storyId: "experience-and-caution",
+        id: "the-jump",
+        featureId: "the-jump",
+        includeInProgress: true,
+      },
+      {
+        id: "social-media-impact",
+        featureId: "social-media-impact",
+        layout: "text-first",
         includeInProgress: true,
       },
       {
@@ -139,7 +149,22 @@ describe("AthleteDocumentaryPage shared section system", () => {
         storyId: "slow-progression",
         includeInProgress: true,
       },
+      {
+        id: "more-than-the-jump",
+        featureId: "more-than-the-jump",
+        layout: "media-first",
+        includeInProgress: true,
+      },
+      {
+        id: "experience-and-caution",
+        storyId: "experience-and-caution",
+        includeInProgress: true,
+      },
     ]);
+    expect(niclas?.page?.progress[1]).toMatchObject({
+      id: "origin",
+      includeInProgress: false,
+    });
 
     expect(
       athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.page?.progress,
