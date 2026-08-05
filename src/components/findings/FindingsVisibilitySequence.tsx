@@ -303,7 +303,6 @@ function MediaVisibilityFrame({
         src={media.src}
         alt={media.alt}
         fill
-        loading="eager"
         sizes="(max-width: 1024px) 100vw, 64vw"
         className="object-cover"
         style={{

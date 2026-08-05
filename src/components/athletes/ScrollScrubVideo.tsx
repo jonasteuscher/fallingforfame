@@ -206,6 +206,11 @@ function ScrollScrubSection({
       }
     }
 
+    function handleSeeking() {
+      isSeekingRef.current = true;
+      setIsBuffering(true);
+    }
+
     function handleSettled() {
       isSeekingRef.current = false;
       setIsBuffering(false);
@@ -224,6 +229,7 @@ function ScrollScrubSection({
 
     element.addEventListener("loadedmetadata", handleLoadedMetadata);
     element.addEventListener("canplay", handleSettled);
+    element.addEventListener("seeking", handleSeeking);
     element.addEventListener("seeked", handleSettled);
     element.addEventListener("waiting", handleWaiting);
     element.addEventListener("stalled", handleWaiting);
@@ -232,6 +238,7 @@ function ScrollScrubSection({
     return () => {
       element.removeEventListener("loadedmetadata", handleLoadedMetadata);
       element.removeEventListener("canplay", handleSettled);
+      element.removeEventListener("seeking", handleSeeking);
       element.removeEventListener("seeked", handleSettled);
       element.removeEventListener("waiting", handleWaiting);
       element.removeEventListener("stalled", handleWaiting);

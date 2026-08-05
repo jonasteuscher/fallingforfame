@@ -380,7 +380,7 @@ describe("ScrollScrubVideo", () => {
     runRaf();
 
     act(() => {
-      video.dispatchEvent(new Event("waiting"));
+      video.dispatchEvent(new Event("seeking"));
     });
 
     expect(container.querySelector(".animate-pulse")).toBeInTheDocument();
