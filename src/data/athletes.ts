@@ -1250,7 +1250,7 @@ export const athletes: Athlete[] = [
     },
     page: lukasLoiblPage,
     heroQuote: {
-      en: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+      en: "When someone hikes back down because of poor conditions, that should be celebrated more than the risky jump.",
       de: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
     },
     images: images(
@@ -1607,7 +1607,7 @@ export const athletes: Athlete[] = [
     },
     page: marcelGeserPage,
     heroQuote: {
-      en: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+      en: "I believe the sport is far too dangerous to do it just for a social media post.",
       de: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
     },
     images: images(
@@ -1928,7 +1928,7 @@ export const athletes: Athlete[] = [
     },
     page: niclasStrohmeierPage,
     heroQuote: {
-      en: "Die langsame Progression ist die sichere Progression.",
+      en: "Slow progression is safe progression.",
       de: "Die langsame Progression ist die sichere Progression.",
     },
     images: images(
@@ -2210,7 +2210,7 @@ export const athletes: Athlete[] = [
     },
     page: josefBraunPage,
     heroQuote: {
-      en: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+      en: "It is like a battle against yourself that you have to win one hundred percent.",
       de: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
     },
     images: images(

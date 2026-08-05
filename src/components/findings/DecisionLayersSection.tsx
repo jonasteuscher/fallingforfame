@@ -193,7 +193,6 @@ export function DecisionLayersSection({
             <DecisionProcessList
               layers={layers}
               activeStep={activeStep}
-              progress={progress}
               onFocusStep={setFocusedStep}
             />
           </div>
@@ -477,12 +476,10 @@ function EndpointLabel({
 function DecisionProcessList({
   layers,
   activeStep,
-  progress,
   onFocusStep,
 }: {
   layers: string[];
   activeStep: number;
-  progress: number;
   onFocusStep: (index: number | null) => void;
 }) {
   return (
@@ -492,8 +489,7 @@ function DecisionProcessList({
     >
       {layers.map((layer, index) => {
         const isActive = index === activeStep;
-        const isComplete = index < activeStep || progress >= 0.88;
-        const opacity = isActive ? 1 : isComplete ? 0.6 : 0.3;
+        const opacity = isActive ? 1 : 0.72;
 
         return (
           <li key={layer}>
@@ -515,7 +511,7 @@ function DecisionProcessList({
               <span
                 className={[
                   "text-xs font-semibold transition-colors duration-500 motion-reduce:transition-none",
-                  isActive ? "text-primary" : "text-foreground/60",
+                  isActive ? "text-primary" : "text-foreground",
                 ].join(" ")}
               >
                 {String(index + 1).padStart(2, "0")}
@@ -640,7 +636,6 @@ function ReducedMotionDecisionLayers({
         <DecisionProcessList
           layers={layers}
           activeStep={9}
-          progress={1}
           onFocusStep={() => undefined}
         />
       </div>

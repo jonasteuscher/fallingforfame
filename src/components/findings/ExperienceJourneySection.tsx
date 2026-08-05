@@ -370,19 +370,17 @@ function ExperienceStageList({
     >
       {stages.map((stage, index) => {
         const isActive = index === activeStage;
-        const isComplete = index < activeStage;
-
         return (
           <li
             key={stage.title}
             className="grid grid-cols-[2.4rem_1fr] gap-3 border-b border-border/46 pb-5 transition-opacity duration-500 ease-out motion-reduce:transition-none"
-            style={{ opacity: isActive ? 1 : isComplete ? 0.58 : 0.3 }}
+            style={{ opacity: isActive ? 1 : 0.72 }}
             aria-current={isActive ? "step" : undefined}
           >
             <span
               className={[
                 "text-xs font-semibold transition-colors duration-500 motion-reduce:transition-none",
-                isActive ? "text-primary" : "text-foreground/54",
+                isActive ? "text-primary" : "text-foreground",
               ].join(" ")}
             >
               {String(index + 1).padStart(2, "0")}
@@ -391,12 +389,12 @@ function ExperienceStageList({
               <h3
                 className={[
                   "text-sm font-semibold uppercase leading-snug tracking-[0.1em] transition-colors duration-500 motion-reduce:transition-none",
-                  isActive ? "text-foreground" : "text-foreground/72",
+                  "text-foreground",
                 ].join(" ")}
               >
                 {stage.title}
               </h3>
-              <p className="mt-2 text-sm leading-6 text-foreground/58">{stage.body}</p>
+              <p className="mt-2 text-sm leading-6 text-foreground">{stage.body}</p>
             </div>
           </li>
         );

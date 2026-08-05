@@ -226,7 +226,7 @@ describe("findings page", () => {
         params: Promise.resolve({ locale: "en" }),
       }),
     ).resolves.toMatchObject({
-      title: "Findings | Falling for Fame?",
+      title: "Findings",
       description: expect.stringContaining("Qualitative findings"),
     });
 
@@ -235,7 +235,7 @@ describe("findings page", () => {
         params: Promise.resolve({ locale: "de" }),
       }),
     ).resolves.toMatchObject({
-      title: "Erkenntnisse | Falling for Fame?",
+      title: "Erkenntnisse",
       description: expect.stringContaining("Qualitative Erkenntnisse"),
     });
   });
@@ -246,7 +246,7 @@ describe("findings page", () => {
         params: Promise.resolve({ locale: "invalid" }),
       }),
     ).resolves.toMatchObject({
-      title: "Erkenntnisse | Falling for Fame?",
+      title: "Erkenntnisse",
       description: expect.stringContaining("Qualitative Erkenntnisse"),
     });
   });

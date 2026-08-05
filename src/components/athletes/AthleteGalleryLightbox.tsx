@@ -21,6 +21,7 @@ const labels = {
     previous: "Previous image",
     open: "Open image full size",
     counter: "Image",
+    counterConnector: "of",
   },
   de: {
     close: "Bildansicht schliessen",
@@ -28,6 +29,7 @@ const labels = {
     previous: "Vorheriges Bild",
     open: "Bild in voller Groesse oeffnen",
     counter: "Bild",
+    counterConnector: "von",
   },
 } as const;
 
@@ -48,6 +50,7 @@ export function AthleteGalleryLightbox({
   const text = labels[locale];
   const warmedImages = useRef(new Set<string>());
   const thumbnailRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const returnFocusIndexRef = useRef<number | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const hasHiddenImages =
@@ -100,14 +103,18 @@ export function AthleteGalleryLightbox({
   );
 
   const closeLightbox = useCallback(() => {
-    setActiveIndex((current) => {
-      if (current !== null) {
-        window.requestAnimationFrame(() => thumbnailRefs.current[current]?.focus());
-      }
-
-      return null;
-    });
+    setActiveIndex(null);
   }, []);
+
+  useEffect(() => {
+    if (activeIndex !== null || returnFocusIndexRef.current === null) {
+      return;
+    }
+
+    const returnFocusIndex = returnFocusIndexRef.current;
+    returnFocusIndexRef.current = null;
+    window.requestAnimationFrame(() => thumbnailRefs.current[returnFocusIndex]?.focus());
+  }, [activeIndex]);
 
   useEffect(() => {
     if (activeIndex === null) {
@@ -228,7 +235,10 @@ export function AthleteGalleryLightbox({
                 className="group block w-full cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
                 aria-label={`${text.open}: ${image.alt[locale]}`}
                 onFocus={() => warmImage(index)}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => {
+                  returnFocusIndexRef.current = index;
+                  setActiveIndex(index);
+                }}
                 onPointerEnter={() => warmImage(index)}
               >
                 <span
@@ -290,7 +300,8 @@ export function AthleteGalleryLightbox({
           <div className="relative z-10 flex h-full max-h-[calc(100svh-2rem)] w-full max-w-7xl flex-col gap-4 sm:max-h-[calc(100svh-3rem)]">
             <div className="flex items-center justify-between gap-4">
               <p className="text-sm font-semibold uppercase tracking-wide text-foreground/72">
-                {text.counter} {(activeIndex ?? 0) + 1} / {images.length}
+                {text.counter} {(activeIndex ?? 0) + 1} {text.counterConnector}{" "}
+                {images.length}
               </p>
               <button
                 ref={closeButtonRef}

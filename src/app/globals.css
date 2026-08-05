@@ -22,7 +22,7 @@
   --deep-navy: #0a1a2f;
   --charcoal: #3a3a3a;
   --dark-red: #8a1e1e;
-  --signal-orange: #ff6b00;
+  --signal-orange: #ff7200;
   --forest-green: #3e6b47;
   --white: #ffffff;
   --background: var(--deep-navy);
@@ -182,7 +182,7 @@ audio {
 }
 
 @media (min-width: 1280px) and (max-width: 1599px),
-  (min-width: 1280px) and (max-height: 900px) {
+  (min-width: 1280px) and (max-height: 950px) {
   .findings-page {
     --section-gap-standard: clamp(4.75rem, 7svh, 7.25rem);
     --section-gap-immersive: clamp(5.75rem, 8svh, 8rem);
@@ -356,8 +356,9 @@ audio {
   }
 
   .findings-page #camera figure[class*="aspect-"] {
-    height: min(54svh, 34rem) !important;
+    height: min(48svh, 30rem) !important;
     max-width: min(46vw, 35rem) !important;
+    margin-top: 0 !important;
     margin-right: clamp(4rem, 8vw, 8rem) !important;
   }
 
@@ -898,7 +899,7 @@ audio {
 }
 
 @media (min-width: 1280px) and (max-width: 1536px),
-  (min-width: 1280px) and (max-height: 900px) {
+  (min-width: 1280px) and (max-height: 950px) {
   .findings-page {
     --community-laptop-gutter: clamp(2.5rem, 4vw, 4rem);
     --community-laptop-max-width: 72rem;

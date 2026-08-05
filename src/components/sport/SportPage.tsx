@@ -1324,7 +1324,7 @@ function SafetyHierarchy({
                 <span
                   className={
                     index === content.levels.length - 1
-                      ? "font-mono text-sm font-semibold text-background/72"
+                      ? "font-mono text-sm font-semibold text-background"
                       : "font-mono text-sm font-semibold text-primary"
                   }
                 >

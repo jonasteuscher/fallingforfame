@@ -6,6 +6,7 @@ import { AthleteCard } from "@/components/athletes";
 import { athletes } from "@/data/athletes";
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { createLocalizedMetadata } from "@/lib/metadata";
 
 type AthletesPageProps = {
   params: Promise<{
@@ -13,9 +14,18 @@ type AthletesPageProps = {
   }>;
 };
 
-export const metadata: Metadata = {
-  title: "Athletes",
-};
+export async function generateMetadata({ params }: AthletesPageProps): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+  const content = getDictionary(locale).site.athletes;
+
+  return createLocalizedMetadata({
+    locale,
+    path: "/athletes",
+    title: locale === "de" ? "Athlet:innen" : "Athletes",
+    description: content.intro,
+  });
+}
 
 export default async function AthletesPage({ params }: AthletesPageProps) {
   const { locale: rawLocale } = await params;

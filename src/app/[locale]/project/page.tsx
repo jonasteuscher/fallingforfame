@@ -4,6 +4,7 @@ import { ProjectChapterIndicator } from "@/components/project/ProjectChapterIndi
 import { ProjectPage as ProjectPageContent } from "@/components/project/ProjectPage";
 import { getDictionary } from "@/i18n/dictionaries";
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
+import { createLocalizedMetadata } from "@/lib/metadata";
 
 type ProjectPageProps = {
   params: Promise<{
@@ -18,10 +19,12 @@ export async function generateMetadata({
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const dictionary = getDictionary(locale);
 
-  return {
-    title: `${dictionary.site.project.title} | Falling for Fame?`,
+  return createLocalizedMetadata({
+    locale,
+    path: "/project",
+    title: dictionary.site.project.title,
     description: dictionary.site.project.body,
-  };
+  });
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
