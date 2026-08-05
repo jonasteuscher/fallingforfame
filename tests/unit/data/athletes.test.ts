@@ -206,6 +206,7 @@ describe("athletes data", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
     const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
+    const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
 
     expect(tim?.audioStories).toMatchObject([
       {
@@ -277,13 +278,50 @@ describe("athletes data", () => {
       },
     ]);
     expect(marcel?.audioStories?.[0]).not.toHaveProperty("waveform");
+    expect(niclas?.audioStories).toMatchObject([
+      {
+        id: "experience-and-caution",
+        title: {
+          en: "Learning to respect the risk",
+          de: "Risiko respektieren lernen",
+        },
+        audio: {
+          src: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung.wav",
+        },
+        transcript: {
+          en: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung_EN.srt",
+          de: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung_DE.srt",
+        },
+        portrait: "/images/athletes/niclas-strohmeier/audio.jpg",
+        duration: "00:56",
+      },
+      {
+        id: "slow-progression",
+        title: {
+          en: "Taking the long way",
+          de: "Den langen Weg wählen",
+        },
+        audio: {
+          src: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_DE.wav",
+        },
+        transcript: {
+          en: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_EN.srt",
+          de: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_DE.srt",
+        },
+        portrait: "/images/athletes/niclas-strohmeier/audio.jpg",
+        duration: "01:39",
+      },
+    ]);
+    expect(niclas?.audioStories).toHaveLength(2);
+    expect(niclas?.audioStories?.every((story) => !("waveform" in story))).toBe(true);
     expect(
       athletes
         .filter(
           (athlete) =>
             athlete.slug !== "tim-howell" &&
             athlete.slug !== "lukas-loibl" &&
-            athlete.slug !== "marcel-geser",
+            athlete.slug !== "marcel-geser" &&
+            athlete.slug !== "niclas-strohmeier",
         )
         .every((athlete) => athlete.audioStories === undefined),
     ).toBe(true);
@@ -419,8 +457,7 @@ describe("athletes data", () => {
     expect(
       athletes
         .filter(
-          (athlete) =>
-            athlete.slug !== "tim-howell" && athlete.slug !== "marcel-geser",
+          (athlete) => athlete.slug !== "tim-howell" && athlete.slug !== "marcel-geser",
         )
         .every((athlete) => athlete.scrollVideo === undefined),
     ).toBe(true);

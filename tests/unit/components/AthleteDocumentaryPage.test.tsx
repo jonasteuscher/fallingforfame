@@ -18,8 +18,8 @@ describe("AthleteDocumentaryPage shared section system", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
     const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
-    const standardProfiles = athletes.filter((athlete) =>
-      ["niclas-strohmeier", "josef-braun"].includes(athlete.slug),
+    const standardProfiles = athletes.filter(
+      (athlete) => athlete.slug === "josef-braun",
     );
 
     expect(tim?.page?.sections.map((section) => section.type)).toEqual([
@@ -55,7 +55,7 @@ describe("AthleteDocumentaryPage shared section system", () => {
       ),
     ).toMatchObject({ layout: "media-first", spacing: "immersive" });
 
-    expect(standardProfiles).toHaveLength(2);
+    expect(standardProfiles).toHaveLength(1);
     for (const athlete of standardProfiles) {
       expect(athlete.page?.progress.slice(0, 4).map((section) => section.id)).toEqual([
         "biography",
@@ -111,6 +111,35 @@ describe("AthleteDocumentaryPage shared section system", () => {
       id: "gallery",
       includeInProgress: true,
     });
+
+    const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
+    expect(niclas?.page?.progress.map((section) => section.id)).toEqual([
+      "biography",
+      "origin",
+      "experience-and-caution",
+      "slow-progression",
+      "gallery",
+      "social-media",
+    ]);
+    expect(niclas?.page?.sections.map((section) => section.type)).toEqual([
+      "audio-story",
+      "audio-story",
+      "gallery",
+      "social-media",
+      "media-coverage",
+    ]);
+    expect(niclas?.page?.sections.slice(0, 2)).toMatchObject([
+      {
+        id: "experience-and-caution",
+        storyId: "experience-and-caution",
+        includeInProgress: true,
+      },
+      {
+        id: "slow-progression",
+        storyId: "slow-progression",
+        includeInProgress: true,
+      },
+    ]);
 
     expect(
       athletes.find((athlete) => athlete.slug === "niclas-strohmeier")?.page?.progress,

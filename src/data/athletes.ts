@@ -264,12 +264,60 @@ const marcelGeserPage: AthletePageComposition = {
   ],
 };
 
-const niclasStrohmeierPage = standardAthletePage({
+const niclasStrohmeierPage: AthletePageComposition = {
   navAriaLabel: {
     en: "Niclas Strohmeier profile sections",
     de: "Niclas Strohmeier Profilabschnitte",
   },
-});
+  progress: [
+    { id: "biography", label: { en: "Biography", de: "Biografie" } },
+    { id: "origin", label: { en: "Career", de: "Karriere" } },
+    {
+      id: "experience-and-caution",
+      label: { en: "Experience", de: "Erfahrung" },
+    },
+    {
+      id: "slow-progression",
+      label: { en: "Progression", de: "Entwicklung" },
+    },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+    { id: "social-media", label: { en: "Links", de: "Links" } },
+  ],
+  sections: [
+    {
+      type: "audio-story",
+      id: "experience-and-caution",
+      storyId: "experience-and-caution",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "audio-story",
+      id: "slow-progression",
+      storyId: "slow-progression",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "social-media",
+      id: "social-media",
+      spacing: "compact",
+      includeInProgress: true,
+    },
+    {
+      type: "media-coverage",
+      id: "media-coverage",
+      spacing: "compact",
+      includeInProgress: false,
+    },
+  ],
+};
 
 const josefBraunPage = standardAthletePage({
   navAriaLabel: {
@@ -1878,6 +1926,74 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["niclas-strohmeier"],
     ...emptyMedia,
+    audioStories: [
+      {
+        id: "experience-and-caution",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Learning to respect the risk",
+          de: "Risiko respektieren lernen",
+        },
+        displayTitle: {
+          en: "From Invulnerability\nto Caution",
+          de: "Von Unverwundbarkeit\nzu Vorsicht",
+        },
+        description: {
+          en: "Niclas looks back on how starting young shaped his relationship with fear. Time in the sport and witnessing accidents taught him that experience is not immunity, but a reason to become more careful.",
+          de: "Niclas blickt darauf zurück, wie sein früher Einstieg sein Verhältnis zur Angst prägte. Die Zeit im Sport und miterlebte Unfälle zeigten ihm, dass Erfahrung nicht unverwundbar macht, sondern ein Grund für mehr Vorsicht ist.",
+        },
+        audio: {
+          src: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung.wav",
+        },
+        transcript: {
+          en: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung_EN.srt",
+          de: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung_DE.srt",
+        },
+        portrait: "/images/athletes/niclas-strohmeier/audio.jpg",
+        portraitAlt: {
+          en: "Niclas Strohmeier smiling in a white wingsuit and helmet in a forest",
+          de: "Niclas Strohmeier lächelt im weissen Wingsuit und Helm in einem Wald",
+        },
+        duration: "00:56",
+      },
+      {
+        id: "slow-progression",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Taking the long way",
+          de: "Den langen Weg wählen",
+        },
+        displayTitle: {
+          en: "Slow Progression\nIs Safe Progression",
+          de: "Langsame Progression\nist sichere Progression",
+        },
+        description: {
+          en: "For Niclas, social media can inspire progress, but it should never determine how much risk a jump is worth. He argues for easy jumps, deliberate limits and enjoying every stage instead of rushing towards a wingsuit.",
+          de: "Für Niclas kann Social Media zur Entwicklung motivieren, sollte aber nie bestimmen, wie viel Risiko ein Sprung wert ist. Er plädiert für einfache Sprünge, bewusst gewählte Grenzen und dafür, jede Etappe zu geniessen, statt möglichst schnell in den Wingsuit zu wechseln.",
+        },
+        audio: {
+          src: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_DE.wav",
+        },
+        transcript: {
+          en: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_EN.srt",
+          de: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_DE.srt",
+        },
+        portrait: "/images/athletes/niclas-strohmeier/audio.jpg",
+        portraitAlt: {
+          en: "Niclas Strohmeier smiling in a white wingsuit and helmet in a forest",
+          de: "Niclas Strohmeier lächelt im weissen Wingsuit und Helm in einem Wald",
+        },
+        duration: "01:39",
+      },
+    ],
     links: [
       {
         label: "Niclas Strohmeier on Facebook",
