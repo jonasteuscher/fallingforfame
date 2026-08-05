@@ -41,27 +41,21 @@ describe("athlete detail page", () => {
         params: Promise.resolve({ locale: "en", slug: "tim-howell" }),
       }),
     ).resolves.toMatchObject({
-      title: {
-        absolute: "Tim Howell – Professional BASE Jumper | Falling for Fame?",
-      },
+      title: "Tim Howell",
     });
     await expect(
       generateAthleteMetadata({
         params: Promise.resolve({ locale: "de", slug: "tim-howell" }),
       }),
     ).resolves.toMatchObject({
-      title: {
-        absolute: "Tim Howell – Professioneller BASE Jumper | Falling for Fame?",
-      },
+      title: "Tim Howell",
     });
     await expect(
       generateAthleteMetadata({
         params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
       }),
     ).resolves.toMatchObject({
-      title: {
-        absolute: "Josef Braun – BASE Coach and Video Creator | Falling for Fame?",
-      },
+      title: "Josef Braun",
     });
   });
 

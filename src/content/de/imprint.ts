@@ -1,6 +1,6 @@
 export const imprint = {
   metadata: {
-    title: "Impressum | Falling for Fame?",
+    title: "Impressum",
     description:
       "Impressum, Urheberrecht, Bildnachweise und Kontaktangaben zur Webdokumentation Falling for Fame?",
   },

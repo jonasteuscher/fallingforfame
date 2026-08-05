@@ -1,8 +1,8 @@
 export const privacy = {
   metadata: {
-    title: "Datenschutz | Falling for Fame?",
+    title: "Datenschutz",
     description:
-      "Informationen zur Verarbeitung personenbezogener Daten auf der multimedialen Webdokumentation Falling for Fame?.",
+      "Informationen zur Verarbeitung personenbezogener Daten auf der Website der multimedialen Webdokumentation „Falling for Fame?“.",
   },
   locale: "de",
   hero: {

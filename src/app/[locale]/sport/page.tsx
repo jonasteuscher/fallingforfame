@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: SportPageProps): Promise<Meta
   return createLocalizedMetadata({
     locale,
     path: "/sport",
-    title: dictionary.site.sport.title,
-    description: dictionary.site.sport.body,
+    title: dictionary.site.sport.metadata.title,
+    description: dictionary.site.sport.metadata.description,
   });
 }
 

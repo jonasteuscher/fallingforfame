@@ -152,7 +152,7 @@ export async function generateMetadata({
   const athlete = getAthleteBySlug(slug);
 
   const title = athlete
-    ? `${athlete.name} – ${getAthleteSeoRole(athlete, locale)}`
+    ? athlete.name
     : locale === "de"
       ? "Athlet:in"
       : "Athlete";
@@ -465,31 +465,4 @@ function getAthletePortraitAlt(athlete: Athlete, locale: Locale) {
   };
 
   return descriptions[athlete.slug]?.[locale] ?? athlete.name;
-}
-
-function getAthleteSeoRole(athlete: Athlete, locale: Locale) {
-  const roles: Record<string, { en: string; de: string }> = {
-    "tim-howell": {
-      en: "Professional BASE Jumper",
-      de: "Professioneller BASE Jumper",
-    },
-    "lukas-loibl": {
-      en: "Professional BASE Jumping Instructor",
-      de: "Professioneller BASE-Jumping-Instruktor",
-    },
-    "marcel-geser": {
-      en: "Hobby BASE Jumper",
-      de: "Hobby BASE Jumper",
-    },
-    "niclas-strohmeier": {
-      en: "Semi-Professional BASE Jumper",
-      de: "Semiprofessioneller BASE Jumper",
-    },
-    "josef-braun": {
-      en: "BASE Coach and Video Creator",
-      de: "BASE-Coach und Videograf",
-    },
-  };
-
-  return roles[athlete.slug]?.[locale] ?? athlete.content[locale].title;
 }

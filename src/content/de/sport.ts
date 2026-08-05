@@ -1,4 +1,9 @@
 export const sport = {
+  metadata: {
+    title: "Der Sport",
+    description:
+      "Eine Einführung in BASE Jumping, seine Geschichte, Disziplinen, Ausrüstung, Risiken, Sicherheitskultur und Community.",
+  },
   kicker: "Sportkontext",
   title: "Über den Sport",
   navigationLabel: "Kapitel über den Sport",

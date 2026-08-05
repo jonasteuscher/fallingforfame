@@ -12,8 +12,13 @@ test.describe("metadata and public links", () => {
 
       const expectedCanonical = `https://fallingforfame.com${route}`;
       const suffix = route.replace(/^\/(en|de)/, "");
+      const expectedLocale = route.startsWith("/de") ? "de" : "en";
+      const title = await page.title();
+      const siteNameOccurrences = title.split("Falling for Fame?").length - 1;
 
-      await expect(page).toHaveTitle(/Falling for Fame\?/);
+      expect(siteNameOccurrences, `${route} should contain the site name once`).toBe(1);
+      expect(title).not.toContain("| Falling for Fame? |");
+      await expect(page.locator("html")).toHaveAttribute("lang", expectedLocale);
       await expect(page.locator('meta[name="description"]')).toHaveAttribute(
         "content",
         /\S/,
@@ -30,6 +35,21 @@ test.describe("metadata and public links", () => {
         "href",
         `https://fallingforfame.com/de${suffix}`,
       );
+      await expect(
+        page.locator('link[rel="alternate"][hreflang="x-default"]'),
+      ).toHaveAttribute("href", `https://fallingforfame.com/en${suffix}`);
+      await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+        "content",
+        title,
+      );
+      await expect(page.locator('meta[property="og:description"]')).toHaveAttribute(
+        "content",
+        /\S/,
+      );
+      await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+        "content",
+        expectedCanonical,
+      );
       await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
         "content",
         "https://fallingforfame.com/og/og-image.jpg",
@@ -38,6 +58,20 @@ test.describe("metadata and public links", () => {
         "content",
         "summary_large_image",
       );
+      await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute(
+        "content",
+        title,
+      );
+
+      const metadataUrls = await page
+        .locator('link[rel="canonical"], link[rel="alternate"], meta[property="og:url"], meta[property="og:image"], meta[name="twitter:image"]')
+        .evaluateAll((elements) =>
+          elements.map(
+            (element) =>
+              element.getAttribute("href") ?? element.getAttribute("content") ?? "",
+          ),
+        );
+      expect(metadataUrls.join("\n")).not.toMatch(/localhost|vercel\.app/i);
     });
   }
 

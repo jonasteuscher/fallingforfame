@@ -3,7 +3,7 @@ import type { FindingsPageContent } from "@/types/findings";
 
 export const findingsPage: FindingsPageContent = {
   metadata: {
-    title: "Erkenntnisse | Falling for Fame?",
+    title: "Erkenntnisse",
     description:
       "Qualitative Erkenntnisse zu Social Media, Sponsoring, Risikokompetenz und Sicherheitskultur im modernen BASE Jumping.",
   },

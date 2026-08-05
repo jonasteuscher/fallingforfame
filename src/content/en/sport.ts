@@ -1,4 +1,9 @@
 export const sport = {
+  metadata: {
+    title: "The Sport",
+    description:
+      "An introduction to BASE jumping, its history, disciplines, equipment, risks, safety culture and community.",
+  },
   kicker: "Sport context",
   title: "About the Sport",
   navigationLabel: "About the sport sections",

@@ -71,14 +71,14 @@ describe("imprint page", () => {
         params: Promise.resolve({ locale: "en" }),
       }),
     ).resolves.toMatchObject({
-      title: { absolute: "Imprint | Falling for Fame?" },
+      title: "Legal Notice",
     });
     await expect(
       generateEnglishImprintMetadata({
         params: Promise.resolve({ locale: "de" }),
       }),
     ).resolves.toMatchObject({
-      title: { absolute: "Impressum | Falling for Fame?" },
+      title: "Impressum",
     });
   });
 
@@ -129,7 +129,7 @@ describe("imprint page", () => {
         params: Promise.resolve({ locale: "en" }),
       }),
     ).resolves.toMatchObject({
-      title: { absolute: "Privacy | Falling for Fame?" },
+      title: "Privacy",
       description:
         "Information about the processing of personal data on the Falling for Fame? multimedia documentary website.",
       alternates: {
@@ -145,9 +145,9 @@ describe("imprint page", () => {
         params: Promise.resolve({ locale: "de" }),
       }),
     ).resolves.toMatchObject({
-      title: { absolute: "Datenschutz | Falling for Fame?" },
+      title: "Datenschutz",
       description:
-        "Informationen zur Verarbeitung personenbezogener Daten auf der multimedialen Webdokumentation Falling for Fame?.",
+        "Informationen zur Verarbeitung personenbezogener Daten auf der Website der multimedialen Webdokumentation „Falling for Fame?“.",
       alternates: {
         canonical: "/de/privacy",
         languages: {

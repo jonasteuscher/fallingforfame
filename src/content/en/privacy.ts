@@ -1,6 +1,6 @@
 export const privacy = {
   metadata: {
-    title: "Privacy | Falling for Fame?",
+    title: "Privacy",
     description:
       "Information about the processing of personal data on the Falling for Fame? multimedia documentary website.",
   },

@@ -121,12 +121,12 @@ describe("project page", () => {
     await expect(
       generateProjectMetadata({ params: Promise.resolve({ locale: "en" }) }),
     ).resolves.toMatchObject({
-      title: { absolute: "The Project | Falling for Fame?" },
+      title: "The Project",
     });
     await expect(
       generateProjectMetadata({ params: Promise.resolve({ locale: "de" }) }),
     ).resolves.toMatchObject({
-      title: { absolute: "Das Projekt | Falling for Fame?" },
+      title: "Das Projekt",
     });
   });
 });
@@ -173,12 +173,14 @@ describe("sport page", () => {
     await expect(
       generateSportMetadata({ params: Promise.resolve({ locale: "en" }) }),
     ).resolves.toMatchObject({
-      title: { absolute: "About the Sport | Falling for Fame?" },
+      title: "The Sport",
+      description: expect.stringContaining("history"),
     });
     await expect(
       generateSportMetadata({ params: Promise.resolve({ locale: "de" }) }),
     ).resolves.toMatchObject({
-      title: { absolute: "Über den Sport | Falling for Fame?" },
+      title: "Der Sport",
+      description: expect.stringContaining("Geschichte"),
     });
   });
 });
