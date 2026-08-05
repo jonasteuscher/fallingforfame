@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import AthletePage, {
   generateMetadata as generateAthleteMetadata,
 } from "@/app/[locale]/athletes/[slug]/page";
+import { AudioProvider } from "@/components/audio";
 import { athletes } from "@/data/athletes";
 import { renderAsyncPage } from "../../test-utils/render-pages";
 
@@ -104,18 +105,8 @@ describe("athlete detail page", () => {
     }
   });
 
-  it("renders the standardized profile structure for Marcel, Niclas and Josef", async () => {
+  it("renders the standardized profile structure for Josef", async () => {
     const standardizedProfiles = [
-      {
-        slug: "marcel-geser",
-        nav: "Marcel Geser profile sections",
-        hasCoverage: true,
-      },
-      {
-        slug: "niclas-strohmeier",
-        nav: "Niclas Strohmeier profile sections",
-        hasCoverage: false,
-      },
       {
         slug: "josef-braun",
         nav: "Josef Braun profile sections",
@@ -166,6 +157,154 @@ describe("athlete detail page", () => {
 
       unmount();
     }
+  });
+
+  it("renders Niclas Strohmeier's complete media narrative in order", async () => {
+    const { container, unmount } = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "niclas-strohmeier" }),
+      }),
+    );
+
+    const experienceStory = container.querySelector(
+      '[data-audio-story-id="experience-and-caution"]',
+    );
+    const progressionStory = container.querySelector(
+      '[data-audio-story-id="slow-progression"]',
+    );
+    const jumpVideo = container.querySelector(
+      '[data-local-video-feature-id="the-jump"]',
+    );
+    const socialMediaInterview = container.querySelector(
+      '[data-interview-feature-id="social-media-impact"]',
+    );
+    const moreThanJumpInterview = container.querySelector(
+      '[data-interview-feature-id="more-than-the-jump"]',
+    );
+    const gallery = container.querySelector("#gallery");
+    const links = container.querySelector("#social-media");
+
+    expect(jumpVideo).toBeInTheDocument();
+    expect(socialMediaInterview).toBeInTheDocument();
+    expect(experienceStory).toBeInTheDocument();
+    expect(progressionStory).toBeInTheDocument();
+    expect(moreThanJumpInterview).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /The Jump Lasts\s+Only Seconds/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Play Niclas Strohmeier BASE jump" }),
+    ).toBeVisible();
+    expect(screen.getByLabelText("Niclas Strohmeier BASE jump")).not.toHaveAttribute(
+      "controls",
+    );
+    expect(
+      screen.getByRole("heading", {
+        name: "How will social media change the BASE scene in the long term?",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "More Than Just the Jump" }),
+    ).toBeVisible();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/Ea3IJi8G6_g/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/lXJYZ2X_4G0/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /From Invulnerability\s+to Caution/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: /Slow Progression\s+Is Safe Progression/ }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Profile" })).toHaveAttribute(
+      "href",
+      "#biography",
+    );
+    expect(screen.getByRole("link", { name: "Progression" })).toHaveAttribute(
+      "href",
+      "#slow-progression",
+    );
+    expect(screen.queryByRole("link", { name: "Career" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "The Jump" })).toHaveAttribute(
+      "href",
+      "#the-jump",
+    );
+    expect(screen.getByRole("link", { name: "Social Media" })).toHaveAttribute(
+      "href",
+      "#social-media-impact",
+    );
+    expect(screen.getByRole("link", { name: "More Than the Jump" })).toHaveAttribute(
+      "href",
+      "#more-than-the-jump",
+    );
+    expect(screen.getByRole("link", { name: "Development" })).toHaveAttribute(
+      "href",
+      "#experience-and-caution",
+    );
+    expect(jumpVideo?.compareDocumentPosition(socialMediaInterview as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(
+      socialMediaInterview?.compareDocumentPosition(progressionStory as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      progressionStory?.compareDocumentPosition(moreThanJumpInterview as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      moreThanJumpInterview?.compareDocumentPosition(experienceStory as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(experienceStory?.compareDocumentPosition(gallery as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(gallery?.compareDocumentPosition(links as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    unmount();
+
+    const { container: germanContainer } = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "de", slug: "niclas-strohmeier" }),
+      }),
+    );
+
+    expect(
+      screen.getByRole("heading", { name: /Von Unverwundbarkeit\s+zu Vorsicht/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: /Langsame Progression\s+ist sichere Progression/,
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "Wie verändert Social Media die BASE-Szene langfristig?",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Mehr als nur der Sprung" }),
+    ).toBeVisible();
+    expect(
+      germanContainer.querySelector(
+        'img[src="https://i.ytimg.com/vi/9Ugc1_Mp_Ts/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      germanContainer.querySelector(
+        'img[src="https://i.ytimg.com/vi/_EVriuqgoMM/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Risiko respektieren lernen abspielen" }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Den langen Weg wählen abspielen" }),
+    ).toBeVisible();
   });
 
   it("renders only the matching hero quote for each athlete", async () => {
@@ -239,11 +378,23 @@ describe("athlete detail page", () => {
     expect(futureProject).toBeInTheDocument();
     expect(galleryLayout).toHaveClass(
       "grid",
-      "grid-cols-1",
-      "items-start",
-      "md:grid-cols-12",
+      "grid-cols-3",
+      "gap-2",
+      "md:grid-cols-2",
+      "xl:grid-cols-3",
     );
-    expect(galleryLayout?.querySelector("img")).toHaveClass("h-auto", "object-contain");
+    expect(galleryLayout).not.toHaveClass(
+      "overflow-y-auto",
+      "overflow-x-auto",
+      "snap-y",
+    );
+    expect(galleryLayout?.querySelector("li")).toHaveClass(
+      "col-span-2",
+      "row-span-2",
+      "md:col-span-1",
+    );
+    expect(galleryLayout?.querySelector("button > span")).toHaveClass("aspect-[4/3]");
+    expect(galleryLayout?.querySelector("img")).toHaveClass("h-full", "object-cover");
     expect(
       screen.getByRole("heading", {
         name: /You're Only as Good\s+as Your Last Stunt/,
@@ -324,7 +475,7 @@ describe("athlete detail page", () => {
     expect(screen.queryByText(/Replaceable:/)).not.toBeInTheDocument();
     await waitFor(() =>
       expect(
-        container.querySelector('source[src="/video/tim-howell/The_jump.mp4"]'),
+        container.querySelector('source[src="/video/tim-howell/The_jump_scrub.mp4"]'),
       ).toBeInTheDocument(),
     );
     expect(originStory?.compareDocumentPosition(careerInterview as Node)).toBe(
@@ -347,14 +498,14 @@ describe("athlete detail page", () => {
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
-      (decisionInterview?.compareDocumentPosition(gallerySection as Node) ?? 0) &
+      (decisionInterview?.compareDocumentPosition(futureProject as Node) ?? 0) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
-    expect(gallerySection?.compareDocumentPosition(futureProject as Node)).toBe(
+    expect(futureProject?.compareDocumentPosition(gallerySection as Node)).toBe(
       Node.DOCUMENT_POSITION_FOLLOWING,
     );
     expect(
-      (futureProject?.compareDocumentPosition(linksSection as Node) ?? 0) &
+      (gallerySection?.compareDocumentPosition(linksSection as Node) ?? 0) &
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
@@ -397,10 +548,26 @@ describe("athlete detail page", () => {
       "href",
       "#gallery",
     );
+    expect(
+      screen
+        .getByRole("heading", { name: "Photo Gallery" })
+        .closest("section")
+        ?.querySelector('[data-gallery-layout="editorial-grid"]'),
+    ).toHaveAttribute("data-gallery-count", "6");
     expect(screen.getByRole("button", { name: "View full gallery" })).toHaveAttribute(
       "aria-expanded",
       "false",
     );
+    fireEvent.click(screen.getByRole("button", { name: "View full gallery" }));
+    expect(
+      screen
+        .getByRole("heading", { name: "Photo Gallery" })
+        .closest("section")
+        ?.querySelector('[data-gallery-layout="editorial-grid"]'),
+    ).toHaveAttribute("data-gallery-count", "11");
+    expect(
+      screen.getByRole("button", { name: "Show curated selection" }),
+    ).toHaveAttribute("aria-expanded", "true");
     fireEvent.click(screen.getByRole("button", { name: "View all coverage" }));
     expect(screen.getByText("Pro record: Tim Howell")).toBeVisible();
     expect(screen.getByRole("button", { name: "Show less" })).toHaveAttribute(
@@ -543,12 +710,12 @@ describe("athlete detail page", () => {
     expect(projectSection).toBeInTheDocument();
     expect(mediaCoverageAnchor).toBeInTheDocument();
     expect(galleryLayout).toHaveAttribute("data-gallery-count", "6");
-    expect(galleryLayout?.querySelectorAll("li").item(5)).toHaveClass(
-      "md:col-span-6",
-      "xl:col-span-4",
+    expect(galleryLayout?.querySelectorAll("li").item(5)).toHaveAttribute(
+      "data-gallery-orientation",
+      "portrait",
     );
-    expect(galleryLayout?.querySelectorAll("button").item(0)).toHaveClass(
-      "aspect-[2/3]",
+    expect(galleryLayout?.querySelectorAll("button > span").item(0)).toHaveClass(
+      "aspect-[4/3]",
       "overflow-hidden",
     );
     expect(galleryLayout?.querySelector("img")).toHaveClass("object-cover");
@@ -666,7 +833,12 @@ describe("athlete detail page", () => {
     ).toHaveAttribute("src", "/images/athletes/lukas-loibl/Loch2.jpeg");
     expect(
       screen.getByLabelText("Lukas Loibl world record wingsuit flight"),
-    ).toHaveAttribute("controls");
+    ).not.toHaveAttribute("controls");
+    expect(
+      screen.getByRole("button", {
+        name: "Play Lukas Loibl world record wingsuit flight",
+      }),
+    ).toBeVisible();
     expect(
       screen.getByLabelText("Lukas Loibl world record wingsuit flight"),
     ).toHaveAttribute("poster", "/video/lukas-loibl/The_hole_thumbnail.png");
@@ -730,9 +902,11 @@ describe("athlete detail page", () => {
     ).toBeVisible();
 
     rerender(
-      await AthletePage({
-        params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
-      }),
+      <AudioProvider>
+        {await AthletePage({
+          params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
+        })}
+      </AudioProvider>,
     );
 
     expect(
@@ -745,6 +919,98 @@ describe("athlete detail page", () => {
         "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
       ),
     ).toBeVisible();
+  });
+
+  it("renders Josef Braun's camera-flying story in order for both locales", async () => {
+    const { container, unmount } = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
+      }),
+    );
+
+    const behindCamera = container.querySelector(
+      '[data-local-video-feature-id="behind-the-camera"]',
+    );
+    const creatingTheShot = container.querySelector(
+      '[data-interview-feature-id="creating-the-shot"]',
+    );
+    const finalShot = container.querySelector(
+      '[data-local-video-feature-id="final-shot"]',
+    );
+    const audioStory = container.querySelector(
+      '[data-audio-story-id="visibility-and-risk"]',
+    );
+    const gallery = screen.getByRole("heading", { name: "Photo Gallery" }).closest("section");
+
+    expect(behindCamera).toBeInTheDocument();
+    expect(creatingTheShot).toBeInTheDocument();
+    expect(finalShot).toBeInTheDocument();
+    expect(audioStory).toBeInTheDocument();
+    expect(
+      behindCamera!.compareDocumentPosition(creatingTheShot!) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      creatingTheShot!.compareDocumentPosition(finalShot!) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      finalShot!.compareDocumentPosition(audioStory!) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      audioStory!.compareDocumentPosition(gallery!) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+
+    expect(screen.getByRole("heading", { name: "Behind the Camera" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "How do you create a spectacular shot?",
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "The Final Shot" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "The Most Extreme Isn't Always What Goes Viral",
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "KEY INSIGHT" })).toBeVisible();
+    expect(
+      screen.getByLabelText("Josef Braun camera flying behind another athlete"),
+    ).not.toHaveAttribute("controls");
+    expect(
+      screen.getByLabelText("The completed camera-flight shot filmed by Josef Braun"),
+    ).not.toHaveAttribute("controls");
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/akHadwzWaeI/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+
+    unmount();
+
+    const german = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "de", slug: "josef-braun" }),
+      }),
+    );
+
+    expect(screen.getByRole("heading", { name: "Hinter der Kamera" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "Wie entsteht ein spektakulärer Shot?",
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Das fertige Bild" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Nicht immer das Extremste gewinnt" }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "ZENTRALE ERKENNTNIS" })).toBeVisible();
+    expect(
+      german.container.querySelector(
+        'img[src="https://i.ytimg.com/vi/xpN6g-VkC5U/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
   });
 
   it("renders localized hero quotes", async () => {
@@ -821,13 +1087,84 @@ describe("athlete detail page", () => {
         "The detailed story will be added once interview material has been reviewed.",
       ),
     ).not.toBeInTheDocument();
+    const mediaInterview = container.querySelector(
+      '[data-interview-feature-id="media-perception"]',
+    );
+    const stockhornInterview = container.querySelector(
+      '[data-interview-feature-id="stockhorn-reflection"]',
+    );
+    const proximityFlight = container.querySelector(
+      '[data-scroll-scrub-video-id="proximity-flight"]',
+    );
+    const careerHighlights = container.querySelector(
+      '[data-local-video-feature-id="career-highlights"]',
+    );
+
+    expect(mediaInterview).toBeInTheDocument();
+    expect(stockhornInterview).toBeInTheDocument();
+    expect(proximityFlight).toBeInTheDocument();
+    expect(careerHighlights).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "How the Media Misunderstands Risk" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "“Personally, I often feel that the outside world misjudges the risk.”",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Marcel Geser interview about media portrayals of BASE jumping risk",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Reflecting on his home jump" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "“Even now, when I watch the video again, I remember every single detail.”",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play Marcel Geser reflecting on his Stockhorn wingsuit jump",
+      }),
+    ).toBeVisible();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/Ux61aE9Q4Us/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/pWXj7Prr6L4/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /The Final\s*Line/ })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Years in Flight" })).toBeVisible();
+    expect(
+      screen.getByLabelText(
+        "Marcel Geser career highlights from recent BASE jumping years",
+      ),
+    ).not.toHaveAttribute("controls");
+    expect(
+      screen.getByRole("button", {
+        name: "Play Marcel Geser career highlights from recent BASE jumping years",
+      }),
+    ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Photo Gallery" })).toBeVisible();
+    const gallerySection = screen
+      .getByRole("heading", { name: "Photo Gallery" })
+      .closest("section");
+    const audioStory = container.querySelector(
+      '[data-audio-story-id="process-behind-the-highlight"]',
+    );
     expect(
       screen
         .getByRole("heading", { name: "Photo Gallery" })
         .closest("section")
         ?.querySelector('[data-gallery-layout="editorial-grid"]'),
-    ).toHaveClass("grid", "grid-cols-1", "items-start", "md:grid-cols-12");
+    ).toHaveClass("grid", "grid-cols-3", "gap-2", "md:grid-cols-2", "xl:grid-cols-3");
     expect(
       container.querySelector(
         'img[src="/images/athletes/marcel-geser/gallery/DJI_20250607050910_0491_D.jpg"]',
@@ -837,13 +1174,16 @@ describe("athlete detail page", () => {
       container.querySelector(
         'img[src="/images/athletes/marcel-geser/gallery/DJI_20250607050910_0491_D.jpg"]',
       ),
-    ).toHaveClass("h-auto", "object-contain");
+    ).toHaveClass("h-full", "object-cover");
     fireEvent.click(
       screen.getByRole("button", {
         name: /Open image full size: Wingsuit pilot standing on a grassy launch slope/,
       }),
     );
     expect(screen.getByRole("dialog")).toBeVisible();
+    expect(screen.getByRole("dialog").querySelector("img")).toHaveClass(
+      "object-contain",
+    );
     expect(screen.getByText("Image 1 / 9")).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "Next image" }));
     expect(screen.getByText("Image 2 / 9")).toBeVisible();
@@ -851,15 +1191,73 @@ describe("athlete detail page", () => {
       screen.getAllByRole("button", { name: "Close full-size image" })[0],
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(audioStory).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Beyond the\s+Final Result/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Play The Process Behind the Highlight",
+      }),
+    ).toBeVisible();
+    expect(
+      screen.getByAltText(
+        "Marcel Geser smiling with his parachute in front of snowy mountains",
+      ),
+    ).toHaveAttribute("src", "/images/athletes/marcel-geser/audio.jpg");
+    expect(screen.getByRole("link", { name: "Behind the Highlight" })).toHaveAttribute(
+      "href",
+      "#audio-story",
+    );
+    expect(screen.getByRole("link", { name: "Media & Risk" })).toHaveAttribute(
+      "href",
+      "#media-perception",
+    );
+    expect(screen.getByRole("link", { name: "Home Jump" })).toHaveAttribute(
+      "href",
+      "#stockhorn-reflection",
+    );
+    expect(screen.getByRole("link", { name: "The Flight" })).toHaveAttribute(
+      "href",
+      "#proximity-flight",
+    );
+    expect(screen.getByRole("link", { name: "Career Highlights" })).toHaveAttribute(
+      "href",
+      "#career-highlights",
+    );
     expect(screen.queryByText("Interview Quotes")).not.toBeInTheDocument();
     expect(screen.queryByText("Audio Interviews")).not.toBeInTheDocument();
-    expect(container.querySelector("video")).toBeNull();
     expect(
       screen.queryByRole("button", { name: "Play video" }),
     ).not.toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "Personal Links & Socials" }),
     ).toBeVisible();
+    const linksSection = screen
+      .getByRole("heading", { name: "Personal Links & Socials" })
+      .closest("section");
+    const mediaCoverageSection = container.querySelector("#media-coverage");
+    expect(
+      mediaInterview?.compareDocumentPosition(stockhornInterview as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      stockhornInterview?.compareDocumentPosition(proximityFlight as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(proximityFlight?.compareDocumentPosition(audioStory as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(audioStory?.compareDocumentPosition(careerHighlights as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(careerHighlights?.compareDocumentPosition(gallerySection as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(gallerySection?.compareDocumentPosition(linksSection as Node) ?? 0).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(
+      linksSection?.compareDocumentPosition(mediaCoverageSection as Node) ?? 0,
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(
       screen.getByRole("link", { name: /Marcel Geser on YouTube/ }),
     ).toHaveAttribute("target", "_blank");
@@ -879,11 +1277,20 @@ describe("athlete detail page", () => {
       screen.getByRole("heading", { name: "More Athlete Portraits" }),
     ).toBeVisible();
     expect(container.querySelector("audio")).toBeNull();
-    expect(container.querySelector("video")).toBeNull();
+    await waitFor(() =>
+      expect(
+        container.querySelector('source[src="/video/marcel-geser/The_jump_scrub.mp4"]'),
+      ).toBeInTheDocument(),
+    );
+    await waitFor(() =>
+      expect(
+        container.querySelector('source[src="/video/marcel-geser/Summary.mp4"]'),
+      ).toBeInTheDocument(),
+    );
   });
 
   it("renders German profile structure and translated empty states", async () => {
-    await renderAsyncPage(
+    const { container } = await renderAsyncPage(
       AthletePage({
         params: Promise.resolve({ locale: "de", slug: "marcel-geser" }),
       }),
@@ -919,7 +1326,51 @@ describe("athlete detail page", () => {
         "Die ausführliche Geschichte wird ergänzt, sobald das Interviewmaterial ausgewertet wurde.",
       ),
     ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Wie Medien Risiko missverstehen" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "“Persönlich habe ich häufig das Gefühl, dass die Aussenwelt das Risiko falsch einschätzt.”",
+      ),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Reflexion über seinen Heimsprung" }),
+    ).toBeVisible();
+    expect(
+      screen.getByText(
+        "“Auch wenn ich das Video jetzt nochmal schaue, dann erinnere ich mich noch an jedes Detail.”",
+      ),
+    ).toBeVisible();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/4Z0y1E7hUy0/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/2dOWBr7Vfzw/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Die fertige\s*Linie/ })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Jahre im Flug" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Fotogalerie" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: /Mehr als das\s+Endprodukt/ }),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: "Der Prozess hinter dem Highlight abspielen",
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("link", { name: "Hinter dem Highlight" })).toHaveAttribute(
+      "href",
+      "#audio-story",
+    );
+    expect(screen.getByRole("link", { name: "Heimsprung" })).toHaveAttribute(
+      "href",
+      "#stockhorn-reflection",
+    );
     expect(screen.queryByText("Interviewzitate")).not.toBeInTheDocument();
     expect(screen.queryByText("Audio-Interviews")).not.toBeInTheDocument();
     expect(

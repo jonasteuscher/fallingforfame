@@ -19,6 +19,7 @@ export {
 export { ProjectStorySection } from "@/components/athletes/ProjectStorySection";
 export { ScrollScrubVideo } from "@/components/athletes/ScrollScrubVideo";
 export { InterviewFeature } from "@/components/athletes/InterviewFeature";
+export { LocalVideoFeature } from "@/components/athletes/LocalVideoFeature";
 export { AthleteProfileOverview } from "@/components/athletes/AthleteProfileOverview";
 export {
   AthleteArticlesSection,

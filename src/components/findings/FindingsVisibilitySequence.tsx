@@ -156,7 +156,7 @@ export function FindingsVisibilitySequence({
       id={chapter.id}
       ref={sectionRef}
       aria-labelledby={`${chapter.id}-title`}
-      className="relative scroll-mt-24 border-t border-border md:h-[460svh] md:min-h-[2800px]"
+      className="relative scroll-mt-24 border-t border-border xl:h-[460svh] xl:min-h-[2800px]"
     >
       <h2 id={`${chapter.id}-title`} className="sr-only">
         {chapter.title}
@@ -172,7 +172,7 @@ export function FindingsVisibilitySequence({
         quoteSourceLabel={quoteSourceLabel}
       />
 
-      <div className="sticky top-14 hidden h-[calc(100svh-3.5rem)] overflow-hidden bg-background md:block">
+      <div className="sticky top-14 hidden h-[calc(100svh-3.5rem)] overflow-hidden bg-background xl:block">
         <div className="mx-auto flex h-full max-w-7xl flex-col justify-center px-6 py-10 xl:px-10">
           <header className="relative z-10 mb-6">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
@@ -421,7 +421,7 @@ function MobileVisibilitySequence({
   const learningState = states.find((state) => state.id === "learning") ?? states[0];
 
   return (
-    <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
+    <div className="findings-flow-layout px-4 py-[var(--section-gap-standard)] sm:px-6 xl:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.eyebrow}
       </p>

@@ -30,8 +30,19 @@ export type AthleteOriginStoryBeat = {
 export type AthleteImage = {
   src: string;
   alt: LocalizedText;
+  caption?: LocalizedText;
+  credit?: LocalizedText;
   width?: number;
   height?: number;
+  orientation?: "landscape" | "portrait";
+  featured?: "wide" | "tall";
+  objectPosition?:
+    | string
+    | {
+        desktop?: string;
+        tablet?: string;
+        mobile?: string;
+      };
 };
 
 export type AthleteAudio = {
@@ -57,6 +68,7 @@ export type AthleteInterviewFeature = {
   quote: string;
   subtitle?: LocalizedText;
   intro?: LocalizedText;
+  highlightQuote?: LocalizedText;
   iframeTitle: LocalizedText;
   poster: string | null;
   videos: {
@@ -71,12 +83,30 @@ export type AthleteInterviewFeature = {
   };
 };
 
+export type AthleteLocalVideoFeature = {
+  id: string;
+  controls?: "native" | "cinematic";
+  chapter: LocalizedText;
+  title: LocalizedText;
+  displayTitle?: LocalizedText;
+  intro: LocalizedText;
+  video: {
+    src: string;
+    type: "video/mp4";
+    poster?: string | null;
+    objectFit?: "contain" | "cover";
+    label: LocalizedText;
+    caption?: LocalizedText;
+  };
+};
+
 export type AthleteAudioStory = {
   id: string;
   placement: "after-gallery";
   chapter: LocalizedText;
   title: LocalizedText;
   displayTitle: string | LocalizedText;
+  titleLayout?: "standard" | "wide";
   description?: LocalizedText;
   audio: {
     src: string;
@@ -88,6 +118,10 @@ export type AthleteAudioStory = {
   portrait: string | null;
   portraitAlt?: LocalizedText;
   duration?: string | null;
+  insight?: {
+    title: LocalizedText;
+    text: LocalizedText;
+  };
 };
 
 export type ProjectStatus = "current" | "future" | "completed";
@@ -117,6 +151,13 @@ export type AthletePageSectionConfig =
   | {
       id: string;
       type: "scroll-video";
+      includeInProgress?: boolean;
+      spacing?: "compact" | "standard" | "immersive";
+    }
+  | {
+      id: string;
+      type: "local-video";
+      featureId: string;
       includeInProgress?: boolean;
       spacing?: "compact" | "standard" | "immersive";
     }
@@ -207,10 +248,11 @@ export type AthleteScrollVideo = {
   id: string;
   chapter: LocalizedText;
   title: LocalizedText;
-  displayTitle: string;
+  displayTitle: string | LocalizedText;
   description?: LocalizedText;
   video: {
     src: string;
+    scrubSrc?: string;
     type: "video/mp4";
   };
   poster?: string | null;
@@ -278,6 +320,7 @@ export type Athlete = {
   originStory: AthleteOriginStoryBeat[];
   interviewFeatures?: AthleteInterviewFeature[];
   audioStories?: AthleteAudioStory[];
+  localVideoFeatures?: AthleteLocalVideoFeature[];
   scrollVideo?: AthleteScrollVideo;
   futureProject?: AthleteFutureProject;
   currentProject?: AthleteCurrentProject;

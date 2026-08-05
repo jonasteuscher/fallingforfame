@@ -25,10 +25,6 @@ export function ImprintPage({ content }: ImprintPageProps) {
   return (
     <article className="bg-background text-foreground">
       <section className="relative isolate overflow-hidden px-4 py-20 sm:px-6 sm:py-28 xl:px-10">
-        <div
-          className="absolute left-1/2 top-1/2 -z-10 h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/12 bg-primary/5 blur-3xl"
-          aria-hidden="true"
-        />
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
             {content.hero.eyebrow}

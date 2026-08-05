@@ -272,7 +272,7 @@ export function InterviewFeature({
         }
         data-interview-layout={layout}
       >
-        <header>
+        <header className="min-w-0">
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
             {feature.chapter[locale]}
           </p>
@@ -287,13 +287,18 @@ export function InterviewFeature({
               {(feature.subtitle ?? feature.intro)?.[locale]}
             </p>
           ) : null}
+          {feature.highlightQuote ? (
+            <blockquote className="mt-8 max-w-2xl border-l-2 border-primary pl-5 text-xl font-semibold leading-8 text-foreground sm:text-2xl">
+              &ldquo;{feature.highlightQuote[locale]}&rdquo;
+            </blockquote>
+          ) : null}
         </header>
 
         <figure
           className={
             layout === "stacked"
               ? "mt-10 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 sm:mt-12"
-              : "mt-0 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
+              : "mt-0 min-w-0 motion-safe:animate-[fade-in-up_700ms_ease-out_160ms_forwards] motion-safe:translate-y-4 motion-safe:opacity-0"
           }
         >
           <div className="overflow-hidden bg-background shadow-[0_28px_90px_color-mix(in_srgb,var(--background)_78%,black)]">

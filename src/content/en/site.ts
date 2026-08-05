@@ -2,6 +2,7 @@ import { athletes, athleteExperience, athleteMeta } from "@/content/en/athletes"
 import { findings, findingsPage } from "@/content/en/findings";
 import { home } from "@/content/en/home";
 import { imprint } from "@/content/en/imprint";
+import { privacy } from "@/content/en/privacy";
 import { project, timeline } from "@/content/en/project";
 import { sport } from "@/content/en/sport";
 
@@ -29,9 +30,10 @@ export const site = {
   },
   footer: {
     description:
-      "Falling for Fame? prepares a bilingual multimedia documentary structure for thesis research, interviews and field documentation.",
+      "Falling for Fame? - A multimedia web documentary about BASE jumping.",
     copyright: "© Jonas Teuscher 2026",
     imprint: "Imprint",
+    privacy: "Privacy",
   },
   home,
   athletes,
@@ -39,6 +41,7 @@ export const site = {
   sport,
   findings: findingsPage,
   imprint,
+  privacy,
 };
 
 export { athleteExperience, athleteMeta, findings, timeline };

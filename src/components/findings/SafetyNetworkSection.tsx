@@ -102,8 +102,8 @@ export function SafetyNetworkSection({
       aria-labelledby={`${chapter.id}-title`}
       className="scroll-mt-24 border-t border-border px-4 py-[var(--section-gap-immersive)] sm:px-6 xl:px-10"
     >
-      <div className="safety-network-inner mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
-        <header className="safety-network-copy min-w-0 lg:sticky lg:top-24 lg:max-h-[calc(100svh-7rem)] lg:self-start">
+      <div className="safety-network-inner mx-auto grid max-w-7xl gap-12 xl:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
+        <header className="safety-network-copy min-w-0 xl:sticky xl:top-24 xl:max-h-[calc(100svh-7rem)] xl:self-start">
           <p className={revealClass(hasEntered)} style={{ animationDelay: "0ms" }}>
             <span className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
               {chapter.eyebrow}
@@ -156,7 +156,7 @@ function SafetyNetworkVisual({
   return (
     <div className="safety-network-visual space-y-6">
       <ul
-        className="safety-network-nodes grid gap-3 sm:grid-cols-2 lg:grid-cols-5"
+        className="safety-network-nodes grid gap-3 sm:grid-cols-2 xl:grid-cols-5"
         aria-label={chapter.navLabel}
       >
         {chapter.layers?.map((node, index) => (

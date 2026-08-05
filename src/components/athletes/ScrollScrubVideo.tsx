@@ -40,6 +40,7 @@ function ScrollScrubSection({
 }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
+  const scrimRef = useRef<HTMLDivElement | null>(null);
   const textOverlayRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -50,7 +51,12 @@ function ScrollScrubSection({
   const lastTimeRef = useRef(-1);
   const isMetadataReadyRef = useRef(false);
   const isSeekingRef = useRef(false);
+  const desiredTimeRef = useRef<number | null>(null);
   const headingId = useId();
+  const displayTitle =
+    typeof video.displayTitle === "string"
+      ? video.displayTitle
+      : video.displayTitle[locale];
   const [duration, setDuration] = useState(0);
   const [isBuffering, setIsBuffering] = useState(false);
   const [mode, setMode] = useState<CapabilityMode | null>(null);
@@ -76,6 +82,33 @@ function ScrollScrubSection({
     node.style.opacity = String(opacity);
     node.style.transform = `translateY(${(1 - opacity) * -0.75}rem)`;
     node.style.visibility = opacity <= 0 ? "hidden" : "visible";
+
+    if (scrimRef.current) {
+      scrimRef.current.style.opacity = String(opacity);
+    }
+  }, []);
+
+  const seekToTime = useCallback((targetTime: number) => {
+    const media = videoRef.current;
+
+    if (
+      !media ||
+      !isMetadataReadyRef.current ||
+      isSeekingRef.current ||
+      Math.abs(lastTimeRef.current - targetTime) < seekThreshold
+    ) {
+      return;
+    }
+
+    lastTimeRef.current = targetTime;
+    media.pause();
+
+    try {
+      isSeekingRef.current = true;
+      media.currentTime = targetTime;
+    } catch {
+      isSeekingRef.current = false;
+    }
   }, []);
 
   const scrubToScrollPosition = useCallback(() => {
@@ -98,23 +131,9 @@ function ScrollScrubSection({
     const maxTime = Math.max(durationValue - finalFramePadding, 0);
     const targetTime = clamp(progress * maxTime, 0, maxTime);
 
-    if (Math.abs(lastTimeRef.current - targetTime) < seekThreshold) {
-      return;
-    }
-
-    lastTimeRef.current = targetTime;
-    media.pause();
-
-    try {
-      isSeekingRef.current = true;
-      // Scroll scrubbing works best when source media uses frequent keyframes
-      // (roughly 0.5-1s GOP), H.264 MP4, fast start, stable frame rate and
-      // a reasonable bitrate.
-      media.currentTime = targetTime;
-    } catch {
-      isSeekingRef.current = false;
-    }
-  }, [updateTextOverlay]);
+    desiredTimeRef.current = targetTime;
+    seekToTime(targetTime);
+  }, [seekToTime, updateTextOverlay]);
 
   const scheduleScrubUpdate = useCallback(() => {
     if (rafRef.current !== null) {
@@ -143,7 +162,7 @@ function ScrollScrubSection({
           observer.disconnect();
         }
       },
-      { rootMargin: "1600px 0px", threshold: 0.01 },
+      { rootMargin: "3200px 0px", threshold: 0.01 },
     );
 
     observer.observe(node);
@@ -190,6 +209,12 @@ function ScrollScrubSection({
     function handleSettled() {
       isSeekingRef.current = false;
       setIsBuffering(false);
+
+      const desiredTime = desiredTimeRef.current;
+
+      if (desiredTime !== null) {
+        seekToTime(desiredTime);
+      }
     }
 
     function handleError() {
@@ -212,7 +237,7 @@ function ScrollScrubSection({
       element.removeEventListener("stalled", handleWaiting);
       element.removeEventListener("error", handleError);
     };
-  }, [mode, scheduleScrubUpdate]);
+  }, [mode, scheduleScrubUpdate, seekToTime]);
 
   useEffect(() => {
     if (mode !== "scrub") {
@@ -288,11 +313,16 @@ function ScrollScrubSection({
             className="h-full w-full object-cover"
           >
             {sourceEnabled ? (
-              <source src={video.video.src} type={video.video.type} />
+              <source
+                src={video.video.scrubSrc ?? video.video.src}
+                type={video.video.type}
+              />
             ) : null}
           </video>
           <div
-            className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_32%,transparent)_0%,transparent_35%,color-mix(in_srgb,var(--background)_44%,transparent)_100%)]"
+            ref={scrimRef}
+            data-scroll-video-scrim
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_64%,transparent)_0%,color-mix(in_srgb,var(--background)_38%,transparent)_46%,color-mix(in_srgb,var(--background)_48%,transparent)_100%)] transition-opacity duration-500 motion-reduce:transition-none"
             aria-hidden="true"
           />
           <div
@@ -306,10 +336,10 @@ function ScrollScrubSection({
                   {video.chapter[locale]}
                 </p>
                 <SectionTitle id={headingId} size="scroll">
-                  {video.displayTitle}
+                  {displayTitle}
                 </SectionTitle>
                 {video.description ? (
-                  <p className="mt-6 max-w-xl text-base leading-7 text-foreground/72 sm:text-lg">
+                  <p className="mt-6 max-w-xl text-base font-medium leading-7 text-foreground [text-shadow:0_2px_10px_rgba(0,0,0,0.95)] sm:text-lg">
                     {video.description[locale]}
                   </p>
                 ) : null}
@@ -339,6 +369,10 @@ function VideoFallback({
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const videoId = useId();
+  const displayTitle =
+    typeof video.displayTitle === "string"
+      ? video.displayTitle
+      : video.displayTitle[locale];
 
   useEffect(() => {
     return registerVideoPlayer(videoId, () => {
@@ -358,7 +392,7 @@ function VideoFallback({
           {video.chapter[locale]}
         </p>
         <SectionTitle id={headingId} size="standardStatic">
-          {video.displayTitle}
+          {displayTitle}
         </SectionTitle>
         {video.description ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
@@ -433,7 +467,7 @@ function detectCapabilityMode(): CapabilityMode {
     return "fallback";
   }
 
-  if (coarsePointer && window.innerWidth < 900) {
+  if (coarsePointer) {
     return "fallback";
   }
 

@@ -44,8 +44,12 @@ export function AthleteGalleryLightbox({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const activeImage = activeIndex === null ? null : images[activeIndex];
+  const activeCaptionId = activeIndex === null ? undefined : `athlete-gallery-caption-${activeIndex}`;
   const text = labels[locale];
   const warmedImages = useRef(new Set<string>());
+  const thumbnailRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
   const hasHiddenImages =
     initialVisibleCount !== undefined && images.length > initialVisibleCount;
   const visibleImages =
@@ -95,37 +99,84 @@ export function AthleteGalleryLightbox({
     [lightboxPreloadProps],
   );
 
+  const closeLightbox = useCallback(() => {
+    setActiveIndex((current) => {
+      if (current !== null) {
+        window.requestAnimationFrame(() => thumbnailRefs.current[current]?.focus());
+      }
+
+      return null;
+    });
+  }, []);
+
   useEffect(() => {
     if (activeIndex === null) {
       return;
     }
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+
+    function getFocusableElements() {
+      return Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      );
+    }
+
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setActiveIndex(null);
+        closeLightbox();
+        return;
       }
 
       if (event.key === "ArrowRight") {
         setActiveIndex((current) =>
           current === null ? current : (current + 1) % images.length,
         );
+        return;
       }
 
       if (event.key === "ArrowLeft") {
         setActiveIndex((current) =>
           current === null ? current : (current - 1 + images.length) % images.length,
         );
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusableElements = getFocusableElements();
+
+      if (!focusableElements.length) {
+        event.preventDefault();
+        dialogRef.current?.focus();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
       }
     }
 
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeIndex, images.length]);
+  }, [activeIndex, closeLightbox, images.length]);
 
   useEffect(() => {
     if (activeIndex === null || images.length <= 1) {
@@ -151,46 +202,60 @@ export function AthleteGalleryLightbox({
   return (
     <>
       <ul
-        className="grid grid-cols-1 items-start gap-5 md:grid-cols-12"
+        className="grid auto-rows-[minmax(6rem,1fr)] grid-cols-3 gap-2 md:auto-rows-auto md:grid-cols-2 md:gap-5 lg:gap-6 xl:grid-cols-3"
         data-gallery-layout="editorial-grid"
         data-gallery-count={visibleImages.length}
       >
-        {visibleImages.map((image, index) => (
-          <li
-            key={image.src}
-            className={[
-              "self-start overflow-hidden border border-border bg-surface motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0",
-              getGalleryItemClassName(visibleImages.length, index),
-            ].join(" ")}
-            style={{ animationDelay: `${(index % 6) * 80}ms` }}
-          >
-            <button
-              type="button"
+        {visibleImages.map((image, index) => {
+          const layout = getGalleryImageLayout(image);
+
+          return (
+            <li
+              key={image.src}
               className={[
-                "group block w-full cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-                visibleImages.length === 6 ? "aspect-[2/3] overflow-hidden" : "h-auto",
+                "min-w-0 motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 md:self-start",
+                getGalleryItemClassName(index),
               ].join(" ")}
-              aria-label={`${text.open}: ${image.alt[locale]}`}
-              onFocus={() => warmImage(index)}
-              onClick={() => setActiveIndex(index)}
-              onPointerEnter={() => warmImage(index)}
+              style={{ animationDelay: `${(index % 6) * 80}ms` }}
+              data-gallery-orientation={layout.orientation}
+              data-gallery-featured={image.featured ?? "false"}
             >
-              <Image
-                src={image.src}
-                alt={image.alt[locale]}
-                width={image.width ?? 1200}
-                height={image.height ?? 900}
-                sizes={thumbnailSizes}
-                quality={68}
-                className={
-                  visibleImages.length === 6
-                    ? "h-full w-full cursor-pointer object-cover transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
-                    : "h-auto w-full cursor-pointer object-contain transition duration-500 group-hover:scale-[1.02] motion-reduce:transition-none"
-                }
-              />
-            </button>
-          </li>
-        ))}
+              <button
+                ref={(element) => {
+                  thumbnailRefs.current[index] = element;
+                }}
+                type="button"
+                className="group block w-full cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                aria-label={`${text.open}: ${image.alt[locale]}`}
+                onFocus={() => warmImage(index)}
+                onClick={() => setActiveIndex(index)}
+                onPointerEnter={() => warmImage(index)}
+              >
+                <span
+                  className={[
+                    "relative block h-full min-h-24 overflow-hidden border border-border bg-surface md:min-h-0",
+                    layout.aspectClassName,
+                  ].join(" ")}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt[locale]}
+                    width={image.width ?? 1200}
+                    height={image.height ?? 900}
+                    sizes={thumbnailSizes}
+                    quality={68}
+                    className="h-full w-full cursor-pointer object-cover transition duration-500 group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none"
+                    style={{ objectPosition: getObjectPosition(image) }}
+                  />
+                  <span
+                    className="pointer-events-none absolute inset-0 border border-transparent transition duration-300 group-hover:border-primary/60 group-focus-visible:border-primary motion-reduce:transition-none"
+                    aria-hidden="true"
+                  />
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
 
       {hasHiddenImages ? (
@@ -206,16 +271,20 @@ export function AthleteGalleryLightbox({
 
       {activeImage ? (
         <div
+          ref={dialogRef}
           className="fixed inset-0 z-50 flex min-h-svh items-center justify-center bg-background/94 p-4 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-label={activeImage.alt[locale]}
+          aria-describedby={
+            activeImage.caption || activeImage.credit ? activeCaptionId : undefined
+          }
+          tabIndex={-1}
         >
-          <button
-            type="button"
+          <div
             className="absolute inset-0 cursor-pointer"
-            aria-label={text.close}
-            onClick={() => setActiveIndex(null)}
+            aria-hidden="true"
+            onClick={closeLightbox}
           />
 
           <div className="relative z-10 flex h-full max-h-[calc(100svh-2rem)] w-full max-w-7xl flex-col gap-4 sm:max-h-[calc(100svh-3rem)]">
@@ -224,10 +293,11 @@ export function AthleteGalleryLightbox({
                 {text.counter} {(activeIndex ?? 0) + 1} / {images.length}
               </p>
               <button
+                ref={closeButtonRef}
                 type="button"
                 className="flex h-11 w-11 cursor-pointer items-center justify-center border border-border bg-surface text-xl font-semibold text-foreground transition hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 aria-label={text.close}
-                onClick={() => setActiveIndex(null)}
+                onClick={closeLightbox}
               >
                 X
               </button>
@@ -245,6 +315,17 @@ export function AthleteGalleryLightbox({
                 className="object-contain"
               />
             </div>
+
+            {activeImage.caption || activeImage.credit ? (
+              <p
+                id={activeCaptionId}
+                className="max-w-3xl text-sm leading-relaxed text-foreground/72"
+              >
+                {activeImage.caption ? activeImage.caption[locale] : null}
+                {activeImage.caption && activeImage.credit ? " " : null}
+                {activeImage.credit ? activeImage.credit[locale] : null}
+              </p>
+            ) : null}
 
             {images.length > 1 ? (
               <div className="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 items-center justify-between px-1 sm:px-3">
@@ -273,38 +354,34 @@ export function AthleteGalleryLightbox({
   );
 }
 
-function getGalleryItemClassName(count: number, index: number) {
-  const patterns: Record<number, string[]> = {
-    6: [
-      "md:col-span-6 xl:col-span-4",
-      "md:col-span-6 xl:col-span-4",
-      "md:col-span-6 xl:col-span-4",
-      "md:col-span-6 xl:col-span-4",
-      "md:col-span-6 xl:col-span-4",
-      "md:col-span-6 xl:col-span-4",
-    ],
-    8: [
-      "md:col-span-7",
-      "md:col-span-5",
-      "md:col-span-4",
-      "md:col-span-4",
-      "md:col-span-4",
-      "md:col-span-6",
-      "md:col-span-6",
-      "md:col-span-12",
-    ],
-    9: [
-      "md:col-span-7",
-      "md:col-span-5",
-      "md:col-span-4",
-      "md:col-span-4",
-      "md:col-span-4",
-      "md:col-span-6",
-      "md:col-span-6",
-      "md:col-span-5",
-      "md:col-span-7",
-    ],
-  };
+type GalleryImageLayout = {
+  orientation: "landscape" | "portrait";
+  aspectClassName: string;
+};
 
-  return patterns[count]?.[index] ?? "md:col-span-4";
+function getGalleryImageLayout(image: AthleteImage): GalleryImageLayout {
+  const orientation =
+    image.orientation ??
+    ((image.width ?? 1) >= (image.height ?? 1) ? "landscape" : "portrait");
+
+  return {
+    orientation,
+    aspectClassName: "aspect-[4/3]",
+  };
+}
+
+function getGalleryItemClassName(index: number) {
+  if (index === 0) {
+    return "col-span-2 row-span-2 md:col-span-1 md:row-span-1";
+  }
+
+  return "";
+}
+
+function getObjectPosition(image: AthleteImage) {
+  if (typeof image.objectPosition === "string") {
+    return image.objectPosition;
+  }
+
+  return image.objectPosition?.desktop ?? image.objectPosition?.tablet ?? "50% 50%";
 }

@@ -173,7 +173,7 @@ export function NoJumpDecisionSection({
         interpretationLabel={interpretationLabel}
         quoteSourceLabel={quoteSourceLabel}
       />
-      <div className="hidden md:block md:h-[340svh] md:min-h-[2400px]">
+      <div className="hidden xl:block xl:h-[340svh] xl:min-h-[2400px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
           <div className="no-jump-sticky-inner mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-y-6 px-6 py-8 xl:px-10">
             <header className="no-jump-header relative z-10 max-w-none">
@@ -209,7 +209,7 @@ export function NoJumpDecisionSection({
           </div>
         </div>
       </div>
-      <div className="no-jump-quote-section relative z-20 hidden px-6 pt-12 md:block xl:px-10">
+      <div className="no-jump-quote-section relative z-20 hidden px-6 pt-12 xl:block xl:px-10">
         <div className="mx-auto max-w-5xl">
           <NoJumpFinalText
             chapter={chapter}
@@ -290,18 +290,20 @@ function NoJumpConditionList({
   locale,
   activeCondition,
   hiddenAmount,
+  mobileSolid,
 }: {
   layers: string[];
   locale: Locale;
   activeCondition: number;
   hiddenAmount: number;
+  mobileSolid?: boolean;
 }) {
   const bodies = conditionBodies[locale];
 
   return (
     <ol
       className="no-jump-list mt-8 grid max-w-[34rem] gap-2.5 transition-opacity duration-500 ease-out motion-reduce:transition-none"
-      style={{ opacity: 1 - hiddenAmount * 0.72 }}
+      style={{ opacity: mobileSolid ? 1 : 1 - hiddenAmount * 0.72 }}
       aria-label="No-go conditions"
     >
       {layers.map((layer, index) => {
@@ -315,13 +317,19 @@ function NoJumpConditionList({
               "no-jump-row grid grid-cols-[2.4rem_1fr] gap-3 border-b border-border/46 pb-3",
               isActive ? "is-active" : isPast ? "is-past" : "is-upcoming",
             ].join(" ")}
-            style={{ opacity: isActive ? 1 : isPast ? 0.52 : 0.26 }}
+            style={{
+              opacity: mobileSolid ? 1 : isActive ? 1 : isPast ? 0.52 : 0.26,
+            }}
             aria-current={isActive ? "step" : undefined}
           >
             <span
               className={[
                 "text-xs font-semibold",
-                isActive ? "text-primary" : "text-foreground/48",
+                mobileSolid
+                  ? "text-foreground"
+                  : isActive
+                    ? "text-primary"
+                    : "text-foreground/48",
               ].join(" ")}
             >
               {String(index + 1).padStart(2, "0")}
@@ -330,12 +338,22 @@ function NoJumpConditionList({
               <p
                 className={[
                   "text-sm font-semibold uppercase tracking-[0.12em]",
-                  isActive ? "text-foreground" : "text-foreground/58",
+                  mobileSolid
+                    ? "text-foreground"
+                    : isActive
+                      ? "text-foreground"
+                      : "text-foreground/58",
                 ].join(" ")}
               >
                 {layer}
               </p>
-              <p className="no-jump-row-body mt-1.5 text-sm leading-6 text-foreground/54">
+              <p
+                className={
+                  mobileSolid
+                    ? "no-jump-row-body mt-1.5 text-sm leading-6 text-foreground"
+                    : "no-jump-row-body mt-1.5 text-sm leading-6 text-foreground/54"
+                }
+              >
                 {bodies[index]}
               </p>
             </div>
@@ -386,7 +404,7 @@ function MobileNoJumpDecision({
   layers: string[];
 }) {
   return (
-    <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
+    <div className="findings-flow-layout px-4 py-[var(--section-gap-standard)] sm:px-6 xl:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.eyebrow}
       </p>
@@ -428,6 +446,7 @@ function MobileNoJumpDecision({
         locale={locale}
         activeCondition={layers.length - 1}
         hiddenAmount={0}
+        mobileSolid
       />
       <div className="mt-10 border-l border-primary pl-5">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
@@ -512,7 +531,7 @@ function NoJumpFindingSummary({
   sourcePrefix,
   empiricalLabel,
   interpretationLabel,
-  className = "relative z-20 hidden px-6 pt-12 pb-[var(--section-gap-standard)] md:block xl:px-10",
+  className = "relative z-20 hidden px-6 pt-12 pb-[var(--section-gap-standard)] xl:block xl:px-10",
 }: Omit<NoJumpDecisionSectionProps, "locale" | "quoteSourceLabel"> & {
   className?: string;
 }) {

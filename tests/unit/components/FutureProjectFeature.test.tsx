@@ -80,7 +80,7 @@ describe("FutureProjectFeature", () => {
       "Tim Howell — Future Project: A Leap from the Top of the World",
     );
 
-    expect(video).toHaveAttribute("controls");
+    expect(video).not.toHaveAttribute("controls");
     expect(video).toHaveAttribute("playsinline");
     expect(video).toHaveAttribute("preload", "metadata");
     expect(video).toHaveAttribute(
@@ -88,6 +88,11 @@ describe("FutureProjectFeature", () => {
       "Tim Howell — Future Project: A Leap from the Top of the World",
     );
     expect(video.closest("div")).toHaveClass("aspect-video");
+    expect(
+      screen.getByRole("button", {
+        name: "Play Tim Howell — Future Project: A Leap from the Top of the World",
+      }),
+    ).toBeVisible();
 
     await waitFor(() =>
       expect(video.querySelector("source")).toHaveAttribute(

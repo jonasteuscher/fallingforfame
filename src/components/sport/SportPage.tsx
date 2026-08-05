@@ -492,7 +492,7 @@ function HistoryTimeline({
       className="px-4 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-24 lg:pb-0"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="lg:hidden">
+        <div className="xl:hidden">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.title}
           </p>
@@ -501,10 +501,10 @@ function HistoryTimeline({
           </h2>
         </div>
 
-        <div className="mt-10 gap-8 lg:mt-0 lg:grid lg:grid-cols-[360px_minmax(0,1fr)] lg:items-stretch">
+        <div className="mt-10 gap-8 xl:mt-0 xl:grid xl:grid-cols-[360px_minmax(0,1fr)] xl:items-stretch">
           <div
             ref={railSlotRef}
-            className="relative hidden min-h-[calc(100svh-3.5rem)] lg:block"
+            className="relative hidden min-h-[calc(100svh-3.5rem)] xl:block"
           >
             <aside
               className={
@@ -528,14 +528,14 @@ function HistoryTimeline({
               />
             </aside>
           </div>
-          <ol className="grid min-w-0 flex-1 gap-8 lg:py-16">
+          <ol className="grid min-w-0 flex-1 gap-8 xl:py-16">
             {content.items.map((item, index) => (
               <li
                 key={`${item.date}-${item.title}`}
                 ref={(element) => {
                   itemRefs.current[index] = element;
                 }}
-                className="grid min-h-[64svh] gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-start"
+                className="grid min-h-[64svh] gap-6 xl:grid-cols-[1fr_0.9fr] xl:items-start"
               >
                 <div className="border-t border-primary pt-5">
                   <p className="text-5xl font-semibold text-primary sm:text-7xl">
@@ -748,8 +748,8 @@ function HeightComparisonScrolly({
       aria-labelledby="comparison-title"
       className="overflow-x-clip px-4 py-16 sm:px-6 lg:px-10"
     >
-      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.42fr_1fr] lg:items-start lg:gap-10">
-        <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-8 xl:grid-cols-[0.42fr_1fr] xl:items-start xl:gap-10">
+        <aside className="min-w-0 xl:sticky xl:top-24 xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.scrolly.eyebrow}
           </p>
@@ -763,7 +763,7 @@ function HeightComparisonScrolly({
             {content.scrolly.intro}
           </p>
         </aside>
-        <div className="min-w-0 lg:hidden">
+        <div className="min-w-0 xl:hidden">
           <HeightVisual
             visual="baseTime"
             skydivingLabel={content.skydivingLabel}
@@ -777,8 +777,8 @@ function HeightComparisonScrolly({
             mobileOverview
           />
         </div>
-        <div className="grid min-w-0 gap-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-          <div className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
+        <div className="grid min-w-0 gap-6 xl:grid-cols-[280px_minmax(0,1fr)] xl:items-start">
+          <div className="hidden xl:sticky xl:top-24 xl:block xl:self-start">
             <HeightVisual
               visual={activeVisual}
               skydivingLabel={content.skydivingLabel}
@@ -807,7 +807,7 @@ function HeightComparisonScrolly({
           </ol>
         </div>
       </div>
-      <div className="mx-auto mt-14 w-full max-w-5xl lg:mt-20">
+      <div className="mx-auto mt-14 w-full max-w-5xl xl:mt-20">
         <ComparisonTable
           rows={content.rows}
           skydivingLabel={content.skydivingLabel}
@@ -1155,8 +1155,8 @@ function EquipmentExplainer({
       className="px-4 pt-16 pb-28 sm:px-6 lg:px-10"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[minmax(500px,0.72fr)_minmax(0,1fr)] lg:items-start">
-          <aside className="lg:sticky lg:top-24 lg:self-start">
+        <div className="grid gap-10 xl:grid-cols-[minmax(500px,0.72fr)_minmax(0,1fr)] xl:items-start">
+          <aside className="xl:sticky xl:top-24 xl:self-start">
             <div className="max-w-3xl">
               <p className="text-sm font-semibold uppercase tracking-wide text-primary">
                 {content.title}
@@ -1171,7 +1171,7 @@ function EquipmentExplainer({
                 {content.intro}
               </p>
             </div>
-            <figure className="relative mt-10 hidden aspect-[4/5] max-h-[calc(100svh-18rem)] min-h-[30rem] overflow-hidden border-4 border-[#FE6B00] bg-surface-muted lg:block">
+            <figure className="relative mt-10 hidden aspect-[4/5] max-h-[calc(100svh-18rem)] min-h-[30rem] overflow-hidden border-4 border-[#FE6B00] bg-surface-muted xl:block">
               {allEquipmentImages.map((imageSrc) => (
                 <Image
                   key={imageSrc}
@@ -1190,11 +1190,24 @@ function EquipmentExplainer({
               />
             </figure>
           </aside>
-          <ol className="grid gap-4 lg:pt-[14.5rem]">
+          <figure className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden border-4 border-[#FE6B00] bg-surface-muted xl:hidden">
+            <Image
+              src={defaultEquipmentImage}
+              alt={content.title}
+              fill
+              sizes="(max-width: 767px) calc(100vw - 2rem), 28rem"
+              className="object-cover"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_14%,transparent)_0%,color-mix(in_srgb,var(--background)_24%,transparent)_100%)]"
+            />
+          </figure>
+          <ol className="grid gap-4 xl:pt-[14.5rem]">
             {content.items.map((item, index) => (
               <li
                 key={item.name}
-                className="border-4 border-border bg-surface p-4 transition-colors hover:border-[#FE6B00] focus-within:border-[#FE6B00] lg:p-5"
+                className="border-4 border-border bg-surface p-4 transition-colors hover:border-[#FE6B00] focus-within:border-[#FE6B00] xl:p-5"
                 onMouseEnter={() =>
                   setActiveImage(equipmentImages[index] ?? defaultEquipmentImage)
                 }
@@ -1207,7 +1220,7 @@ function EquipmentExplainer({
                 <p className="text-sm font-semibold uppercase tracking-wide text-primary">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <h3 className="mt-4 text-3xl font-semibold leading-tight text-foreground lg:mt-2 lg:text-2xl">
+                <h3 className="mt-4 text-3xl font-semibold leading-tight text-foreground xl:mt-2 xl:text-2xl">
                   {item.name}
                 </h3>
                 <p className="mt-3 max-w-3xl text-base leading-7 text-foreground/72">
@@ -1269,8 +1282,8 @@ function SafetyHierarchy({
       aria-labelledby="safety-title"
       className="bg-[#06172b] px-4 py-24 sm:px-6 lg:px-10 lg:py-36"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.72fr_1fr] lg:items-center">
-        <div className="order-1 lg:col-start-1 lg:row-start-1">
+      <div className="mx-auto grid max-w-7xl gap-12 xl:grid-cols-[0.72fr_1fr] xl:items-center">
+        <div className="order-1 xl:col-start-1 xl:row-start-1">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.title}
           </p>
@@ -1281,7 +1294,7 @@ function SafetyHierarchy({
             {title ?? content.title}
           </h2>
         </div>
-        <ol className="order-2 flex flex-col-reverse gap-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+        <ol className="order-2 flex min-w-0 flex-col-reverse gap-0 xl:col-start-2 xl:row-span-2 xl:row-start-1">
           {content.levels.map((level, index) => (
             <li
               key={level}
@@ -1304,8 +1317,8 @@ function SafetyHierarchy({
               <div
                 className={
                   index === content.levels.length - 1
-                    ? "grid min-h-28 grid-cols-[auto_1fr] items-center gap-5 border border-primary bg-primary px-5 py-6 text-background shadow-[0_0_42px_color-mix(in_srgb,var(--primary)_24%,transparent)] sm:px-7"
-                    : "grid min-h-28 grid-cols-[auto_1fr] items-center gap-5 border border-border bg-surface/72 px-5 py-6 text-foreground sm:px-7"
+                    ? "grid min-h-28 min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-5 border border-primary bg-primary px-5 py-6 text-background shadow-[0_0_42px_color-mix(in_srgb,var(--primary)_24%,transparent)] sm:px-7"
+                    : "grid min-h-28 min-w-0 grid-cols-[auto_minmax(0,1fr)] items-center gap-5 border border-border bg-surface/72 px-5 py-6 text-foreground sm:px-7"
                 }
               >
                 <span
@@ -1317,7 +1330,7 @@ function SafetyHierarchy({
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-3xl font-semibold leading-none tracking-normal sm:text-5xl lg:text-6xl">
+                <span className="min-w-0 text-2xl font-semibold leading-tight tracking-normal [overflow-wrap:anywhere] sm:text-5xl sm:leading-none xl:text-6xl">
                   {level}
                 </span>
               </div>
@@ -1327,8 +1340,8 @@ function SafetyHierarchy({
         <p
           className={
             sectionEntered
-              ? "order-3 max-w-xl text-3xl font-semibold leading-tight text-primary opacity-100 transition duration-700 motion-reduce:transition-none sm:text-5xl lg:col-start-1 lg:row-start-2"
-              : "order-3 max-w-xl translate-y-4 text-3xl font-semibold leading-tight text-primary opacity-0 transition duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none sm:text-5xl lg:col-start-1 lg:row-start-2"
+              ? "order-3 max-w-xl text-3xl font-semibold leading-tight text-primary opacity-100 transition duration-700 motion-reduce:transition-none sm:text-5xl xl:col-start-1 xl:row-start-2"
+              : "order-3 max-w-xl translate-y-4 text-3xl font-semibold leading-tight text-primary opacity-0 transition duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none sm:text-5xl xl:col-start-1 xl:row-start-2"
           }
           style={{ transitionDelay: sectionEntered ? "560ms" : "0ms" }}
         >

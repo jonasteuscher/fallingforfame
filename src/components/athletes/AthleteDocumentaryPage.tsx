@@ -9,6 +9,7 @@ import {
   AthleteProfileOverview,
   AudioStory,
   InterviewFeature,
+  LocalVideoFeature,
   MoreAthletes,
   ProjectFeature,
   ScrollScrubVideo,
@@ -24,6 +25,7 @@ import type {
   AthleteFutureProject,
   AthleteImage,
   AthleteInterviewFeature,
+  AthleteLocalVideoFeature,
   AthleteLink,
   AthleteScrollVideo,
   ProjectStatus,
@@ -58,6 +60,14 @@ type ScrollVideoSection = {
   id: string;
   type: "scroll-video";
   video?: AthleteScrollVideo;
+  includeInProgress?: boolean;
+  spacing?: SectionSpacing;
+};
+
+type LocalVideoSection = {
+  id: string;
+  type: "local-video";
+  feature: AthleteLocalVideoFeature;
   includeInProgress?: boolean;
   spacing?: SectionSpacing;
 };
@@ -99,6 +109,7 @@ export type AthleteSection =
   | InterviewVideoSection
   | AudioStorySection
   | ScrollVideoSection
+  | LocalVideoSection
   | ProjectFeatureSection
   | GallerySection
   | SocialMediaSection
@@ -177,7 +188,7 @@ export function AthleteDocumentaryPage({
     .map((section) => ({ id: section.id, label: section.label }));
 
   return (
-    <>
+    <div data-athlete-page={athlete.slug}>
       {navItems.length > 0 ? (
         <AthleteNarrativeNav items={navItems} ariaLabel={navAriaLabel} />
       ) : null}
@@ -231,7 +242,7 @@ export function AthleteDocumentaryPage({
         countryLabels={sectionLabels.countryLabels}
         cardLabels={sectionLabels.cardLabels}
       />
-    </>
+    </div>
   );
 }
 
@@ -283,6 +294,20 @@ function AthleteSectionRenderer({
           <ScrollScrubVideo video={section.video} locale={locale} />
         </div>
       );
+
+    case "local-video": {
+      const localVideo = (
+        <LocalVideoFeature feature={section.feature} locale={locale} />
+      );
+
+      return section.id === section.feature.id ? (
+        localVideo
+      ) : (
+        <div id={section.id} className="scroll-mt-20">
+          {localVideo}
+        </div>
+      );
+    }
 
     case "project-feature":
       return (

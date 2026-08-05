@@ -47,7 +47,7 @@ export const project = {
   },
   motivation: {
     image: {
-      src: "/images/project/motivation.jpg",
+      src: "/images/project/motivation.JPG",
       alt: "Autor der Dokumentation lächelt mit Fallschirmausrüstung in einem Waldgebiet",
     },
     label: "Persönlicher Zugang",
@@ -167,11 +167,15 @@ export const project = {
     title: "Bachelorarbeit",
     description:
       "Diese interaktive Dokumentation basiert auf einer Bachelorarbeit an der Fachhochschule Graubünden (FHGR).\n\nInteressierte können die vollständige Arbeit herunterladen, um vertiefte Einblicke in Theorie, Methodik und wissenschaftliche Analyse zu erhalten.",
-    button: "PDF herunterladen",
+    openButton: "Open Thesis (PDF)",
+    openButtonAriaLabel: "Bachelorarbeit als PDF in einem neuen Browser-Tab öffnen",
+    downloadButton: "Download Thesis PDF",
+    downloadButtonAriaLabel: "Bachelorarbeit als PDF herunterladen",
     fileName: "Zwischen Sichtbarkeit und Sicherheit - Bachelorarbeit",
     pdfLabel: "PDF",
     fileType: "PDF-Dokument",
     fileMeta: "Vollständige Bachelorarbeit als PDF.",
+    pdfMeta: "PDF • 151 pages • 27.5 MB",
     coverAlt:
       "Cover der Bachelorarbeit Zwischen Sichtbarkeit und Sicherheit.",
   },

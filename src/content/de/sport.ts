@@ -370,8 +370,8 @@ export const sport = {
   },
   safetyHierarchy: {
     title: "Sicherheitshierarchie",
-    finalStatement: "Ausrüstung ist wichtig. Entscheidungsfähigkeit ist entscheidend.",
-    levels: ["Ausrüstung", "Training", "Erfahrung", "Entscheidungsfähigkeit"],
+    finalStatement: "Ausrüstung ist wichtig. Entscheidungsfähig­keit ist entscheidend.",
+    levels: ["Ausrüstung", "Training", "Erfahrung", "Entscheidungsfähig­keit"],
   },
   ethicsNetwork: {
     title: "Geteilte Verantwortung",

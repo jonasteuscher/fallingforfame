@@ -174,8 +174,15 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1599px),
-  (min-width: 1024px) and (max-height: 900px) {
+@media (min-width: 768px) and (max-width: 1279px) {
+  .findings-page .findings-flow-layout {
+    width: min(100%, 56rem);
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1599px),
+  (min-width: 1280px) and (max-height: 900px) {
   .findings-page {
     --section-gap-standard: clamp(4.75rem, 7svh, 7.25rem);
     --section-gap-immersive: clamp(5.75rem, 8svh, 8rem);
@@ -191,8 +198,8 @@ audio {
     word-break: normal;
   }
 
-  .findings-page section > .hidden.md\:block > .sticky,
-  .findings-page section > .hidden.min-h-\[255svh\].md\:block > .sticky,
+  .findings-page section > .hidden.xl\:block > .sticky,
+  .findings-page section > .hidden.min-h-\[255svh\].xl\:block > .sticky,
   .findings-page section > div > .sticky {
     top: var(--site-header-height);
     height: calc(100svh - var(--site-header-height));
@@ -561,8 +568,8 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1366px),
-  (min-width: 1024px) and (max-height: 820px) {
+@media (min-width: 1280px) and (max-width: 1366px),
+  (min-width: 1280px) and (max-height: 820px) {
   .findings-page {
     --findings-laptop-display-lg: clamp(2.85rem, 5vw, 4.55rem);
     --findings-laptop-display-md: clamp(2.25rem, 4.2vw, 3.65rem);
@@ -689,7 +696,7 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1536px) and (max-height: 1000px) {
+@media (min-width: 1280px) and (max-width: 1536px) and (max-height: 1000px) {
   .findings-page #pressure .pressure-sticky-track {
     height: 430svh !important;
     min-height: 2850px !important;
@@ -728,7 +735,7 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1536px) and (max-height: 900px) {
+@media (min-width: 1280px) and (max-width: 1536px) and (max-height: 900px) {
   .findings-page #pressure .pressure-sticky-track {
     height: 450svh !important;
     min-height: 3000px !important;
@@ -769,7 +776,7 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-height: 800px) {
+@media (min-width: 1280px) and (max-height: 800px) {
   .findings-page #pressure .pressure-sticky-track {
     height: 470svh !important;
     min-height: 3200px !important;
@@ -797,7 +804,7 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1366px) and (max-height: 800px) {
+@media (min-width: 1280px) and (max-width: 1366px) and (max-height: 800px) {
   .findings-page #pressure .pressure-sticky-inner {
     padding-top: 0.8rem !important;
     padding-bottom: 0.75rem !important;
@@ -822,7 +829,7 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-height: 760px) {
+@media (min-width: 1280px) and (max-height: 760px) {
   .findings-page {
     --section-gap-standard: 4.5rem;
     --section-gap-immersive: 5rem;
@@ -890,8 +897,8 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1536px),
-  (min-width: 1024px) and (max-height: 900px) {
+@media (min-width: 1280px) and (max-width: 1536px),
+  (min-width: 1280px) and (max-height: 900px) {
   .findings-page {
     --community-laptop-gutter: clamp(2.5rem, 4vw, 4rem);
     --community-laptop-max-width: 72rem;
@@ -1235,8 +1242,8 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1366px),
-  (min-width: 1024px) and (max-height: 800px) {
+@media (min-width: 1280px) and (max-width: 1366px),
+  (min-width: 1280px) and (max-height: 800px) {
   .findings-page {
     --community-laptop-gutter: clamp(2rem, 3.4vw, 3rem);
     --community-laptop-max-width: 66rem;
@@ -1451,7 +1458,7 @@ audio {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1280px) {
+@media (min-width: 1280px) and (max-width: 1280px) {
   .findings-page #synthesis .synthesis-practice {
     grid-column: 1 / -1;
   }
@@ -1509,5 +1516,22 @@ audio {
     overflow: visible !important;
     text-overflow: clip !important;
     white-space: nowrap !important;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1536px) {
+  [data-athlete-page="niclas-strohmeier"] .athlete-section-title {
+    max-width: 100%;
+    font-size: clamp(3rem, 5.2vw, 5rem);
+    hyphens: none;
+    overflow-wrap: normal;
+    text-wrap: balance;
+    word-break: normal;
+  }
+
+  [data-athlete-page="niclas-strohmeier"]
+    [data-interview-feature-id]
+    .athlete-section-title {
+    font-size: clamp(2.5rem, 4.1vw, 4rem);
   }
 }

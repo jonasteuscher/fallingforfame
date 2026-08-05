@@ -148,7 +148,7 @@ export function SponsorshipSpectrumSection({
         quoteSourceLabel={quoteSourceLabel}
       />
 
-      <div className="hidden md:block md:h-[390svh] md:min-h-[2500px]">
+      <div className="hidden xl:block xl:h-[390svh] xl:min-h-[2500px]">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
           <div className="mx-auto flex h-full max-w-[90rem] flex-col px-6 py-10 xl:px-10">
             <header className="relative z-10 grid gap-8 lg:grid-cols-[minmax(32rem,0.62fr)_minmax(22rem,0.38fr)] lg:items-end">
@@ -197,7 +197,7 @@ export function SponsorshipSpectrumSection({
       </div>
 
       <div
-        className="sponsorship-summary-wrap relative z-10 -mt-36 hidden px-6 pb-[var(--section-gap-standard)] md:block xl:px-10"
+        className="sponsorship-summary-wrap relative z-10 -mt-36 hidden px-6 pb-[var(--section-gap-standard)] xl:block xl:px-10"
         style={{
           opacity: getSponsorshipInterpretationOpacity(progress),
           transform: `translate3d(0, ${interpolate(getSponsorshipInterpretationOpacity(progress), 0, 1, 18, 0)}px, 0)`,
@@ -361,15 +361,15 @@ function MobileSponsorshipSpectrum({
   quoteSourceLabel: string;
 }) {
   return (
-    <div className="px-4 py-[var(--section-gap-standard)] sm:px-6 md:hidden">
+    <div className="findings-flow-layout px-4 py-[var(--section-gap-standard)] sm:px-6 xl:hidden">
       <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
         {chapter.eyebrow}
       </p>
       <p
         aria-hidden="true"
-        className="mt-4 text-[clamp(2.75rem,11vw,4.2rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance]"
+        className="mt-4 max-w-full text-[clamp(2.75rem,11vw,4.2rem)] font-semibold uppercase leading-[0.9] text-foreground [hyphens:manual] [text-wrap:balance]"
       >
-        {chapter.title}
+        {getMobileSponsorshipTitle(chapter.title)}
       </p>
       <p className="mt-6 text-lg leading-8 text-foreground/76">{chapter.summary}</p>
       <SponsorshipSpectrumStatic spectrum={spectrum} className="mt-10" />
@@ -395,6 +395,10 @@ function MobileSponsorshipSpectrum({
       />
     </div>
   );
+}
+
+function getMobileSponsorshipTitle(title: string) {
+  return title.replace("Unterstützung", "Unterstüt\u00adzung");
 }
 
 function ReducedMotionSponsorship({

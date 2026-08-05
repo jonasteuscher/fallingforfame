@@ -33,6 +33,16 @@ describe("project page", () => {
       }),
     ).toHaveAttribute("src", expect.stringContaining("Thesis_Cover.jpg"));
     expect(screen.getByText("Complete bachelor thesis as a PDF.")).toBeVisible();
+    expect(screen.getByText("PDF • 151 pages • 27.5 MB")).toBeVisible();
+    expect(
+      screen.getByRole("link", { name: "Open Thesis PDF in a new browser tab" }),
+    ).toHaveAttribute(
+      "href",
+      "/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf",
+    );
+    expect(
+      screen.getByRole("link", { name: "Open Thesis PDF in a new browser tab" }),
+    ).toHaveAttribute("target", "_blank");
     expect(screen.getByRole("link", { name: "Download Thesis PDF" })).toHaveAttribute(
       "href",
       "/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf",
@@ -76,11 +86,29 @@ describe("project page", () => {
       }),
     ).toHaveAttribute("src", expect.stringContaining("Thesis_Cover.jpg"));
     expect(screen.getByText("Vollständige Bachelorarbeit als PDF.")).toBeVisible();
-    expect(screen.getByRole("link", { name: "PDF herunterladen" })).toHaveAttribute(
+    expect(screen.getByText("PDF • 151 pages • 27.5 MB")).toBeVisible();
+    expect(
+      screen.getByRole("link", {
+        name: "Bachelorarbeit als PDF in einem neuen Browser-Tab öffnen",
+      }),
+    ).toHaveAttribute(
       "href",
       "/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf",
     );
-    expect(screen.getByRole("link", { name: "PDF herunterladen" })).toHaveAttribute(
+    expect(
+      screen.getByRole("link", {
+        name: "Bachelorarbeit als PDF in einem neuen Browser-Tab öffnen",
+      }),
+    ).toHaveAttribute("target", "_blank");
+    expect(
+      screen.getByRole("link", { name: "Bachelorarbeit als PDF herunterladen" }),
+    ).toHaveAttribute(
+      "href",
+      "/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf",
+    );
+    expect(
+      screen.getByRole("link", { name: "Bachelorarbeit als PDF herunterladen" }),
+    ).toHaveAttribute(
       "download",
     );
     expect(screen.getAllByText("Forschungsfrage")[0]).toBeVisible();

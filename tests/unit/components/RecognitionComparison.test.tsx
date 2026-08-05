@@ -145,8 +145,12 @@ describe("RecognitionComparison", () => {
     expect(chapter).toBeDefined();
     const { container } = renderRecognitionComparison(englishFindings, chapter!);
 
-    expect(
-      container.querySelector('[data-recognition-layout="sequential"]'),
-    ).toBeInTheDocument();
+    const sequentialLayout = container.querySelector(
+      '[data-recognition-layout="sequential"]',
+    );
+
+    expect(sequentialLayout).toBeInTheDocument();
+    expect(sequentialLayout).toHaveClass("findings-flow-layout", "xl:hidden");
+    expect(container.querySelector(".hidden.xl\\:block")).toBeInTheDocument();
   });
 });

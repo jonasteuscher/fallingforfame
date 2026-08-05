@@ -8,7 +8,7 @@ import { createPortal } from "react-dom";
 
 import brandMark from "@/app/icon.png";
 import { locales, type Locale } from "@/i18n/config";
-import { localizedPath } from "@/i18n/navigation";
+import { localizedCurrentPath, localizedPath } from "@/i18n/navigation";
 
 type NavigationLink = {
   href: string;
@@ -253,13 +253,4 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
       {mobileMenu}
     </div>
   );
-}
-
-function localizedCurrentPath(pathname: string | null, locale: Locale) {
-  if (!pathname) {
-    return localizedPath(locale);
-  }
-
-  const pathWithoutLocale = pathname.replace(/^\/(en|de)(?=\/|$)/, "");
-  return localizedPath(locale, pathWithoutLocale || "/");
 }

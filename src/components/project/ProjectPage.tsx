@@ -30,10 +30,13 @@ export function ProjectPage({ content }: ProjectPageProps) {
 
 function ProjectMotivation({ content }: { content: ProjectContent["motivation"] }) {
   return (
-    <section id="why-this-project" className="border-y border-border bg-background">
-      <div className="mx-auto grid min-h-[140svh] max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1fr)] lg:items-start lg:gap-16 lg:px-10 lg:py-20">
-        <div className="lg:sticky lg:top-20 lg:h-[calc(100svh-5rem)]">
-          <figure className="relative aspect-[4/5] h-[min(78svh,48rem)] overflow-hidden bg-surface lg:h-full lg:aspect-auto">
+    <section
+      id="why-this-project"
+      className="max-w-[100svw] overflow-x-clip border-y border-border bg-background"
+    >
+      <div className="mx-auto grid w-full max-w-[100svw] gap-10 px-4 py-16 sm:px-6 xl:min-h-[140svh] xl:max-w-7xl xl:grid-cols-[minmax(18rem,0.72fr)_minmax(0,1fr)] xl:items-start xl:gap-16 xl:px-10 xl:py-20">
+        <div className="w-full min-w-0 max-w-full xl:sticky xl:top-20 xl:h-[calc(100svh-5rem)]">
+          <figure className="relative aspect-[4/5] w-full max-w-full overflow-hidden bg-surface xl:h-full xl:aspect-auto">
             <Image
               src={content.image.src}
               alt={content.image.alt}
@@ -50,23 +53,26 @@ function ProjectMotivation({ content }: { content: ProjectContent["motivation"] 
           </figure>
         </div>
 
-        <div className="flex flex-col gap-16 lg:gap-20">
-          <header className="max-w-3xl">
+        <div className="flex min-w-0 max-w-full flex-col gap-16 lg:gap-20">
+          <header className="w-full min-w-0 max-w-[calc(100svw-2rem)] sm:max-w-[calc(100svw-3rem)] lg:max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
               {content.label}
             </p>
-            <h2 className="mt-5 text-4xl font-semibold leading-tight text-foreground sm:text-6xl lg:text-7xl">
+            <h2 className="mt-5 block w-full max-w-full whitespace-normal text-4xl font-semibold leading-tight text-foreground [overflow-wrap:anywhere] sm:text-6xl lg:text-7xl lg:[text-wrap:balance]">
               {content.title}
             </h2>
           </header>
 
-          <div className="grid gap-10 sm:gap-12">
+          <div className="grid min-w-0 max-w-full gap-10 sm:gap-12">
             {content.blocks.map((block, index) => (
-              <article key={block} className="max-w-reading">
+              <article
+                key={block}
+                className="w-full min-w-0 max-w-[calc(100svw-2rem)] sm:max-w-[calc(100svw-3rem)] lg:max-w-reading"
+              >
                 <p className="mb-4 font-mono text-sm font-semibold text-primary">
                   {String(index + 1).padStart(2, "0")}
                 </p>
-                <p className="text-xl leading-9 text-foreground/78 sm:text-2xl sm:leading-10">
+                <p className="block w-full max-w-full whitespace-normal text-xl leading-9 text-foreground/78 [overflow-wrap:anywhere] sm:text-2xl sm:leading-10">
                   <WorkTitleText>{block}</WorkTitleText>
                 </p>
               </article>
@@ -125,8 +131,8 @@ function ProjectHero({ content }: { content: ProjectContent }) {
 function DocumentaryChapter({ content }: { content: ProjectContent["documentary"] }) {
   return (
     <section id="the-documentary" className="px-4 py-16 sm:px-6 lg:px-10 lg:py-24">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.48fr_1fr]">
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-12 xl:grid-cols-[0.48fr_1fr]">
+        <aside className="xl:sticky xl:top-24 xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.label}
           </p>
@@ -230,6 +236,9 @@ function ResearchChapter({ content }: { content: ProjectContent["research"] }) {
 }
 
 function ThesisChapter({ content }: { content: ProjectContent["thesis"] }) {
+  const thesisPdfHref =
+    "/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf";
+
   return (
     <section id="bachelor-thesis" className="px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.52fr_1fr] lg:items-center">
@@ -266,13 +275,32 @@ function ThesisChapter({ content }: { content: ProjectContent["thesis"] }) {
                   {content.fileMeta}
                 </p>
               </div>
-              <a
-                href="/document/thesis/Thesis_Zwischen_Sichtbarkeit_und_Sicherheit.pdf"
-                download
-                className="w-full border border-primary bg-primary px-5 py-4 text-left text-sm font-semibold uppercase tracking-wide text-background transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:w-fit"
-              >
-                {content.button}
-              </a>
+              <div>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href={thesisPdfHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={content.openButtonAriaLabel}
+                    className="inline-flex min-h-12 w-full items-center justify-center gap-3 border border-primary bg-primary px-5 py-4 text-sm font-semibold uppercase tracking-wide text-background transition hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:w-fit"
+                  >
+                    {content.openButton}
+                    <OpenInNewTabIcon />
+                  </a>
+                  <a
+                    href={thesisPdfHref}
+                    download
+                    aria-label={content.downloadButtonAriaLabel}
+                    className="inline-flex min-h-12 w-full items-center justify-center gap-3 border border-primary bg-transparent px-5 py-4 text-sm font-semibold uppercase tracking-wide text-primary transition hover:bg-primary hover:text-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:w-fit"
+                  >
+                    {content.downloadButton}
+                    <DownloadIcon />
+                  </a>
+                </div>
+                <p className="mt-3 text-sm font-semibold uppercase tracking-[0.14em] text-foreground/58">
+                  {content.pdfMeta}
+                </p>
+              </div>
             </div>
           </div>
         </article>
@@ -281,11 +309,48 @@ function ThesisChapter({ content }: { content: ProjectContent["thesis"] }) {
   );
 }
 
+function OpenInNewTabIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="h-4 w-4 shrink-0"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M7 17 17 7" />
+      <path d="M8 7h9v9" />
+    </svg>
+  );
+}
+
+function DownloadIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="h-4 w-4 shrink-0"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 3v12" />
+      <path d="m7 10 5 5 5-5" />
+      <path d="M5 21h14" />
+    </svg>
+  );
+}
+
 function ResearchJourney({ content }: { content: ProjectContent["journey"] }) {
   return (
     <section id="research-journey" className="px-4 py-20 sm:px-6 lg:px-10 lg:py-28">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)]">
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+      <div className="mx-auto grid max-w-7xl gap-10 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)]">
+        <aside className="xl:sticky xl:top-24 xl:self-start">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             {content.label}
           </p>

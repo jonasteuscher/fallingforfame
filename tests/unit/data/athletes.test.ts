@@ -74,6 +74,9 @@ describe("athletes data", () => {
   it("contains localized interview feature data on profiles with interview chapters", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
+    const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
+    const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
+    const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
 
     expect(tim?.interviewFeatures).toMatchObject([
       {
@@ -82,6 +85,10 @@ describe("athletes data", () => {
         chapter: {
           en: "Social Media",
           de: "Social Media",
+        },
+        title: {
+          en: "You're Only as Good as Your Last Stunt",
+          de: "Du bist nur so gut wie dein letzter Stunt",
         },
         quote: "You're Only as Good\nas Your Last Stunt",
         poster: null,
@@ -97,7 +104,15 @@ describe("athletes data", () => {
           en: "Decision Making",
           de: "Decision Making",
         },
+        title: {
+          en: "Make the Right Decision",
+          de: "Triff die richtige Entscheidung",
+        },
         quote: "Make the\nRight Decision",
+        intro: {
+          en: "Tim shares practical advice for new BASE jumpers: build experience patiently, understand your limits and make decisions that allow you to stay in the sport for the long term.",
+          de: "Tim gibt angehenden BASE Jumper:innen konkrete Tipps: Erfahrung geduldig aufbauen, die eigenen Grenzen kennen und Entscheidungen treffen, die den Sport langfristig möglich machen.",
+        },
         poster: null,
         videos: {
           en: { provider: "youtube", videoId: "N9JUEpIOwkA" },
@@ -157,10 +172,84 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(marcel?.interviewFeatures).toMatchObject([
+      {
+        id: "media-perception",
+        title: {
+          en: "How the Media Misunderstands Risk",
+          de: "Wie Medien Risiko missverstehen",
+        },
+        highlightQuote: {
+          en: "Personally, I often feel that the outside world misjudges the risk.",
+          de: "Persönlich habe ich häufig das Gefühl, dass die Aussenwelt das Risiko falsch einschätzt.",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "Ux61aE9Q4Us" },
+          de: { provider: "youtube", videoId: "4Z0y1E7hUy0" },
+        },
+      },
+      {
+        id: "stockhorn-reflection",
+        title: {
+          en: "Reflecting on his home jump",
+          de: "Reflexion über seinen Heimsprung",
+        },
+        highlightQuote: {
+          en: "Even now, when I watch the video again, I remember every single detail.",
+          de: "Auch wenn ich das Video jetzt nochmal schaue, dann erinnere ich mich noch an jedes Detail.",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "pWXj7Prr6L4" },
+          de: { provider: "youtube", videoId: "2dOWBr7Vfzw" },
+        },
+      },
+    ]);
+    expect(niclas?.interviewFeatures).toMatchObject([
+      {
+        id: "social-media-impact",
+        title: {
+          en: "How will social media change the BASE scene in the long term?",
+          de: "Wie verändert Social Media die BASE-Szene langfristig?",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "Ea3IJi8G6_g" },
+          de: { provider: "youtube", videoId: "9Ugc1_Mp_Ts" },
+        },
+      },
+      {
+        id: "more-than-the-jump",
+        title: {
+          en: "More Than Just the Jump",
+          de: "Mehr als nur der Sprung",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "lXJYZ2X_4G0" },
+          de: { provider: "youtube", videoId: "_EVriuqgoMM" },
+        },
+      },
+    ]);
+    expect(josef?.interviewFeatures).toMatchObject([
+      {
+        id: "creating-the-shot",
+        title: {
+          en: "How do you create a spectacular shot?",
+          de: "Wie entsteht ein spektakulärer Shot?",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "akHadwzWaeI" },
+          de: { provider: "youtube", videoId: "xpN6g-VkC5U" },
+        },
+      },
+    ]);
     expect(
       athletes
         .filter(
-          (athlete) => athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+          (athlete) =>
+            athlete.slug !== "tim-howell" &&
+            athlete.slug !== "lukas-loibl" &&
+            athlete.slug !== "marcel-geser" &&
+            athlete.slug !== "niclas-strohmeier" &&
+            athlete.slug !== "josef-braun",
         )
         .every((athlete) => athlete.interviewFeatures === undefined),
     ).toBe(true);
@@ -169,6 +258,9 @@ describe("athletes data", () => {
   it("contains reusable audio story data on the profiles with audio chapters", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
+    const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
+    const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
+    const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
 
     expect(tim?.audioStories).toMatchObject([
       {
@@ -216,10 +308,99 @@ describe("athletes data", () => {
       },
     ]);
     expect(lukas?.audioStories?.[0]).not.toHaveProperty("waveform");
+    expect(marcel?.audioStories).toMatchObject([
+      {
+        id: "process-behind-the-highlight",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "The Process Behind the Highlight",
+          de: "Der Prozess hinter dem Highlight",
+        },
+        audio: {
+          src: "/audio/marcel-geser/Endprodukt.wav",
+        },
+        transcript: {
+          en: "/audio/marcel-geser/Endprodukt_EN.srt",
+          de: "/audio/marcel-geser/Endprodukt_DE.srt",
+        },
+        portrait: "/images/athletes/marcel-geser/audio.jpg",
+        duration: "00:58",
+      },
+    ]);
+    expect(marcel?.audioStories?.[0]).not.toHaveProperty("waveform");
+    expect(niclas?.audioStories).toMatchObject([
+      {
+        id: "experience-and-caution",
+        title: {
+          en: "Learning to respect the risk",
+          de: "Risiko respektieren lernen",
+        },
+        displayTitle: {
+          en: "From Invulnerability\nto Caution",
+          de: "Von Unverwundbarkeit zu Vorsicht",
+        },
+        titleLayout: "wide",
+        audio: {
+          src: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung.wav",
+        },
+        transcript: {
+          en: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung_EN.srt",
+          de: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung_DE.srt",
+        },
+        portrait: "/images/athletes/niclas-strohmeier/audio.jpg",
+        duration: "00:56",
+      },
+      {
+        id: "slow-progression",
+        title: {
+          en: "Taking the long way",
+          de: "Den langen Weg wählen",
+        },
+        audio: {
+          src: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_DE.wav",
+        },
+        transcript: {
+          en: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_EN.srt",
+          de: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_DE.srt",
+        },
+        portrait: "/images/athletes/niclas-strohmeier/audio.jpg",
+        duration: "01:39",
+      },
+    ]);
+    expect(niclas?.audioStories).toHaveLength(2);
+    expect(niclas?.audioStories?.every((story) => !("waveform" in story))).toBe(true);
+    expect(josef?.audioStories).toMatchObject([
+      {
+        id: "visibility-and-risk",
+        displayTitle: {
+          en: "The Most Extreme Isn't Always What Goes Viral",
+          de: "Nicht immer das Extremste gewinnt",
+        },
+        audio: { src: "/audio/josef-braun/Algorithmus.wav" },
+        transcript: {
+          en: "/audio/josef-braun/Algorithmus_EN.srt",
+          de: "/audio/josef-braun/Algorithmus_DE.srt",
+        },
+        portrait: "/images/athletes/josef-braun/audio.jpg",
+        insight: {
+          title: { en: "KEY INSIGHT", de: "ZENTRALE ERKENNTNIS" },
+        },
+      },
+    ]);
+    expect(josef?.audioStories?.[0]).not.toHaveProperty("waveform");
     expect(
       athletes
         .filter(
-          (athlete) => athlete.slug !== "tim-howell" && athlete.slug !== "lukas-loibl",
+          (athlete) =>
+            athlete.slug !== "tim-howell" &&
+            athlete.slug !== "lukas-loibl" &&
+            athlete.slug !== "marcel-geser" &&
+            athlete.slug !== "niclas-strohmeier" &&
+            athlete.slug !== "josef-braun",
         )
         .every((athlete) => athlete.audioStories === undefined),
     ).toBe(true);
@@ -284,8 +465,9 @@ describe("athletes data", () => {
     ).toBe(true);
   });
 
-  it("contains Tim Howell's scroll scrub jump data only on his profile", () => {
+  it("contains athlete-specific scroll scrub jump data", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
+    const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
 
     expect(tim?.scrollVideo).toMatchObject({
       id: "iran-jump",
@@ -300,6 +482,7 @@ describe("athletes data", () => {
       displayTitle: "The Jump",
       video: {
         src: "/video/tim-howell/The_jump.mp4",
+        scrubSrc: "/video/tim-howell/The_jump_scrub.mp4",
         type: "video/mp4",
       },
       poster: null,
@@ -336,10 +519,94 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(marcel?.scrollVideo).toMatchObject({
+      id: "proximity-flight",
+      displayTitle: {
+        en: "The Final\nLine",
+        de: "Die fertige\nLinie",
+      },
+      video: {
+        src: "/video/marcel-geser/The_jump.mp4",
+        scrubSrc: "/video/marcel-geser/The_jump_scrub.mp4",
+        type: "video/mp4",
+      },
+      scrollLength: 4,
+    });
+    expect(marcel?.scrollVideo?.cues).toBeUndefined();
     expect(
       athletes
-        .filter((athlete) => athlete.slug !== "tim-howell")
+        .filter(
+          (athlete) => athlete.slug !== "tim-howell" && athlete.slug !== "marcel-geser",
+        )
         .every((athlete) => athlete.scrollVideo === undefined),
+    ).toBe(true);
+  });
+
+  it("contains the athlete-specific local films", () => {
+    const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
+    const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
+    const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
+
+    expect(marcel?.localVideoFeatures).toMatchObject([
+      {
+        id: "career-highlights",
+        title: {
+          en: "Career Highlights",
+          de: "Karriere-Highlights",
+        },
+        displayTitle: {
+          en: "Years in Flight",
+          de: "Jahre im Flug",
+        },
+        video: {
+          src: "/video/marcel-geser/Summary.mp4",
+          type: "video/mp4",
+        },
+      },
+    ]);
+    expect(niclas?.localVideoFeatures).toMatchObject([
+      {
+        id: "the-jump",
+        controls: "cinematic",
+        title: {
+          en: "The Jump Lasts Only Seconds",
+          de: "Der Sprung dauert nur Sekunden",
+        },
+        video: {
+          src: "/video/niclas-strohmeier/The_jump.MP4",
+          type: "video/mp4",
+          poster: "/video/niclas-strohmeier/The_jump_thumbnail.jpg",
+        },
+      },
+    ]);
+    expect(josef?.localVideoFeatures).toMatchObject([
+      {
+        id: "behind-the-camera",
+        controls: "cinematic",
+        video: {
+          src: "/video/josef-braun/The_jump1.MP4",
+          poster: "/video/josef-braun/The_jump1_thumbnail.jpg",
+          objectFit: "cover",
+        },
+      },
+      {
+        id: "final-shot",
+        controls: "cinematic",
+        video: {
+          src: "/video/josef-braun/The_jump2.MP4",
+          poster: "/video/josef-braun/The_jump2_thumbnail.jpg",
+        },
+      },
+    ]);
+    expect(
+      athletes
+        .filter(
+          (athlete) =>
+            athlete.slug !== "marcel-geser" &&
+            athlete.slug !== "niclas-strohmeier" &&
+            athlete.slug !== "josef-braun",
+        )
+        .every((athlete) => athlete.localVideoFeatures === undefined),
     ).toBe(true);
   });
 

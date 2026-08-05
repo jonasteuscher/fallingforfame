@@ -2,7 +2,11 @@ import type { MetadataRoute } from "next";
 
 import { athletes } from "@/data/athletes";
 import { locales } from "@/i18n/config";
-import { localizedImprintPath, localizedPath } from "@/i18n/navigation";
+import {
+  localizedImprintPath,
+  localizedPath,
+  localizedPrivacyPath,
+} from "@/i18n/navigation";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fallingforfame.vercel.app";
 
@@ -25,11 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  const legalRoutes = locales.map((locale) => ({
-    url: absoluteUrl(localizedImprintPath(locale)),
-    changeFrequency: "yearly" as const,
-    priority: 0.4,
-  }));
+  const legalRoutes = locales.flatMap((locale) =>
+    [localizedImprintPath(locale), localizedPrivacyPath(locale)].map((path) => ({
+      url: absoluteUrl(path),
+      changeFrequency: "yearly" as const,
+      priority: 0.4,
+    })),
+  );
 
   return [...localizedStaticRoutes, ...athleteRoutes, ...legalRoutes];
 }

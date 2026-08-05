@@ -144,7 +144,7 @@ export function RecognitionComparison({
         interpretationLabel={interpretationLabel}
       />
 
-      <div className="hidden min-h-[255svh] md:block motion-reduce:hidden">
+      <div className="hidden min-h-[255svh] xl:block motion-reduce:hidden">
         <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
           <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] px-6 py-8 xl:px-10">
             <header className="relative z-10 max-w-[64rem]">
@@ -216,7 +216,7 @@ export function RecognitionComparison({
           </div>
         </div>
       </div>
-      <div className="relative z-10 hidden pb-[var(--section-gap-standard)] md:block">
+      <div className="relative z-10 hidden pb-[var(--section-gap-standard)] xl:block">
         <div className="mx-auto max-w-7xl px-6 xl:px-10">
           <RecognitionFindingSummary
             chapter={chapter}
@@ -353,7 +353,7 @@ function StaticRecognitionComparison({
       className={[
         "px-4 py-[var(--section-gap-standard)] sm:px-6 xl:px-10",
         mode === "mobile"
-          ? "md:hidden motion-reduce:block"
+          ? "findings-flow-layout xl:hidden motion-reduce:block"
           : "hidden motion-reduce:block",
       ].join(" ")}
       data-recognition-layout={mode === "mobile" ? "sequential" : "static"}

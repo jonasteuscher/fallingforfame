@@ -23,8 +23,8 @@ const timHowellPage: AthletePageComposition = {
     { id: "attraction", label: { en: "Career", de: "Karriere" } },
     { id: "public-image", label: { en: "Public Image", de: "Öffentlichkeit" } },
     { id: "decision", label: { en: "Decision", de: "Entscheidung" } },
-    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
     { id: "future", label: { en: "Future", de: "Zukunft" } },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
   ],
   sections: [
     {
@@ -49,17 +49,17 @@ const timHowellPage: AthletePageComposition = {
       includeInProgress: true,
     },
     {
-      type: "gallery",
-      id: "gallery",
-      spacing: "standard",
-      includeInProgress: true,
-    },
-    {
       type: "project-feature",
       id: "future",
       project: "future",
       status: "future",
       spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
       includeInProgress: true,
     },
     { type: "social-media", id: "social-media", spacing: "compact" },
@@ -130,74 +130,259 @@ const lukasLoiblPage: AthletePageComposition = {
   ],
 };
 
-function standardAthletePage({
-  navAriaLabel,
-  includeMediaCoverage = false,
-}: {
-  navAriaLabel: AthletePageComposition["navAriaLabel"];
-  includeMediaCoverage?: boolean;
-}): AthletePageComposition {
-  return {
-    navAriaLabel,
-    progress: [
-      { id: "biography", label: { en: "Biography", de: "Biografie" } },
-      { id: "origin", label: { en: "Career", de: "Karriere" } },
-      { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
-      { id: "social-media", label: { en: "Links", de: "Links" } },
-      ...(includeMediaCoverage
-        ? [
-            {
-              id: "media-coverage",
-              label: { en: "Coverage", de: "Medien" },
-            },
-          ]
-        : []),
-    ],
-    sections: [
-      {
-        type: "gallery",
-        id: "gallery",
-        spacing: "standard",
-        includeInProgress: true,
-      },
-      {
-        type: "social-media",
-        id: "social-media",
-        spacing: "compact",
-        includeInProgress: true,
-      },
-      {
-        type: "media-coverage",
-        id: "media-coverage",
-        spacing: "compact",
-        includeInProgress: includeMediaCoverage,
-      },
-    ],
-  };
-}
-
-const marcelGeserPage = standardAthletePage({
+const marcelGeserPage: AthletePageComposition = {
   navAriaLabel: {
     en: "Marcel Geser profile sections",
     de: "Marcel Geser Profilabschnitte",
   },
-  includeMediaCoverage: true,
-});
+  progress: [
+    { id: "biography", label: { en: "Biography", de: "Biografie" } },
+    { id: "origin", label: { en: "Career", de: "Karriere" } },
+    {
+      id: "media-perception",
+      label: { en: "Media & Risk", de: "Medien & Risiko" },
+    },
+    {
+      id: "stockhorn-reflection",
+      label: { en: "Home Jump", de: "Heimsprung" },
+    },
+    {
+      id: "proximity-flight",
+      label: { en: "The Flight", de: "Der Flug" },
+    },
+    {
+      id: "audio-story",
+      label: { en: "Behind the Highlight", de: "Hinter dem Highlight" },
+    },
+    {
+      id: "career-highlights",
+      label: { en: "Career Highlights", de: "Karriere-Highlights" },
+    },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+  ],
+  sections: [
+    {
+      type: "interview-video",
+      id: "media-perception",
+      featureId: "media-perception",
+      layout: "text-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "stockhorn-reflection",
+      featureId: "stockhorn-reflection",
+      layout: "media-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "scroll-video",
+      id: "proximity-flight",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "audio-story",
+      id: "audio-story",
+      storyId: "process-behind-the-highlight",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "local-video",
+      id: "career-highlights",
+      featureId: "career-highlights",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "social-media",
+      id: "social-media",
+      spacing: "compact",
+      includeInProgress: false,
+    },
+    {
+      type: "media-coverage",
+      id: "media-coverage",
+      spacing: "compact",
+      includeInProgress: false,
+    },
+  ],
+};
 
-const niclasStrohmeierPage = standardAthletePage({
+const niclasStrohmeierPage: AthletePageComposition = {
   navAriaLabel: {
     en: "Niclas Strohmeier profile sections",
     de: "Niclas Strohmeier Profilabschnitte",
   },
-});
+  progress: [
+    { id: "biography", label: { en: "Profile", de: "Profil" } },
+    {
+      id: "origin",
+      label: { en: "Career", de: "Karriere" },
+      includeInProgress: false,
+    },
+    {
+      id: "the-jump",
+      label: { en: "The Jump", de: "Der Sprung" },
+    },
+    {
+      id: "social-media-impact",
+      label: { en: "Social Media", de: "Social Media" },
+    },
+    {
+      id: "slow-progression",
+      label: { en: "Progression", de: "Progression" },
+    },
+    {
+      id: "more-than-the-jump",
+      label: { en: "More Than the Jump", de: "Mehr als der Sprung" },
+    },
+    {
+      id: "experience-and-caution",
+      label: { en: "Development", de: "Entwicklung" },
+    },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+  ],
+  sections: [
+    {
+      type: "local-video",
+      id: "the-jump",
+      featureId: "the-jump",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "social-media-impact",
+      featureId: "social-media-impact",
+      layout: "text-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "audio-story",
+      id: "slow-progression",
+      storyId: "slow-progression",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "more-than-the-jump",
+      featureId: "more-than-the-jump",
+      layout: "media-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "audio-story",
+      id: "experience-and-caution",
+      storyId: "experience-and-caution",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "social-media",
+      id: "social-media",
+      spacing: "compact",
+      includeInProgress: false,
+    },
+  ],
+};
 
-const josefBraunPage = standardAthletePage({
+const josefBraunPage: AthletePageComposition = {
   navAriaLabel: {
     en: "Josef Braun profile sections",
     de: "Josef Braun Profilabschnitte",
   },
-  includeMediaCoverage: true,
-});
+  progress: [
+    { id: "biography", label: { en: "Biography", de: "Biografie" } },
+    { id: "origin", label: { en: "Career", de: "Karriere" } },
+    {
+      id: "behind-the-camera",
+      label: { en: "Behind the Camera", de: "Hinter der Kamera" },
+    },
+    {
+      id: "creating-the-shot",
+      label: { en: "Creating the Shot", de: "Der Shot" },
+    },
+    {
+      id: "final-shot",
+      label: { en: "The Final Shot", de: "Das fertige Bild" },
+    },
+    {
+      id: "visibility-and-risk",
+      label: { en: "Visibility", de: "Sichtbarkeit" },
+    },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+    { id: "social-media", label: { en: "Links", de: "Links" } },
+    { id: "media-coverage", label: { en: "Coverage", de: "Medien" } },
+  ],
+  sections: [
+    {
+      type: "local-video",
+      id: "behind-the-camera",
+      featureId: "behind-the-camera",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "creating-the-shot",
+      featureId: "creating-the-shot",
+      layout: "text-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "local-video",
+      id: "final-shot",
+      featureId: "final-shot",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "audio-story",
+      id: "visibility-and-risk",
+      storyId: "visibility-and-risk",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "social-media",
+      id: "social-media",
+      spacing: "compact",
+      includeInProgress: true,
+    },
+    {
+      type: "media-coverage",
+      id: "media-coverage",
+      spacing: "compact",
+      includeInProgress: true,
+    },
+  ],
+};
 
 function images(
   hero: string | null = null,
@@ -217,7 +402,14 @@ function publicAssetPath(...segments: string[]) {
 
 const galleryImageDimensions: Record<
   string,
-  Record<string, { width: number; height: number }>
+  Record<
+    string,
+    {
+      width: number;
+      height: number;
+      objectPosition?: Athlete["images"]["gallery"][number]["objectPosition"];
+    }
+  >
 > = {
   "josef-braun": {
     "469340793_1835003297315437_4282046965683917746_n.jpg": {
@@ -229,12 +421,15 @@ const galleryImageDimensions: Record<
       width: 2048,
       height: 2048,
     },
-    "485131123_1911964859619280_2705298699952572428_n.jpg": { width: 960, height: 958 },
+    "482203387_1902941237188309_5233362665493858972_n.jpg": {
+      width: 1536,
+      height: 2048,
+    },
   },
   "lukas-loibl": {
     "D9A50B94-6169-4E85-8800-8924444F81E9.png": { width: 1024, height: 1536 },
     "IMG_9389.jpeg": { width: 2000, height: 3000 },
-    "IMG_9586.jpeg": { width: 1320, height: 2486 },
+    "IMG_9586.jpeg": { width: 1320, height: 2486, objectPosition: "50% 30%" },
     "IMG_9990.jpeg": { width: 1280, height: 1920 },
     "Lukas.jpeg": { width: 2001, height: 3000 },
     "_DSC3618.jpeg": { width: 1688, height: 3000 },
@@ -258,10 +453,11 @@ const galleryImageDimensions: Record<
     "681423427_26985451711078220_85980921819799839_n.jpg": {
       width: 1206,
       height: 1207,
+      objectPosition: "50% 64%",
     },
     "IMG_4159.PNG": { width: 2754, height: 1276 },
     "IMG_9233.JPG": { width: 2617, height: 2617 },
-    "yellow slick jump.jpg": { width: 1206, height: 2144 },
+    "yellow slick jump.jpg": { width: 1206, height: 2144, objectPosition: "50% 82%" },
   },
   "tim-howell": {
     "Copy of Ski Base-1.jpg": { width: 2400, height: 3000 },
@@ -746,10 +942,14 @@ export const athletes: Athlete[] = [
           en: "Social Media",
           de: "Social Media",
         },
+        title: {
+          en: "You're Only as Good as Your Last Stunt",
+          de: "Du bist nur so gut wie dein letzter Stunt",
+        },
         quote: "You're Only as Good\nas Your Last Stunt",
         intro: {
           en: "Presented here as a pressure around public visibility: the spectacular moment is seen, while preparation and restraint often remain outside the frame.",
-          de: "Hier steht der Satz für den Druck öffentlicher Sichtbarkeit: Der spektakuläre Moment ist sichtbar, während Vorbereitung und Zurückhaltung oft ausserhalb des Bildes bleiben.",
+          de: "Tim beschreibt den Druck, der durch öffentliche Sichtbarkeit entstehen kann: Zu sehen ist meist nur der spektakuläre Moment. Die Vorbereitung und die bewusste Entscheidung gegen einen Sprung bleiben dagegen oft unsichtbar.",
         },
         iframeTitle: {
           en: "Tim Howell interview",
@@ -774,7 +974,15 @@ export const athletes: Athlete[] = [
           en: "Decision Making",
           de: "Decision Making",
         },
+        title: {
+          en: "Make the Right Decision",
+          de: "Triff die richtige Entscheidung",
+        },
         quote: "Make the\nRight Decision",
+        intro: {
+          en: "Tim shares practical advice for new BASE jumpers: build experience patiently, understand your limits and make decisions that allow you to stay in the sport for the long term.",
+          de: "Tim gibt angehenden BASE Jumper:innen konkrete Tipps: Erfahrung geduldig aufbauen, die eigenen Grenzen kennen und Entscheidungen treffen, die den Sport langfristig möglich machen.",
+        },
         iframeTitle: {
           en: "Tim Howell interview about decision making",
           de: "Tim Howell Interview über Decision Making",
@@ -833,6 +1041,7 @@ export const athletes: Athlete[] = [
       displayTitle: "The Jump",
       video: {
         src: "/video/tim-howell/The_jump.mp4",
+        scrubSrc: "/video/tim-howell/The_jump_scrub.mp4",
         type: "video/mp4",
       },
       poster: null,
@@ -1489,7 +1698,185 @@ export const athletes: Athlete[] = [
       },
     },
     originStory: originStories["marcel-geser"],
+    interviewFeatures: [
+      {
+        id: "media-perception",
+        placement: "after-origin",
+        title: {
+          en: "How the Media Misunderstands Risk",
+          de: "Wie Medien Risiko missverstehen",
+        },
+        navTitle: {
+          en: "How the Media Misunderstands Risk",
+          de: "Wie Medien Risiko missverstehen",
+        },
+        chapter: {
+          en: "Media and Public Perception",
+          de: "Medien und öffentliche Wahrnehmung",
+        },
+        quote: "How the Media\nMisunderstands Risk",
+        subtitle: {
+          en: "Marcel explains how reporting centred on fatal accidents can make BASE jumping appear like a fifty-fifty gamble, obscuring both the knowledge within the sport and the beauty that drew him to it.",
+          de: "Marcel erklärt, wie eine auf tödliche Unfälle fokussierte Berichterstattung BASE Jumping wie ein Fünfzig-fünfzig-Risiko erscheinen lässt und dabei sowohl das Wissen im Sport als auch dessen Schönheit verdeckt.",
+        },
+        highlightQuote: {
+          en: "Personally, I often feel that the outside world misjudges the risk.",
+          de: "Persönlich habe ich häufig das Gefühl, dass die Aussenwelt das Risiko falsch einschätzt.",
+        },
+        iframeTitle: {
+          en: "Marcel Geser interview about media portrayals of BASE jumping risk",
+          de: "Marcel Geser Interview über die mediale Darstellung des Risikos im BASE Jumping",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "Ux61aE9Q4Us",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "4Z0y1E7hUy0",
+          },
+        },
+      },
+      {
+        id: "stockhorn-reflection",
+        placement: "after-gallery",
+        title: {
+          en: "Reflecting on his home jump",
+          de: "Reflexion über seinen Heimsprung",
+        },
+        navTitle: {
+          en: "Reflecting on his home jump",
+          de: "Reflexion über seinen Heimsprung",
+        },
+        chapter: {
+          en: "Reflection and Memory",
+          de: "Reflexion und Erinnerung",
+        },
+        quote: "A Jump\nto Remember",
+        subtitle: {
+          en: "Watching footage from his home jump at the Stockhorn, Marcel recalls the conditions, the person beside him and the details that turned the flight into a lasting memory.",
+          de: "Beim Betrachten der Aufnahme von seinem Heimsprung am Stockhorn erinnert sich Marcel an die Bedingungen, die Person an seiner Seite und an jene Details, die den Flug zu einer bleibenden Erinnerung machten.",
+        },
+        highlightQuote: {
+          en: "Even now, when I watch the video again, I remember every single detail.",
+          de: "Auch wenn ich das Video jetzt nochmal schaue, dann erinnere ich mich noch an jedes Detail.",
+        },
+        iframeTitle: {
+          en: "Marcel Geser reflecting on his Stockhorn wingsuit jump",
+          de: "Marcel Geser reflektiert seinen Wingsuit-Sprung am Stockhorn",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "pWXj7Prr6L4",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "2dOWBr7Vfzw",
+          },
+        },
+      },
+    ],
+    scrollVideo: {
+      id: "proximity-flight",
+      chapter: {
+        en: "WHAT THE IMAGE LEAVES OUT",
+        de: "WAS DAS BILD NICHT ZEIGT",
+      },
+      title: {
+        en: "The Proximity Flight",
+        de: "Der Proximity-Flug",
+      },
+      displayTitle: {
+        en: "The Final\nLine",
+        de: "Die fertige\nLinie",
+      },
+      description: {
+        en: "The problem is that people only ever see the final result.",
+        de: "Das Problem ist, dass man ja immer nur mit dem Endprodukt konfrontiert wird.",
+      },
+      video: {
+        src: "/video/marcel-geser/The_jump.mp4",
+        scrubSrc: "/video/marcel-geser/The_jump_scrub.mp4",
+        type: "video/mp4",
+      },
+      poster: null,
+      scrollLength: 4,
+      fallbackLabel: {
+        en: "Marcel Geser flying a low proximity wingsuit line",
+        de: "Marcel Geser fliegt eine tiefe Proximity-Linie im Wingsuit",
+      },
+    },
+    localVideoFeatures: [
+      {
+        id: "career-highlights",
+        controls: "cinematic",
+        chapter: {
+          en: "CAREER HIGHLIGHTS",
+          de: "KARRIERE-HIGHLIGHTS",
+        },
+        title: {
+          en: "Career Highlights",
+          de: "Karriere-Highlights",
+        },
+        displayTitle: {
+          en: "Years in Flight",
+          de: "Jahre im Flug",
+        },
+        intro: {
+          en: "A four-minute retrospective brings together flights from the past three to five years of Marcel's BASE jumping career, closing the portrait with the passion for flying that began his journey.",
+          de: "Ein vierminütiger Rückblick versammelt Flüge aus den vergangenen drei bis fünf Jahren von Marcels BASE-Jumping-Laufbahn und führt das Porträt zurück zu jener Leidenschaft fürs Fliegen, mit der sein Weg begann.",
+        },
+        video: {
+          src: "/video/marcel-geser/Summary.mp4",
+          type: "video/mp4",
+          poster: null,
+          label: {
+            en: "Marcel Geser career highlights from recent BASE jumping years",
+            de: "Marcel Gesers Karriere-Highlights aus den vergangenen BASE-Jumping-Jahren",
+          },
+          caption: {
+            en: "Selected flights from Marcel Geser's recent BASE jumping career.",
+            de: "Ausgewählte Flüge aus Marcel Gesers jüngerer BASE-Jumping-Laufbahn.",
+          },
+        },
+      },
+    ],
     ...emptyMedia,
+    audioStories: [
+      {
+        id: "process-behind-the-highlight",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "The Process Behind the Highlight",
+          de: "Der Prozess hinter dem Highlight",
+        },
+        displayTitle: {
+          en: "Beyond the\nFinal Result",
+          de: "Mehr als das\nEndprodukt",
+        },
+        audio: {
+          src: "/audio/marcel-geser/Endprodukt.wav",
+        },
+        transcript: {
+          en: "/audio/marcel-geser/Endprodukt_EN.srt",
+          de: "/audio/marcel-geser/Endprodukt_DE.srt",
+        },
+        portrait: "/images/athletes/marcel-geser/audio.jpg",
+        portraitAlt: {
+          en: "Marcel Geser smiling with his parachute in front of snowy mountains",
+          de: "Marcel Geser lächelt mit seinem Fallschirm vor verschneiten Bergen",
+        },
+        duration: "00:58",
+      },
+    ],
     links: [
       {
         label: "Marcel Geser on YouTube",
@@ -1612,6 +1999,180 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["niclas-strohmeier"],
     ...emptyMedia,
+    interviewFeatures: [
+      {
+        id: "social-media-impact",
+        placement: "after-origin",
+        title: {
+          en: "How will social media change the BASE scene in the long term?",
+          de: "Wie verändert Social Media die BASE-Szene langfristig?",
+        },
+        navTitle: {
+          en: "How will social media change the BASE scene in the long term?",
+          de: "Wie verändert Social Media die BASE-Szene langfristig?",
+        },
+        chapter: {
+          en: "Social Media as Inspiration",
+          de: "Social Media als Inspiration",
+        },
+        quote: "How Will Social Media Change the BASE Scene?",
+        subtitle: {
+          en: "Niclas sees social media as a doorway into the sport: it can inspire new people, connect them with the community and make more shared knowledge visible. Its value begins with learning, not blind imitation.",
+          de: "Niclas sieht Social Media als Türöffner zum Sport: Die Plattformen können neue Menschen inspirieren, sie mit der Community verbinden und gemeinsames Wissen sichtbarer machen. Ihr Wert beginnt beim Lernen, nicht beim blinden Nachahmen.",
+        },
+        iframeTitle: {
+          en: "Niclas Strohmeier interview about the long-term influence of social media on BASE jumping",
+          de: "Niclas Strohmeier Interview über den langfristigen Einfluss von Social Media auf BASE Jumping",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "Ea3IJi8G6_g",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "9Ugc1_Mp_Ts",
+          },
+        },
+      },
+      {
+        id: "more-than-the-jump",
+        placement: "after-gallery",
+        title: {
+          en: "More Than Just the Jump",
+          de: "Mehr als nur der Sprung",
+        },
+        navTitle: {
+          en: "More Than Just the Jump",
+          de: "Mehr als nur der Sprung",
+        },
+        chapter: {
+          en: "Mountains, Nature and Community",
+          de: "Berge, Natur und Gemeinschaft",
+        },
+        quote: "More Than Just the Jump",
+        subtitle: {
+          en: "Beyond the visible seconds of a jump, Niclas describes a sport shaped by time in the mountains, nature, friendships and shared experiences. That wider reality is easily lost when BASE jumping is reduced to danger and spectacle.",
+          de: "Hinter den sichtbaren Sekunden eines Sprungs beschreibt Niclas einen Sport, der von Zeit in den Bergen, Natur, Freundschaften und gemeinsamen Erlebnissen geprägt ist. Diese umfassendere Realität geht leicht verloren, wenn BASE Jumping auf Gefahr und Spektakel reduziert wird.",
+        },
+        iframeTitle: {
+          en: "Niclas Strohmeier interview about the experiences beyond a BASE jump",
+          de: "Niclas Strohmeier Interview über die Erlebnisse jenseits eines BASE-Sprungs",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "lXJYZ2X_4G0",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "_EVriuqgoMM",
+          },
+        },
+      },
+    ],
+    localVideoFeatures: [
+      {
+        id: "the-jump",
+        controls: "cinematic",
+        chapter: {
+          en: "Immersive Flight",
+          de: "Immersiver Flug",
+        },
+        title: {
+          en: "The Jump Lasts Only Seconds",
+          de: "Der Sprung dauert nur Sekunden",
+        },
+        displayTitle: {
+          en: "The Jump Lasts\nOnly Seconds",
+          de: "Der Sprung dauert\nnur Sekunden",
+        },
+        intro: {
+          en: "Behind these few seconds are years of experience, preparation and deliberate decisions.",
+          de: "Hinter diesen wenigen Sekunden stehen Jahre der Erfahrung, Vorbereitung und bewusster Entscheidungen.",
+        },
+        video: {
+          src: "/video/niclas-strohmeier/The_jump.MP4",
+          type: "video/mp4",
+          poster: "/video/niclas-strohmeier/The_jump_thumbnail.jpg",
+          label: {
+            en: "Niclas Strohmeier BASE jump",
+            de: "BASE-Sprung von Niclas Strohmeier",
+          },
+        },
+      },
+    ],
+    audioStories: [
+      {
+        id: "experience-and-caution",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Learning to respect the risk",
+          de: "Risiko respektieren lernen",
+        },
+        displayTitle: {
+          en: "From Invulnerability\nto Caution",
+          de: "Von Unverwundbarkeit zu Vorsicht",
+        },
+        titleLayout: "wide",
+        description: {
+          en: "Niclas looks back on how starting young shaped his relationship with fear. Time in the sport and witnessing accidents taught him that experience is not immunity, but a reason to become more careful.",
+          de: "Niclas blickt darauf zurück, wie sein früher Einstieg sein Verhältnis zur Angst prägte. Die Zeit im Sport und miterlebte Unfälle zeigten ihm, dass Erfahrung nicht unverwundbar macht, sondern ein Grund für mehr Vorsicht ist.",
+        },
+        audio: {
+          src: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung.wav",
+        },
+        transcript: {
+          en: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung_EN.srt",
+          de: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung_DE.srt",
+        },
+        portrait: "/images/athletes/niclas-strohmeier/audio.jpg",
+        portraitAlt: {
+          en: "Niclas Strohmeier smiling in a white wingsuit and helmet in a forest",
+          de: "Niclas Strohmeier lächelt im weissen Wingsuit und Helm in einem Wald",
+        },
+        duration: "00:56",
+      },
+      {
+        id: "slow-progression",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Taking the long way",
+          de: "Den langen Weg wählen",
+        },
+        displayTitle: {
+          en: "Slow Progression\nIs Safe Progression",
+          de: "Langsame Progression\nist sichere Progression",
+        },
+        description: {
+          en: "For Niclas, social media can inspire progress, but it should never determine how much risk a jump is worth. He argues for easy jumps, deliberate limits and enjoying every stage instead of rushing towards a wingsuit.",
+          de: "Für Niclas kann Social Media zur Entwicklung motivieren, sollte aber nie bestimmen, wie viel Risiko ein Sprung wert ist. Er plädiert für einfache Sprünge, bewusst gewählte Grenzen und dafür, jede Etappe zu geniessen, statt möglichst schnell in den Wingsuit zu wechseln.",
+        },
+        audio: {
+          src: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_DE.wav",
+        },
+        transcript: {
+          en: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_EN.srt",
+          de: "/audio/niclas-strohmeier/Botschaft_an_Neulinge_DE.srt",
+        },
+        portrait: "/images/athletes/niclas-strohmeier/audio.jpg",
+        portraitAlt: {
+          en: "Niclas Strohmeier smiling in a white wingsuit and helmet in a forest",
+          de: "Niclas Strohmeier lächelt im weissen Wingsuit und Helm in einem Wald",
+        },
+        duration: "01:39",
+      },
+    ],
     links: [
       {
         label: "Niclas Strohmeier on Facebook",
@@ -1661,7 +2222,7 @@ export const athletes: Athlete[] = [
           "469340793_1835003297315437_4282046965683917746_n.jpg",
           "479193872_1885098192305947_5112094249666224347_n.jpg",
           "481926393_1903292847153148_1366487483073375849_n.jpg",
-          "485131123_1911964859619280_2705298699952572428_n.jpg",
+          "482203387_1902941237188309_5233362665493858972_n.jpg",
         ],
         [
           {
@@ -1677,8 +2238,8 @@ export const athletes: Athlete[] = [
             de: "Wingsuit-Flieger fliegt bei Sonnenuntergang über einem See",
           },
           {
-            en: "BASE jumper in a white wingsuit above a snowy slope",
-            de: "BASE Jumper in weissem Wingsuit über einem verschneiten Hang",
+            en: "Josef Braun standing on a rock in front of snow-covered mountains",
+            de: "Josef Braun steht auf einem Felsen vor verschneiten Bergen",
           },
         ],
       ),
@@ -1716,6 +2277,142 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["josef-braun"],
     ...emptyMedia,
+    interviewFeatures: [
+      {
+        id: "creating-the-shot",
+        placement: "after-origin",
+        title: {
+          en: "How do you create a spectacular shot?",
+          de: "Wie entsteht ein spektakulärer Shot?",
+        },
+        navTitle: {
+          en: "How do you create a spectacular shot?",
+          de: "Wie entsteht ein spektakulärer Shot?",
+        },
+        chapter: {
+          en: "Craft and Responsibility",
+          de: "Handwerk und Verantwortung",
+        },
+        quote: "How do you create a spectacular shot?",
+        subtitle: {
+          en: "Spectacular footage doesn't happen by chance. Josef explains how camera angles, perspective, timing and safety come together to create images that capture the sport while never losing sight of responsibility.",
+          de: "Spektakuläre Bilder entstehen nicht zufällig. Josef erklärt, wie Kamerawinkel, Perspektive, Timing und Sicherheit zusammenspielen, um Aufnahmen zu schaffen, die den Sport eindrucksvoll zeigen, ohne die Verantwortung aus den Augen zu verlieren.",
+        },
+        iframeTitle: {
+          en: "Josef Braun interview about creating spectacular camera-flying footage",
+          de: "Josef Braun Interview über die Entstehung spektakulärer Kameraflug-Aufnahmen",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "akHadwzWaeI",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "xpN6g-VkC5U",
+          },
+        },
+      },
+    ],
+    localVideoFeatures: [
+      {
+        id: "behind-the-camera",
+        controls: "cinematic",
+        chapter: {
+          en: "Camera Flying",
+          de: "Kameraflug",
+        },
+        title: {
+          en: "Behind the Camera",
+          de: "Hinter der Kamera",
+        },
+        intro: {
+          en: "Josef doesn't only jump for himself. As a camera flyer, he follows other athletes through the air and tells their stories from a perspective that only a few people ever experience. Every shot is built on experience, trust and meticulous preparation.",
+          de: "Josef springt nicht nur für sich selbst. Als Kameraflieger begleitet er andere Athlet:innen durch die Luft und erzählt ihre Geschichten aus einer Perspektive, die nur wenige erleben. Jeder Shot basiert auf Erfahrung, Vertrauen und präziser Vorbereitung.",
+        },
+        video: {
+          src: "/video/josef-braun/The_jump1.MP4",
+          type: "video/mp4",
+          poster: "/video/josef-braun/The_jump1_thumbnail.jpg",
+          objectFit: "cover",
+          label: {
+            en: "Josef Braun camera flying behind another athlete",
+            de: "Josef Braun begleitet als Kameraflieger einen anderen Athleten",
+          },
+        },
+      },
+      {
+        id: "final-shot",
+        controls: "cinematic",
+        chapter: {
+          en: "The Result",
+          de: "Das Ergebnis",
+        },
+        title: {
+          en: "The Final Shot",
+          de: "Das fertige Bild",
+        },
+        intro: {
+          en: "After Josef explains how a camera flight comes together, this video shows the result. What appears to be an effortless flight is actually the product of planning, communication and years of experience.",
+          de: "Nachdem Josef erklärt hat, wie ein Kameraflug entsteht, zeigt dieses Video das Ergebnis. Was wie ein müheloser Flug wirkt, ist das Zusammenspiel von Planung, Kommunikation und jahrelanger Erfahrung.",
+        },
+        video: {
+          src: "/video/josef-braun/The_jump2.MP4",
+          type: "video/mp4",
+          poster: "/video/josef-braun/The_jump2_thumbnail.jpg",
+          label: {
+            en: "The completed camera-flight shot filmed by Josef Braun",
+            de: "Die fertige Kameraflug-Aufnahme von Josef Braun",
+          },
+        },
+      },
+    ],
+    audioStories: [
+      {
+        id: "visibility-and-risk",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Visibility is not risk",
+          de: "Sichtbarkeit ist nicht Risiko",
+        },
+        displayTitle: {
+          en: "The Most Extreme Isn't Always What Goes Viral",
+          de: "Nicht immer das Extremste gewinnt",
+        },
+        description: {
+          en: "Spectacular images often attract attention. But does that mean the riskiest jumps are always the most successful? Josef reflects on how his perspective on social media has changed and why authenticity matters more to him today than chasing reach.",
+          de: "Spektakuläre Bilder erhalten oft viel Aufmerksamkeit. Doch bedeutet das automatisch, dass immer die riskantesten Sprünge erfolgreich sind? Josef beschreibt, wie sich sein Blick auf Social Media verändert hat und weshalb Authentizität für ihn heute wichtiger ist als reine Reichweite.",
+        },
+        audio: {
+          src: "/audio/josef-braun/Algorithmus.wav",
+        },
+        transcript: {
+          en: "/audio/josef-braun/Algorithmus_EN.srt",
+          de: "/audio/josef-braun/Algorithmus_DE.srt",
+        },
+        portrait: "/images/athletes/josef-braun/audio.jpg",
+        portraitAlt: {
+          en: "Josef Braun smiling in a red jumpsuit and camera helmet in front of mountains",
+          de: "Josef Braun lächelt in einem roten Sprunganzug und Kamerahelm vor Bergen",
+        },
+        duration: "01:26",
+        insight: {
+          title: {
+            en: "KEY INSIGHT",
+            de: "ZENTRALE ERKENNTNIS",
+          },
+          text: {
+            en: "High reach does not necessarily come from the greatest risk. For Josef, authenticity, creative camera work and personal meaning have become more important than maximising views.",
+            de: "Hohe Reichweite entsteht nicht zwangsläufig durch das grösste Risiko. Für Josef sind heute Authentizität, kreative Kameraarbeit und persönliche Bedeutung wichtiger als möglichst viele Aufrufe.",
+          },
+        },
+      },
+    ],
     links: [
       {
         label: "Josef Braun on Instagram",
