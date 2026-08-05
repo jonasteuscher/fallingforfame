@@ -407,3 +407,6 @@ logos and other media assets are **excluded** from the MIT License unless
 explicitly stated otherwise. These materials remain the intellectual property
 of their respective creators and may not be copied, redistributed or reused
 without prior written permission.
+
+
+> **Last commit before thesis submission:** 2026-08-05
