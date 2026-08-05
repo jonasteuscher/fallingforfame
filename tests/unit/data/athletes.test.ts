@@ -76,6 +76,7 @@ describe("athletes data", () => {
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
     const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
     const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
+    const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
 
     expect(tim?.interviewFeatures).toMatchObject([
       {
@@ -84,6 +85,10 @@ describe("athletes data", () => {
         chapter: {
           en: "Social Media",
           de: "Social Media",
+        },
+        title: {
+          en: "You're Only as Good as Your Last Stunt",
+          de: "Du bist nur so gut wie dein letzter Stunt",
         },
         quote: "You're Only as Good\nas Your Last Stunt",
         poster: null,
@@ -99,7 +104,15 @@ describe("athletes data", () => {
           en: "Decision Making",
           de: "Decision Making",
         },
+        title: {
+          en: "Make the Right Decision",
+          de: "Triff die richtige Entscheidung",
+        },
         quote: "Make the\nRight Decision",
+        intro: {
+          en: "Tim shares practical advice for new BASE jumpers: build experience patiently, understand your limits and make decisions that allow you to stay in the sport for the long term.",
+          de: "Tim gibt angehenden BASE Jumper:innen konkrete Tipps: Erfahrung geduldig aufbauen, die eigenen Grenzen kennen und Entscheidungen treffen, die den Sport langfristig möglich machen.",
+        },
         poster: null,
         videos: {
           en: { provider: "youtube", videoId: "N9JUEpIOwkA" },
@@ -215,6 +228,19 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(josef?.interviewFeatures).toMatchObject([
+      {
+        id: "creating-the-shot",
+        title: {
+          en: "How do you create a spectacular shot?",
+          de: "Wie entsteht ein spektakulärer Shot?",
+        },
+        videos: {
+          en: { provider: "youtube", videoId: "akHadwzWaeI" },
+          de: { provider: "youtube", videoId: "xpN6g-VkC5U" },
+        },
+      },
+    ]);
     expect(
       athletes
         .filter(
@@ -222,7 +248,8 @@ describe("athletes data", () => {
             athlete.slug !== "tim-howell" &&
             athlete.slug !== "lukas-loibl" &&
             athlete.slug !== "marcel-geser" &&
-            athlete.slug !== "niclas-strohmeier",
+            athlete.slug !== "niclas-strohmeier" &&
+            athlete.slug !== "josef-braun",
         )
         .every((athlete) => athlete.interviewFeatures === undefined),
     ).toBe(true);
@@ -233,6 +260,7 @@ describe("athletes data", () => {
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
     const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
     const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
+    const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
 
     expect(tim?.audioStories).toMatchObject([
       {
@@ -311,6 +339,11 @@ describe("athletes data", () => {
           en: "Learning to respect the risk",
           de: "Risiko respektieren lernen",
         },
+        displayTitle: {
+          en: "From Invulnerability\nto Caution",
+          de: "Von Unverwundbarkeit zu Vorsicht",
+        },
+        titleLayout: "wide",
         audio: {
           src: "/audio/niclas-strohmeier/Pers%C3%B6nliche_Entwicklung.wav",
         },
@@ -340,6 +373,25 @@ describe("athletes data", () => {
     ]);
     expect(niclas?.audioStories).toHaveLength(2);
     expect(niclas?.audioStories?.every((story) => !("waveform" in story))).toBe(true);
+    expect(josef?.audioStories).toMatchObject([
+      {
+        id: "visibility-and-risk",
+        displayTitle: {
+          en: "The Most Extreme Isn't Always What Goes Viral",
+          de: "Nicht immer das Extremste gewinnt",
+        },
+        audio: { src: "/audio/josef-braun/Algorithmus.wav" },
+        transcript: {
+          en: "/audio/josef-braun/Algorithmus_EN.srt",
+          de: "/audio/josef-braun/Algorithmus_DE.srt",
+        },
+        portrait: "/images/athletes/josef-braun/audio.jpg",
+        insight: {
+          title: { en: "KEY INSIGHT", de: "ZENTRALE ERKENNTNIS" },
+        },
+      },
+    ]);
+    expect(josef?.audioStories?.[0]).not.toHaveProperty("waveform");
     expect(
       athletes
         .filter(
@@ -347,7 +399,8 @@ describe("athletes data", () => {
             athlete.slug !== "tim-howell" &&
             athlete.slug !== "lukas-loibl" &&
             athlete.slug !== "marcel-geser" &&
-            athlete.slug !== "niclas-strohmeier",
+            athlete.slug !== "niclas-strohmeier" &&
+            athlete.slug !== "josef-braun",
         )
         .every((athlete) => athlete.audioStories === undefined),
     ).toBe(true);
@@ -492,6 +545,7 @@ describe("athletes data", () => {
   it("contains the athlete-specific local films", () => {
     const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
     const niclas = athletes.find((athlete) => athlete.slug === "niclas-strohmeier");
+    const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
 
     expect(marcel?.localVideoFeatures).toMatchObject([
       {
@@ -525,11 +579,32 @@ describe("athletes data", () => {
         },
       },
     ]);
+    expect(josef?.localVideoFeatures).toMatchObject([
+      {
+        id: "behind-the-camera",
+        controls: "cinematic",
+        video: {
+          src: "/video/josef-braun/The_jump1.MP4",
+          poster: "/video/josef-braun/The_jump1_thumbnail.jpg",
+          objectFit: "cover",
+        },
+      },
+      {
+        id: "final-shot",
+        controls: "cinematic",
+        video: {
+          src: "/video/josef-braun/The_jump2.MP4",
+          poster: "/video/josef-braun/The_jump2_thumbnail.jpg",
+        },
+      },
+    ]);
     expect(
       athletes
         .filter(
           (athlete) =>
-            athlete.slug !== "marcel-geser" && athlete.slug !== "niclas-strohmeier",
+            athlete.slug !== "marcel-geser" &&
+            athlete.slug !== "niclas-strohmeier" &&
+            athlete.slug !== "josef-braun",
         )
         .every((athlete) => athlete.localVideoFeatures === undefined),
     ).toBe(true);

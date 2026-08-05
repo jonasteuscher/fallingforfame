@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import AthletePage, {
   generateMetadata as generateAthleteMetadata,
 } from "@/app/[locale]/athletes/[slug]/page";
+import { AudioProvider } from "@/components/audio";
 import { athletes } from "@/data/athletes";
 import { renderAsyncPage } from "../../test-utils/render-pages";
 
@@ -901,9 +902,11 @@ describe("athlete detail page", () => {
     ).toBeVisible();
 
     rerender(
-      await AthletePage({
-        params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
-      }),
+      <AudioProvider>
+        {await AthletePage({
+          params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
+        })}
+      </AudioProvider>,
     );
 
     expect(
@@ -916,6 +919,98 @@ describe("athlete detail page", () => {
         "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
       ),
     ).toBeVisible();
+  });
+
+  it("renders Josef Braun's camera-flying story in order for both locales", async () => {
+    const { container, unmount } = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "en", slug: "josef-braun" }),
+      }),
+    );
+
+    const behindCamera = container.querySelector(
+      '[data-local-video-feature-id="behind-the-camera"]',
+    );
+    const creatingTheShot = container.querySelector(
+      '[data-interview-feature-id="creating-the-shot"]',
+    );
+    const finalShot = container.querySelector(
+      '[data-local-video-feature-id="final-shot"]',
+    );
+    const audioStory = container.querySelector(
+      '[data-audio-story-id="visibility-and-risk"]',
+    );
+    const gallery = screen.getByRole("heading", { name: "Photo Gallery" }).closest("section");
+
+    expect(behindCamera).toBeInTheDocument();
+    expect(creatingTheShot).toBeInTheDocument();
+    expect(finalShot).toBeInTheDocument();
+    expect(audioStory).toBeInTheDocument();
+    expect(
+      behindCamera!.compareDocumentPosition(creatingTheShot!) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      creatingTheShot!.compareDocumentPosition(finalShot!) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      finalShot!.compareDocumentPosition(audioStory!) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      audioStory!.compareDocumentPosition(gallery!) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+
+    expect(screen.getByRole("heading", { name: "Behind the Camera" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "How do you create a spectacular shot?",
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "The Final Shot" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "The Most Extreme Isn't Always What Goes Viral",
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "KEY INSIGHT" })).toBeVisible();
+    expect(
+      screen.getByLabelText("Josef Braun camera flying behind another athlete"),
+    ).not.toHaveAttribute("controls");
+    expect(
+      screen.getByLabelText("The completed camera-flight shot filmed by Josef Braun"),
+    ).not.toHaveAttribute("controls");
+    expect(
+      container.querySelector(
+        'img[src="https://i.ytimg.com/vi/akHadwzWaeI/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
+
+    unmount();
+
+    const german = await renderAsyncPage(
+      AthletePage({
+        params: Promise.resolve({ locale: "de", slug: "josef-braun" }),
+      }),
+    );
+
+    expect(screen.getByRole("heading", { name: "Hinter der Kamera" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", {
+        name: "Wie entsteht ein spektakulärer Shot?",
+      }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Das fertige Bild" })).toBeVisible();
+    expect(
+      screen.getByRole("heading", { name: "Nicht immer das Extremste gewinnt" }),
+    ).toBeVisible();
+    expect(screen.getByRole("heading", { name: "ZENTRALE ERKENNTNIS" })).toBeVisible();
+    expect(
+      german.container.querySelector(
+        'img[src="https://i.ytimg.com/vi/xpN6g-VkC5U/maxresdefault.jpg"]',
+      ),
+    ).toBeInTheDocument();
   });
 
   it("renders localized hero quotes", async () => {

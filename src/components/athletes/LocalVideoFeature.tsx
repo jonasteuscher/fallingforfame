@@ -43,6 +43,7 @@ export function LocalVideoFeature({ feature, locale }: LocalVideoFeatureProps) {
             poster={feature.video.poster}
             label={videoLabel}
             locale={locale}
+            objectFit={feature.video.objectFit}
           />
           {feature.video.caption ? (
             <figcaption className="mt-3 text-sm leading-6 text-foreground/65">

@@ -18,9 +18,7 @@ describe("AthleteDocumentaryPage shared section system", () => {
     const tim = athletes.find((athlete) => athlete.slug === "tim-howell");
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
     const marcel = athletes.find((athlete) => athlete.slug === "marcel-geser");
-    const standardProfiles = athletes.filter(
-      (athlete) => athlete.slug === "josef-braun",
-    );
+    const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
 
     expect(tim?.page?.sections.map((section) => section.type)).toEqual([
       "interview-video",
@@ -55,30 +53,40 @@ describe("AthleteDocumentaryPage shared section system", () => {
       ),
     ).toMatchObject({ layout: "media-first", spacing: "immersive" });
 
-    expect(standardProfiles).toHaveLength(1);
-    for (const athlete of standardProfiles) {
-      expect(athlete.page?.progress.slice(0, 4).map((section) => section.id)).toEqual([
-        "biography",
-        "origin",
-        "gallery",
-        "social-media",
-      ]);
-      expect(athlete.page?.sections.map((section) => section.type)).toEqual([
-        "gallery",
-        "social-media",
-        "media-coverage",
-      ]);
-      expect(athlete.page?.sections[0]).toMatchObject({
-        id: "gallery",
-        spacing: "standard",
-        includeInProgress: true,
-      });
-      expect(athlete.page?.sections[1]).toMatchObject({
-        id: "social-media",
-        spacing: "compact",
-        includeInProgress: true,
-      });
-    }
+    expect(josef?.page?.progress.map((section) => section.id)).toEqual([
+      "biography",
+      "origin",
+      "behind-the-camera",
+      "creating-the-shot",
+      "final-shot",
+      "visibility-and-risk",
+      "gallery",
+      "social-media",
+      "media-coverage",
+    ]);
+    expect(josef?.page?.sections.map((section) => section.type)).toEqual([
+      "local-video",
+      "interview-video",
+      "local-video",
+      "audio-story",
+      "gallery",
+      "social-media",
+      "media-coverage",
+    ]);
+    expect(josef?.page?.sections.slice(0, 3)).toMatchObject([
+      { id: "behind-the-camera", featureId: "behind-the-camera" },
+      {
+        id: "creating-the-shot",
+        featureId: "creating-the-shot",
+        layout: "text-first",
+      },
+      { id: "final-shot", featureId: "final-shot" },
+    ]);
+    expect(josef?.page?.sections[3]).toMatchObject({
+      id: "visibility-and-risk",
+      storyId: "visibility-and-risk",
+      includeInProgress: true,
+    });
 
     expect(marcel?.page?.progress.map((section) => section.id)).toEqual([
       "biography",

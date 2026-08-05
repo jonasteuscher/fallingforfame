@@ -94,6 +94,7 @@ export type AthleteLocalVideoFeature = {
     src: string;
     type: "video/mp4";
     poster?: string | null;
+    objectFit?: "contain" | "cover";
     label: LocalizedText;
     caption?: LocalizedText;
   };
@@ -105,6 +106,7 @@ export type AthleteAudioStory = {
   chapter: LocalizedText;
   title: LocalizedText;
   displayTitle: string | LocalizedText;
+  titleLayout?: "standard" | "wide";
   description?: LocalizedText;
   audio: {
     src: string;
@@ -116,6 +118,10 @@ export type AthleteAudioStory = {
   portrait: string | null;
   portraitAlt?: LocalizedText;
   duration?: string | null;
+  insight?: {
+    title: LocalizedText;
+    text: LocalizedText;
+  };
 };
 
 export type ProjectStatus = "current" | "future" | "completed";

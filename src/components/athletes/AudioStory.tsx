@@ -49,7 +49,12 @@ export function AudioStory({ story, locale }: AudioStoryProps) {
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
           {story.chapter[locale]}
         </p>
-        <SectionTitle id={headingId}>{displayTitle}</SectionTitle>
+        <SectionTitle
+          id={headingId}
+          size={story.titleLayout === "wide" ? "audioWide" : "standard"}
+        >
+          {displayTitle}
+        </SectionTitle>
         {story.description ? (
           <p className="mt-8 max-w-2xl text-lg leading-8 text-foreground/72">
             {story.description[locale]}
@@ -448,6 +453,17 @@ function AudioStoryCard({
                 setCurrentTime(entry.start);
               }}
             />
+
+            {story.insight ? (
+              <aside className="mt-7 border-l-2 border-primary pl-5">
+                <h4 className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+                  {story.insight.title[locale]}
+                </h4>
+                <p className="mt-3 max-w-2xl text-base leading-7 text-foreground/78">
+                  {story.insight.text[locale]}
+                </p>
+              </aside>
+            ) : null}
           </div>
         </div>
       </div>

@@ -130,52 +130,6 @@ const lukasLoiblPage: AthletePageComposition = {
   ],
 };
 
-function standardAthletePage({
-  navAriaLabel,
-  includeMediaCoverage = false,
-}: {
-  navAriaLabel: AthletePageComposition["navAriaLabel"];
-  includeMediaCoverage?: boolean;
-}): AthletePageComposition {
-  return {
-    navAriaLabel,
-    progress: [
-      { id: "biography", label: { en: "Biography", de: "Biografie" } },
-      { id: "origin", label: { en: "Career", de: "Karriere" } },
-      { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
-      { id: "social-media", label: { en: "Links", de: "Links" } },
-      ...(includeMediaCoverage
-        ? [
-            {
-              id: "media-coverage",
-              label: { en: "Coverage", de: "Medien" },
-            },
-          ]
-        : []),
-    ],
-    sections: [
-      {
-        type: "gallery",
-        id: "gallery",
-        spacing: "standard",
-        includeInProgress: true,
-      },
-      {
-        type: "social-media",
-        id: "social-media",
-        spacing: "compact",
-        includeInProgress: true,
-      },
-      {
-        type: "media-coverage",
-        id: "media-coverage",
-        spacing: "compact",
-        includeInProgress: includeMediaCoverage,
-      },
-    ],
-  };
-}
-
 const marcelGeserPage: AthletePageComposition = {
   navAriaLabel: {
     en: "Marcel Geser profile sections",
@@ -351,13 +305,84 @@ const niclasStrohmeierPage: AthletePageComposition = {
   ],
 };
 
-const josefBraunPage = standardAthletePage({
+const josefBraunPage: AthletePageComposition = {
   navAriaLabel: {
     en: "Josef Braun profile sections",
     de: "Josef Braun Profilabschnitte",
   },
-  includeMediaCoverage: true,
-});
+  progress: [
+    { id: "biography", label: { en: "Biography", de: "Biografie" } },
+    { id: "origin", label: { en: "Career", de: "Karriere" } },
+    {
+      id: "behind-the-camera",
+      label: { en: "Behind the Camera", de: "Hinter der Kamera" },
+    },
+    {
+      id: "creating-the-shot",
+      label: { en: "Creating the Shot", de: "Der Shot" },
+    },
+    {
+      id: "final-shot",
+      label: { en: "The Final Shot", de: "Das fertige Bild" },
+    },
+    {
+      id: "visibility-and-risk",
+      label: { en: "Visibility", de: "Sichtbarkeit" },
+    },
+    { id: "gallery", label: { en: "Gallery", de: "Galerie" } },
+    { id: "social-media", label: { en: "Links", de: "Links" } },
+    { id: "media-coverage", label: { en: "Coverage", de: "Medien" } },
+  ],
+  sections: [
+    {
+      type: "local-video",
+      id: "behind-the-camera",
+      featureId: "behind-the-camera",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "interview-video",
+      id: "creating-the-shot",
+      featureId: "creating-the-shot",
+      layout: "text-first",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "local-video",
+      id: "final-shot",
+      featureId: "final-shot",
+      spacing: "immersive",
+      includeInProgress: true,
+    },
+    {
+      type: "audio-story",
+      id: "visibility-and-risk",
+      storyId: "visibility-and-risk",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "gallery",
+      id: "gallery",
+      spacing: "standard",
+      includeInProgress: true,
+    },
+    {
+      type: "social-media",
+      id: "social-media",
+      spacing: "compact",
+      includeInProgress: true,
+    },
+    {
+      type: "media-coverage",
+      id: "media-coverage",
+      spacing: "compact",
+      includeInProgress: true,
+    },
+  ],
+};
 
 function images(
   hero: string | null = null,
@@ -396,7 +421,10 @@ const galleryImageDimensions: Record<
       width: 2048,
       height: 2048,
     },
-    "485131123_1911964859619280_2705298699952572428_n.jpg": { width: 960, height: 958 },
+    "482203387_1902941237188309_5233362665493858972_n.jpg": {
+      width: 1536,
+      height: 2048,
+    },
   },
   "lukas-loibl": {
     "D9A50B94-6169-4E85-8800-8924444F81E9.png": { width: 1024, height: 1536 },
@@ -914,10 +942,14 @@ export const athletes: Athlete[] = [
           en: "Social Media",
           de: "Social Media",
         },
+        title: {
+          en: "You're Only as Good as Your Last Stunt",
+          de: "Du bist nur so gut wie dein letzter Stunt",
+        },
         quote: "You're Only as Good\nas Your Last Stunt",
         intro: {
           en: "Presented here as a pressure around public visibility: the spectacular moment is seen, while preparation and restraint often remain outside the frame.",
-          de: "Hier steht der Satz für den Druck öffentlicher Sichtbarkeit: Der spektakuläre Moment ist sichtbar, während Vorbereitung und Zurückhaltung oft ausserhalb des Bildes bleiben.",
+          de: "Tim beschreibt den Druck, der durch öffentliche Sichtbarkeit entstehen kann: Zu sehen ist meist nur der spektakuläre Moment. Die Vorbereitung und die bewusste Entscheidung gegen einen Sprung bleiben dagegen oft unsichtbar.",
         },
         iframeTitle: {
           en: "Tim Howell interview",
@@ -942,7 +974,15 @@ export const athletes: Athlete[] = [
           en: "Decision Making",
           de: "Decision Making",
         },
+        title: {
+          en: "Make the Right Decision",
+          de: "Triff die richtige Entscheidung",
+        },
         quote: "Make the\nRight Decision",
+        intro: {
+          en: "Tim shares practical advice for new BASE jumpers: build experience patiently, understand your limits and make decisions that allow you to stay in the sport for the long term.",
+          de: "Tim gibt angehenden BASE Jumper:innen konkrete Tipps: Erfahrung geduldig aufbauen, die eigenen Grenzen kennen und Entscheidungen treffen, die den Sport langfristig möglich machen.",
+        },
         iframeTitle: {
           en: "Tim Howell interview about decision making",
           de: "Tim Howell Interview über Decision Making",
@@ -2078,8 +2118,9 @@ export const athletes: Athlete[] = [
         },
         displayTitle: {
           en: "From Invulnerability\nto Caution",
-          de: "Von Unverwundbarkeit\nzu Vorsicht",
+          de: "Von Unverwundbarkeit zu Vorsicht",
         },
+        titleLayout: "wide",
         description: {
           en: "Niclas looks back on how starting young shaped his relationship with fear. Time in the sport and witnessing accidents taught him that experience is not immunity, but a reason to become more careful.",
           de: "Niclas blickt darauf zurück, wie sein früher Einstieg sein Verhältnis zur Angst prägte. Die Zeit im Sport und miterlebte Unfälle zeigten ihm, dass Erfahrung nicht unverwundbar macht, sondern ein Grund für mehr Vorsicht ist.",
@@ -2181,7 +2222,7 @@ export const athletes: Athlete[] = [
           "469340793_1835003297315437_4282046965683917746_n.jpg",
           "479193872_1885098192305947_5112094249666224347_n.jpg",
           "481926393_1903292847153148_1366487483073375849_n.jpg",
-          "485131123_1911964859619280_2705298699952572428_n.jpg",
+          "482203387_1902941237188309_5233362665493858972_n.jpg",
         ],
         [
           {
@@ -2197,8 +2238,8 @@ export const athletes: Athlete[] = [
             de: "Wingsuit-Flieger fliegt bei Sonnenuntergang über einem See",
           },
           {
-            en: "BASE jumper in a white wingsuit above a snowy slope",
-            de: "BASE Jumper in weissem Wingsuit über einem verschneiten Hang",
+            en: "Josef Braun standing on a rock in front of snow-covered mountains",
+            de: "Josef Braun steht auf einem Felsen vor verschneiten Bergen",
           },
         ],
       ),
@@ -2236,6 +2277,142 @@ export const athletes: Athlete[] = [
     },
     originStory: originStories["josef-braun"],
     ...emptyMedia,
+    interviewFeatures: [
+      {
+        id: "creating-the-shot",
+        placement: "after-origin",
+        title: {
+          en: "How do you create a spectacular shot?",
+          de: "Wie entsteht ein spektakulärer Shot?",
+        },
+        navTitle: {
+          en: "How do you create a spectacular shot?",
+          de: "Wie entsteht ein spektakulärer Shot?",
+        },
+        chapter: {
+          en: "Craft and Responsibility",
+          de: "Handwerk und Verantwortung",
+        },
+        quote: "How do you create a spectacular shot?",
+        subtitle: {
+          en: "Spectacular footage doesn't happen by chance. Josef explains how camera angles, perspective, timing and safety come together to create images that capture the sport while never losing sight of responsibility.",
+          de: "Spektakuläre Bilder entstehen nicht zufällig. Josef erklärt, wie Kamerawinkel, Perspektive, Timing und Sicherheit zusammenspielen, um Aufnahmen zu schaffen, die den Sport eindrucksvoll zeigen, ohne die Verantwortung aus den Augen zu verlieren.",
+        },
+        iframeTitle: {
+          en: "Josef Braun interview about creating spectacular camera-flying footage",
+          de: "Josef Braun Interview über die Entstehung spektakulärer Kameraflug-Aufnahmen",
+        },
+        poster: null,
+        videos: {
+          en: {
+            provider: "youtube",
+            videoId: "akHadwzWaeI",
+          },
+          de: {
+            provider: "youtube",
+            videoId: "xpN6g-VkC5U",
+          },
+        },
+      },
+    ],
+    localVideoFeatures: [
+      {
+        id: "behind-the-camera",
+        controls: "cinematic",
+        chapter: {
+          en: "Camera Flying",
+          de: "Kameraflug",
+        },
+        title: {
+          en: "Behind the Camera",
+          de: "Hinter der Kamera",
+        },
+        intro: {
+          en: "Josef doesn't only jump for himself. As a camera flyer, he follows other athletes through the air and tells their stories from a perspective that only a few people ever experience. Every shot is built on experience, trust and meticulous preparation.",
+          de: "Josef springt nicht nur für sich selbst. Als Kameraflieger begleitet er andere Athlet:innen durch die Luft und erzählt ihre Geschichten aus einer Perspektive, die nur wenige erleben. Jeder Shot basiert auf Erfahrung, Vertrauen und präziser Vorbereitung.",
+        },
+        video: {
+          src: "/video/josef-braun/The_jump1.MP4",
+          type: "video/mp4",
+          poster: "/video/josef-braun/The_jump1_thumbnail.jpg",
+          objectFit: "cover",
+          label: {
+            en: "Josef Braun camera flying behind another athlete",
+            de: "Josef Braun begleitet als Kameraflieger einen anderen Athleten",
+          },
+        },
+      },
+      {
+        id: "final-shot",
+        controls: "cinematic",
+        chapter: {
+          en: "The Result",
+          de: "Das Ergebnis",
+        },
+        title: {
+          en: "The Final Shot",
+          de: "Das fertige Bild",
+        },
+        intro: {
+          en: "After Josef explains how a camera flight comes together, this video shows the result. What appears to be an effortless flight is actually the product of planning, communication and years of experience.",
+          de: "Nachdem Josef erklärt hat, wie ein Kameraflug entsteht, zeigt dieses Video das Ergebnis. Was wie ein müheloser Flug wirkt, ist das Zusammenspiel von Planung, Kommunikation und jahrelanger Erfahrung.",
+        },
+        video: {
+          src: "/video/josef-braun/The_jump2.MP4",
+          type: "video/mp4",
+          poster: "/video/josef-braun/The_jump2_thumbnail.jpg",
+          label: {
+            en: "The completed camera-flight shot filmed by Josef Braun",
+            de: "Die fertige Kameraflug-Aufnahme von Josef Braun",
+          },
+        },
+      },
+    ],
+    audioStories: [
+      {
+        id: "visibility-and-risk",
+        placement: "after-gallery",
+        chapter: {
+          en: "AUDIO STORY",
+          de: "AUDIO STORY",
+        },
+        title: {
+          en: "Visibility is not risk",
+          de: "Sichtbarkeit ist nicht Risiko",
+        },
+        displayTitle: {
+          en: "The Most Extreme Isn't Always What Goes Viral",
+          de: "Nicht immer das Extremste gewinnt",
+        },
+        description: {
+          en: "Spectacular images often attract attention. But does that mean the riskiest jumps are always the most successful? Josef reflects on how his perspective on social media has changed and why authenticity matters more to him today than chasing reach.",
+          de: "Spektakuläre Bilder erhalten oft viel Aufmerksamkeit. Doch bedeutet das automatisch, dass immer die riskantesten Sprünge erfolgreich sind? Josef beschreibt, wie sich sein Blick auf Social Media verändert hat und weshalb Authentizität für ihn heute wichtiger ist als reine Reichweite.",
+        },
+        audio: {
+          src: "/audio/josef-braun/Algorithmus.wav",
+        },
+        transcript: {
+          en: "/audio/josef-braun/Algorithmus_EN.srt",
+          de: "/audio/josef-braun/Algorithmus_DE.srt",
+        },
+        portrait: "/images/athletes/josef-braun/audio.jpg",
+        portraitAlt: {
+          en: "Josef Braun smiling in a red jumpsuit and camera helmet in front of mountains",
+          de: "Josef Braun lächelt in einem roten Sprunganzug und Kamerahelm vor Bergen",
+        },
+        duration: "01:26",
+        insight: {
+          title: {
+            en: "KEY INSIGHT",
+            de: "ZENTRALE ERKENNTNIS",
+          },
+          text: {
+            en: "High reach does not necessarily come from the greatest risk. For Josef, authenticity, creative camera work and personal meaning have become more important than maximising views.",
+            de: "Hohe Reichweite entsteht nicht zwangsläufig durch das grösste Risiko. Für Josef sind heute Authentizität, kreative Kameraarbeit und persönliche Bedeutung wichtiger als möglichst viele Aufrufe.",
+          },
+        },
+      },
+    ],
     links: [
       {
         label: "Josef Braun on Instagram",

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 type SectionTitleSize =
   | "standard"
   | "standardStatic"
+  | "audioWide"
   | "interviewSplit"
   | "project"
   | "scroll";
@@ -12,6 +13,8 @@ const sectionTitleClassNames: Record<SectionTitleSize, string> = {
     "mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0",
   standardStatic:
     "mt-5 max-w-5xl whitespace-pre-line break-words text-[clamp(3rem,8vw,7.5rem)] font-semibold uppercase leading-[0.88] text-foreground [overflow-wrap:anywhere]",
+  audioWide:
+    "mt-5 max-w-none whitespace-pre-line break-normal text-[clamp(2rem,7vw,6.5rem)] font-semibold uppercase leading-[0.9] text-foreground [hyphens:none] [overflow-wrap:normal] [text-wrap:balance] [word-break:normal] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0",
   interviewSplit:
     "mt-5 max-w-4xl whitespace-pre-line break-normal text-[clamp(2.75rem,4.8vw,5.25rem)] font-semibold uppercase leading-[0.9] text-foreground [overflow-wrap:normal] [text-wrap:balance] [word-break:normal] motion-safe:animate-[fade-in-up_700ms_ease-out_forwards] motion-safe:translate-y-4 motion-safe:opacity-0 max-sm:text-[2.5rem] max-sm:[overflow-wrap:anywhere] min-[1700px]:text-[5.5rem]",
   project:
