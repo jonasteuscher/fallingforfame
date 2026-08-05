@@ -10,6 +10,7 @@ import type {
   AthleteSection,
   ProgressSection,
 } from "@/components/athletes/AthleteDocumentaryPage";
+import { createLocalizedMetadata } from "@/lib/metadata";
 
 type AthletePageProps = {
   params: Promise<{
@@ -150,13 +151,20 @@ export async function generateMetadata({
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const athlete = getAthleteBySlug(slug);
 
-  return {
-    title: {
-      absolute: athlete
-        ? `${athlete.name} – ${getAthleteSeoRole(athlete, locale)} | Falling for Fame?`
-        : "Athlete | Falling for Fame?",
-    },
-  };
+  const title = athlete
+    ? `${athlete.name} – ${getAthleteSeoRole(athlete, locale)}`
+    : locale === "de"
+      ? "Athlet:in"
+      : "Athlete";
+
+  return createLocalizedMetadata({
+    locale,
+    path: `/athletes/${slug}`,
+    title,
+    description:
+      athlete?.content[locale].shortBio ??
+      (locale === "de" ? "Athletenporträt" : "Athlete profile"),
+  });
 }
 
 export function generateStaticParams() {

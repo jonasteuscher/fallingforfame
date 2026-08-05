@@ -104,7 +104,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
       aria-labelledby="findings-hero-title"
     >
       <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
-        <div className="relative h-full w-full">
+        <div className="absolute inset-0">
           <Image
             src={content.hero.media.src}
             alt={content.hero.media.alt}

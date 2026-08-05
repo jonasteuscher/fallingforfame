@@ -1184,9 +1184,9 @@ describe("athlete detail page", () => {
     expect(screen.getByRole("dialog").querySelector("img")).toHaveClass(
       "object-contain",
     );
-    expect(screen.getByText("Image 1 / 9")).toBeVisible();
+    expect(screen.getByText("Image 1 of 9")).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "Next image" }));
-    expect(screen.getByText("Image 2 / 9")).toBeVisible();
+    expect(screen.getByText("Image 2 of 9")).toBeVisible();
     fireEvent.click(
       screen.getAllByRole("button", { name: "Close full-size image" })[0],
     );

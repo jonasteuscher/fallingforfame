@@ -91,7 +91,7 @@ describe("AthleteGalleryLightbox", () => {
     );
 
     expect(screen.getByRole("dialog", { name: "Zweiter Exit" })).toBeVisible();
-    expect(screen.getByText("Bild 2 / 3")).toBeVisible();
+    expect(screen.getByText("Bild 2 von 3")).toBeVisible();
     expect(document.body.style.overflow).toBe("hidden");
     await waitFor(() => {
       expect(screen.getByRole("button", { name: "Bildansicht schliessen" })).toHaveFocus();
@@ -118,7 +118,7 @@ describe("AthleteGalleryLightbox", () => {
     await waitFor(() => {
       expect(
         screen.getByRole("button", {
-          name: "Bild in voller Groesse oeffnen: Dritter Landeplatz",
+          name: "Bild in voller Groesse oeffnen: Zweiter Exit",
         }),
       ).toHaveFocus();
     });

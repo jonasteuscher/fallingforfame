@@ -6,6 +6,7 @@ import { athletes } from "@/data/athletes";
 import { defaultLocale, isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { localizedPath } from "@/i18n/navigation";
+import { createLocalizedMetadata } from "@/lib/metadata";
 import { cn } from "@/lib/utils";
 
 type HomePageProps = {
@@ -14,11 +15,17 @@ type HomePageProps = {
   }>;
 };
 
-export const metadata: Metadata = {
-  title: {
-    absolute: "Home | Falling for Fame?",
-  },
-};
+export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+  const home = getDictionary(locale).site.home;
+
+  return createLocalizedMetadata({
+    locale,
+    title: locale === "de" ? "Start" : "Home",
+    description: home.hero.intro,
+  });
+}
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale: rawLocale } = await params;

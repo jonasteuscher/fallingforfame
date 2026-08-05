@@ -318,7 +318,7 @@ function NoJumpConditionList({
               isActive ? "is-active" : isPast ? "is-past" : "is-upcoming",
             ].join(" ")}
             style={{
-              opacity: mobileSolid ? 1 : isActive ? 1 : isPast ? 0.52 : 0.26,
+              opacity: mobileSolid ? 1 : isActive ? 1 : 0.72,
             }}
             aria-current={isActive ? "step" : undefined}
           >
@@ -329,7 +329,7 @@ function NoJumpConditionList({
                   ? "text-foreground"
                   : isActive
                     ? "text-primary"
-                    : "text-foreground/48",
+                    : "text-foreground",
               ].join(" ")}
             >
               {String(index + 1).padStart(2, "0")}
@@ -342,7 +342,7 @@ function NoJumpConditionList({
                     ? "text-foreground"
                     : isActive
                       ? "text-foreground"
-                      : "text-foreground/58",
+                      : "text-foreground",
                 ].join(" ")}
               >
                 {layer}
@@ -351,7 +351,7 @@ function NoJumpConditionList({
                 className={
                   mobileSolid
                     ? "no-jump-row-body mt-1.5 text-sm leading-6 text-foreground"
-                    : "no-jump-row-body mt-1.5 text-sm leading-6 text-foreground/54"
+                    : "no-jump-row-body mt-1.5 text-sm leading-6 text-foreground"
                 }
               >
                 {bodies[index]}
