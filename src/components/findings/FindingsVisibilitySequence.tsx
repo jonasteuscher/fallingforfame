@@ -173,20 +173,20 @@ export function FindingsVisibilitySequence({
       />
 
       <div className="sticky top-14 hidden h-[calc(100svh-3.5rem)] overflow-hidden bg-background xl:block">
-        <div className="mx-auto flex h-full max-w-7xl flex-col justify-center px-6 py-10 xl:px-10">
-          <header className="relative z-10 mb-6">
+        <div className="mx-auto flex h-full max-w-7xl flex-col justify-center px-6 py-10 xl:px-10 [@media_(max-height:950px)]:py-4">
+          <header className="relative z-10 mb-6 [@media_(max-height:950px)]:mb-3">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
               {chapter.eyebrow}
             </p>
             <p
               aria-hidden="true"
-              className="mt-3 max-w-[66rem] text-[clamp(3rem,5vw,6.65rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance]"
+              className="mt-3 max-w-[66rem] text-[clamp(3rem,5vw,6.65rem)] font-semibold uppercase leading-[0.9] text-foreground [text-wrap:balance] [@media_(max-height:950px)]:mt-1 [@media_(max-height:950px)]:text-[clamp(2rem,3.5vw,3.75rem)]"
             >
               {chapter.title}
             </p>
           </header>
 
-          <div className="grid items-start gap-12 lg:grid-cols-[minmax(280px,0.54fr)_minmax(700px,1.46fr)]">
+          <div className="grid items-start gap-12 lg:grid-cols-[minmax(280px,0.54fr)_minmax(700px,1.46fr)] [@media_(max-height:950px)]:gap-6">
             <div className="relative z-10 max-w-[34rem]">
               <ol className="grid gap-3" aria-label={chapter.title}>
                 {states.map((state, index) => {
@@ -261,7 +261,7 @@ export function FindingsVisibilitySequence({
                 media={sequence.media}
               />
               <div
-                className="mt-5"
+                className="mt-5 [@media_(max-height:950px)]:mt-2"
                 style={{
                   opacity: interpolate(progress, 0.9, 1, 0, 1),
                   transform: `translate3d(0, ${interpolate(progress, 0.9, 1, 20, 0)}px, 0)`,
@@ -272,6 +272,7 @@ export function FindingsVisibilitySequence({
                   sourcePrefix={sourcePrefix}
                   empiricalLabel={empiricalLabel}
                   interpretationLabel={interpretationLabel}
+                  className="[@media_(max-height:950px)]:p-3 [@media_(max-height:950px)]:[&>div]:mt-2 [@media_(max-height:950px)]:[&>div]:gap-3 [@media_(max-height:950px)]:[&_p]:leading-5 [@media_(max-height:950px)]:[&_p]:mt-1"
                 />
               </div>
             </div>
@@ -297,7 +298,7 @@ function MediaVisibilityFrame({
   const state = states.find((item) => item.id === activeId) ?? states[0];
 
   return (
-    <figure className="relative aspect-[16/10] overflow-hidden border border-border bg-surface shadow-[0_30px_100px_color-mix(in_srgb,var(--background)_76%,black)]">
+    <figure className="relative aspect-[16/10] overflow-hidden border border-border bg-surface shadow-[0_30px_100px_color-mix(in_srgb,var(--background)_76%,black)] [@media_(max-height:950px)]:h-[36svh] [@media_(max-height:950px)]:aspect-auto">
       <Image
         src={media.src}
         alt={media.alt}

@@ -12,16 +12,16 @@ const expectedHeroQuotes = new Map([
   ["tim-howell", "There is nothing anybody can tell me that's going to make me jump."],
   [
     "lukas-loibl",
-    "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+    "When someone hikes back down because of poor conditions, that should be celebrated more than the risky jump.",
   ],
   [
     "marcel-geser",
-    "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+    "I believe the sport is far too dangerous to do it just for a social media post.",
   ],
-  ["niclas-strohmeier", "Die langsame Progression ist die sichere Progression."],
+  ["niclas-strohmeier", "Slow progression is safe progression."],
   [
     "josef-braun",
-    "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+    "It is like a battle against yourself that you have to win one hundred percent.",
   ],
 ]);
 
@@ -916,7 +916,7 @@ describe("athlete detail page", () => {
     ).not.toBeInTheDocument();
     expect(
       screen.getByText(
-        "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+        "It is like a battle against yourself that you have to win one hundred percent.",
       ),
     ).toBeVisible();
   });
@@ -1021,11 +1021,11 @@ describe("athlete detail page", () => {
         }),
       );
 
-      expect(
-        screen.getByText(
-          "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
-        ),
-      ).toBeVisible();
+      const quote =
+        locale === "en"
+          ? "I believe the sport is far too dangerous to do it just for a social media post."
+          : "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.";
+      expect(screen.getByText(quote)).toBeVisible();
       unmount();
     }
   });
@@ -1043,7 +1043,7 @@ describe("athlete detail page", () => {
     expect(screen.getByText("From Switzerland | 45 years")).toBeVisible();
     expect(
       screen.getByText(
-        "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+        "I believe the sport is far too dangerous to do it just for a social media post.",
       ),
     ).toBeVisible();
     expect(screen.getByText("Paragliding Pilot")).toBeVisible();

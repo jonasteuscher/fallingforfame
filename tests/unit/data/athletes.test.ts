@@ -11,19 +11,40 @@ const expectedMediaCounts = new Map([
 ]);
 
 const expectedHeroQuotes = new Map([
-  ["tim-howell", "There is nothing anybody can tell me that's going to make me jump."],
+  [
+    "tim-howell",
+    {
+      en: "There is nothing anybody can tell me that's going to make me jump.",
+      de: "There is nothing anybody can tell me that's going to make me jump.",
+    },
+  ],
   [
     "lukas-loibl",
-    "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+    {
+      en: "When someone hikes back down because of poor conditions, that should be celebrated more than the risky jump.",
+      de: "Wenn jemand wegen schlechter Bedingungen wieder herunterläuft, sollte das mehr gefeiert werden als der riskante Sprung.",
+    },
   ],
   [
     "marcel-geser",
-    "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+    {
+      en: "I believe the sport is far too dangerous to do it just for a social media post.",
+      de: "Ich glaube, der Sport ist viel zu gefährlich, um ihn nur für einen Social Media Post zu machen.",
+    },
   ],
-  ["niclas-strohmeier", "Die langsame Progression ist die sichere Progression."],
+  [
+    "niclas-strohmeier",
+    {
+      en: "Slow progression is safe progression.",
+      de: "Die langsame Progression ist die sichere Progression.",
+    },
+  ],
   [
     "josef-braun",
-    "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+    {
+      en: "It is like a battle against yourself that you have to win one hundred percent.",
+      de: "Es ist wie ein Kampf gegen sich selbst, den man zu hundert Prozent gewinnen muss.",
+    },
   ],
 ]);
 
@@ -66,8 +87,8 @@ describe("athletes data", () => {
       const expectedQuote = expectedHeroQuotes.get(athlete.slug);
 
       expect(expectedQuote).toBeTruthy();
-      expect(athlete.heroQuote.en).toBe(expectedQuote);
-      expect(athlete.heroQuote.de).toBe(expectedQuote);
+      expect(athlete.heroQuote.en).toBe(expectedQuote?.en);
+      expect(athlete.heroQuote.de).toBe(expectedQuote?.de);
     }
   });
 
