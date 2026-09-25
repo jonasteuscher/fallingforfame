@@ -626,45 +626,42 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
   ],
   "josef-braun": [
     {
-      phase: { en: "01 — Movement First", de: "01 — Bewegung zuerst" },
-      title: {
-        en: "Speed, control and early risk",
-        de: "Tempo, Kontrolle und frühes Risiko",
-      },
+      phase: { en: "01 — Shared Videos", de: "01 — Gemeinsame Videos" },
+      title: { en: "A dream watched with a friend", de: "Ein Traum mit einem Freund" },
       body: {
-        en: "Josef Braun’s path began long before his first skydive. As a child he was drawn to movement-based sports, spending years riding motocross and later working in motorcycle racing environments.",
-        de: "Josef Brauns Weg begann lange vor seinem ersten Fallschirmsprung. Schon als Kind zog es ihn zu Sportarten, in denen Bewegung wichtig ist. Viele Jahre fuhr er Motocross und arbeitete später im Umfeld des Motorradrennsports.",
+        en: "Josef Braun grew up watching wingsuit videos on YouTube with a close friend. The idea of flying through alpine terrain quickly became more than a passing interest.",
+        de: "Josef Braun wuchs mit Wingsuit-Videos auf YouTube auf, die er gemeinsam mit einem engen Freund anschaute. Die Vorstellung, durch alpines Gelände zu fliegen, liess ihn schnell nicht mehr los.",
       },
     },
     {
-      phase: { en: "02 — A Break", de: "02 — Ein Bruch" },
-      title: {
-        en: "An accident changes the direction",
-        de: "Ein Unfall verändert die Richtung",
-      },
+      phase: { en: "02 — Skateboarding Years", de: "02 — Skateboard-Jahre" },
+      title: { en: "Progression before the sky", de: "Fortschritt vor dem Fliegen" },
       body: {
-        en: "After an accident interrupted that path, skydiving moved into focus. It was something he had wanted to do for years, but it was never the final goal on its own.",
-        de: "Nach einem Unfall, der diesen Weg unterbrach, rückte Fallschirmspringen in den Vordergrund. Es war etwas, das ihn schon lange interessiert hatte, aber nie das eigentliche Endziel war.",
+        en: "His friend entered skydiving first, while Josef initially stayed with skateboarding and other teenage pursuits. The drive for progression was already there, even before he entered aviation sports.",
+        de: "Sein Freund begann zuerst mit dem Fallschirmspringen, während Josef zunächst beim Skateboarden und anderen Interessen seiner Jugend blieb. Der Wunsch nach Fortschritt war schon da, bevor der Flugsport begann.",
       },
     },
     {
-      phase: { en: "03 — Wingsuit Images", de: "03 — Wingsuit-Bilder" },
-      title: { en: "A mountain dream appears", de: "Ein Traum von den Bergen" },
+      phase: { en: "03 — Skydiving", de: "03 — Fallschirmspringen" },
+      title: {
+        en: "The same intensity, fewer injuries",
+        de: "Ähnliche Intensität, weniger Verletzungen",
+      },
       body: {
-        en: "Around 2013 and 2014, Josef discovered wingsuit videos. The idea of one day flying through the mountains became the image he wanted to work toward.",
-        de: "Um 2013 und 2014 entdeckte Josef Wingsuit-Videos. Daraus entstand der Wunsch, eines Tages selbst durch die Berge zu fliegen.",
+        en: "Two years later he followed the same path. In skydiving, he found the intensity and progression he had known from skateboarding, but with fewer injuries.",
+        de: "Zwei Jahre später folgte er demselben Weg. Im Fallschirmspringen fand er eine ähnliche Intensität und Entwicklung wie zuvor im Skateboarding, nur mit weniger Verletzungen.",
       },
       quote: {
-        en: "Skydiving was part of the path, but the mountains were the goal.",
-        de: "Fallschirmspringen war Teil des Weges, aber die Berge waren das Ziel.",
+        en: "Skydiving gave him the progression he was looking for.",
+        de: "Fallschirmspringen gab ihm die Entwicklung, nach der er gesucht hatte.",
       },
     },
     {
-      phase: { en: "04 — Full Commitment", de: "04 — Volle Hingabe" },
-      title: { en: "Everything into progression", de: "Alles in die Entwicklung" },
+      phase: { en: "04 — Into BASE", de: "04 — Ins BASE Jumping" },
+      title: { en: "A life built around flying", de: "Ein Leben rund ums Fliegen" },
       body: {
-        en: "To move quickly, he invested everything he could into the sport. He moved abroad, completed hundreds of skydives in a short time and transitioned into BASE jumping soon afterwards.",
-        de: "Um schnell voranzukommen, setzte er viel auf diese Entwicklung. Er ging ins Ausland, absolvierte in kurzer Zeit Hunderte Fallschirmsprünge und wechselte bald darauf ins BASE Jumping.",
+        en: "After three years in skydiving, Josef moved into BASE jumping with the same commitment. What began with videos and a shared dream gradually became a life built around flying, training and the mountains.",
+        de: "Nach drei Jahren im Fallschirmspringen wechselte Josef ins BASE Jumping. Was mit Videos und einem gemeinsamen Traum begann, wurde Schritt für Schritt zu einem Leben rund ums Fliegen, Training und die Berge.",
       },
     },
     {
@@ -689,50 +686,56 @@ const originStories: Record<string, AthleteOriginStoryBeat[]> = {
   ],
   "lukas-loibl": [
     {
-      phase: { en: "01 — Shared Videos", de: "01 — Gemeinsame Videos" },
-      title: { en: "A dream watched with a friend", de: "Ein Traum mit einem Freund" },
-      body: {
-        en: "Lukas Loibl grew up watching wingsuit videos on YouTube with a close friend. The idea of flying through alpine terrain quickly became more than a passing interest.",
-        de: "Lukas Loibl wuchs mit Wingsuit-Videos auf YouTube auf, die er gemeinsam mit einem engen Freund anschaute. Die Vorstellung, durch alpines Gelände zu fliegen, liess ihn schnell nicht mehr los.",
-      },
-    },
-    {
-      phase: { en: "02 — Skateboarding Years", de: "02 — Skateboard-Jahre" },
-      title: { en: "Progression before the sky", de: "Fortschritt vor dem Fliegen" },
-      body: {
-        en: "His friend entered skydiving first, while Lukas initially stayed with skateboarding and other teenage pursuits. The drive for progression was already there, even before he entered aviation sports.",
-        de: "Sein Freund begann zuerst mit dem Fallschirmspringen, während Lukas zunächst beim Skateboarden und anderen Interessen seiner Jugend blieb. Der Wunsch nach Fortschritt war schon da, bevor der Flugsport begann.",
-      },
-    },
-    {
-      phase: { en: "03 — Skydiving", de: "03 — Fallschirmspringen" },
+      phase: { en: "01 — Movement First", de: "01 — Bewegung zuerst" },
       title: {
-        en: "The same intensity, fewer injuries",
-        de: "Ähnliche Intensität, weniger Verletzungen",
+        en: "Speed, control and early risk",
+        de: "Tempo, Kontrolle und frühes Risiko",
       },
       body: {
-        en: "Two years later he followed the same path. In skydiving, he found the intensity and progression he had known from skateboarding, but with fewer injuries.",
-        de: "Zwei Jahre später folgte er demselben Weg. Im Fallschirmspringen fand er eine ähnliche Intensität und Entwicklung wie zuvor beim Skateboarden, nur mit weniger Verletzungen.",
+        en: "Lukas Loibl’s path began long before his first skydive. As a child he was drawn to movement-based sports, spending years riding motocross and later working in motorcycle racing environments.",
+        de: "Lukas Loibls Weg begann lange vor seinem ersten Fallschirmsprung. Schon als Kind zog es ihn zu Sportarten, in denen Bewegung wichtig ist. Viele Jahre fuhr er Motocross und arbeitete später im Umfeld des Motorradrennsports.",
+      },
+    },
+    {
+      phase: { en: "02 — A Break", de: "02 — Ein Bruch" },
+      title: {
+        en: "An accident changes the direction",
+        de: "Ein Unfall verändert die Richtung",
+      },
+      body: {
+        en: "After an accident interrupted that path, skydiving moved into focus. It was something he had wanted to do for years, but it was never the final goal on its own.",
+        de: "Nach einem Unfall, der diesen Weg unterbrach, rückte Fallschirmspringen in den Vordergrund. Es war etwas, das ihn schon lange interessiert hatte, aber nie das eigentliche Endziel war.",
+      },
+    },
+    {
+      phase: { en: "03 — Wingsuit Images", de: "03 — Wingsuit-Bilder" },
+      title: { en: "A mountain dream appears", de: "Ein Traum von den Bergen" },
+      body: {
+        en: "Around 2013 and 2014, Lukas discovered wingsuit videos. The idea of one day flying through the mountains became the image he wanted to work toward.",
+        de: "Um 2013 und 2014 entdeckte Lukas Wingsuit-Videos. Daraus entstand der Wunsch, eines Tages selbst durch die Berge zu fliegen.",
       },
       quote: {
-        en: "Skydiving gave him the progression he was looking for.",
-        de: "Fallschirmspringen gab ihm die Entwicklung, nach der er gesucht hatte.",
+        en: "Skydiving was part of the path, but the mountains were the goal.",
+        de: "Fallschirmspringen war Teil des Weges, aber die Berge waren das Ziel.",
       },
     },
     {
-      phase: { en: "04 — Commitment", de: "04 — Hingabe" },
-      title: { en: "Working to keep jumping", de: "Arbeiten, um springen zu können" },
+      phase: { en: "04 — Full Commitment", de: "04 — Volle Hingabe" },
+      title: { en: "Everything into progression", de: "Alles in die Entwicklung" },
       body: {
-        en: "The sport soon took over more of his life. He worked alongside school to pay for jumps and put most of his time and energy into becoming better.",
-        de: "Der Sport nahm immer mehr Raum in seinem Leben ein. Neben der Schule arbeitete er, um Sprünge zu finanzieren, und steckte den grössten Teil seiner Zeit und Energie in seine Fortschritte.",
+        en: "To progress quickly, Lukas invested everything he could into the sport. He moved abroad, completed hundreds of skydives in a short time and transitioned into BASE jumping soon afterwards.",
+        de: "Um schnell voranzukommen, setzte Lukas alles auf diese Entwicklung. Er ging ins Ausland, absolvierte in kurzer Zeit Hunderte Fallschirmsprünge und wechselte bald darauf ins BASE Jumping.",
       },
     },
     {
       phase: { en: "05 — Into BASE", de: "05 — Ins BASE Jumping" },
-      title: { en: "A life built around flying", de: "Ein Leben rund ums Fliegen" },
+      title: {
+        en: "Rapid progression into BASE",
+        de: "Schneller Weg ins BASE Jumping",
+      },
       body: {
-        en: "After three years in skydiving, Lukas moved into BASE jumping with the same commitment. What began with videos and a shared dream gradually became a life built around flying, training and the mountains.",
-        de: "Nach drei Jahren im Fallschirmspringen wechselte Lukas ins BASE Jumping. Was mit Videos und einem gemeinsamen Traum begann, wurde Schritt für Schritt zu einem Leben rund ums Fliegen, Training und die Berge.",
+        en: "The intense period of skydiving gave Lukas the experience to enter BASE jumping quickly. Flying in mountain terrain became the centre of his athletic path.",
+        de: "Die intensive Zeit im Fallschirmspringen gab Lukas die Erfahrung, schnell ins BASE Jumping einzusteigen. Das Fliegen im Gebirge wurde zum Zentrum seines sportlichen Weges.",
       },
       media: {
         type: "image",
@@ -1301,9 +1304,9 @@ export const athletes: Athlete[] = [
         shortBio:
           "Austrian professional BASE jumping instructor and coach. With thousands of skydives and BASE jumps, he represents a fully professional approach to the sport and works closely with multiple industry sponsors.",
         intro: "Austrian professional BASE jumping instructor and coach.",
-        baseStoryTitle: "From skateboarding to the mountains",
+        baseStoryTitle: "From motorcycle racing to the mountains",
         baseStory:
-          "Lukas Loibl grew up watching wingsuit videos on YouTube with a close friend. The idea of flying through alpine terrain quickly became more than a passing interest. His friend entered skydiving first, while Lukas initially stayed with skateboarding and other teenage pursuits. Two years later he followed the same path and found in skydiving the kind of intensity and progression he had known from skateboarding, but with fewer injuries. The sport soon took over more and more of his life. He worked alongside school to pay for jumps and put most of his available time and energy into becoming better. After three years in skydiving, he moved into BASE jumping with the same commitment. Lukas describes that complete focus as one reason he was able to progress quickly. What began with videos and a shared dream with a friend gradually became a life built around flying, training and the mountains.",
+          "Lukas Loibl’s path toward BASE jumping began with motocross and work in motorcycle racing. After an accident interrupted that direction, he turned his attention to skydiving and the longer-term goal of flying through the mountains. He committed fully, moved abroad and completed hundreds of skydives in a short period before progressing into BASE jumping. Today, Lukas pursues flying professionally through his own wingsuit school, coaching and sponsored projects.",
         profession: "BASE Jumping Instructor / Coach",
         role: "Professional",
         residence: "Switzerland",
@@ -1314,9 +1317,9 @@ export const athletes: Athlete[] = [
         shortBio:
           "Österreichischer BASE-Jumping-Instruktor und Coach. Mit mehreren tausend Fallschirm- und BASE-Sprüngen steht er für einen professionellen Zugang zum Sport und arbeitet mit verschiedenen Sponsoren aus der Branche zusammen.",
         intro: "Österreichischer BASE-Jumping-Instruktor und Coach.",
-        baseStoryTitle: "Vom Skateboard in die Berge",
+        baseStoryTitle: "Vom Motorradrennsport in die Berge",
         baseStory:
-          "Lukas Loibl wuchs mit Wingsuit-Videos auf YouTube auf, die er gemeinsam mit einem engen Freund anschaute. Die Vorstellung, durch alpines Gelände zu fliegen, liess ihn schnell nicht mehr los. Sein Freund begann zuerst mit dem Fallschirmspringen, während Lukas zunächst beim Skateboarden und anderen Interessen seiner Jugend blieb. Zwei Jahre später folgte er demselben Weg. Im Fallschirmspringen fand er eine ähnliche Intensität und Entwicklung wie zuvor beim Skateboarden, nur mit weniger Verletzungen. Der Sport nahm immer mehr Raum in seinem Leben ein. Neben der Schule arbeitete er, um Sprünge zu finanzieren, und steckte den grössten Teil seiner Zeit und Energie in seine Fortschritte. Nach drei Jahren im Fallschirmspringen wechselte er ins BASE Jumping und ging diesen Schritt mit derselben Hingabe an. Diese vollständige Ausrichtung auf den Sport sieht er als einen Grund, warum er schnell vorankam und sich später ein Leben rund ums Fliegen, Training und die Berge aufbauen konnte.",
+          "Lukas Loibls Weg zum BASE Jumping begann mit Motocross und seiner Arbeit im Motorradrennsport. Nach einem Unfall, der diese Richtung unterbrach, wandte er sich dem Fallschirmspringen und dem langfristigen Ziel zu, durch die Berge zu fliegen. Er setzte alles auf diesen Weg, ging ins Ausland und absolvierte in kurzer Zeit Hunderte Fallschirmsprünge, bevor er ins BASE Jumping einstieg. Heute verfolgt Lukas das Fliegen professionell mit seiner eigenen Wingsuit-Schule, als Coach und in gesponserten Projekten.",
         profession: "BASE-Jumping-Instruktor / Coach",
         role: "Professionell",
         residence: "Schweiz",
@@ -2252,9 +2255,9 @@ export const athletes: Athlete[] = [
           "German athlete based in Switzerland working as a wind tunnel instructor, BASE coach and video creator. His work combines athletic performance, coaching and media production.",
         intro:
           "German athlete based in Switzerland working as a wind tunnel instructor, BASE coach and video creator.",
-        baseStoryTitle: "Turning a dream into a profession",
+        baseStoryTitle: "From shared videos to the mountains",
         baseStory:
-          "Josef Braun’s path toward BASE jumping began long before he made his first skydive. As a child, he was drawn to movement, speed and physical control. He spent years riding motocross and later worked in motorcycle racing environments. After an accident interrupted that direction, his attention shifted toward skydiving, something he had wanted to try for years. But skydiving was never the final goal on its own. Around 2013 and 2014 he discovered wingsuit videos, and the idea of flying through mountains became the image he wanted to work toward. To move quickly, he invested everything he could into the sport. He moved abroad, completed hundreds of skydives in a short time and transitioned into BASE jumping soon afterwards. What started as a personal challenge gradually became the centre of his life. Over time, the sport developed into a profession, linking his daily work, his athletic identity and his long-term ambitions around flying in mountain terrain.",
+          "Josef Braun grew up watching wingsuit videos on YouTube with a close friend. While his friend entered skydiving first, Josef initially stayed with skateboarding before following the same path two years later. Skydiving gave him the intensity and progression he had known from skateboarding, and after three years he moved into BASE jumping. What began with shared videos became a life centred on flying and training. Today, Josef works as a tunnel instructor while continuing his BASE jumping and video-flying projects in the mountains.",
         profession: "Wind Tunnel Instructor, BASE Coach and Video Creator",
         role: "Hobby / Semiprofessional",
         residence: "Switzerland",
@@ -2266,9 +2269,9 @@ export const athletes: Athlete[] = [
           "Deutscher Athlet mit Wohnsitz in der Schweiz. Als Tunnelinstruktor, BASE-Coach und Videograf verbindet er sportliche Leistung, Coaching und Medienproduktion.",
         intro:
           "Deutscher Athlet mit Wohnsitz in der Schweiz. Als Tunnelinstruktor, BASE-Coach und Videograf verbindet er sportliche Leistung, Coaching und Medienproduktion.",
-        baseStoryTitle: "Vom Traum zum Beruf",
+        baseStoryTitle: "Von gemeinsamen Videos in die Berge",
         baseStory:
-          "Josef Brauns Weg zum BASE Jumping begann lange vor seinem ersten Fallschirmsprung. Schon als Kind fühlte er sich zu Sportarten hingezogen, in denen Bewegung, Geschwindigkeit und Körpergefühl wichtig sind. Viele Jahre fuhr er Motocross, später arbeitete er im Umfeld des Motorradrennsports. Nach einem Unfall, der diesen Weg unterbrach, rückte Fallschirmspringen in den Vordergrund, etwas, das ihn schon lange interessiert hatte. Das eigentliche Ziel lag jedoch weiter vorne. Als er um 2013 und 2014 Wingsuit-Videos entdeckte, entstand der Wunsch, selbst einmal durch die Berge zu fliegen. Um schnell voranzukommen, setzte er viel auf diese Entwicklung. Er ging ins Ausland, absolvierte in kurzer Zeit Hunderte Fallschirmsprünge und wechselte bald darauf ins BASE Jumping. Aus einer persönlichen Herausforderung wurde nach und nach der Mittelpunkt seines Lebens. Später entwickelte sich daraus ein Beruf, in dem Sport, Arbeit und die Suche nach Projekten in den Bergen eng miteinander verbunden sind.",
+          "Josef Braun wuchs mit Wingsuit-Videos auf YouTube auf, die er gemeinsam mit einem engen Freund anschaute. Während sein Freund zuerst mit dem Fallschirmspringen begann, blieb Josef zunächst beim Skateboarding und folgte zwei Jahre später demselben Weg. Im Fallschirmspringen fand er die Intensität und Entwicklung wieder, die er vom Skateboarding kannte. Nach drei Jahren wechselte er ins BASE Jumping. Aus gemeinsamen Videos wurde ein Leben rund ums Fliegen und Trainieren. Heute arbeitet Josef als Tunnelinstruktor und setzt weiterhin BASE-Jumping- und Video-Flying-Projekte in den Bergen um.",
         profession: "Tunnelinstruktor, BASE-Coach und Videograf",
         role: "Hobby / Semiprofessionell",
         residence: "Schweiz",

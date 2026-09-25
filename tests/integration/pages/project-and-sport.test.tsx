@@ -87,6 +87,8 @@ describe("project page", () => {
     ).toHaveAttribute("src", expect.stringContaining("Thesis_Cover.jpg"));
     expect(screen.getByText("Vollständige Bachelorarbeit als PDF.")).toBeVisible();
     expect(screen.getByText("PDF • 151 pages • 27.5 MB")).toBeVisible();
+    expect(screen.getByText("Bachelorarbeit öffnen (PDF)")).toBeVisible();
+    expect(screen.getByText("Bachelorarbeit herunterladen")).toBeVisible();
     expect(
       screen.getByRole("link", {
         name: "Bachelorarbeit als PDF in einem neuen Browser-Tab öffnen",

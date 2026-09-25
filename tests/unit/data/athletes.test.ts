@@ -889,6 +889,23 @@ describe("athletes data", () => {
     expect(josef?.originStory[1]?.media).toBeUndefined();
   });
 
+  it("assigns Lukas and Josef their correct career histories", () => {
+    const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
+    const josef = athletes.find((athlete) => athlete.slug === "josef-braun");
+    const lukasStory = lukas?.originStory.map((beat) => beat.body.en).join(" ");
+    const josefStory = josef?.originStory.map((beat) => beat.body.en).join(" ");
+
+    expect(lukasStory).toContain("motocross");
+    expect(lukasStory).toContain("motorcycle racing");
+    expect(lukasStory).toContain("wingsuit school");
+    expect(lukasStory).not.toContain("skateboarding");
+
+    expect(josefStory).toContain("YouTube");
+    expect(josefStory).toContain("skateboarding");
+    expect(josefStory).toContain("tunnel instructor");
+    expect(josefStory).not.toContain("motocross");
+  });
+
   it("uses Lukas Loibl's story image on the BASE step", () => {
     const lukas = athletes.find((athlete) => athlete.slug === "lukas-loibl");
     const baseStep = lukas?.originStory.find(

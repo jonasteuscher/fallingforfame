@@ -75,7 +75,8 @@ export function CinematicVideoPlayer({
     }
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, []);
 
   useEffect(() => {
@@ -207,8 +208,8 @@ export function CinematicVideoPlayer({
         </button>
       ) : null}
 
-      {hasStarted ? (
-        <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/90 via-black/68 to-transparent px-3 pb-3 pt-10 text-white sm:gap-3 sm:px-5 sm:pb-5 sm:pt-14">
+      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/90 via-black/68 to-transparent px-3 pb-3 pt-10 text-white sm:gap-3 sm:px-5 sm:pb-5 sm:pt-14">
+        {hasStarted ? (
           <button
             type="button"
             onClick={togglePlayback}
@@ -227,72 +228,72 @@ export function CinematicVideoPlayer({
               />
             )}
           </button>
+        ) : null}
 
-          <span className="hidden w-11 text-right text-xs font-semibold tabular-nums sm:block">
-            {formatMediaTime(currentTime)}
-          </span>
-          <input
-            type="range"
-            min={0}
-            max={duration || 0}
-            step="0.1"
-            value={Math.min(currentTime, duration || 0)}
-            onChange={(event) => seekTo(Number(event.currentTarget.value))}
-            aria-label={controls.seek}
-            className="h-11 min-w-0 flex-1 cursor-pointer accent-primary"
-          />
-          <span className="hidden w-11 text-xs font-semibold tabular-nums sm:block">
-            {formatMediaTime(duration)}
-          </span>
+        <span className="hidden w-11 text-right text-xs font-semibold tabular-nums sm:block">
+          {formatMediaTime(currentTime)}
+        </span>
+        <input
+          type="range"
+          min={0}
+          max={duration || 0}
+          step="0.1"
+          value={Math.min(currentTime, duration || 0)}
+          onChange={(event) => seekTo(Number(event.currentTarget.value))}
+          aria-label={controls.seek}
+          className="h-11 min-w-0 flex-1 cursor-pointer accent-primary"
+        />
+        <span className="hidden w-11 text-xs font-semibold tabular-nums sm:block">
+          {formatMediaTime(duration)}
+        </span>
 
-          <button
-            type="button"
-            onClick={toggleMute}
-            aria-label={isMuted ? controls.unmute : controls.mute}
-            className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-full border border-white/35 bg-black/35 transition hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={isMuted ? controls.unmute : controls.mute}
+          className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-full border border-white/35 bg-black/35 transition hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="square"
+            strokeLinejoin="miter"
           >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="square"
-              strokeLinejoin="miter"
-            >
-              <path d="M4 9h4l5-4v14l-5-4H4z" />
-              {isMuted ? (
-                <path d="m17 9 4 6m0-6-4 6" />
-              ) : (
-                <path d="M17 9a4 4 0 0 1 0 6m2-9a8 8 0 0 1 0 12" />
-              )}
-            </svg>
-          </button>
+            <path d="M4 9h4l5-4v14l-5-4H4z" />
+            {isMuted ? (
+              <path d="m17 9 4 6m0-6-4 6" />
+            ) : (
+              <path d="M17 9a4 4 0 0 1 0 6m2-9a8 8 0 0 1 0 12" />
+            )}
+          </svg>
+        </button>
 
-          <button
-            type="button"
-            onClick={toggleFullscreen}
-            aria-label={isFullscreen ? controls.exitFullscreen : controls.fullscreen}
-            className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-full border border-white/35 bg-black/35 transition hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
+        <button
+          type="button"
+          onClick={toggleFullscreen}
+          aria-label={isFullscreen ? controls.exitFullscreen : controls.fullscreen}
+          className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-full border border-white/35 bg-black/35 transition hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="square"
           >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="square"
-            >
-              <path d="M4 9V4h5" />
-              <path d="M20 9V4h-5" />
-              <path d="M4 15v5h5" />
-              <path d="M20 15v5h-5" />
-            </svg>
-          </button>
-        </div>
-      ) : null}
+            <path d="M4 9V4h5" />
+            <path d="M20 9V4h-5" />
+            <path d="M4 15v5h5" />
+            <path d="M20 15v5h-5" />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }
