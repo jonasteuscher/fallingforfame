@@ -59,6 +59,15 @@ type YouTubeApi = {
   };
 };
 
+type WebkitFullscreenDocument = Document & {
+  webkitExitFullscreen?: () => Promise<void> | void;
+  webkitFullscreenElement?: Element | null;
+};
+
+type WebkitFullscreenIframe = HTMLIFrameElement & {
+  webkitRequestFullscreen?: () => Promise<void> | void;
+};
+
 declare global {
   interface Window {
     YT?: YouTubeApi;
@@ -120,13 +129,20 @@ export function InterviewFeature({
     function handleFullscreenChange() {
       const iframe = getPlayerIframe();
 
-      setIsNativeFullscreen(document.fullscreenElement === iframe);
+      const fullscreenDocument = document as WebkitFullscreenDocument;
+
+      setIsNativeFullscreen(
+        document.fullscreenElement === iframe ||
+          fullscreenDocument.webkitFullscreenElement === iframe,
+      );
     }
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
     };
   }, []);
 
@@ -236,19 +252,28 @@ export function InterviewFeature({
   }
 
   async function toggleFullscreen() {
-    const iframe = getPlayerIframe();
+    const iframe = getPlayerIframe() as WebkitFullscreenIframe | null;
 
     if (!iframe) {
       return;
     }
 
-    if (document.fullscreenElement) {
-      await document.exitFullscreen();
-      return;
-    }
+    const fullscreenDocument = document as WebkitFullscreenDocument;
+    const fullscreenElement =
+      document.fullscreenElement ?? fullscreenDocument.webkitFullscreenElement;
 
     try {
-      await iframe.requestFullscreen();
+      if (fullscreenElement) {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else {
+          await fullscreenDocument.webkitExitFullscreen?.();
+        }
+      } else if (iframe.requestFullscreen) {
+        await iframe.requestFullscreen();
+      } else {
+        await iframe.webkitRequestFullscreen?.();
+      }
     } catch {}
   }
   return (

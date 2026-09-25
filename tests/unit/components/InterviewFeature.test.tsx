@@ -218,6 +218,33 @@ describe("InterviewFeature", () => {
     );
   });
 
+  it("uses the WebKit fullscreen API on mobile Safari", async () => {
+    const webkitRequestFullscreen = vi.fn().mockResolvedValue(undefined);
+
+    Object.defineProperty(HTMLIFrameElement.prototype, "requestFullscreen", {
+      configurable: true,
+      value: undefined,
+    });
+    Object.defineProperty(HTMLIFrameElement.prototype, "webkitRequestFullscreen", {
+      configurable: true,
+      value: webkitRequestFullscreen,
+    });
+
+    render(
+      <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: labels.play }));
+    await waitFor(() => expect(playerConstructor).toHaveBeenCalledTimes(1));
+
+    fireEvent.click(screen.getByRole("button", { name: labels.fullscreen }));
+
+    expect(webkitRequestFullscreen).toHaveBeenCalledTimes(1);
+    expect(webkitRequestFullscreen.mock.instances[0]).toBe(
+      document.querySelector("iframe"),
+    );
+  });
+
   it("exits fullscreen when the iframe is already fullscreen", async () => {
     const exitFullscreen = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(document, "exitFullscreen", {
