@@ -167,9 +167,9 @@ export const project = {
     title: "Bachelorarbeit",
     description:
       "Diese interaktive Dokumentation basiert auf einer Bachelorarbeit an der Fachhochschule Graubünden (FHGR).\n\nInteressierte können die vollständige Arbeit herunterladen, um vertiefte Einblicke in Theorie, Methodik und wissenschaftliche Analyse zu erhalten.",
-    openButton: "Open Thesis (PDF)",
+    openButton: "Bachelorarbeit öffnen (PDF)",
     openButtonAriaLabel: "Bachelorarbeit als PDF in einem neuen Browser-Tab öffnen",
-    downloadButton: "Download Thesis PDF",
+    downloadButton: "Bachelorarbeit herunterladen",
     downloadButtonAriaLabel: "Bachelorarbeit als PDF herunterladen",
     fileName: "Zwischen Sichtbarkeit und Sicherheit - Bachelorarbeit",
     pdfLabel: "PDF",
