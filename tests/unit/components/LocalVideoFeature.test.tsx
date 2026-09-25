@@ -78,6 +78,12 @@ describe("LocalVideoFeature", () => {
       "/video/niclas-strohmeier/The_jump_thumbnail.jpg",
     );
     expect(video).not.toHaveAttribute("controls");
+    expect(
+      screen.getByRole("button", { name: "Play Niclas Strohmeier BASE jump" }),
+    ).toBeVisible();
+    expect(screen.getByRole("slider", { name: "Seek through video" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Mute video" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Open video fullscreen" })).toBeVisible();
     await waitFor(() => {
       expect(container.querySelector("source")).toHaveAttribute(
         "src",
@@ -92,9 +98,9 @@ describe("LocalVideoFeature", () => {
     await waitFor(() => {
       expect(HTMLMediaElement.prototype.play).toHaveBeenCalledTimes(1);
     });
-    expect(screen.getByRole("slider", { name: "Seek through video" })).toBeVisible();
-    expect(screen.getByRole("button", { name: "Mute video" })).toBeVisible();
-    expect(screen.getByRole("button", { name: "Open video fullscreen" })).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "Pause Niclas Strohmeier BASE jump" }),
+    ).toBeVisible();
 
     fireEvent.click(video);
     expect(HTMLMediaElement.prototype.pause).toHaveBeenCalledTimes(1);
