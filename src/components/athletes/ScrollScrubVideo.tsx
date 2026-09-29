@@ -57,7 +57,6 @@ function ScrollScrubSection({
     typeof video.displayTitle === "string"
       ? video.displayTitle
       : video.displayTitle[locale];
-  const [duration, setDuration] = useState(0);
   const [isBuffering, setIsBuffering] = useState(false);
   const [mode, setMode] = useState<CapabilityMode | null>(null);
   const [sourceEnabled, setSourceEnabled] = useState(false);
@@ -196,7 +195,6 @@ function ScrollScrubSection({
 
       durationRef.current = mediaDuration;
       isMetadataReadyRef.current = mediaDuration > 0;
-      setDuration(mediaDuration);
       scheduleScrubUpdate();
     }
 
@@ -354,7 +352,7 @@ function ScrollScrubSection({
               <ScrollPoem cues={video.cues ?? []} locale={locale} />
             </div>
           </div>
-          {isBuffering && duration > 0 ? (
+          {isBuffering ? (
             <div className="absolute bottom-8 left-1/2 h-1 w-28 -translate-x-1/2 overflow-hidden bg-foreground/18">
               <span className="block h-full w-1/2 animate-pulse bg-primary" />
             </div>
