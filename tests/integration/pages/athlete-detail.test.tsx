@@ -1052,7 +1052,7 @@ describe("athlete detail page", () => {
     expect(
       screen.getByAltText("Marcel Geser wearing a helmet and blue wingsuit gear"),
     ).toHaveAttribute("src", "/images/athletes/marcel-geser/profile.jpg");
-    expect(screen.getByText("2014")).toBeInTheDocument();
+    expect(screen.getByText("2013")).toBeInTheDocument();
     expect(screen.getByText("850+")).toBeInTheDocument();
     expect(screen.getByText("1,500+")).toBeInTheDocument();
     await waitFor(() => expect(screen.getByText("No")).toBeVisible());
