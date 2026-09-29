@@ -1669,14 +1669,14 @@ export const athletes: Athlete[] = [
         ],
       ),
     ),
-    experience: experience(14, 850, 13, 1500, false, null),
+    experience: experience(14, 850, 14, 1500, false, null),
     content: {
       en: {
         title: "Hobby BASE Jumper",
         shortBio:
-          "Swiss paragliding pilot and experienced BASE jumper with more than a decade of experience in the sport. A former Swiss BASE Association president for over 10 years, his focus spans terminal, wingsuit and tracking jumps while maintaining a hobby-based approach to BASE jumping.",
+          "Swiss paragliding pilot and experienced BASE jumper with more than a decade of experience in the sport. A former Swiss BASE Association president for 7 years, his focus spans terminal, wingsuit and tracking jumps while maintaining a hobby-based approach to BASE jumping.",
         intro:
-          "Swiss paragliding pilot, experienced BASE jumper and former Swiss BASE Association president for over 10 years.",
+          "Swiss paragliding pilot, experienced BASE jumper and former Swiss BASE Association president for 7 years.",
         baseStoryTitle: "Discovering a passion for flight",
         baseStory:
           "Marcel Geser came to BASE jumping through a longer search for a new passion. Sport had always been part of his life. He grew up in a sporty family and spent many years breakdancing before eventually leaving that world behind. When that chapter ended, he began looking for something that could take its place. In 2008, while working in intelligence services in Bern, he started paragliding. During breaks at work he often watched paragliding videos on YouTube. One day, the platform recommended a BASE jumping video. He describes that moment as the point where the sport first caught hold of him. Aviation sports gradually became the centre of his free time. Paragliding led to skydiving, and skydiving later opened the door to BASE jumping. For Marcel, flying became more than a hobby. He describes it as his natural element, a place where his attention, body and environment come together. The mountains and the air remain central to how he spends much of his life.",
@@ -1688,9 +1688,9 @@ export const athletes: Athlete[] = [
       de: {
         title: "Hobby BASE Jumper",
         shortBio:
-          "Schweizer Gleitschirmpilot und erfahrener BASE Jumper mit über einem Jahrzehnt Erfahrung im Sport. Als ehemaliger Präsident der Swiss BASE Association über mehr als 10 Jahre liegt sein Schwerpunkt auf Terminal-, Wingsuit- und Tracking-Sprüngen, die er als ambitionierter Hobbysportler ausübt.",
+          "Schweizer Gleitschirmpilot und erfahrener BASE Jumper mit über einem Jahrzehnt Erfahrung im Sport. Als ehemaliger Präsident der Swiss BASE Association während 7 Jahren liegt sein Schwerpunkt auf Terminal-, Wingsuit- und Tracking-Sprüngen, die er als ambitionierter Hobbysportler ausübt.",
         intro:
-          "Schweizer Gleitschirmpilot, erfahrener BASE Jumper und ehemaliger Präsident der Swiss BASE Association über mehr als 10 Jahre.",
+          "Schweizer Gleitschirmpilot, erfahrener BASE Jumper und während 7 Jahren Präsident der Swiss BASE Association.",
         baseStoryTitle: "Die Entdeckung einer Leidenschaft fürs Fliegen",
         baseStory:
           "Marcel Geser fand seinen Weg zum BASE Jumping nicht über einen einzelnen Plan, sondern über die Suche nach einer neuen Leidenschaft. Sport war schon früh ein fester Teil seines Lebens. Er wuchs in einer sportlichen Familie auf und verbrachte viele Jahre mit Breakdance. Als diese Zeit vorbei war, fehlte etwas, das ihn ähnlich stark fesseln konnte. 2008 begann er mit dem Gleitschirmfliegen, während er in Bern im Nachrichtendienst arbeitete. In den Pausen schaute er oft Gleitschirmvideos auf YouTube. Eines Tages schlug ihm der Algorithmus ein BASE-Jumping-Video vor. Diesen Moment beschreibt er als den Beginn seiner Faszination für den Sport. Aus dem Gleitschirmfliegen wurde Fallschirmspringen, später kam BASE Jumping dazu. Nach und nach rückten Flugsportarten ins Zentrum seiner Freizeit. Für Marcel ist Fliegen nicht nur Bewegung oder Technik. Er beschreibt es als sein natürliches Element. Die Berge und die Luft prägen bis heute einen grossen Teil seines Lebens.",
