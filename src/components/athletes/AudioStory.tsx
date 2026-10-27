@@ -519,7 +519,7 @@ function AudioProgressBar({
         onPointerMove={onPointerMove}
         onKeyDown={onKeyDown}
         aria-valuetext={`${formatTime(currentTime)} / ${formatTime(duration)}`}
-        className="relative h-11 cursor-pointer touch-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+        className="relative h-11 cursor-pointer [touch-action:pan-y_pinch-zoom] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       >
         <span
           className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-foreground/22"
@@ -637,7 +637,7 @@ function AudioTranscript({
         <div className="min-h-0 overflow-hidden">
           <div
             ref={scrollRef}
-            className="mt-5 max-h-72 space-y-4 overflow-y-auto pr-2"
+            className="mt-5 max-h-72 space-y-4 overflow-y-auto overscroll-contain pr-2"
             aria-live="polite"
             data-testid="audio-transcript"
           >

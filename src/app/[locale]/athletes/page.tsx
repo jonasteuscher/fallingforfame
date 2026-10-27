@@ -40,7 +40,7 @@ export default async function AthletesPage({ params }: AthletesPageProps) {
 
   return (
     <>
-      <section className="relative isolate flex min-h-[calc(100svh-3.5rem)] items-end overflow-hidden px-4 pb-24 pt-24 min-[420px]:pb-16 min-[420px]:pt-28 sm:px-6 xl:px-10">
+      <section className="relative isolate flex min-h-[calc(100svh-var(--site-header-height))] items-end overflow-hidden px-4 pb-24 pt-24 min-[420px]:pb-16 min-[420px]:pt-28 sm:px-6 xl:px-10">
         <div className="absolute inset-0 -z-20 bg-surface" aria-hidden="true">
           <Image
             src="/images/athletes/hero_athletes.jpg"

@@ -306,14 +306,14 @@ function ScrollScrubSection({
       aria-labelledby={headingId}
       data-scroll-scrub-video-id={video.id}
       className="relative overflow-x-clip bg-background"
-      style={{ minHeight: `${scrollLength * 100}vh` }}
+      style={{ minHeight: `${scrollLength * 100}svh` }}
     >
       <div
         ref={stickyRef}
-        className="sticky top-0 flex min-h-[calc(100svh-3.5rem)] items-center overflow-hidden pt-14"
+        className="sticky top-0 flex min-h-[calc(100svh-var(--site-header-height))] items-center overflow-hidden pt-[var(--site-header-height)]"
       >
         <div className="absolute inset-0 bg-background" aria-hidden="true" />
-        <div className="relative h-[calc(100svh-3.5rem)] w-full">
+        <div className="relative h-[calc(100svh-var(--site-header-height))] w-full">
           <video
             ref={videoRef}
             muted

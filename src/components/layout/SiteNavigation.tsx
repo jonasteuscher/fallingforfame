@@ -1,5 +1,7 @@
 "use client";
 
+import { lockPageScroll } from "@/lib/lockPageScroll";
+
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -43,7 +45,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
     setIsOpen(false);
 
     if (restoreFocus) {
-      requestAnimationFrame(() => buttonRef.current?.focus());
+      requestAnimationFrame(() => buttonRef.current?.focus({ preventScroll: true }));
     }
   };
   const languageLinks = locales.map((nextLocale) => ({
@@ -60,13 +62,12 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
       return;
     }
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const unlockScroll = lockPageScroll();
     const focusableElements = menuRef.current?.querySelectorAll<HTMLElement>(
       'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
     );
     const firstFocusable = focusableElements?.[0];
-    firstFocusable?.focus();
+    firstFocusable?.focus({ preventScroll: true });
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -99,7 +100,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
     desktopQuery?.addEventListener("change", closeOnDesktop);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      unlockScroll();
       document.removeEventListener("keydown", handleKeyDown);
       desktopQuery?.removeEventListener("change", closeOnDesktop);
     };
@@ -119,32 +120,34 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
               ref={menuRef}
               className="mx-auto flex min-h-[100dvh] w-full max-w-7xl flex-col"
             >
-              <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-border bg-background px-4 py-1.5 sm:px-6">
-                <Link
-                  href={links[0]?.href ?? localizedPath(locale)}
-                  onClick={() => closeMenu()}
-                  className="inline-flex min-w-0 items-center gap-2 font-semibold uppercase focus-visible:rounded-sm"
-                >
-                  <Image
-                    src={brandMark}
-                    alt=""
-                    width={34}
-                    height={34}
-                    className="h-8 w-8 shrink-0 object-contain"
-                  />
-                  <span className="truncate">Falling for Fame?</span>
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => closeMenu(true)}
-                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-border text-2xl leading-none text-foreground transition hover:border-primary focus-visible:border-primary"
-                  aria-label={labels.closeMenu}
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
+              <div className="mobile-menu-header sticky top-0 z-10 bg-background">
+                <div className="flex items-center justify-between gap-4 border-b border-border px-4 py-1.5 sm:px-6">
+                  <Link
+                    href={links[0]?.href ?? localizedPath(locale)}
+                    onClick={() => closeMenu()}
+                    className="inline-flex min-w-0 items-center gap-2 font-semibold uppercase focus-visible:rounded-sm"
+                  >
+                    <Image
+                      src={brandMark}
+                      alt=""
+                      width={34}
+                      height={34}
+                      className="h-8 w-8 shrink-0 object-contain"
+                    />
+                    <span className="truncate">Falling for Fame?</span>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => closeMenu(true)}
+                    className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-border text-2xl leading-none text-foreground transition hover:border-primary focus-visible:border-primary"
+                    aria-label={labels.closeMenu}
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
               </div>
 
-              <div className="flex flex-1 flex-col gap-8 px-4 py-6 sm:px-6">
+              <div className="mobile-menu-content flex flex-1 flex-col gap-8 px-4 py-6 sm:px-6">
                 <section aria-labelledby={`${menuId}-navigation`}>
                   <h2
                     id={`${menuId}-navigation`}

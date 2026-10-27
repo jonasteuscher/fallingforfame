@@ -121,7 +121,7 @@ export function PressureModelSection({
       />
 
       <div className="pressure-sticky-track hidden xl:block xl:h-[400svh] xl:min-h-[2600px]">
-        <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
+        <div className="sticky top-[var(--site-header-height)] h-[calc(100svh-var(--site-header-height))] overflow-hidden bg-background">
           <div className="pressure-sticky-inner mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] px-6 py-8 xl:px-10">
             <header className="pressure-header relative z-10 max-w-[70rem]">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">

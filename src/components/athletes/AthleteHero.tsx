@@ -18,7 +18,7 @@ export function AthleteHero({
   scrollHint,
 }: AthleteHeroProps) {
   return (
-    <section className="relative isolate flex min-h-[calc(100svh-3.5rem)] items-end overflow-hidden px-4 pb-10 pt-24 sm:px-6 sm:pb-14 sm:pt-28 xl:px-10">
+    <section className="relative isolate flex min-h-[calc(100svh-var(--site-header-height))] items-end overflow-hidden px-4 pb-10 pt-24 sm:px-6 sm:pb-14 sm:pt-28 xl:px-10">
       <div className="absolute inset-0 -z-20 bg-surface" aria-hidden="true">
         {athlete.images.hero ? (
           <Image

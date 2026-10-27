@@ -190,7 +190,7 @@ export function CameraEquipmentSection({
         ref={scrubRef}
         className="hidden min-h-[390svh] xl:block motion-reduce:hidden"
       >
-        <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-visible bg-background">
+        <div className="sticky top-[var(--site-header-height)] h-[calc(100svh-var(--site-header-height))] overflow-visible bg-background">
           <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-8 px-6 pb-10 pt-20 xl:px-10">
             <CameraSectionHeading chapter={chapter} />
             <div className="grid min-h-0 items-start gap-8 lg:grid-cols-[minmax(34rem,1.18fr)_minmax(20rem,0.82fr)] lg:gap-12">

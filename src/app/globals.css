@@ -1,6 +1,15 @@
 @config "../../tailwind.config.ts";
 @import "tailwindcss";
 
+/* Hover needs a precise pointer; this also gates group-hover on touch screens. */
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -43,7 +52,11 @@
   --section-gap-standard: clamp(6rem, 10vw, 11rem);
   --section-gap-immersive: clamp(8rem, 14vw, 15rem);
   --section-gap-compact: clamp(4rem, 7vw, 7rem);
-  --site-header-height: 3.5rem;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --site-header-height: calc(3.5rem + var(--safe-area-top));
   --findings-sticky-offset: var(--site-header-height);
   --findings-laptop-display-xl: clamp(3.8rem, 6.4vw, 6.2rem);
   --findings-laptop-display-lg: clamp(3.2rem, 5.4vw, 5.2rem);
@@ -60,6 +73,9 @@ html {
   overflow-x: clip;
   scroll-behavior: smooth;
   color-scheme: dark;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -86,6 +102,8 @@ body {
   overflow-x: clip;
   text-rendering: optimizeLegibility;
   font-optical-sizing: auto;
+  /* Keep document scrolling native while protecting landscape content. */
+  padding-inline: var(--safe-area-left) var(--safe-area-right);
 }
 
 @layer base {
@@ -115,16 +133,34 @@ body {
 
   a[href],
   button,
-  summary {
+  summary,
+  [role="button"] {
     touch-action: manipulation;
-    -webkit-tap-highlight-color: rgb(255 114 0 / 20%);
+  }
+
+  /* Labels are controls; article text and ordinary links remain copyable. */
+  button,
+  summary,
+  [role="button"],
+  [role="slider"],
+  nav a {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 1rem;
   }
 }
 
 /* Press feedback starts on touch-down and never moves a target away from a finger. */
-:where(a[href], button:not(:disabled), summary):active {
+:where(a[href], button:not(:disabled), summary, [role="button"]):active {
   filter: brightness(0.82);
-  transition-duration: 80ms;
+  transition-duration: 100ms;
+  transition-timing-function: ease-out;
   transition-delay: 0ms;
 }
 
@@ -136,6 +172,49 @@ body {
 
 .ui-scrim {
   overscroll-behavior: contain;
+}
+
+.site-header,
+.mobile-menu-header {
+  padding-top: var(--safe-area-top);
+  padding-left: var(--safe-area-left);
+  padding-right: var(--safe-area-right);
+}
+
+.mobile-menu-content {
+  padding-left: calc(1rem + var(--safe-area-left));
+  padding-right: calc(1rem + var(--safe-area-right));
+  padding-bottom: calc(1.5rem + var(--safe-area-bottom));
+}
+
+/* Dialogs follow visible browser height; each edge keeps controls off the cutout. */
+.safe-area-overlay {
+  --overlay-space: 1rem;
+  height: 100dvh;
+  padding-top: max(var(--overlay-space), var(--safe-area-top));
+  padding-right: max(var(--overlay-space), var(--safe-area-right));
+  padding-bottom: max(var(--overlay-space), var(--safe-area-bottom));
+  padding-left: max(var(--overlay-space), var(--safe-area-left));
+}
+
+@media (min-width: 640px) {
+  .safe-area-overlay {
+    --overlay-space: 1.5rem;
+  }
+
+  .mobile-menu-content {
+    padding-left: calc(1.5rem + var(--safe-area-left));
+    padding-right: calc(1.5rem + var(--safe-area-right));
+  }
+}
+
+@media (pointer: coarse) {
+  /* iOS focus zoom is triggered below 16px, regardless of the field's type. */
+  input,
+  textarea,
+  select {
+    font-size: max(1rem, 16px);
+  }
 }
 
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
@@ -1614,7 +1693,9 @@ audio {
 /* Chapter chrome stays reachable on narrow screens and above the home indicator. */
 @media (max-width: 1279px) {
   .site-section-nav {
-    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    bottom: calc(0.75rem + var(--safe-area-bottom));
+    padding-left: calc(0.5rem + var(--safe-area-left));
+    padding-right: calc(0.5rem + var(--safe-area-right));
   }
 
   .site-section-nav > ol {

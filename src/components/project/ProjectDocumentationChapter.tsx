@@ -1,5 +1,7 @@
 "use client";
 
+import { lockPageScroll } from "@/lib/lockPageScroll";
+
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -334,9 +336,8 @@ export function ProjectBehindScenes({
       return;
     }
 
-    const previousOverflow = document.body.style.overflow;
+    const unlockScroll = lockPageScroll();
     const previousFocus = document.activeElement as HTMLElement | null;
-    document.body.style.overflow = "hidden";
     closeRef.current?.focus({ preventScroll: true });
 
     function handleKeyDown(event: KeyboardEvent) {
@@ -379,7 +380,7 @@ export function ProjectBehindScenes({
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      unlockScroll();
       document.removeEventListener("keydown", handleKeyDown);
       previousFocus?.focus({ preventScroll: true });
     };
@@ -436,7 +437,7 @@ export function ProjectBehindScenes({
       {activeImage ? (
         <div
           ref={dialogRef}
-          className="ui-scrim fixed inset-0 z-[130] flex items-center justify-center bg-black/84 p-4 backdrop-blur-sm"
+          className="safe-area-overlay ui-scrim fixed inset-0 z-[130] flex items-center justify-center bg-black/84 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label={activeImage.alt}
@@ -445,7 +446,7 @@ export function ProjectBehindScenes({
           <button
             ref={closeRef}
             type="button"
-            className="absolute right-4 top-4 z-10 grid size-11 cursor-pointer place-items-center border border-white/35 bg-background/80 text-2xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary"
+            className="absolute right-[max(1rem,var(--safe-area-right))] top-[max(1rem,var(--safe-area-top))] z-10 grid size-11 cursor-pointer place-items-center border border-white/35 bg-background/80 text-2xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary"
             onClick={() => setActiveImageIndex(null)}
             aria-label={content.closeLabel}
           >
@@ -453,7 +454,7 @@ export function ProjectBehindScenes({
           </button>
           <button
             type="button"
-            className="absolute left-4 top-1/2 z-10 grid size-12 -translate-y-1/2 cursor-pointer place-items-center border border-white/35 bg-background/80 text-4xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary sm:left-6 sm:size-14"
+            className="absolute left-[max(1rem,var(--safe-area-left))] top-1/2 z-10 grid size-12 -translate-y-1/2 cursor-pointer place-items-center border border-white/35 bg-background/80 text-4xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary sm:size-14"
             onClick={(event) => {
               event.stopPropagation();
               setActiveImageIndex((current) =>
@@ -468,7 +469,7 @@ export function ProjectBehindScenes({
           </button>
           <button
             type="button"
-            className="absolute right-4 top-1/2 z-10 grid size-12 -translate-y-1/2 cursor-pointer place-items-center border border-white/35 bg-background/80 text-4xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary sm:right-6 sm:size-14"
+            className="absolute right-[max(1rem,var(--safe-area-right))] top-1/2 z-10 grid size-12 -translate-y-1/2 cursor-pointer place-items-center border border-white/35 bg-background/80 text-4xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary sm:size-14"
             onClick={(event) => {
               event.stopPropagation();
               setActiveImageIndex((current) =>
@@ -480,7 +481,7 @@ export function ProjectBehindScenes({
             ›
           </button>
           <div
-            className="relative h-[86dvh] w-full max-w-6xl"
+            className="relative h-full max-h-full w-full max-w-6xl"
             onClick={(event) => event.stopPropagation()}
           >
             <Image

@@ -1,5 +1,7 @@
 "use client";
 
+import { lockPageScroll } from "@/lib/lockPageScroll";
+
 import Image, { getImageProps } from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -116,7 +118,7 @@ export function AthleteGalleryLightbox({
     const returnFocusIndex = returnFocusIndexRef.current;
     returnFocusIndexRef.current = null;
     window.requestAnimationFrame(() =>
-      thumbnailRefs.current[returnFocusIndex]?.focus(),
+      thumbnailRefs.current[returnFocusIndex]?.focus({ preventScroll: true }),
     );
   }, [activeIndex]);
 
@@ -125,9 +127,10 @@ export function AthleteGalleryLightbox({
       return;
     }
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+    const unlockScroll = lockPageScroll();
+    window.requestAnimationFrame(() =>
+      closeButtonRef.current?.focus({ preventScroll: true }),
+    );
 
     function getFocusableElements() {
       return Array.from(
@@ -187,7 +190,7 @@ export function AthleteGalleryLightbox({
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      unlockScroll();
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isLightboxOpen, closeLightbox, images.length]);
@@ -289,7 +292,7 @@ export function AthleteGalleryLightbox({
       {activeImage ? (
         <div
           ref={dialogRef}
-          className="ui-scrim fixed inset-0 z-50 flex min-h-svh items-center justify-center overflow-y-auto bg-background/94 p-4 sm:p-6"
+          className="safe-area-overlay ui-scrim fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-background/94 p-4 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-label={activeImage.alt[locale]}
@@ -304,7 +307,7 @@ export function AthleteGalleryLightbox({
             onClick={closeLightbox}
           />
 
-          <div className="relative z-10 flex h-full max-h-[calc(100svh-2rem)] w-full max-w-7xl flex-col gap-4 sm:max-h-[calc(100svh-3rem)]">
+          <div className="relative z-10 flex h-full max-h-full w-full max-w-7xl flex-col gap-4">
             <div className="flex items-center justify-between gap-4">
               <p
                 aria-live="polite"

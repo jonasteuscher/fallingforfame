@@ -13,7 +13,7 @@ export function SiteFooter({ locale }: SiteFooterProps) {
   const footer = getDictionary(locale).site.footer;
 
   return (
-    <footer className="border-t border-border bg-background px-4 pt-10 pb-28 text-sm text-foreground/70 sm:px-6 md:pb-10">
+    <footer className="border-t border-border bg-background px-4 pt-10 pb-[calc(7rem+var(--safe-area-bottom))] text-sm text-foreground/70 sm:px-6 xl:pb-[calc(2.5rem+var(--safe-area-bottom))]">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-3xl">
           <p>
