@@ -26,7 +26,7 @@ export function NotFoundContent({
   return (
     <Wrapper
       aria-labelledby="not-found-title"
-      className="relative isolate flex min-h-[calc(100svh-3.5rem)] items-center overflow-hidden px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
+      className="relative isolate flex min-h-[calc(100svh-var(--site-header-height))] items-center overflow-hidden px-4 py-20 sm:px-6 sm:py-28 xl:px-10"
     >
       <div
         className="absolute left-1/2 top-1/2 -z-10 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/18 bg-primary/5 blur-3xl"

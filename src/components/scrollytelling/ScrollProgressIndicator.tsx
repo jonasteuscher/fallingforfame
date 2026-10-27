@@ -7,8 +7,8 @@ export function ScrollProgressIndicator() {
 
   return (
     <div
-      className="fixed left-0 top-0 z-50 h-1 bg-primary"
-      style={{ width: `${progress * 100}%` }}
+      className="pointer-events-none fixed left-0 top-0 z-50 h-1 w-full origin-left bg-primary"
+      style={{ transform: `scaleX(${progress})` }}
       aria-hidden="true"
     />
   );

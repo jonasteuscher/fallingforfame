@@ -112,11 +112,18 @@ describe("project documentation components", () => {
     await user.click(screen.getByRole("button", { name: "First fieldwork image" }));
     expect(screen.getByRole("dialog", { name: "First fieldwork image" })).toBeVisible();
     expect(document.body.style.overflow).toBe("hidden");
+    expect(screen.getByRole("button", { name: "Close image" })).toHaveFocus();
+
+    await user.keyboard("{Shift>}{Tab}{/Shift}");
+    expect(screen.getByRole("button", { name: "Next image" })).toHaveFocus();
+    await user.keyboard("{Tab}");
+    expect(screen.getByRole("button", { name: "Close image" })).toHaveFocus();
 
     await user.click(screen.getByRole("button", { name: "Next image" }));
     expect(
       screen.getByRole("dialog", { name: "Second fieldwork image" }),
     ).toBeVisible();
+    expect(screen.getByRole("button", { name: "Next image" })).toHaveFocus();
 
     fireEvent.keyDown(document, { key: "ArrowLeft" });
     expect(screen.getByRole("dialog", { name: "First fieldwork image" })).toBeVisible();
@@ -126,5 +133,6 @@ describe("project documentation components", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
     expect(document.body.style.overflow).toBe("");
+    expect(screen.getByRole("button", { name: "First fieldwork image" })).toHaveFocus();
   });
 });

@@ -172,7 +172,7 @@ export function FindingsVisibilitySequence({
         quoteSourceLabel={quoteSourceLabel}
       />
 
-      <div className="sticky top-14 hidden h-[calc(100svh-3.5rem)] overflow-hidden bg-background xl:block">
+      <div className="sticky top-[var(--site-header-height)] hidden h-[calc(100svh-var(--site-header-height))] overflow-hidden bg-background xl:block">
         <div className="mx-auto flex h-full max-w-7xl flex-col justify-center px-6 py-10 xl:px-10 [@media_(max-height:950px)]:py-4">
           <header className="relative z-10 mb-6 [@media_(max-height:950px)]:mb-3">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">

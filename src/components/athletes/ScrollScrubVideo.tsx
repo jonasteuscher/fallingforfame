@@ -62,11 +62,18 @@ function ScrollScrubSection({
   const [sourceEnabled, setSourceEnabled] = useState(false);
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => {
-      setMode(detectCapabilityMode());
-    }, 0);
+    const motionQuery = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    const pointerQuery = window.matchMedia?.("(pointer: coarse)");
+    const updateMode = () => setMode(detectCapabilityMode());
+    const timeout = window.setTimeout(updateMode, 0);
+    motionQuery?.addEventListener("change", updateMode);
+    pointerQuery?.addEventListener("change", updateMode);
 
-    return () => window.clearTimeout(timeout);
+    return () => {
+      window.clearTimeout(timeout);
+      motionQuery?.removeEventListener("change", updateMode);
+      pointerQuery?.removeEventListener("change", updateMode);
+    };
   }, []);
 
   const updateTextOverlay = useCallback((progress: number) => {
@@ -299,14 +306,14 @@ function ScrollScrubSection({
       aria-labelledby={headingId}
       data-scroll-scrub-video-id={video.id}
       className="relative overflow-x-clip bg-background"
-      style={{ minHeight: `${scrollLength * 100}vh` }}
+      style={{ minHeight: `${scrollLength * 100}svh` }}
     >
       <div
         ref={stickyRef}
-        className="sticky top-0 flex min-h-[calc(100svh-3.5rem)] items-center overflow-hidden pt-14"
+        className="sticky top-0 flex min-h-[calc(100svh-var(--site-header-height))] items-center overflow-hidden pt-[var(--site-header-height)]"
       >
         <div className="absolute inset-0 bg-background" aria-hidden="true" />
-        <div className="relative h-[calc(100svh-3.5rem)] w-full">
+        <div className="relative h-[calc(100svh-var(--site-header-height))] w-full">
           <video
             ref={videoRef}
             muted
@@ -327,13 +334,13 @@ function ScrollScrubSection({
           <div
             ref={scrimRef}
             data-scroll-video-scrim
-            className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_64%,transparent)_0%,color-mix(in_srgb,var(--background)_38%,transparent)_46%,color-mix(in_srgb,var(--background)_48%,transparent)_100%)] transition-opacity duration-500 motion-reduce:transition-none"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--background)_64%,transparent)_0%,color-mix(in_srgb,var(--background)_38%,transparent)_46%,color-mix(in_srgb,var(--background)_48%,transparent)_100%)]"
             aria-hidden="true"
           />
           <div
             ref={textOverlayRef}
             data-scroll-video-copy
-            className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-20 transition duration-500 motion-reduce:transition-none sm:px-6 xl:px-10"
+            className="pointer-events-none absolute inset-x-0 top-0 px-4 pt-20 sm:px-6 xl:px-10"
           >
             <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.68fr)_minmax(18rem,0.32fr)] lg:items-start">
               <div>

@@ -92,7 +92,7 @@ function ProjectMotivation({ content }: { content: ProjectContent["motivation"] 
 
 function ProjectHero({ content }: { content: ProjectContent }) {
   return (
-    <section className="relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden px-4 py-20 sm:px-6 lg:px-10">
+    <section className="relative flex min-h-[calc(100svh-var(--site-header-height))] overflow-hidden px-4 py-20 sm:px-6 lg:px-10">
       <Image
         src="/images/project/hero.JPG"
         alt=""

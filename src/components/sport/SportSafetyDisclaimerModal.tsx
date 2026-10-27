@@ -153,8 +153,9 @@ export function SportSafetyDisclaimerModal({
     return null;
   }
 
+  // Keep the warning scrollable inside the visible screen and its safe areas.
   return (
-    <div className="fixed inset-0 z-[120] flex min-h-[100dvh] items-center justify-center overflow-hidden bg-black/76 px-4 py-4 backdrop-blur-sm sm:px-6 sm:py-6">
+    <div className="safe-area-overlay ui-scrim fixed inset-0 z-[120] flex items-center justify-center overflow-hidden bg-black/76 px-4 py-4 backdrop-blur-sm sm:px-6 sm:py-6">
       <div
         ref={dialogRef}
         role="dialog"
@@ -162,7 +163,7 @@ export function SportSafetyDisclaimerModal({
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
         tabIndex={-1}
-        className="flex max-h-[calc(100dvh-2rem)] w-full max-w-[880px] flex-col overflow-hidden border border-white/18 bg-[#06172b] text-foreground shadow-2xl outline-none sm:max-h-[calc(100dvh-3rem)]"
+        className="flex max-h-full w-full max-w-[880px] flex-col overflow-hidden border border-white/18 bg-[#06172b] text-foreground shadow-2xl outline-none"
       >
         <div className="shrink-0 border-b border-[#DC2626]/65 bg-[#2a1325] px-5 py-6 sm:px-8 sm:py-8">
           <p className="flex items-center gap-3 text-sm font-semibold uppercase tracking-wide text-[#FCA5A5]">
@@ -178,7 +179,7 @@ export function SportSafetyDisclaimerModal({
             {content.headline}
           </h2>
         </div>
-        <div className="min-h-0 overflow-y-auto px-5 py-6 sm:px-8 sm:py-8">
+        <div className="min-h-0 overflow-y-auto overscroll-contain px-5 py-6 sm:px-8 sm:py-8">
           <p className="text-base font-semibold leading-7 text-foreground sm:text-lg">
             {content.projectTitle}
           </p>

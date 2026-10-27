@@ -164,7 +164,7 @@ export function MobileExperienceNotice({ content }: MobileExperienceNoticeProps)
   }
 
   return (
-    <div className="fixed inset-0 z-[120] flex min-h-[100dvh] items-end justify-center overflow-hidden bg-black/72 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-5 backdrop-blur-sm">
+    <div className="safe-area-overlay ui-scrim fixed inset-0 z-[120] flex items-end justify-center overflow-hidden bg-black/72 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-5 backdrop-blur-sm">
       <div
         ref={dialogRef}
         role="dialog"
@@ -172,7 +172,7 @@ export function MobileExperienceNotice({ content }: MobileExperienceNoticeProps)
         aria-labelledby="mobile-notice-title"
         aria-describedby="mobile-notice-description"
         tabIndex={-1}
-        className="relative max-h-[calc(100dvh-2rem)] w-full max-w-[28rem] overflow-y-auto border border-white/18 bg-[#0A1A2F] px-5 pb-5 pt-6 text-foreground shadow-2xl outline-none motion-safe:animate-[fade-in-up_260ms_ease-out_forwards]"
+        className="relative max-h-full w-full max-w-[28rem] overflow-y-auto overscroll-contain border border-white/18 bg-[#0A1A2F] px-5 pb-5 pt-6 text-foreground shadow-2xl outline-none motion-safe:animate-[fade-in-up_260ms_ease-out_forwards]"
       >
         <button
           type="button"

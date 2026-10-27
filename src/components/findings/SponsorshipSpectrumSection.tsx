@@ -149,7 +149,7 @@ export function SponsorshipSpectrumSection({
       />
 
       <div className="hidden xl:block xl:h-[390svh] xl:min-h-[2500px]">
-        <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
+        <div className="sticky top-[var(--site-header-height)] h-[calc(100svh-var(--site-header-height))] overflow-hidden bg-background">
           <div className="mx-auto flex h-full max-w-[90rem] flex-col px-6 py-10 xl:px-10">
             <header className="relative z-10 grid gap-8 lg:grid-cols-[minmax(32rem,0.62fr)_minmax(22rem,0.38fr)] lg:items-end">
               <div>

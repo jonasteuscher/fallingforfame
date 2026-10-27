@@ -90,6 +90,21 @@ describe("scrollytelling primitives", () => {
     );
     expect(screen.getByRole("heading", { name: "Documentary" })).toBeVisible();
     expect(screen.getByText("The research output.")).toBeVisible();
+
+    await user.keyboard("{ArrowLeft}");
+    expect(screen.getByRole("tab", { name: "2019" })).toHaveFocus();
+    expect(screen.getByRole("tabpanel")).toHaveAccessibleName("2019");
+    expect(screen.getByRole("heading", { name: "First jump" })).toBeVisible();
+
+    await user.keyboard("{End}");
+    expect(screen.getByRole("tab", { name: "2026" })).toHaveFocus();
+    await user.keyboard("{Home}");
+    expect(screen.getByRole("tab", { name: "2019" })).toHaveFocus();
+  });
+
+  it("handles an empty timeline without exposing broken tabs", () => {
+    const { container } = render(<InteractiveTimeline items={[]} />);
+    expect(container).toBeEmptyDOMElement();
   });
 
   it("renders layout containers and section helpers", () => {
@@ -153,7 +168,7 @@ describe("scrollytelling primitives", () => {
     );
   });
 
-  it("renders the scroll progress indicator width from the scroll hook", () => {
+  it("renders the scroll progress indicator with a compositor transform", () => {
     Object.defineProperty(document.documentElement, "scrollHeight", {
       configurable: true,
       value: 2000,
@@ -170,6 +185,6 @@ describe("scrollytelling primitives", () => {
     render(<ScrollProgressIndicator />);
 
     const progress = document.querySelector("[aria-hidden='true']") as HTMLElement;
-    expect(progress).toHaveStyle({ width: "25%" });
+    expect(progress).toHaveStyle({ transform: "scaleX(0.25)" });
   });
 });

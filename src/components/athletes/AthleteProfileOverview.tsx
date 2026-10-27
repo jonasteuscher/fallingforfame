@@ -204,23 +204,23 @@ function AthleteExperienceStats({
   }, []);
 
   return (
-    <div ref={ref} className="relative min-w-0 border-y border-border pb-7 lg:mt-1">
-      <dl className="grid min-w-0 gap-x-8 min-[420px]:grid-cols-2">
+    <div ref={ref} className="athlete-experience-stats relative min-w-0 border-y border-border pb-7 lg:mt-1">
+      <dl className="grid min-w-0 gap-x-8">
         {metrics.map((metric, index) => (
           <div
             key={metric.id}
+            data-last-row={index >= lastRowStartIndex}
             className={[
-              "min-w-0 border-border py-6 min-[420px]:odd:border-r min-[420px]:odd:pr-8 min-[420px]:even:pl-8",
+              "athlete-experience-metric min-w-0 border-border py-6 [container-type:inline-size]",
               metric.id === "reach" ? "flex flex-col" : "",
               index < metrics.length - 1 ? "border-b" : "",
-              index >= lastRowStartIndex ? "min-[420px]:border-b-0" : "",
             ].join(" ")}
           >
             <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground/54">
               {metric.label}
             </dt>
             <dd
-              className="mt-3 max-w-full break-words text-[clamp(2rem,4.2vw,3.75rem)] font-semibold leading-none text-foreground [overflow-wrap:anywhere] transition duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
+              className="mt-3 max-w-full break-words text-[clamp(2rem,20cqi,3.75rem)] font-semibold leading-none text-foreground [overflow-wrap:anywhere] transition duration-700 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none"
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(0.75rem)",

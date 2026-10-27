@@ -174,7 +174,7 @@ export function NoJumpDecisionSection({
         quoteSourceLabel={quoteSourceLabel}
       />
       <div className="hidden xl:block xl:h-[340svh] xl:min-h-[2400px]">
-        <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
+        <div className="sticky top-[var(--site-header-height)] h-[calc(100svh-var(--site-header-height))] overflow-hidden bg-background">
           <div className="no-jump-sticky-inner mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] gap-y-6 px-6 py-8 xl:px-10">
             <header className="no-jump-header relative z-10 max-w-none">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
@@ -245,7 +245,7 @@ function NoJumpImage({
 
   return (
     <figure
-      className="no-jump-media relative my-auto aspect-[16/10] min-h-[34rem] overflow-hidden bg-surface"
+      className="no-jump-media relative my-auto aspect-[16/10] w-full min-w-0 min-h-[24rem] overflow-hidden bg-surface sm:min-h-[34rem]"
       style={{
         transform: `translate3d(${interpolate(descentProgress, 0, 1, 0, -18)}px, 0, 0)`,
       }}
@@ -512,7 +512,7 @@ function ReducedMotionNoJumpDecision({
         <NoJumpImage
           chapter={chapter}
           locale={locale}
-          descentProgress={1}
+          descentProgress={0}
           overlayProgress={1}
         />
       </div>

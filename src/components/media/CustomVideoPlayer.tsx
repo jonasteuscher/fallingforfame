@@ -28,6 +28,7 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [playbackError, setPlaybackError] = useState(false);
 
   useEffect(() => {
     function handleFullscreenChange() {
@@ -49,7 +50,12 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
     }
 
     if (player.paused) {
-      await player.play();
+      setPlaybackError(false);
+      try {
+        await player.play();
+      } catch {
+        setPlaybackError(true);
+      }
     } else {
       player.pause();
     }
@@ -114,6 +120,8 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
         <video
           ref={videoRef}
           preload="metadata"
+          playsInline
+          aria-label={video?.title ?? "Video"}
           poster={video?.poster}
           className="aspect-video w-full max-w-full cursor-pointer bg-background object-contain"
           src={video?.src}
@@ -123,6 +131,7 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
           onEnded={() => setIsPlaying(false)}
+          onError={() => setPlaybackError(true)}
           onVolumeChange={(event) => {
             setVolume(event.currentTarget.volume);
             setIsMuted(event.currentTarget.muted);
@@ -133,6 +142,11 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
       </div>
 
       <div className="border-t border-border bg-surface px-3 py-3 sm:px-4">
+        {playbackError ? (
+          <p role="status" className="mb-3 text-sm leading-6 text-foreground">
+            Video could not be played. Try playing it again.
+          </p>
+        ) : null}
         <label className="sr-only" htmlFor={`video-progress-${video?.src ?? "clip"}`}>
           Video progress
         </label>
@@ -144,7 +158,8 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
           step="0.1"
           value={Math.min(currentTime, duration || currentTime)}
           onChange={(event) => handleSeek(event.target.value)}
-          className="h-2 w-full cursor-pointer appearance-none bg-border [accent-color:var(--primary)]"
+          aria-valuetext={`${formatTime(currentTime)} / ${formatTime(duration)}`}
+          className="h-11 w-full cursor-pointer accent-primary"
         />
 
         <div className="mt-3 flex flex-wrap items-center gap-3">
@@ -161,7 +176,7 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
             {formatTime(currentTime)} / {formatTime(duration)}
           </p>
 
-          <div className="ml-auto flex items-center gap-3">
+          <div className="ml-auto flex min-w-0 flex-wrap items-center gap-3">
             <button
               type="button"
               className="min-h-10 cursor-pointer border border-border bg-background px-4 text-sm font-semibold uppercase tracking-wide text-foreground transition hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -182,7 +197,8 @@ export function CustomVideoPlayer({ video }: CustomVideoPlayerProps) {
               step="0.05"
               value={isMuted ? 0 : volume}
               onChange={(event) => handleVolume(event.target.value)}
-              className="h-2 w-24 cursor-pointer appearance-none bg-border [accent-color:var(--primary)]"
+              aria-valuetext={`${Math.round((isMuted ? 0 : volume) * 100)}%`}
+              className="h-11 w-24 cursor-pointer accent-primary"
             />
 
             <button

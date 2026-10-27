@@ -103,7 +103,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
       className="relative h-[175svh] min-h-[980px] md:h-[220svh] md:min-h-[1320px]"
       aria-labelledby="findings-hero-title"
     >
-      <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
+      <div className="sticky top-[var(--site-header-height)] h-[calc(100svh-var(--site-header-height))] overflow-hidden bg-background">
         <div className="absolute inset-0">
           <Image
             src={content.hero.media.src}
@@ -150,7 +150,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
         </div>
 
         <div
-          className="pointer-events-none absolute bottom-[clamp(1.5rem,5vh,3.5rem)] left-4 z-10 max-w-[23rem] text-white/90 sm:left-6 lg:left-10"
+          className="pointer-events-none absolute bottom-[clamp(1.5rem,5svh,3.5rem)] left-4 z-10 max-w-[23rem] text-white/90 sm:left-6 lg:left-10"
           style={{
             opacity: socialOpacity,
             filter: `blur(${socialBlur}px)`,
@@ -189,7 +189,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
         </div>
 
         <div
-          className="pointer-events-none absolute bottom-[clamp(2rem,8vh,4.5rem)] right-4 z-10 hidden w-20 flex-col items-center gap-5 text-center text-[0.7rem] font-semibold text-white/78 sm:flex"
+          className="pointer-events-none absolute bottom-[clamp(2rem,8svh,4.5rem)] right-4 z-10 hidden w-20 flex-col items-center gap-5 text-center text-[0.7rem] font-semibold text-white/78 sm:flex"
           style={{
             opacity: socialOpacity,
             filter: `blur(${socialBlur}px)`,
@@ -207,7 +207,7 @@ export function FindingsHero({ content }: FindingsHeroProps) {
           ))}
         </div>
 
-        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-4 pb-[clamp(2.75rem,7vh,5.5rem)] sm:px-6 xl:px-10">
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-end px-4 pb-[clamp(2.75rem,7svh,5.5rem)] sm:px-6 xl:px-10">
           <div className="max-w-[min(58vw,56rem)] max-lg:max-w-[42rem] max-sm:max-w-[21rem]">
             <p
               className="text-xs font-semibold uppercase tracking-[0.24em] text-primary sm:text-sm"

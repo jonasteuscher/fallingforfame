@@ -43,6 +43,23 @@ afterEach(() => {
 });
 
 describe("AthleteGalleryLightbox", () => {
+  it("keeps focus on the next control while changing images", async () => {
+    const user = userEvent.setup();
+    render(<AthleteGalleryLightbox images={images} locale="en" />);
+    await user.click(
+      screen.getByRole("button", { name: /Open image full size: First/ }),
+    );
+    await waitFor(() =>
+      expect(
+        screen.getByRole("button", { name: "Close full-size image" }),
+      ).toHaveFocus(),
+    );
+    const next = screen.getByRole("button", { name: "Next image" });
+    await user.click(next);
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    expect(next).toHaveFocus();
+    expect(screen.getByRole("dialog", { name: "Second exit point" })).toBeVisible();
+  });
   it("limits the initial gallery and toggles hidden images with custom labels", async () => {
     const user = userEvent.setup();
 
@@ -94,7 +111,9 @@ describe("AthleteGalleryLightbox", () => {
     expect(screen.getByText("Bild 2 von 3")).toBeVisible();
     expect(document.body.style.overflow).toBe("hidden");
     await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Bildansicht schliessen" })).toHaveFocus();
+      expect(
+        screen.getByRole("button", { name: "Bildansicht schliessen" }),
+      ).toHaveFocus();
     });
     expect(
       screen.getByRole("dialog", { name: "Zweiter Exit" }).querySelector("img"),

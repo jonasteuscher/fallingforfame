@@ -167,7 +167,7 @@ export function DecisionLayersSection({
       />
 
       <div className="hidden xl:block xl:h-[560svh] xl:min-h-[3600px]">
-        <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
+        <div className="sticky top-[var(--site-header-height)] h-[calc(100svh-var(--site-header-height))] overflow-hidden bg-background">
           <div className="mx-auto grid h-full max-w-7xl grid-cols-[minmax(15rem,0.32fr)_minmax(26rem,0.44fr)_minmax(15rem,0.24fr)] gap-8 px-6 py-8 xl:px-10">
             <header className="flex min-h-0 flex-col justify-center">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
@@ -503,6 +503,7 @@ function DecisionProcessList({
               ].join(" ")}
               style={{ opacity }}
               aria-current={isActive ? "step" : undefined}
+              onClick={() => onFocusStep(index)}
               onFocus={() => onFocusStep(index)}
               onBlur={() => onFocusStep(null)}
               onMouseEnter={() => onFocusStep(index)}

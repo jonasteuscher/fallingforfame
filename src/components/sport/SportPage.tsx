@@ -130,7 +130,7 @@ function SportHero({ content }: { content: SportContent }) {
   return (
     <section
       id="sport-hero"
-      className="relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden px-4 py-20 sm:px-6 lg:px-10"
+      className="relative flex min-h-[calc(100svh-var(--site-header-height))] overflow-hidden px-4 py-20 sm:px-6 lg:px-10"
     >
       <Image
         src="/images/sport/hero1.jpg"
@@ -247,7 +247,7 @@ function BaseAcronymStory({
         ref={headerPanelRef}
         className={
           headerMode === "fixed"
-            ? "fixed inset-x-0 top-14 z-30 border-y border-border bg-background/96 px-4 py-4 backdrop-blur sm:px-6 lg:px-10"
+            ? "fixed inset-x-0 top-[var(--site-header-height)] z-30 border-y border-border bg-background/96 px-4 py-4 backdrop-blur sm:px-6 lg:px-10"
             : headerMode === "end"
               ? "absolute inset-x-0 bottom-0 z-10 border-y border-border bg-background/96 px-4 py-4 backdrop-blur sm:px-6 lg:px-10"
               : "relative z-10 border-y border-border bg-background/96 px-4 py-4 backdrop-blur sm:px-6 lg:px-10"
@@ -413,7 +413,9 @@ function HistoryTimeline({
 
     window.scrollTo({
       top: Math.max(itemTop - headerOffset, 0),
-      behavior: "smooth",
+      behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
     });
   }
 
@@ -504,12 +506,12 @@ function HistoryTimeline({
         <div className="mt-10 gap-8 xl:mt-0 xl:grid xl:grid-cols-[360px_minmax(0,1fr)] xl:items-stretch">
           <div
             ref={railSlotRef}
-            className="relative hidden min-h-[calc(100svh-3.5rem)] xl:block"
+            className="relative hidden min-h-[calc(100svh-var(--site-header-height))] xl:block"
           >
             <aside
               className={
                 railMode === "fixed"
-                  ? "fixed top-14 z-20 h-[calc(100svh-3.5rem)] overflow-y-auto py-10"
+                  ? "fixed top-[var(--site-header-height)] z-20 h-[calc(100svh-var(--site-header-height))] overflow-y-auto py-10"
                   : railMode === "end"
                     ? "absolute bottom-0 left-0 w-full py-10"
                     : "py-10"
@@ -1432,8 +1434,8 @@ function DisciplinesGallery({
             </h2>
           </div>
         </div>
-        <div className="mt-10 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch] md:overflow-visible md:pb-0">
-          <div className="flex snap-x gap-4 md:grid md:snap-none md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 snap-x snap-mandatory overflow-x-auto overscroll-x-contain pb-4 md:snap-none md:overflow-visible md:pb-0">
+          <div className="flex gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
             {content.items.map((item, index) => (
               <article
                 key={item.title}

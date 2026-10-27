@@ -145,7 +145,7 @@ export function RecognitionComparison({
       />
 
       <div className="hidden min-h-[255svh] xl:block motion-reduce:hidden">
-        <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
+        <div className="sticky top-[var(--site-header-height)] h-[calc(100svh-var(--site-header-height))] overflow-hidden bg-background">
           <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] px-6 py-8 xl:px-10">
             <header className="relative z-10 max-w-[64rem]">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">

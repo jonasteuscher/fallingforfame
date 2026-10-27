@@ -6,6 +6,7 @@ export function useScrollProgress() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    let frame: number | null = null;
     const updateProgress = () => {
       const scrollableHeight =
         document.documentElement.scrollHeight - window.innerHeight;
@@ -13,13 +14,26 @@ export function useScrollProgress() {
       setProgress(Math.min(Math.max(nextProgress, 0), 1));
     };
 
+    const scheduleUpdate = () => {
+      if (frame !== null) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = null;
+        updateProgress();
+      });
+    };
+
     updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    const observer =
+      typeof ResizeObserver !== "undefined" ? new ResizeObserver(scheduleUpdate) : null;
+    observer?.observe(document.body);
 
     return () => {
-      window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+      observer?.disconnect();
     };
   }, []);
 

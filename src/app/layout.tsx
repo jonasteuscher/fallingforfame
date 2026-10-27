@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -9,6 +9,19 @@ const sharedOgImage = {
   width: 1200,
   height: 630,
   alt: "Falling for Fame?",
+};
+
+// Paint edge to edge without restricting the reader's pinch zoom.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  interactiveWidget: "resizes-content",
+  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#0a1a2f" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a1a2f" },
+  ],
 };
 
 export const metadata: Metadata = {

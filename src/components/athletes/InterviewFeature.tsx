@@ -90,6 +90,7 @@ export function InterviewFeature({
   const headingId = useId();
   const [hasStarted, setHasStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [playbackError, setPlaybackError] = useState(false);
   const [isNativeFullscreen, setIsNativeFullscreen] = useState(false);
   const video = feature.videos[locale];
   const poster = feature.poster ?? youtubePoster(video.videoId);
@@ -121,7 +122,7 @@ export function InterviewFeature({
 
   useEffect(() => {
     return registerVideoPlayer(playerId, () => {
-      playerRef.current?.pauseVideo();
+      playerRef.current?.pauseVideo?.();
     });
   }, [playerId]);
 
@@ -160,7 +161,7 @@ export function InterviewFeature({
         }
 
         if (!entry?.isIntersecting || entry.intersectionRatio < 0.4) {
-          playerRef.current.pauseVideo();
+          playerRef.current.pauseVideo?.();
           clearActiveVideo(playerId);
         }
       },
@@ -174,7 +175,7 @@ export function InterviewFeature({
 
   useEffect(() => {
     return () => {
-      playerRef.current?.destroy();
+      playerRef.current?.destroy?.();
       playerRef.current = null;
     };
   }, []);
@@ -188,15 +189,24 @@ export function InterviewFeature({
 
     if (!playerMountRef.current || playerRef.current) {
       playerRef.current?.setPlaybackQuality?.("hd1080");
-      playerRef.current?.playVideo();
+      playerRef.current?.playVideo?.();
       requestVideoPlayback(playerId);
       return;
     }
 
     setIsLoading(true);
     setHasStarted(true);
+    setPlaybackError(false);
 
-    const api = await loadYouTubeApi();
+    let api: YouTubeApi;
+    try {
+      api = await loadYouTubeApi();
+    } catch {
+      setIsLoading(false);
+      setHasStarted(false);
+      setPlaybackError(true);
+      return;
+    }
     const mount = playerMountRef.current;
 
     if (!mount) {
@@ -232,7 +242,7 @@ export function InterviewFeature({
           playerRef.current?.unloadModule?.("captions");
           playerRef.current?.unloadModule?.("cc");
           requestVideoPlayback(playerId);
-          playerRef.current?.playVideo();
+          playerRef.current?.playVideo?.();
           setIsLoading(false);
         },
         onStateChange: (event) => {
@@ -366,9 +376,23 @@ export function InterviewFeature({
               />
 
               {isLoading ? (
-                <div className="absolute inset-0 grid place-items-center bg-background/42 text-sm font-semibold uppercase tracking-[0.18em] text-foreground/72">
-                  Loading interview
+                <div
+                  role="status"
+                  className="absolute inset-0 grid place-items-center bg-background/42 text-sm font-semibold uppercase tracking-[0.18em] text-foreground/72"
+                >
+                  {locale === "de" ? "Interview wird geladen…" : "Loading interview…"}
                 </div>
+              ) : null}
+
+              {playbackError ? (
+                <p
+                  role="status"
+                  className="absolute inset-x-3 bottom-3 bg-background/95 px-3 py-2 text-sm leading-6 text-foreground"
+                >
+                  {locale === "de"
+                    ? "Interview konnte nicht geladen werden. Bitte erneut versuchen."
+                    : "Interview could not be loaded. Try playing it again."}
+                </p>
               ) : null}
 
               {hasStarted && !isLoading ? (
@@ -437,6 +461,9 @@ function loadYouTubeApi() {
     script.async = true;
     script.onerror = () => reject(new Error("Failed to load YouTube API."));
     document.head.appendChild(script);
+  }).catch((error) => {
+    youTubeApiPromise = null;
+    throw error;
   });
 
   return youTubeApiPromise;

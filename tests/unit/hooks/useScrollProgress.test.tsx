@@ -1,5 +1,5 @@
 import { act, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
@@ -7,6 +7,21 @@ function ScrollProgressProbe() {
   const progress = useScrollProgress();
 
   return <output aria-label="scroll progress">{progress}</output>;
+}
+
+let frames: FrameRequestCallback[];
+
+beforeEach(() => {
+  frames = [];
+  vi.spyOn(window, "requestAnimationFrame").mockImplementation((callback) => {
+    frames.push(callback);
+    return frames.length;
+  });
+});
+
+function flushFrame() {
+  const callbacks = frames.splice(0);
+  act(() => callbacks.forEach((callback) => callback(performance.now())));
 }
 
 function setScrollMetrics({
@@ -51,11 +66,13 @@ describe("useScrollProgress", () => {
 
     setScrollMetrics({ scrollHeight: 2000, innerHeight: 1000, scrollY: 1800 });
     act(() => window.dispatchEvent(new Event("scroll")));
+    flushFrame();
 
     expect(screen.getByLabelText("scroll progress")).toHaveTextContent("1");
 
     setScrollMetrics({ scrollHeight: 2000, innerHeight: 1000, scrollY: -200 });
     act(() => window.dispatchEvent(new Event("scroll")));
+    flushFrame();
 
     expect(screen.getByLabelText("scroll progress")).toHaveTextContent("0");
   });
@@ -66,6 +83,7 @@ describe("useScrollProgress", () => {
     render(<ScrollProgressProbe />);
 
     act(() => window.dispatchEvent(new Event("resize")));
+    flushFrame();
 
     expect(screen.getByLabelText("scroll progress")).toHaveTextContent("0");
   });

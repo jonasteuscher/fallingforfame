@@ -37,6 +37,8 @@ export function CinematicVideoPlayer({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [playbackError, setPlaybackError] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
   const controls = cinematicVideoLabels[locale];
 
   useEffect(() => {
@@ -88,7 +90,10 @@ export function CinematicVideoPlayer({
 
     shouldPlayWhenReadyRef.current = false;
     video.load();
-    void video.play().catch(() => undefined);
+    void video.play().catch(() => {
+      setPlaybackError(true);
+      setIsBuffering(false);
+    });
   }, [sourceEnabled]);
 
   async function togglePlayback() {
@@ -100,6 +105,7 @@ export function CinematicVideoPlayer({
 
     setSourceEnabled(true);
     setHasStarted(true);
+    setPlaybackError(false);
 
     if (!sourceEnabled) {
       shouldPlayWhenReadyRef.current = true;
@@ -107,7 +113,11 @@ export function CinematicVideoPlayer({
     }
 
     if (video.paused) {
-      await video.play().catch(() => undefined);
+      setIsBuffering(true);
+      await video.play().catch(() => {
+        setPlaybackError(true);
+        setIsBuffering(false);
+      });
     } else {
       video.pause();
     }
@@ -174,6 +184,13 @@ export function CinematicVideoPlayer({
         onDurationChange={(event) => setDuration(event.currentTarget.duration)}
         onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
         onVolumeChange={(event) => setIsMuted(event.currentTarget.muted)}
+        onWaiting={() => setIsBuffering(true)}
+        onPlaying={() => setIsBuffering(false)}
+        onCanPlay={() => setIsBuffering(false)}
+        onError={() => {
+          setPlaybackError(true);
+          setIsBuffering(false);
+        }}
         onPlay={() => {
           setHasStarted(true);
           setIsPlaying(true);
@@ -181,6 +198,7 @@ export function CinematicVideoPlayer({
         }}
         onPause={() => {
           setIsPlaying(false);
+          setIsBuffering(false);
           clearActiveVideo(videoId);
         }}
         onEnded={() => {
@@ -193,6 +211,15 @@ export function CinematicVideoPlayer({
       >
         {sourceEnabled ? <source src={src} type={type} /> : null}
       </video>
+
+      {playbackError || isBuffering ? (
+        <p
+          role="status"
+          className="absolute left-3 right-3 top-3 bg-background/95 px-3 py-2 text-sm leading-6 text-foreground"
+        >
+          {playbackError ? controls.error : controls.loading}
+        </p>
+      ) : null}
 
       {!hasStarted ? (
         <button
@@ -241,6 +268,7 @@ export function CinematicVideoPlayer({
           value={Math.min(currentTime, duration || 0)}
           onChange={(event) => seekTo(Number(event.currentTarget.value))}
           aria-label={controls.seek}
+          aria-valuetext={`${formatMediaTime(currentTime)} / ${formatMediaTime(duration)}`}
           className="h-11 min-w-0 flex-1 cursor-pointer accent-primary"
         />
         <span className="hidden w-11 text-xs font-semibold tabular-nums sm:block">
@@ -307,6 +335,8 @@ const cinematicVideoLabels = {
     unmute: "Unmute video",
     fullscreen: "Open video fullscreen",
     exitFullscreen: "Exit video fullscreen",
+    error: "Video could not be played. Try playing it again.",
+    loading: "Loading video…",
   },
   de: {
     play: (title: string) => `${title} abspielen`,
@@ -316,6 +346,8 @@ const cinematicVideoLabels = {
     unmute: "Videoton einschalten",
     fullscreen: "Video im Vollbild öffnen",
     exitFullscreen: "Video-Vollbild schliessen",
+    error: "Video konnte nicht abgespielt werden. Bitte erneut versuchen.",
+    loading: "Video wird geladen…",
   },
 } as const;
 

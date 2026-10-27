@@ -5,7 +5,6 @@ import { AudioProvider } from "@/components/audio";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { LocaleDocumentAttributes } from "@/components/layout/LocaleDocumentAttributes";
-import { MobileExperienceNotice } from "@/components/MobileExperienceNotice";
 import { ScrollProgressIndicator } from "@/components/scrollytelling";
 import { getDictionary } from "@/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/i18n/config";
@@ -35,8 +34,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <LocaleDocumentAttributes locale={locale as Locale} />
       <ScrollProgressIndicator />
       <SiteHeader locale={locale as Locale} navigation={dictionary.site.navigation} />
-      <MobileExperienceNotice content={dictionary.site.home.mobileExperienceNotice} />
-      <main className="flex-1 pt-14">{children}</main>
+      <main className="flex-1 pt-[var(--site-header-height)]">{children}</main>
       <SiteFooter locale={locale as Locale} />
     </AudioProvider>
   );

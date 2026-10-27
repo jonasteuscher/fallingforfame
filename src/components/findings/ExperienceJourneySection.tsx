@@ -206,7 +206,7 @@ export function ExperienceJourneySection({
       />
 
       <div className="hidden xl:block xl:h-[420svh] xl:min-h-[2800px]">
-        <div className="sticky top-14 h-[calc(100svh-3.5rem)] overflow-hidden bg-background">
+        <div className="sticky top-[var(--site-header-height)] h-[calc(100svh-var(--site-header-height))] overflow-hidden bg-background">
           <div className="relative mx-auto grid h-full max-w-7xl grid-cols-[minmax(16rem,0.34fr)_minmax(25rem,0.42fr)_minmax(15rem,0.24fr)] gap-8 px-6 py-8 xl:px-10">
             <header className="flex min-h-0 flex-col justify-center">
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
