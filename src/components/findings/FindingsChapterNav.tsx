@@ -110,11 +110,10 @@ export function FindingsChapterNav({
   return (
     <nav
       aria-label={ariaLabel}
+      inert={!isPastIntro}
       className={[
         "site-section-nav fixed inset-x-0 bottom-3 z-40 flex justify-center px-2 transition duration-300 motion-reduce:transition-none xl:inset-x-auto xl:bottom-auto xl:right-4 xl:top-1/2 xl:-translate-y-1/2 xl:px-0",
-        compact
-          ? "xl:right-3 min-[1600px]:right-4"
-          : "",
+        compact ? "xl:right-3 min-[1600px]:right-4" : "",
         isPastIntro
           ? "pointer-events-auto opacity-100"
           : "pointer-events-none opacity-0",
@@ -122,7 +121,7 @@ export function FindingsChapterNav({
     >
       <ol
         className={[
-          "flex gap-1 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur xl:flex-col",
+          "ui-material flex gap-1 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur xl:flex-col",
           compact
             ? "xl:gap-0.5 xl:px-1.5 xl:py-2 xl:shadow-[0_12px_34px_color-mix(in_srgb,var(--background)_70%,black)] min-[1600px]:gap-1 min-[1600px]:px-2 min-[1600px]:shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)]"
             : "",

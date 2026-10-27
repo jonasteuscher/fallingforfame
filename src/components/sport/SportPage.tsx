@@ -413,7 +413,9 @@ function HistoryTimeline({
 
     window.scrollTo({
       top: Math.max(itemTop - headerOffset, 0),
-      behavior: "smooth",
+      behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
     });
   }
 

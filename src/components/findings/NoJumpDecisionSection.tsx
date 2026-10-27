@@ -245,7 +245,7 @@ function NoJumpImage({
 
   return (
     <figure
-      className="no-jump-media relative my-auto aspect-[16/10] min-h-[34rem] overflow-hidden bg-surface"
+      className="no-jump-media relative my-auto aspect-[16/10] w-full min-w-0 min-h-[24rem] overflow-hidden bg-surface sm:min-h-[34rem]"
       style={{
         transform: `translate3d(${interpolate(descentProgress, 0, 1, 0, -18)}px, 0, 0)`,
       }}
@@ -512,7 +512,7 @@ function ReducedMotionNoJumpDecision({
         <NoJumpImage
           chapter={chapter}
           locale={locale}
-          descentProgress={1}
+          descentProgress={0}
           overlayProgress={1}
         />
       </div>

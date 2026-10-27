@@ -294,7 +294,7 @@ describe("AthleteProfileOverview", () => {
       ),
     ).toBe(true);
     expect(
-      classNames.some((className) => className.includes("min-[420px]:grid-cols-2")),
+      classNames.some((className) => className.includes("athlete-experience-stats")),
     ).toBe(true);
     expect(container.querySelector("[data-profile-meta]")).toHaveClass(
       "sm:[grid-template-columns:repeat(2,minmax(0,1fr))]",

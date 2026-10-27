@@ -83,12 +83,13 @@ export function AthleteNarrativeNav({ items, ariaLabel }: AthleteNarrativeNavPro
   return (
     <nav
       aria-label={ariaLabel}
+      inert={!isVisible}
       className={[
         "site-section-nav fixed inset-x-0 bottom-3 z-30 flex justify-center px-2 transition duration-300 motion-reduce:transition-none xl:inset-x-auto xl:bottom-auto xl:right-3 xl:top-1/2 xl:-translate-y-1/2 xl:px-0 min-[1600px]:right-4",
         isVisible ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
       ].join(" ")}
     >
-      <ol className="flex gap-1 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur xl:flex-col xl:gap-0.5 xl:px-1.5 xl:shadow-[0_12px_34px_color-mix(in_srgb,var(--background)_70%,black)] min-[1600px]:gap-1 min-[1600px]:px-2 min-[1600px]:shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)]">
+      <ol className="ui-material flex gap-1 border border-border bg-background/82 px-2 py-2 shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)] backdrop-blur xl:flex-col xl:gap-0.5 xl:px-1.5 xl:shadow-[0_12px_34px_color-mix(in_srgb,var(--background)_70%,black)] min-[1600px]:gap-1 min-[1600px]:px-2 min-[1600px]:shadow-[0_18px_50px_color-mix(in_srgb,var(--background)_72%,black)]">
         {items.map((item) => {
           const isActive = item.id === activeId;
 

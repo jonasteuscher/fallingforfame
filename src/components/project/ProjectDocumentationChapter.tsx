@@ -323,23 +323,30 @@ export function ProjectBehindScenes({
   content: ProjectBehindScenesContent;
 }) {
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const isOpen = activeImageIndex !== null;
   const activeImage =
     activeImageIndex === null ? null : (content.images[activeImageIndex] ?? null);
 
   useEffect(() => {
-    if (!activeImage) {
+    if (!isOpen) {
       return;
     }
 
     const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
+    closeRef.current?.focus({ preventScroll: true });
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        event.preventDefault();
         setActiveImageIndex(null);
       }
 
       if (event.key === "ArrowLeft") {
+        event.preventDefault();
         setActiveImageIndex((current) =>
           current === null
             ? current
@@ -348,9 +355,24 @@ export function ProjectBehindScenes({
       }
 
       if (event.key === "ArrowRight") {
+        event.preventDefault();
         setActiveImageIndex((current) =>
           current === null ? current : (current + 1) % content.images.length,
         );
+      }
+
+      if (event.key === "Tab") {
+        const controls =
+          dialogRef.current?.querySelectorAll<HTMLButtonElement>("button");
+        const first = controls?.[0];
+        const last = controls?.[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
       }
     }
 
@@ -359,8 +381,9 @@ export function ProjectBehindScenes({
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", handleKeyDown);
+      previousFocus?.focus({ preventScroll: true });
     };
-  }, [activeImage, content.images.length]);
+  }, [isOpen, content.images.length]);
 
   return (
     <section
@@ -412,13 +435,15 @@ export function ProjectBehindScenes({
       </div>
       {activeImage ? (
         <div
-          className="fixed inset-0 z-[130] flex items-center justify-center bg-black/84 p-4 backdrop-blur-sm"
+          ref={dialogRef}
+          className="ui-scrim fixed inset-0 z-[130] flex items-center justify-center bg-black/84 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label={activeImage.alt}
           onClick={() => setActiveImageIndex(null)}
         >
           <button
+            ref={closeRef}
             type="button"
             className="absolute right-4 top-4 z-10 grid size-11 cursor-pointer place-items-center border border-white/35 bg-background/80 text-2xl leading-none text-foreground transition-colors hover:border-primary hover:text-primary"
             onClick={() => setActiveImageIndex(null)}

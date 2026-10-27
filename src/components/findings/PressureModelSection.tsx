@@ -230,10 +230,9 @@ function PressureScene({
                   transform: anchorTransform,
                 }}
               >
-                <button
-                  type="button"
+                <div
                   className={[
-                    "block w-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary",
+                    "block w-full text-left",
                     active ? "text-foreground" : "text-foreground/72",
                   ].join(" ")}
                 >
@@ -243,7 +242,7 @@ function PressureScene({
                   <span className="mt-2 block border-l border-border pl-4 text-sm font-semibold uppercase leading-snug tracking-[0.1em]">
                     {factor}
                   </span>
-                </button>
+                </div>
               </li>
             );
           })}

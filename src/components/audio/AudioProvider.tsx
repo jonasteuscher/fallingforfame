@@ -34,7 +34,15 @@ export function AudioProvider({ children }: { children: ReactNode }) {
 
     activeElementRef.current = element;
     setActiveId(id);
-    await element.play();
+    try {
+      await element.play();
+    } catch (error) {
+      if (activeElementRef.current === element) {
+        activeElementRef.current = null;
+        setActiveId(null);
+      }
+      throw error;
+    }
   }, []);
 
   const stop = useCallback(() => {

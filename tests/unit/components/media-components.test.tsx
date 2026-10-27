@@ -29,6 +29,17 @@ afterEach(() => {
 });
 
 describe("media components", () => {
+  it("reports rejected playback instead of leaving a silent control", async () => {
+    const user = userEvent.setup();
+    vi.mocked(HTMLMediaElement.prototype.play).mockRejectedValueOnce(
+      new Error("Unavailable"),
+    );
+    render(<CustomVideoPlayer video={{ src: "/video/story.mp4" }} />);
+    await user.click(screen.getByRole("button", { name: "Play video" }));
+    expect(screen.getByRole("status")).toHaveTextContent("Video could not be played");
+    await user.click(screen.getByRole("button", { name: "Play video" }));
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+  });
   it("renders an audio asset with caption, credit and transcript", () => {
     const { container } = render(
       <AudioPlayer

@@ -154,7 +154,7 @@ export function SportSafetyDisclaimerModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[120] flex min-h-[100dvh] items-center justify-center overflow-hidden bg-black/76 px-4 py-4 backdrop-blur-sm sm:px-6 sm:py-6">
+    <div className="ui-scrim fixed inset-0 z-[120] flex min-h-[100dvh] items-center justify-center overflow-hidden bg-black/76 px-4 py-4 backdrop-blur-sm sm:px-6 sm:py-6">
       <div
         ref={dialogRef}
         role="dialog"

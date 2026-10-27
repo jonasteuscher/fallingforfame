@@ -503,6 +503,7 @@ function DecisionProcessList({
               ].join(" ")}
               style={{ opacity }}
               aria-current={isActive ? "step" : undefined}
+              onClick={() => onFocusStep(index)}
               onFocus={() => onFocusStep(index)}
               onBlur={() => onFocusStep(null)}
               onMouseEnter={() => onFocusStep(index)}

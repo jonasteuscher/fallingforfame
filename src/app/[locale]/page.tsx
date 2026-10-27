@@ -35,7 +35,7 @@ export default async function HomePage({ params }: HomePageProps) {
   const countryLabels = dictionary.athleteMeta.countryNames;
 
   return (
-    <main className="overflow-x-clip">
+    <div className="overflow-x-clip">
       <section className="relative isolate flex min-h-[100svh] items-end overflow-hidden px-4 pb-12 pt-28 sm:px-6 sm:pb-16 xl:px-10">
         <div
           className="absolute inset-0 -z-20 bg-surface"
@@ -238,7 +238,7 @@ export default async function HomePage({ params }: HomePageProps) {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

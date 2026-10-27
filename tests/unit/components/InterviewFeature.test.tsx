@@ -65,6 +65,23 @@ const playerConstructor = vi.fn(function MockYouTubePlayer(
 });
 
 describe("InterviewFeature", () => {
+  it("restores the play control when the external player fails to load", async () => {
+    delete window.YT;
+    render(
+      <InterviewFeature feature={feature("career")} locale="en" labels={labels} />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: labels.play }));
+    const script = document.querySelector(
+      'script[src="https://www.youtube.com/iframe_api"]',
+    );
+    expect(script).not.toBeNull();
+    fireEvent.error(script!);
+    await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent(
+      "Interview could not be loaded",
+    ));
+    expect(screen.getByRole("button", { name: labels.play })).toBeVisible();
+    script?.remove();
+  });
   beforeEach(() => {
     createdPlayers = [];
     playerConstructor.mockClear();

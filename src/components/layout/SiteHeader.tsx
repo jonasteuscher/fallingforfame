@@ -33,10 +33,10 @@ export function SiteHeader({ locale, navigation }: SiteHeaderProps) {
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background xl:bg-background/85 xl:backdrop-blur">
+    <header className="ui-material fixed inset-x-0 top-0 z-40 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6"
-        aria-label="Primary navigation"
+        className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-1.5 sm:px-6"
+        aria-label={locale === "de" ? "Hauptnavigation" : "Primary navigation"}
       >
         <Link
           href={localizedPath(locale)}

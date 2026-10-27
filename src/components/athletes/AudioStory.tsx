@@ -93,6 +93,7 @@ function AudioStoryCard({
   const [transcript, setTranscript] = useState<SubtitleEntry[]>([]);
   const [transcriptError, setTranscriptError] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [playbackError, setPlaybackError] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(fallbackDuration);
   const [isTranscriptOpen, setIsTranscriptOpen] = useState(true);
@@ -292,7 +293,12 @@ function AudioStoryCard({
       return;
     }
 
-    await play(storyId, audio);
+    setPlaybackError(false);
+    try {
+      await play(storyId, audio);
+    } catch {
+      setPlaybackError(true);
+    }
   }
 
   function seekTo(clientX: number, element: HTMLElement) {
@@ -315,6 +321,7 @@ function AudioStoryCard({
   }
 
   function handleProgressPointerDown(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (event.button > 0) return;
     event.currentTarget.setPointerCapture(event.pointerId);
     seekTo(event.clientX, event.currentTarget);
   }
@@ -430,6 +437,12 @@ function AudioStoryCard({
               />
             </div>
 
+            {playbackError ? (
+              <p role="status" className="mt-4 text-sm leading-6 text-foreground">
+                {labels.playbackError}
+              </p>
+            ) : null}
+
             <AudioWaveform
               audioSrc={story.audio.src}
               currentTime={currentTime}
@@ -505,7 +518,8 @@ function AudioProgressBar({
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onKeyDown={onKeyDown}
-        className="relative h-8 cursor-pointer touch-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+        aria-valuetext={`${formatTime(currentTime)} / ${formatTime(duration)}`}
+        className="relative h-11 cursor-pointer touch-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       >
         <span
           className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-foreground/22"
@@ -549,15 +563,28 @@ function AudioTranscript({
   onSelect: (entry: SubtitleEntry) => void;
 }) {
   const activeRef = useRef<HTMLButtonElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const transcriptId = `transcript-${storyId}`;
 
   useEffect(() => {
-    activeRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-      inline: "nearest",
+    const line = activeRef.current;
+    const container = scrollRef.current;
+    if (!isOpen || !line || !container) return;
+
+    const lineRect = line.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    // Move only the transcript; following the speaker must not move the page.
+    container.scrollTo({
+      top:
+        container.scrollTop +
+        lineRect.top -
+        containerRect.top -
+        (container.clientHeight - lineRect.height) / 2,
+      behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
     });
-  }, [activeIndex]);
+  }, [activeIndex, isOpen]);
 
   const status = useMemo(() => {
     if (hasError) {
@@ -599,6 +626,8 @@ function AudioTranscript({
       </button>
       <div
         id={transcriptId}
+        inert={!isOpen}
+        aria-hidden={!isOpen}
         className={
           isOpen
             ? "grid grid-rows-[1fr] transition-[grid-template-rows] duration-500 motion-reduce:transition-none"
@@ -607,6 +636,7 @@ function AudioTranscript({
       >
         <div className="min-h-0 overflow-hidden">
           <div
+            ref={scrollRef}
             className="mt-5 max-h-72 space-y-4 overflow-y-auto pr-2"
             aria-live="polite"
             data-testid="audio-transcript"
@@ -665,6 +695,7 @@ type AudioStoryLabels = {
   transcript: string;
   transcriptLoading: string;
   transcriptError: string;
+  playbackError: string;
   jumpToTranscript: (text: string) => string;
 };
 
@@ -677,6 +708,7 @@ const audioStoryLabels: Record<Locale, AudioStoryLabels> = {
     transcript: "Transcript",
     transcriptLoading: "Loading transcript...",
     transcriptError: "Transcript could not be loaded.",
+    playbackError: "Audio could not be played. Try playing it again.",
     jumpToTranscript: (text) => `Jump to transcript section: ${text}`,
   },
   de: {
@@ -687,6 +719,7 @@ const audioStoryLabels: Record<Locale, AudioStoryLabels> = {
     transcript: "Transkript",
     transcriptLoading: "Transkript wird geladen...",
     transcriptError: "Transkript konnte nicht geladen werden.",
+    playbackError: "Audio konnte nicht abgespielt werden. Bitte erneut versuchen.",
     jumpToTranscript: (text) => `Zum Transkriptabschnitt springen: ${text}`,
   },
 };

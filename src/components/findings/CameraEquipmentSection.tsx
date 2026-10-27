@@ -537,7 +537,7 @@ function EquipmentHotspotButton({
         ref={buttonRef}
         type="button"
         data-camera-hotspot-button
-        className="group relative z-20 grid h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary"
+        className="group relative z-20 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer place-items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary"
         aria-label={`${hotspot.label}: ${hotspot.description}`}
         aria-expanded={expanded}
         aria-controls={tooltipId}
@@ -582,13 +582,13 @@ function CameraCallout({
         left: "1rem",
         bottom: "1rem",
         "--camera-callout-transform": "translate(0, 0)",
-        animation: "camera-callout-popup-in 180ms ease-out 130ms both",
+        animation: "camera-callout-popup-in 180ms ease-out both",
       }
     : {
         left: `${placement.x}%`,
         top: `${placement.y}%`,
         "--camera-callout-transform": getCalloutTransform(placement),
-        animation: "camera-callout-popup-in 180ms ease-out 130ms both",
+        animation: "camera-callout-popup-in 180ms ease-out both",
       };
 
   return (
@@ -614,7 +614,7 @@ function CameraCallout({
         <button
           ref={closeRef}
           type="button"
-          className="min-h-6 min-w-6 cursor-pointer text-xs font-semibold uppercase tracking-[0.12em] text-white/74 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="min-h-11 min-w-11 shrink-0 cursor-pointer text-xs font-semibold uppercase tracking-[0.12em] text-white/74 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           aria-label="Close annotation"
           onClick={onClose}
         >

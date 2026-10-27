@@ -33,6 +33,9 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
   const menuId = useId();
   const pathname = usePathname();
+  const isCurrentPage = (href: string) =>
+    pathname === href ||
+    (href !== localizedPath(locale) && pathname.startsWith(`${href}/`));
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -89,10 +92,16 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
     }
 
     document.addEventListener("keydown", handleKeyDown);
+    const desktopQuery = window.matchMedia?.("(min-width: 1280px)");
+    const closeOnDesktop = () => {
+      if (desktopQuery?.matches) setIsOpen(false);
+    };
+    desktopQuery?.addEventListener("change", closeOnDesktop);
 
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", handleKeyDown);
+      desktopQuery?.removeEventListener("change", closeOnDesktop);
     };
   }, [isOpen]);
 
@@ -100,7 +109,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
     isOpen && portalContainer
       ? createPortal(
           <div
-            className="fixed left-0 top-0 z-[100] h-[100dvh] w-screen overflow-y-auto bg-background text-foreground xl:hidden"
+            className="ui-scrim fixed left-0 top-0 z-[100] h-[100dvh] w-full overflow-y-auto bg-background text-foreground xl:hidden"
             role="dialog"
             aria-modal="true"
             aria-label={labels.menu}
@@ -110,7 +119,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
               ref={menuRef}
               className="mx-auto flex min-h-[100dvh] w-full max-w-7xl flex-col"
             >
-              <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-border bg-background px-4 py-3 sm:px-6">
+              <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-border bg-background px-4 py-1.5 sm:px-6">
                 <Link
                   href={links[0]?.href ?? localizedPath(locale)}
                   onClick={() => closeMenu()}
@@ -128,7 +137,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
                 <button
                   type="button"
                   onClick={() => closeMenu(true)}
-                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-border text-2xl leading-none text-foreground transition hover:border-primary focus-visible:border-primary"
+                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-border text-2xl leading-none text-foreground transition hover:border-primary focus-visible:border-primary"
                   aria-label={labels.closeMenu}
                 >
                   <span aria-hidden="true">&times;</span>
@@ -148,8 +157,9 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
                       <Link
                         key={link.href}
                         href={link.href}
+                        aria-current={isCurrentPage(link.href) ? "page" : undefined}
                         onClick={() => closeMenu()}
-                        className="rounded-sm border border-border bg-surface px-4 py-4 text-base font-medium text-foreground transition hover:border-primary focus-visible:border-primary"
+                        className="rounded-sm border border-border bg-surface px-4 py-4 text-base font-medium text-foreground transition-colors hover:border-primary focus-visible:border-primary aria-[current=page]:border-primary aria-[current=page]:text-primary"
                       >
                         {link.label}
                       </Link>
@@ -195,7 +205,8 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
           <Link
             key={link.href}
             href={link.href}
-            className="rounded-sm px-2 py-1 text-foreground/80 transition hover:text-foreground focus-visible:text-foreground"
+            aria-current={isCurrentPage(link.href) ? "page" : undefined}
+            className="inline-flex min-h-11 items-center rounded-sm px-2 py-1 text-foreground/80 transition-colors hover:text-foreground focus-visible:text-foreground aria-[current=page]:text-primary"
           >
             {link.label}
           </Link>
@@ -206,7 +217,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
               key={link.locale}
               href={link.href}
               aria-current={link.locale === locale ? "page" : undefined}
-              className="rounded-sm px-2 py-1 uppercase text-foreground/70 aria-[current=page]:bg-surface aria-[current=page]:text-foreground"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm px-2 py-1 uppercase text-foreground/70 aria-[current=page]:bg-surface aria-[current=page]:text-foreground"
             >
               {link.locale.toUpperCase()}
             </Link>
@@ -227,7 +238,7 @@ export function SiteNavigation({ locale, links, labels }: SiteNavigationProps) {
             openMenu();
           }
         }}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-border text-foreground transition hover:border-primary focus-visible:border-primary xl:hidden"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-border text-foreground transition hover:border-primary focus-visible:border-primary xl:hidden"
       >
         <span className="sr-only">
           {isOpen ? labels.closeMenuShort : labels.openMenuShort}

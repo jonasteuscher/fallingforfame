@@ -46,7 +46,9 @@ export function AthleteGalleryLightbox({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const activeImage = activeIndex === null ? null : images[activeIndex];
-  const activeCaptionId = activeIndex === null ? undefined : `athlete-gallery-caption-${activeIndex}`;
+  const isLightboxOpen = activeIndex !== null;
+  const activeCaptionId =
+    activeIndex === null ? undefined : `athlete-gallery-caption-${activeIndex}`;
   const text = labels[locale];
   const warmedImages = useRef(new Set<string>());
   const thumbnailRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -113,11 +115,13 @@ export function AthleteGalleryLightbox({
 
     const returnFocusIndex = returnFocusIndexRef.current;
     returnFocusIndexRef.current = null;
-    window.requestAnimationFrame(() => thumbnailRefs.current[returnFocusIndex]?.focus());
+    window.requestAnimationFrame(() =>
+      thumbnailRefs.current[returnFocusIndex]?.focus(),
+    );
   }, [activeIndex]);
 
   useEffect(() => {
-    if (activeIndex === null) {
+    if (!isLightboxOpen) {
       return;
     }
 
@@ -135,11 +139,13 @@ export function AthleteGalleryLightbox({
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        event.preventDefault();
         closeLightbox();
         return;
       }
 
       if (event.key === "ArrowRight") {
+        event.preventDefault();
         setActiveIndex((current) =>
           current === null ? current : (current + 1) % images.length,
         );
@@ -147,6 +153,7 @@ export function AthleteGalleryLightbox({
       }
 
       if (event.key === "ArrowLeft") {
+        event.preventDefault();
         setActiveIndex((current) =>
           current === null ? current : (current - 1 + images.length) % images.length,
         );
@@ -183,7 +190,7 @@ export function AthleteGalleryLightbox({
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeIndex, closeLightbox, images.length]);
+  }, [isLightboxOpen, closeLightbox, images.length]);
 
   useEffect(() => {
     if (activeIndex === null || images.length <= 1) {
@@ -282,7 +289,7 @@ export function AthleteGalleryLightbox({
       {activeImage ? (
         <div
           ref={dialogRef}
-          className="fixed inset-0 z-50 flex min-h-svh items-center justify-center bg-background/94 p-4 sm:p-6"
+          className="ui-scrim fixed inset-0 z-50 flex min-h-svh items-center justify-center overflow-y-auto bg-background/94 p-4 sm:p-6"
           role="dialog"
           aria-modal="true"
           aria-label={activeImage.alt[locale]}
@@ -299,7 +306,11 @@ export function AthleteGalleryLightbox({
 
           <div className="relative z-10 flex h-full max-h-[calc(100svh-2rem)] w-full max-w-7xl flex-col gap-4 sm:max-h-[calc(100svh-3rem)]">
             <div className="flex items-center justify-between gap-4">
-              <p className="text-sm font-semibold uppercase tracking-wide text-foreground/72">
+              <p
+                aria-live="polite"
+                aria-atomic="true"
+                className="text-sm font-semibold uppercase tracking-wide text-foreground/72"
+              >
                 {text.counter} {(activeIndex ?? 0) + 1} {text.counterConnector}{" "}
                 {images.length}
               </p>

@@ -37,7 +37,8 @@
   --warning: var(--signal-orange);
   --danger: var(--dark-red);
   --border: color-mix(in srgb, var(--white) 18%, transparent);
-  --font-geist-sans: Arial, Helvetica, sans-serif;
+  --font-geist-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-geist-mono: "Courier New", Courier, monospace;
   --section-gap-standard: clamp(6rem, 10vw, 11rem);
   --section-gap-immersive: clamp(8rem, 14vw, 15rem);
@@ -58,6 +59,7 @@
 html {
   overflow-x: clip;
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -71,7 +73,9 @@ html {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+    transition-property: opacity, color, background-color, border-color !important;
+    transition-duration: 120ms !important;
+    transition-delay: 0ms !important;
   }
 }
 
@@ -81,6 +85,85 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   overflow-x: clip;
   text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
+}
+
+@layer base {
+  [id] {
+    scroll-margin-top: calc(var(--site-header-height) + 1rem);
+  }
+
+  h1,
+  h2 {
+    letter-spacing: -0.025em;
+  }
+
+  h3,
+  h4 {
+    letter-spacing: -0.015em;
+  }
+
+  button,
+  summary,
+  input[type="range"] {
+    min-height: 2.75rem;
+  }
+
+  button {
+    min-width: 2.75rem;
+  }
+
+  a[href],
+  button,
+  summary {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgb(255 114 0 / 20%);
+  }
+}
+
+/* Press feedback starts on touch-down and never moves a target away from a finger. */
+:where(a[href], button:not(:disabled), summary):active {
+  filter: brightness(0.82);
+  transition-duration: 80ms;
+  transition-delay: 0ms;
+}
+
+.ui-material {
+  background-color: rgb(10 26 47 / 90%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+}
+
+.ui-scrim {
+  overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  [class*="backdrop-blur"],
+  .ui-material {
+    background-color: var(--background) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .ui-scrim {
+    background-color: rgb(0 0 0 / 96%) !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --border: rgb(255 255 255 / 65%);
+  }
+
+  [class*="text-foreground/"],
+  [class*="text-white/"] {
+    color: var(--foreground) !important;
+  }
+
+  .ui-material {
+    border: 1px solid var(--foreground);
+  }
 }
 
 img,
@@ -1448,15 +1531,6 @@ audio {
     font-size: 0.58rem !important;
     letter-spacing: 0.12em !important;
   }
-
-  .findings-page .site-section-nav a span:last-child {
-    display: none !important;
-  }
-
-  .findings-page .site-section-nav a[aria-current="location"] span:last-child {
-    display: inline !important;
-    max-width: 6.5rem !important;
-  }
 }
 
 @media (min-width: 1280px) and (max-width: 1280px) {
@@ -1534,5 +1608,82 @@ audio {
     [data-interview-feature-id]
     .athlete-section-title {
     font-size: clamp(2.5rem, 4.1vw, 4rem);
+  }
+}
+
+/* Chapter chrome stays reachable on narrow screens and above the home indicator. */
+@media (max-width: 1279px) {
+  .site-section-nav {
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .site-section-nav > ol {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+
+  .site-section-nav li {
+    flex-shrink: 0;
+  }
+}
+
+@media (pointer: coarse) {
+  .site-section-nav a {
+    min-height: 2.75rem !important;
+    min-width: 2.75rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #findings-hero {
+    height: auto;
+    min-height: 0;
+  }
+
+  #findings-hero > .sticky {
+    position: relative;
+    top: 0;
+    height: auto;
+    min-height: calc(100svh - var(--site-header-height));
+  }
+
+  #findings-hero > .sticky > .relative {
+    min-height: inherit;
+    padding-top: 3rem;
+  }
+}
+
+/* Stats respond to their column width and the reader's text size. */
+.athlete-experience-stats {
+  container-type: inline-size;
+}
+
+@container (min-width: 32rem) {
+  .athlete-experience-stats dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .athlete-experience-metric:nth-child(odd) {
+    border-right: 1px solid var(--border);
+    padding-right: 2rem;
+  }
+
+  .athlete-experience-metric:nth-child(even) {
+    padding-left: 2rem;
+  }
+
+  .athlete-experience-metric[data-last-row="true"] {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Long German headings must wrap within the phone's reading column. */
+  .findings-page :is(h1, h2, h3, [id$="-mobile-title"]) {
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
 }

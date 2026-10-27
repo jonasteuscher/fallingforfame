@@ -94,7 +94,7 @@ describe("AudioStory", () => {
       MockIntersectionObserver as unknown as typeof IntersectionObserver;
     Element.prototype.setPointerCapture = vi.fn();
     Element.prototype.hasPointerCapture = vi.fn(() => true);
-    Element.prototype.scrollIntoView = vi.fn();
+    Element.prototype.scrollTo = vi.fn();
     Element.prototype.getBoundingClientRect = vi.fn(
       () =>
         ({
@@ -165,7 +165,7 @@ describe("AudioStory", () => {
         screen.getByText("You become comfortable because you understand."),
       ).toHaveAttribute("data-active", "true"),
     );
-    expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
+    expect(Element.prototype.scrollTo).toHaveBeenCalled();
 
     fireEvent.click(screen.getByRole("button", { name: "Pause Understanding Fear" }));
     expect(audioInstances[0]?.pause).toHaveBeenCalled();
@@ -260,6 +260,23 @@ describe("AudioStory", () => {
       "aria-expanded",
       "false",
     );
+    expect(screen.getByTestId("audio-transcript").closest("[inert]")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+  });
+
+  it("reports a playback failure and allows another attempt", async () => {
+    renderStory("en");
+    await screen.findByText("Knowledge dispels fear.");
+    audioInstances[0].play.mockRejectedValueOnce(new Error("Unavailable"));
+    fireEvent.click(screen.getByRole("button", { name: "Play Understanding Fear" }));
+    expect(await screen.findByRole("status")).toHaveTextContent(
+      "Audio could not be played",
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Play Understanding Fear" }));
+    await waitFor(() => expect(screen.queryByRole("status")).not.toBeInTheDocument());
+    expect(audioInstances[0].play).toHaveBeenCalledTimes(2);
   });
 
   it("renders optional story fields defensively", async () => {

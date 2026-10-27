@@ -164,7 +164,7 @@ export function MobileExperienceNotice({ content }: MobileExperienceNoticeProps)
   }
 
   return (
-    <div className="fixed inset-0 z-[120] flex min-h-[100dvh] items-end justify-center overflow-hidden bg-black/72 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-5 backdrop-blur-sm">
+    <div className="ui-scrim fixed inset-0 z-[120] flex min-h-[100dvh] items-end justify-center overflow-hidden bg-black/72 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-5 backdrop-blur-sm">
       <div
         ref={dialogRef}
         role="dialog"
